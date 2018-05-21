@@ -21,6 +21,7 @@ public class TelaPrincipal {
 	private Panel pnCliente;
 	private Panel pnAdmin;
 	private Panel pnEstoque;
+	private Panel pnCaixa;
 
 	/**
 	 * Launch the application.
@@ -56,39 +57,6 @@ public class TelaPrincipal {
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setLocationRelativeTo(null);
 		frmPrincipal.getContentPane().setLayout(null);
-		
-		pnEstoque = new Panel();
-		pnEstoque.setBounds(152, 159, 324, 148);
-		frmPrincipal.getContentPane().add(pnEstoque);
-		pnEstoque.setLayout(null);
-		
-		JButton btnConsulta = new JButton("Consulta");
-		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnConsulta.setFocusable(false);
-		btnConsulta.setBackground(SystemColor.menu);
-		btnConsulta.setBounds(10, 11, 115, 48);
-		pnEstoque.add(btnConsulta);
-		
-		JButton btnCorrecao = new JButton("Corre\u00E7\u00E3o");
-		btnCorrecao.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCorrecao.setFocusable(false);
-		btnCorrecao.setBackground(SystemColor.menu);
-		btnCorrecao.setBounds(10, 89, 120, 48);
-		pnEstoque.add(btnCorrecao);
-		
-		JButton btnTransferencia = new JButton("Transfer\u00EAncia");
-		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnTransferencia.setFocusable(false);
-		btnTransferencia.setBackground(SystemColor.menu);
-		btnTransferencia.setBounds(199, 89, 115, 48);
-		pnEstoque.add(btnTransferencia);
-		
-		JButton btnEntrada = new JButton("Entrada");
-		btnEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEntrada.setFocusable(false);
-		btnEntrada.setBackground(SystemColor.menu);
-		btnEntrada.setBounds(199, 11, 115, 48);
-		pnEstoque.add(btnEntrada);
 		
 		JLabel lblLogo = new JLabel("Dias coloca o Logo");
 		lblLogo.setBounds(10, 11, 172, 129);
@@ -135,12 +103,14 @@ public class TelaPrincipal {
 		btnMandarEmail.setBackground(SystemColor.menu);
 		
 		JButton btnCliente = new JButton("Cliente");
-		btnCliente.setBackground(SystemColor.menu);
+		btnCliente.setForeground(Color.WHITE);
+		btnCliente.setBackground(SystemColor.textHighlight);
 		btnCliente.setFocusable(false);
 		btnCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pnCliente.setVisible(true);
+				pnCaixa.setVisible(false);
 				pnEstoque.setVisible(false);
 			}
 		});
@@ -152,9 +122,13 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(btnCliente);
 		
 		JButton btnCaixa = new JButton("Caixa");
-		btnCaixa.setBackground(SystemColor.menu);
+		btnCaixa.setForeground(Color.WHITE);
+		btnCaixa.setBackground(SystemColor.textHighlight);
 		btnCaixa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pnCaixa.setVisible(true);
+				pnCliente.setVisible(false);
+				pnEstoque.setVisible(false);
 			}
 		});
 		btnCaixa.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -163,11 +137,13 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(btnCaixa);
 		
 		JButton btnEstoque = new JButton("Estoque");
-		btnEstoque.setBackground(SystemColor.menu);
+		btnEstoque.setForeground(Color.WHITE);
+		btnEstoque.setBackground(SystemColor.textHighlight);
 		btnEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pnCliente.setVisible(false);
 				pnEstoque.setVisible(true);
+				pnCliente.setVisible(false);
+				pnCaixa.setVisible(false);
 			}
 		});
 		btnEstoque.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -176,12 +152,13 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(btnEstoque);
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.setForeground(Color.WHITE);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmPrincipal.dispose();
 			}
 		});
-		btnSair.setBackground(SystemColor.menu);
+		btnSair.setBackground(SystemColor.textHighlight);
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSair.setFocusable(false);
 		btnSair.setBounds(10, 266, 89, 23);
@@ -196,15 +173,8 @@ public class TelaPrincipal {
 		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnClientes.setFocusable(false);
 		btnClientes.setBackground(SystemColor.menu);
-		btnClientes.setBounds(10, 11, 115, 48);
+		btnClientes.setBounds(10, 11, 94, 59);
 		pnCliente.add(btnClientes);
-		
-		JButton btnDemonstracao = new JButton("Demonstracao");
-		btnDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnDemonstracao.setFocusable(false);
-		btnDemonstracao.setBackground(SystemColor.menu);
-		btnDemonstracao.setBounds(10, 89, 120, 48);
-		pnCliente.add(btnDemonstracao);
 		
 		JButton btnTroca = new JButton("Troca");
 		btnTroca.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -213,9 +183,6 @@ public class TelaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnTroca.setBackground(SystemColor.menu);
-		btnTroca.setBounds(199, 89, 115, 48);
-		pnCliente.add(btnTroca);
 		
 		JButton btnBaixaDemonstracao = new JButton("Baixa");
 		btnBaixaDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -225,8 +192,102 @@ public class TelaPrincipal {
 			}
 		});
 		btnBaixaDemonstracao.setBackground(SystemColor.menu);
-		btnBaixaDemonstracao.setBounds(199, 11, 115, 48);
+		btnBaixaDemonstracao.setBounds(114, 81, 94, 59);
 		pnCliente.add(btnBaixaDemonstracao);
+		btnTroca.setBackground(SystemColor.menu);
+		btnTroca.setBounds(114, 11, 94, 59);
+		pnCliente.add(btnTroca);
+		
+		JButton btnDemonstracao = new JButton("Demonstracao");
+		btnDemonstracao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDemonstracao.setFocusable(false);
+		btnDemonstracao.setBackground(SystemColor.menu);
+		btnDemonstracao.setBounds(10, 81, 94, 59);
+		pnCliente.add(btnDemonstracao);
+		
+		pnCaixa = new Panel();
+		pnCaixa.setLayout(null);
+		pnCaixa.setBounds(152, 159, 324, 148);
+		frmPrincipal.getContentPane().add(pnCaixa);
+		
+		JButton btnVenda = new JButton("Venda");
+		btnVenda.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVenda.setFocusable(false);
+		btnVenda.setBackground(SystemColor.menu);
+		btnVenda.setBounds(10, 11, 94, 59);
+		pnCaixa.add(btnVenda);
+		
+		JButton btnRecebimento = new JButton("Recebimento");
+		btnRecebimento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRecebimento.setFocusable(false);
+		btnRecebimento.setBackground(SystemColor.menu);
+		btnRecebimento.setBounds(114, 11, 94, 59);
+		pnCaixa.add(btnRecebimento);
+		
+		JButton btnCorrecao = new JButton("Corre\u00E7\u00E3o");
+		btnCorrecao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCorrecao.setFocusable(false);
+		btnCorrecao.setBackground(SystemColor.menu);
+		btnCorrecao.setBounds(218, 11, 94, 59);
+		pnCaixa.add(btnCorrecao);
+		
+		JButton btnLancamento = new JButton("Lan\u00E7amento");
+		btnLancamento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnLancamento.setFocusable(false);
+		btnLancamento.setBackground(SystemColor.menu);
+		btnLancamento.setBounds(10, 81, 94, 59);
+		pnCaixa.add(btnLancamento);
+		
+		JButton btnConferencia = new JButton("Confer\u00EAncia");
+		btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnConferencia.setFocusable(false);
+		btnConferencia.setBackground(SystemColor.menu);
+		btnConferencia.setBounds(114, 81, 94, 59);
+		pnCaixa.add(btnConferencia);
+		
+		JButton btnContas = new JButton("Contas a Pagar");
+		btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnContas.setFocusable(false);
+		btnContas.setBackground(SystemColor.menu);
+		btnContas.setBounds(218, 81, 94, 59);
+		pnCaixa.add(btnContas);
+		
+		pnEstoque = new Panel();
+		pnEstoque.setBounds(152, 159, 324, 148);
+		frmPrincipal.getContentPane().add(pnEstoque);
+		pnEstoque.setLayout(null);
+		
+		JButton btnConsulta = new JButton("Consulta");
+		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnConsulta.setFocusable(false);
+		btnConsulta.setBackground(SystemColor.menu);
+		btnConsulta.setBounds(10, 11, 94, 59);
+		pnEstoque.add(btnConsulta);
+		
+		JButton btnEntrada = new JButton("Entrada");
+		btnEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEntrada.setFocusable(false);
+		btnEntrada.setBackground(SystemColor.menu);
+		btnEntrada.setBounds(114, 11, 94, 59);
+		pnEstoque.add(btnEntrada);
+		
+		JButton btnManutencao = new JButton("Manuten\u00E7\u00E3o");
+		btnManutencao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnManutencao.setFocusable(false);
+		btnManutencao.setBackground(SystemColor.menu);
+		btnManutencao.setBounds(10, 81, 94, 59);
+		pnEstoque.add(btnManutencao);
+		
+		JButton btnTransferencia = new JButton("Transfer\u00EAncia");
+		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnTransferencia.setFocusable(false);
+		btnTransferencia.setBackground(SystemColor.menu);
+		btnTransferencia.setBounds(114, 81, 94, 59);
+		pnEstoque.add(btnTransferencia);
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
