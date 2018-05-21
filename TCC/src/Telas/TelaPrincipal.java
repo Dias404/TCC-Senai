@@ -14,6 +14,8 @@ import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Label;
 
 public class TelaPrincipal {
 
@@ -58,18 +60,45 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
-		JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do Administrador:");
-		lblAdmin.setBounds(192, 8, 168, 16);
+		JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do");
+		lblAdmin.setBounds(192, 11, 113, 16);
 		frmPrincipal.getContentPane().add(lblAdmin);
 		lblAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblAdmin.setBorder(null);
 		
+		JLabel lblAdmin2 = new JLabel("Administrador->");
+		lblAdmin2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblAdmin2.setBorder(null);
+		lblAdmin2.setBounds(192, 29, 113, 16);
+		frmPrincipal.getContentPane().add(lblAdmin2);
+		
+		JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblUsuario.setBounds(192, 56, 57, 14);
+		frmPrincipal.getContentPane().add(lblUsuario);
+		
+		JLabel lblNomeUsuario = new JLabel("");
+		lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNomeUsuario.setBounds(192, 79, 105, 14);
+		frmPrincipal.getContentPane().add(lblNomeUsuario);
+		
+		JLabel lblNivel = new JLabel("N\u00EDvel:");
+		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNivel.setBounds(192, 104, 57, 14);
+		frmPrincipal.getContentPane().add(lblNivel);
+		
+		JLabel lblNivelUsuario = new JLabel("");
+		lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNivelUsuario.setBounds(192, 131, 105, 14);
+		frmPrincipal.getContentPane().add(lblNivelUsuario);
+		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
-		btnCadastrarUsuario.setBounds(192, 30, 151, 23);
+		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
 		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
 		btnCadastrarUsuario.setForeground(Color.WHITE);
 		btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -77,7 +106,7 @@ public class TelaPrincipal {
 		btnCadastrarUsuario.setFocusable(false);
 		
 		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
-		btnCadastrarLoja.setBounds(192, 61, 151, 23);
+		btnCadastrarLoja.setBounds(307, 45, 151, 23);
 		frmPrincipal.getContentPane().add(btnCadastrarLoja);
 		btnCadastrarLoja.setForeground(Color.WHITE);
 		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -89,7 +118,7 @@ public class TelaPrincipal {
 		btnCadastrarLoja.setFocusable(false);
 		
 		JButton btnMandarEmail = new JButton("Mandar Email");
-		btnMandarEmail.setBounds(192, 92, 151, 23);
+		btnMandarEmail.setBounds(307, 79, 151, 23);
 		frmPrincipal.getContentPane().add(btnMandarEmail);
 		btnMandarEmail.setForeground(Color.WHITE);
 		btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -122,7 +151,7 @@ public class TelaPrincipal {
 		btnAlterarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnAlterarSenha.setFocusable(false);
 		btnAlterarSenha.setBackground(Color.decode("#0049aa"));
-		btnAlterarSenha.setBounds(192, 123, 151, 23);
+		btnAlterarSenha.setBounds(307, 113, 151, 23);
 		frmPrincipal.getContentPane().add(btnAlterarSenha);
 		
 		JSeparator separator = new JSeparator();
