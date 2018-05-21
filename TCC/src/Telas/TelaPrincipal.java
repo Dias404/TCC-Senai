@@ -74,13 +74,15 @@ public class TelaPrincipal {
 		lblAdmin.setBorder(null);
 		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
+		btnCadastrarUsuario.setForeground(Color.WHITE);
 		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCadastrarUsuario.setBounds(10, 32, 151, 23);
 		pnAdmin.add(btnCadastrarUsuario);
-		btnCadastrarUsuario.setBackground(SystemColor.menu);
+		btnCadastrarUsuario.setBackground(SystemColor.textHighlight);
 		btnCadastrarUsuario.setFocusable(false);
 		
 		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
+		btnCadastrarLoja.setForeground(Color.WHITE);
 		btnCadastrarLoja.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCadastrarLoja.setBounds(10, 66, 151, 23);
 		pnAdmin.add(btnCadastrarLoja);
@@ -88,10 +90,11 @@ public class TelaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCadastrarLoja.setBackground(SystemColor.menu);
+		btnCadastrarLoja.setBackground(SystemColor.textHighlight);
 		btnCadastrarLoja.setFocusable(false);
 		
 		JButton btnMandarEmail = new JButton("Mandar Email");
+		btnMandarEmail.setForeground(Color.WHITE);
 		btnMandarEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnMandarEmail.setBounds(10, 100, 151, 23);
 		pnAdmin.add(btnMandarEmail);
@@ -100,7 +103,7 @@ public class TelaPrincipal {
 			}
 		});
 		btnMandarEmail.setFocusable(false);
-		btnMandarEmail.setBackground(SystemColor.menu);
+		btnMandarEmail.setBackground(SystemColor.textHighlight);
 		
 		JButton btnCliente = new JButton("Cliente");
 		btnCliente.setForeground(Color.WHITE);
@@ -118,7 +121,7 @@ public class TelaPrincipal {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 151, 466, 2);
 		frmPrincipal.getContentPane().add(separator);
-		btnCliente.setBounds(10, 164, 89, 23);
+		btnCliente.setBounds(10, 173, 89, 23);
 		frmPrincipal.getContentPane().add(btnCliente);
 		
 		JButton btnCaixa = new JButton("Caixa");
@@ -133,7 +136,7 @@ public class TelaPrincipal {
 		});
 		btnCaixa.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCaixa.setFocusable(false);
-		btnCaixa.setBounds(10, 198, 89, 23);
+		btnCaixa.setBounds(10, 207, 89, 23);
 		frmPrincipal.getContentPane().add(btnCaixa);
 		
 		JButton btnEstoque = new JButton("Estoque");
@@ -148,7 +151,7 @@ public class TelaPrincipal {
 		});
 		btnEstoque.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnEstoque.setFocusable(false);
-		btnEstoque.setBounds(10, 232, 89, 23);
+		btnEstoque.setBounds(10, 241, 89, 23);
 		frmPrincipal.getContentPane().add(btnEstoque);
 		
 		JButton btnSair = new JButton("Sair");
@@ -161,7 +164,7 @@ public class TelaPrincipal {
 		btnSair.setBackground(SystemColor.textHighlight);
 		btnSair.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSair.setFocusable(false);
-		btnSair.setBounds(10, 266, 89, 23);
+		btnSair.setBounds(10, 275, 89, 23);
 		frmPrincipal.getContentPane().add(btnSair);
 		
 		pnCliente = new Panel();
