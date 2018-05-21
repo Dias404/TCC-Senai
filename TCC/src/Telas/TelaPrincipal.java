@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Panel;
+import javax.swing.border.LineBorder;
+import javax.swing.ImageIcon;
 
 public class TelaPrincipal {
 
@@ -56,21 +58,45 @@ public class TelaPrincipal {
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 151, 466, 2);
-		frmPrincipal.getContentPane().add(separator);
+		Panel pnAdmin = new Panel();
+		pnAdmin.setBounds(190, 11, 188, 134);
+		frmPrincipal.getContentPane().add(pnAdmin);
+		pnAdmin.setLayout(null);
 		
-		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
-		btnCadastrarLoja.setBackground(Color.LIGHT_GRAY);
-		btnCadastrarLoja.setFocusable(false);
-		btnCadastrarLoja.setBounds(338, 83, 138, 23);
-		frmPrincipal.getContentPane().add(btnCadastrarLoja);
+		JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do Administrador:");
+		lblAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblAdmin.setBounds(10, 5, 168, 16);
+		pnAdmin.add(lblAdmin);
+		lblAdmin.setBorder(null);
 		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
-		btnCadastrarUsuario.setBackground(Color.LIGHT_GRAY);
+		btnCadastrarUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCadastrarUsuario.setBounds(10, 32, 151, 23);
+		pnAdmin.add(btnCadastrarUsuario);
+		btnCadastrarUsuario.setBackground(SystemColor.menu);
 		btnCadastrarUsuario.setFocusable(false);
-		btnCadastrarUsuario.setBounds(338, 117, 138, 23);
-		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
+		
+		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
+		btnCadastrarLoja.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCadastrarLoja.setBounds(10, 66, 151, 23);
+		pnAdmin.add(btnCadastrarLoja);
+		btnCadastrarLoja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCadastrarLoja.setBackground(SystemColor.menu);
+		btnCadastrarLoja.setFocusable(false);
+		
+		JButton btnMandarEmail = new JButton("Mandar Email");
+		btnMandarEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnMandarEmail.setBounds(10, 100, 151, 23);
+		pnAdmin.add(btnMandarEmail);
+		btnMandarEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnMandarEmail.setFocusable(false);
+		btnMandarEmail.setBackground(SystemColor.menu);
 		
 		JButton btnCliente = new JButton("Cliente");
 		btnCliente.setBackground(SystemColor.menu);
@@ -80,6 +106,10 @@ public class TelaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 151, 466, 2);
+		frmPrincipal.getContentPane().add(separator);
 		btnCliente.setBounds(10, 164, 89, 23);
 		frmPrincipal.getContentPane().add(btnCliente);
 		
@@ -117,10 +147,42 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(pnCliente);
 		pnCliente.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Clientes");
-		btnNewButton.setBounds(10, 11, 59, 48);
-		pnCliente.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnClientes = new JButton("Clientes");
+		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnClientes.setFocusable(false);
+		btnClientes.setBackground(SystemColor.menu);
+		btnClientes.setBounds(10, 11, 115, 48);
+		pnCliente.add(btnClientes);
+		
+		JButton btnDemonstracao = new JButton("Demonstracao");
+		btnDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDemonstracao.setFocusable(false);
+		btnDemonstracao.setBackground(SystemColor.menu);
+		btnDemonstracao.setBounds(10, 89, 120, 48);
+		pnCliente.add(btnDemonstracao);
+		
+		JButton btnTroca = new JButton("Troca");
+		btnTroca.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnTroca.setFocusable(false);
+		btnTroca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnTroca.setBackground(SystemColor.menu);
+		btnTroca.setBounds(199, 89, 115, 48);
+		pnCliente.add(btnTroca);
+		
+		JButton btnBaixaDemonstracao = new JButton("Baixa");
+		btnBaixaDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnBaixaDemonstracao.setFocusable(false);
+		btnBaixaDemonstracao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnBaixaDemonstracao.setBackground(SystemColor.menu);
+		btnBaixaDemonstracao.setBounds(199, 11, 115, 48);
+		pnCliente.add(btnBaixaDemonstracao);
+		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
