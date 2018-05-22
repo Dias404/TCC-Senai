@@ -53,6 +53,7 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frmPrincipal = new JFrame();
+		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
 		frmPrincipal.setTitle("SIG");
 		frmPrincipal.setBounds(100, 100, 492, 346);
 		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +62,8 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
