@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Label;
+import java.awt.Toolkit;
 
 public class TelaPrincipal {
 

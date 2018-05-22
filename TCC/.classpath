@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="Img/botoes.jar"/>
 	<classpathentry kind="lib" path="Img/logoSIG.jar"/>
+	<classpathentry kind="lib" path="Img/background.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
