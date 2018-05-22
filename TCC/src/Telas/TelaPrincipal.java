@@ -219,7 +219,7 @@ public class TelaPrincipal {
 		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnClientes.setFocusable(false);
 		btnClientes.setBackground(Color.decode("#0049aa"));
-		btnClientes.setBounds(10, 11, 94, 59);
+		btnClientes.setBounds(63, 11, 94, 59);
 		pnCliente.add(btnClientes);
 		
 		JButton btnTroca = new JButton("");
@@ -231,7 +231,7 @@ public class TelaPrincipal {
 			}
 		});
 		btnTroca.setBackground(Color.decode("#0049aa"));
-		btnTroca.setBounds(114, 11, 94, 59);
+		btnTroca.setBounds(167, 11, 94, 59);
 		pnCliente.add(btnTroca);
 		
 		JButton btnBaixaDemonstracao = new JButton("");
@@ -243,7 +243,7 @@ public class TelaPrincipal {
 			}
 		});
 		btnBaixaDemonstracao.setBackground(Color.decode("#0049aa"));
-		btnBaixaDemonstracao.setBounds(114, 81, 94, 59);
+		btnBaixaDemonstracao.setBounds(167, 81, 94, 59);
 		pnCliente.add(btnBaixaDemonstracao);
 		
 		JButton btnDemonstracao = new JButton("");
@@ -255,7 +255,7 @@ public class TelaPrincipal {
 		btnDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnDemonstracao.setFocusable(false);
 		btnDemonstracao.setBackground(Color.decode("#0049aa"));
-		btnDemonstracao.setBounds(10, 81, 94, 59);
+		btnDemonstracao.setBounds(63, 81, 94, 59);
 		pnCliente.add(btnDemonstracao);
 		
 		pnCaixa = new Panel();
