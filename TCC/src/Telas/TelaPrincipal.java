@@ -82,7 +82,7 @@ public class TelaPrincipal {
 		lblUsuario.setBounds(192, 56, 57, 14);
 		frmPrincipal.getContentPane().add(lblUsuario);
 		
-		JLabel lblNomeUsuario = new JLabel("");
+		JLabel lblNomeUsuario = new JLabel("Exemplo");
 		lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNomeUsuario.setBounds(192, 79, 105, 14);
 		frmPrincipal.getContentPane().add(lblNomeUsuario);
@@ -92,12 +92,16 @@ public class TelaPrincipal {
 		lblNivel.setBounds(192, 104, 57, 14);
 		frmPrincipal.getContentPane().add(lblNivel);
 		
-		JLabel lblNivelUsuario = new JLabel("");
+		JLabel lblNivelUsuario = new JLabel("Admin");
 		lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNivelUsuario.setBounds(192, 131, 105, 14);
 		frmPrincipal.getContentPane().add(lblNivelUsuario);
 		
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
+		btnCadastrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
 		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
 		btnCadastrarUsuario.setForeground(Color.WHITE);
