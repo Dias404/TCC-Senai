@@ -3,10 +3,11 @@ package Telas;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import java.awt.Toolkit;
 
 public class CadastroDeClientes {
 
-	private JFrame frame;
+	private JFrame frmCadastroDeClientes;
 
 	/**
 	  POSSÍVEIS CAMPOS PARA O CADASTRO:
@@ -29,7 +30,7 @@ public class CadastroDeClientes {
 			public void run() {
 				try {
 					CadastroDeClientes window = new CadastroDeClientes();
-					window.frame.setVisible(true);
+					window.frmCadastroDeClientes.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,9 +49,14 @@ public class CadastroDeClientes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCadastroDeClientes = new JFrame();
+		frmCadastroDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeClientes.class.getResource("/Img/SIG 16x16.png")));
+		frmCadastroDeClientes.setTitle("Cadastro de Clientes");
+		frmCadastroDeClientes.setBounds(100, 100, 450, 300);
+		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastroDeClientes.getContentPane().setLayout(null);
+		frmCadastroDeClientes.setResizable(false);
+		frmCadastroDeClientes.setLocationRelativeTo(null);
 	}
 
 }
