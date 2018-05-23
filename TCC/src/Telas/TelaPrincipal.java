@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -21,9 +22,9 @@ import java.awt.Toolkit;
 public class TelaPrincipal {
 
 	private JFrame frmPrincipal;
-	private Panel pnCliente;
-	private Panel pnEstoque;
-	private Panel pnCaixa;
+	private JPanel pnCliente;
+	private JPanel pnEstoque;
+	private JPanel pnCaixa;
 
 	/**
 	 * Launch the application.
@@ -62,8 +63,8 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().setLayout(null);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
@@ -209,7 +210,8 @@ public class TelaPrincipal {
 		btnSair.setBounds(10, 275, 89, 23);
 		frmPrincipal.getContentPane().add(btnSair);
 		
-		pnCliente = new Panel();
+		pnCliente = new JPanel();
+		pnCliente.setOpaque(false);
 		pnCliente.setBounds(152, 159, 324, 148);
 		frmPrincipal.getContentPane().add(pnCliente);
 		pnCliente.setLayout(null);
@@ -258,7 +260,9 @@ public class TelaPrincipal {
 		btnDemonstracao.setBounds(63, 81, 94, 59);
 		pnCliente.add(btnDemonstracao);
 		
-		pnCaixa = new Panel();
+		pnCaixa = new JPanel();
+		pnCaixa.setVisible(false);
+		pnCaixa.setOpaque(false);
 		pnCaixa.setLayout(null);
 		pnCaixa.setBounds(152, 159, 324, 148);
 		frmPrincipal.getContentPane().add(pnCaixa);
@@ -311,7 +315,9 @@ public class TelaPrincipal {
 		btnContas.setBounds(218, 81, 94, 59);
 		pnCaixa.add(btnContas);
 		
-		pnEstoque = new Panel();
+		pnEstoque = new JPanel();
+		pnEstoque.setVisible(false);
+		pnEstoque.setOpaque(false);
 		pnEstoque.setBounds(152, 159, 324, 148);
 		frmPrincipal.getContentPane().add(pnEstoque);
 		pnEstoque.setLayout(null);
@@ -321,7 +327,7 @@ public class TelaPrincipal {
 		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConsulta.setFocusable(false);
 		btnConsulta.setBackground(Color.decode("#0049aa"));
-		btnConsulta.setBounds(10, 11, 94, 59);
+		btnConsulta.setBounds(63, 11, 94, 59);
 		pnEstoque.add(btnConsulta);
 		
 		JButton btnEntrada = new JButton("");
@@ -329,7 +335,7 @@ public class TelaPrincipal {
 		btnEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEntrada.setFocusable(false);
 		btnEntrada.setBackground(Color.decode("#0049aa"));
-		btnEntrada.setBounds(114, 11, 94, 59);
+		btnEntrada.setBounds(167, 11, 94, 59);
 		pnEstoque.add(btnEntrada);
 		
 		JButton btnCorrecaoProduto = new JButton("");
@@ -337,7 +343,7 @@ public class TelaPrincipal {
 		btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCorrecaoProduto.setFocusable(false);
 		btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
-		btnCorrecaoProduto.setBounds(10, 81, 94, 59);
+		btnCorrecaoProduto.setBounds(63, 81, 94, 59);
 		pnEstoque.add(btnCorrecaoProduto);
 		
 		JButton btnTransferencia = new JButton("");
@@ -345,8 +351,13 @@ public class TelaPrincipal {
 		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTransferencia.setFocusable(false);
 		btnTransferencia.setBackground(Color.decode("#0049aa"));
-		btnTransferencia.setBounds(114, 81, 94, 59);
+		btnTransferencia.setBounds(167, 81, 94, 59);
 		pnEstoque.add(btnTransferencia);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/backgroundPrincipal.jpg")));
+		lblBG.setBounds(0, 0, 486, 317);
+		frmPrincipal.getContentPane().add(lblBG);
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
