@@ -355,7 +355,7 @@ public class TelaPrincipal {
 		pnEstoque.add(btnTransferencia);
 		
 		JLabel lblBG = new JLabel("");
-		lblBG.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/backgroundSecundario.jpg")));
+		lblBG.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/backgroundPrincipal.jpg")));
 		lblBG.setBounds(0, 0, 486, 317);
 		frmPrincipal.getContentPane().add(lblBG);
 		btnClientes.addActionListener(new ActionListener() {
