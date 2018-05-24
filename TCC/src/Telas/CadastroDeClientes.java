@@ -10,19 +10,19 @@ public class CadastroDeClientes {
 	private JFrame frmCadastroDeClientes;
 
 	/**
-	  POSSÍVEIS CAMPOS PARA O CADASTRO:
-	  - Nome Completo do Cliente ou Razão Social
-	  - Tipo de Pessoa(Física ou Jurídica)
-	  - Endereço(Rua e/ou CEP, Bairro, Cidade, Estado(UF), País(talvez))
+	  POSSÃ�VEIS CAMPOS PARA O CADASTRO:
+	  - Nome Completo do Cliente ou RazÃ£o Social
+	  - Tipo de Pessoa(FÃ­sica ou JurÃ­dica)
+	  - EndereÃ§o(Rua e/ou CEP, Bairro, Cidade, Estado(UF), PaÃ­s(talvez))
 	  - Naturalidade(talvez)
 	  - Email de Contato
 	  - Telefone e/ou Celular
 	  - FAX(talvez)
 	  - CPF ou CNPJ
-	  - Sexo(talvez)
+	  - Sexo(talvez) 
 	  - Data de Nascimento(talvez)
 	  - RG ou IE
-	  - Observações do Cliente(talvez)
+	  - ObservaÃ§Ãµes do Cliente(talvez)
 	*/
 	
 	public static void main(String[] args) {
