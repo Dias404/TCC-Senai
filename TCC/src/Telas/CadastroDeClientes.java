@@ -15,6 +15,7 @@ public class CadastroDeClientes {
 	  - Tipo de Pessoa(Física ou Jurídica)
 	  - Endereço(Rua e/ou CEP, Bairro, Cidade, Estado(UF))
 	  - Filiação(Pai e Mãe)
+	  - Estado Civil
 	  - Email de Contato
 	  - Telefone e/ou Celular
 	  - CPF e RG(Física) ou CNPJ e IE(Jurídica)
