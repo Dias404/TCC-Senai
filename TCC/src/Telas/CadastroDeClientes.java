@@ -13,15 +13,13 @@ public class CadastroDeClientes {
 	  POSSÍVEIS CAMPOS PARA O CADASTRO:
 	  - Nome Completo do Cliente ou Razão Social
 	  - Tipo de Pessoa(Física ou Jurídica)
-	  - Endereço(Rua e/ou CEP, Bairro, Cidade, Estado(UF), País(talvez))
-	  - Naturalidade(talvez)
+	  - Endereço(Rua e/ou CEP, Bairro, Cidade, Estado(UF))
+	  - Filiação(Pai e Mãe)
 	  - Email de Contato
 	  - Telefone e/ou Celular
-	  - FAX(talvez)
-	  - CPF ou CNPJ
+	  - CPF e RG(Física) ou CNPJ e IE(Jurídica)
 	  - Sexo(talvez)
 	  - Data de Nascimento(talvez)
-	  - RG ou IE
 	  - Observações do Cliente(talvez)
 	*/
 	
