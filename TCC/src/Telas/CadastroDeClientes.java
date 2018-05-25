@@ -48,17 +48,20 @@ public class CadastroDeClientes {
 	private JTextField tfEstadoCivil;
 	private JLabel lblData;
 	private JLabel lblEstadoCivil;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfDataDeNascimento;
+	private JTextField tfTelefone1;
 	private JLabel lblTel;
-	private JTextField textField_2;
+	private JTextField tfTelefone2;
 	private JLabel lblTel_1;
 	private JLabel lblCel;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tfCelular1;
+	private JTextField tfCelular2;
 	private JLabel lblCel_1;
-	private JTextField textField_5;
+	private JTextField tfObservações;
 	private JLabel lblObs;
+	private JButton btnVoltar;
+	private JButton btnSalvar;
+	private JButton btnLimpar;
 
 	/**
 	  POSSÍVEIS CAMPOS PARA O CADASTRO:
@@ -328,15 +331,15 @@ public class CadastroDeClientes {
 		lblEstadoCivil.setBounds(320, 232, 77, 14);
 		pnFisica.add(lblEstadoCivil);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(157, 229, 153, 20);
-		pnFisica.add(textField);
+		tfDataDeNascimento = new JTextField();
+		tfDataDeNascimento.setColumns(10);
+		tfDataDeNascimento.setBounds(157, 229, 153, 20);
+		pnFisica.add(tfDataDeNascimento);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(58, 260, 200, 20);
-		pnFisica.add(textField_1);
+		tfTelefone1 = new JTextField();
+		tfTelefone1.setColumns(10);
+		tfTelefone1.setBounds(58, 260, 200, 20);
+		pnFisica.add(tfTelefone1);
 		
 		lblTel = new JLabel("Tel 1:");
 		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -344,10 +347,10 @@ public class CadastroDeClientes {
 		lblTel.setBounds(10, 262, 38, 14);
 		pnFisica.add(lblTel);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(58, 291, 200, 20);
-		pnFisica.add(textField_2);
+		tfTelefone2 = new JTextField();
+		tfTelefone2.setColumns(10);
+		tfTelefone2.setBounds(58, 291, 200, 20);
+		pnFisica.add(tfTelefone2);
 		
 		lblTel_1 = new JLabel("Tel 2:");
 		lblTel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -361,15 +364,15 @@ public class CadastroDeClientes {
 		lblCel.setBounds(262, 262, 38, 14);
 		pnFisica.add(lblCel);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(310, 260, 200, 20);
-		pnFisica.add(textField_3);
+		tfCelular1 = new JTextField();
+		tfCelular1.setColumns(10);
+		tfCelular1.setBounds(310, 260, 200, 20);
+		pnFisica.add(tfCelular1);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(310, 291, 200, 20);
-		pnFisica.add(textField_4);
+		tfCelular2 = new JTextField();
+		tfCelular2.setColumns(10);
+		tfCelular2.setBounds(310, 291, 200, 20);
+		pnFisica.add(tfCelular2);
 		
 		lblCel_1 = new JLabel("Cel 2");
 		lblCel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -377,15 +380,39 @@ public class CadastroDeClientes {
 		lblCel_1.setBounds(262, 294, 38, 14);
 		pnFisica.add(lblCel_1);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(58, 322, 452, 83);
-		pnFisica.add(textField_5);
+		tfObservações = new JTextField();
+		tfObservações.setColumns(10);
+		tfObservações.setBounds(58, 322, 452, 83);
+		pnFisica.add(tfObservações);
 		
 		lblObs = new JLabel("Obs:");
 		lblObs.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblObs.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblObs.setBounds(10, 325, 38, 14);
 		pnFisica.add(lblObs);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 492, 89, 23);
+		frmCadastroDeClientes.getContentPane().add(btnVoltar);
+		
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setForeground(Color.WHITE);
+		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSalvar.setFocusable(false);
+		btnSalvar.setBackground(new Color(0, 73, 170));
+		btnSalvar.setBounds(442, 492, 89, 23);
+		frmCadastroDeClientes.getContentPane().add(btnSalvar);
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.setForeground(Color.WHITE);
+		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnLimpar.setFocusable(false);
+		btnLimpar.setBackground(new Color(0, 73, 170));
+		btnLimpar.setBounds(343, 492, 89, 23);
+		frmCadastroDeClientes.getContentPane().add(btnLimpar);
 	}
 }
