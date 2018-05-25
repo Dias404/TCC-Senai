@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -15,6 +17,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroDeClientes {
 
@@ -79,16 +83,16 @@ public class CadastroDeClientes {
 		lblCadastrosDeClientes.setBounds(10, 11, 149, 17);
 		frmCadastroDeClientes.getContentPane().add(lblCadastrosDeClientes);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setOpaque(false);
-		panel.setBounds(10, 65, 466, 471);
-		frmCadastroDeClientes.getContentPane().add(panel);
+		JPanel pnFisica = new JPanel();
+		pnFisica.setLayout(null);
+		pnFisica.setOpaque(false);
+		pnFisica.setBounds(10, 65, 466, 471);
+		frmCadastroDeClientes.getContentPane().add(pnFisica);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNome.setBounds(10, 13, 38, 14);
-		panel.add(lblNome);
+		pnFisica.add(lblNome);
 		
 		rbMasculino = new JRadioButton("Masculino");
 		rbMasculino.setOpaque(false);
@@ -96,64 +100,70 @@ public class CadastroDeClientes {
 		rbMasculino.setSelected(true);
 		rbMasculino.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbMasculino.setBounds(383, 4, 77, 14);
-		panel.add(rbMasculino);
+		pnFisica.add(rbMasculino);
 		
 		rbFeminino = new JRadioButton("Feminino");
 		rbFeminino.setOpaque(false);
 		rbFeminino.setFocusable(false);
 		rbFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbFeminino.setBounds(383, 21, 77, 14);
-		panel.add(rbFeminino);
+		pnFisica.add(rbFeminino);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSexo.setBounds(343, 13, 34, 14);
-		panel.add(lblSexo);
+		pnFisica.add(lblSexo);
 		
 		tfNome = new JTextField();
 		tfNome.setBounds(58, 11, 266, 20);
-		panel.add(tfNome);
+		pnFisica.add(tfNome);
 		tfNome.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEmail.setBounds(10, 44, 40, 14);
-		panel.add(lblEmail);
+		pnFisica.add(lblEmail);
 		
 		tfEmail = new JTextField();
 		tfEmail.setColumns(10);
 		tfEmail.setBounds(58, 42, 266, 20);
-		panel.add(tfEmail);
+		pnFisica.add(tfEmail);
 		
 		JLabel lblUf = new JLabel("UF:");
 		lblUf.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblUf.setBounds(8, 76, 40, 14);
-		panel.add(lblUf);
+		pnFisica.add(lblUf);
 		
 		tfCidade = new JTextField();
 		tfCidade.setColumns(10);
 		tfCidade.setBounds(290, 73, 133, 20);
-		panel.add(tfCidade);
+		pnFisica.add(tfCidade);
 		
 		btnAdicionarCidade = new JButton("...");
+		btnAdicionarCidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+			}
+		});
 		btnAdicionarCidade.setFocusable(false);
 		btnAdicionarCidade.setBackground(new Color(0, 73, 170));
 		btnAdicionarCidade.setForeground(Color.WHITE);
 		btnAdicionarCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarCidade.setBounds(433, 71, 27, 23);
-		panel.add(btnAdicionarCidade);
+		pnFisica.add(btnAdicionarCidade);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblCidade.setBounds(235, 76, 45, 14);
-		panel.add(lblCidade);
+		pnFisica.add(lblCidade);
 		
 		JComboBox comboUF = new JComboBox();
 		comboUF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		comboUF.setBounds(58, 73, 133, 20);
-		panel.add(comboUF);
+		comboUF.setSelectedItem("São Paulo");
+		pnFisica.add(comboUF);
 		
 		rbFisica = new JRadioButton("Física");
 		rbFisica.setOpaque(false);
