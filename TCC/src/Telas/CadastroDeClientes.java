@@ -6,22 +6,27 @@ import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 
 public class CadastroDeClientes {
 
 	private JFrame frmCadastroDeClientes;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField tfNome;
+	private JTextField tfEmail;
+	private JTextField tfCidade;
+	private JButton btnAdicionarCidade;
+	private JRadioButton rbMasculino;
+	private JRadioButton rbFeminino;
+	private JRadioButton rbFisica;
+	private JRadioButton rbJuridica;
 
 	/**
 	  POSSÍVEIS CAMPOS PARA O CADASTRO:
@@ -85,41 +90,40 @@ public class CadastroDeClientes {
 		lblNome.setBounds(10, 13, 38, 14);
 		panel.add(lblNome);
 		
-		JRadioButton rdbtnMasculino = new JRadioButton("Masculino");
-		rdbtnMasculino.setSelected(true);
-		rdbtnMasculino.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnMasculino.setBounds(383, 4, 77, 14);
-		panel.add(rdbtnMasculino);
+		rbMasculino = new JRadioButton("Masculino");
+		rbMasculino.setOpaque(false);
+		rbMasculino.setFocusable(false);
+		rbMasculino.setSelected(true);
+		rbMasculino.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbMasculino.setBounds(383, 4, 77, 14);
+		panel.add(rbMasculino);
 		
-		JRadioButton rdbtnFeminino = new JRadioButton("Feminino");
-		rdbtnFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnFeminino.setBounds(383, 21, 77, 14);
-		panel.add(rdbtnFeminino);
+		rbFeminino = new JRadioButton("Feminino");
+		rbFeminino.setOpaque(false);
+		rbFeminino.setFocusable(false);
+		rbFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbFeminino.setBounds(383, 21, 77, 14);
+		panel.add(rbFeminino);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSexo.setBounds(343, 13, 34, 14);
 		panel.add(lblSexo);
 		
-		textField = new JTextField();
-		textField.setBounds(58, 11, 266, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		tfNome = new JTextField();
+		tfNome.setBounds(58, 11, 266, 20);
+		panel.add(tfNome);
+		tfNome.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEmail.setBounds(10, 44, 40, 14);
 		panel.add(lblEmail);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(58, 42, 266, 20);
-		panel.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(58, 73, 133, 20);
-		panel.add(textField_2);
+		tfEmail = new JTextField();
+		tfEmail.setColumns(10);
+		tfEmail.setBounds(58, 42, 266, 20);
+		panel.add(tfEmail);
 		
 		JLabel lblUf = new JLabel("UF:");
 		lblUf.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -127,17 +131,18 @@ public class CadastroDeClientes {
 		lblUf.setBounds(8, 76, 40, 14);
 		panel.add(lblUf);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(290, 73, 133, 20);
-		panel.add(textField_3);
+		tfCidade = new JTextField();
+		tfCidade.setColumns(10);
+		tfCidade.setBounds(290, 73, 133, 20);
+		panel.add(tfCidade);
 		
-		JButton button = new JButton("...");
-		button.setBackground(new Color(0, 73, 170));
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button.setBounds(433, 71, 27, 23);
-		panel.add(button);
+		btnAdicionarCidade = new JButton("...");
+		btnAdicionarCidade.setFocusable(false);
+		btnAdicionarCidade.setBackground(new Color(0, 73, 170));
+		btnAdicionarCidade.setForeground(Color.WHITE);
+		btnAdicionarCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdicionarCidade.setBounds(433, 71, 27, 23);
+		panel.add(btnAdicionarCidade);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -145,16 +150,34 @@ public class CadastroDeClientes {
 		lblCidade.setBounds(235, 76, 45, 14);
 		panel.add(lblCidade);
 		
-		JRadioButton rdbtnFsica = new JRadioButton("Física");
-		rdbtnFsica.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnFsica.setBounds(10, 35, 57, 23);
-		frmCadastroDeClientes.getContentPane().add(rdbtnFsica);
+		JComboBox comboUF = new JComboBox();
+		comboUF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
+		comboUF.setBounds(58, 73, 133, 20);
+		panel.add(comboUF);
 		
-		JRadioButton rdbtnJurdica = new JRadioButton("Jurídica");
-		rdbtnJurdica.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnJurdica.setBounds(69, 35, 71, 23);
-		frmCadastroDeClientes.getContentPane().add(rdbtnJurdica);
+		rbFisica = new JRadioButton("Física");
+		rbFisica.setOpaque(false);
+		rbFisica.setFocusable(false);
+		rbFisica.setSelected(true);
+		rbFisica.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbFisica.setBounds(10, 35, 57, 23);
+		frmCadastroDeClientes.getContentPane().add(rbFisica);
+		
+		rbJuridica = new JRadioButton("Jurídica");
+		rbJuridica.setOpaque(false);
+		rbJuridica.setFocusable(false);
+		rbJuridica.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbJuridica.setBounds(69, 35, 71, 23);
+		frmCadastroDeClientes.getContentPane().add(rbJuridica);
 		frmCadastroDeClientes.setResizable(false);
 		frmCadastroDeClientes.setLocationRelativeTo(null);
+		
+		ButtonGroup grupoFisicaJuridica = new ButtonGroup();
+		grupoFisicaJuridica.add(rbFisica);
+		grupoFisicaJuridica.add(rbJuridica);
+		
+		ButtonGroup grupoMasculinoFeminino = new ButtonGroup();
+		grupoMasculinoFeminino.add(rbMasculino);
+		grupoMasculinoFeminino.add(rbFeminino);
 	}
 }
