@@ -51,7 +51,7 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarUsuario.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroUsu.setTitle("SIG - Cadastro de Usuários");
 		frmCadastroUsu.setResizable(false);
-		frmCadastroUsu.setBounds(100, 100, 336, 233);
+		frmCadastroUsu.setBounds(100, 100, 332, 229);
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(null);
 		frmCadastroUsu.getContentPane().setLayout(null);
@@ -118,7 +118,7 @@ public class CadastrarUsuario {
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg")));
-		lblBG.setBounds(0, 0, 486, 317);
+		lblBG.setBounds(0, 0, 326, 200);
 		frmCadastroUsu.getContentPane().add(lblBG);
 	}
 }
