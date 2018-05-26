@@ -21,6 +21,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 public class CadastroDeClientes {
 
@@ -106,20 +110,6 @@ public class CadastroDeClientes {
 	private JComboBox comboRuaJ;
 	private JTextPane tpObservacoesJ;
 
-	/**
-	  POSSÍVEIS CAMPOS PARA O CADASTRO:
-	  - Nome Completo do Cliente ou Razão Social
-	  - Tipo de Pessoa(Física ou Jurídica)
-	  - Endereço(Rua e/ou CEP, Bairro, Cidade, Estado(UF))
-	  - Filiação(Pai e Mãe)
-	  - Estado Civil
-	  - Email de Contato
-	  - Telefone e/ou Celular
-	  - CPF e RG(Física) ou CNPJ e IE(Jurídica)
-	  - Sexo(talvez)
-	  - Data de Nascimento(talvez)
-	  - Observações do Cliente(talvez)
-	*/
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -186,12 +176,6 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.setResizable(false);
 		frmCadastroDeClientes.setLocationRelativeTo(null);
 		
-		ButtonGroup grupoFisicaJuridica = new ButtonGroup();
-		grupoFisicaJuridica.add(rbFisica);
-		grupoFisicaJuridica.add(rbJuridica);
-		
-		ButtonGroup grupoMasculinoFeminino = new ButtonGroup();
-		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -217,6 +201,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(btnLimpar);
 		
 		pnFisica = new JPanel();
+		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
 		pnFisica.setBounds(10, 65, 521, 416);
@@ -454,10 +439,12 @@ public class CadastroDeClientes {
 		pnFisica.add(comboRuaF);
 		
 		tpObservacoesF = new JTextPane();
+		tpObservacoesF.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		tpObservacoesF.setBounds(58, 322, 453, 83);
 		pnFisica.add(tpObservacoesF);
 		
 		pnJuridica = new JPanel();
+		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnJuridica.setVisible(false);
 		pnJuridica.setBounds(10, 65, 521, 416);
 		frmCadastroDeClientes.getContentPane().add(pnJuridica);
@@ -632,7 +619,16 @@ public class CadastroDeClientes {
 		pnJuridica.add(comboRuaJ);
 		
 		tpObservacoesJ = new JTextPane();
+		tpObservacoesJ.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		tpObservacoesJ.setBounds(58, 259, 452, 146);
 		pnJuridica.add(tpObservacoesJ);
+		
+		ButtonGroup grupoTipoDePessoa = new ButtonGroup();
+		grupoTipoDePessoa.add(rbFisica);
+		grupoTipoDePessoa.add(rbJuridica);
+		
+		ButtonGroup grupoSexo = new ButtonGroup();
+		grupoSexo.add(rbMasculino);
+		grupoSexo.add(rbFeminino);
 	}
 }
