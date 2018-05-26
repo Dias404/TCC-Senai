@@ -14,6 +14,9 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.border.LineBorder;
+
+import Administrador.CadastrarUsuario;
+
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Label;
@@ -103,6 +106,7 @@ public class TelaPrincipal {
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
 		btnCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				CadastrarUsuario.main(null);
 			}
 		});
 		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
