@@ -12,6 +12,9 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Telas.TelaPrincipal;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -19,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
 
 public class CadastrarUsuario {
 
@@ -58,12 +62,19 @@ public class CadastrarUsuario {
 	 */
 	private void initialize() {
 		frmCadastroUsu = new JFrame();
+		frmCadastroUsu.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				TelaPrincipal.frmPrincipal.setEnabled(true);
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmCadastroUsu.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarUsuario.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroUsu.setTitle("SIG - Cadastro de Usuários");
 		frmCadastroUsu.setResizable(false);
 		frmCadastroUsu.setBounds(100, 100, 344, 290);
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCadastroUsu.setLocationRelativeTo(null);
+		frmCadastroUsu.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		frmCadastroUsu.getContentPane().setLayout(null);
 		
 		JLabel lblCadastroUsu = new JLabel("Cadastro de Usuários");
@@ -159,7 +170,7 @@ public class CadastrarUsuario {
 					tfEmail.setText(null);
 					tfFone.setText(null);
 					tfCel.setText(null);
-					JOptionPane.showMessgeDialog(null, "Os campos foram esvaziados!");
+					JOptionPane.showMessageDialog(null, "Os campos foram esvaziados!");
 				}else {
 					JOptionPane.showMessageDialog(null, "Os campos já estão vazios!");
 				}

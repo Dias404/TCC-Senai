@@ -24,7 +24,7 @@ import java.awt.Toolkit;
 
 public class TelaPrincipal {
 
-	private JFrame frmPrincipal;
+	public static JFrame frmPrincipal;
 	private JPanel pnCliente;
 	private JPanel pnEstoque;
 	private JPanel pnCaixa;
@@ -64,6 +64,19 @@ public class TelaPrincipal {
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setLocationRelativeTo(null);
 		frmPrincipal.getContentPane().setLayout(null);
+		
+		JButton btnSair = new JButton("Sair");
+		btnSair.setForeground(Color.WHITE);
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPrincipal.dispose();
+			}
+		});
+		btnSair.setBackground(Color.decode("#0049aa"));
+		btnSair.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSair.setFocusable(false);
+		btnSair.setBounds(10, 275, 89, 23);
+		frmPrincipal.getContentPane().add(btnSair);
 		
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,6 +120,7 @@ public class TelaPrincipal {
 		btnCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CadastrarUsuario.main(null);
+				frmPrincipal.setEnabled(false);
 			}
 		});
 		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
@@ -200,19 +214,6 @@ public class TelaPrincipal {
 		btnEstoque.setFocusable(false);
 		btnEstoque.setBounds(10, 241, 89, 23);
 		frmPrincipal.getContentPane().add(btnEstoque);
-		
-		JButton btnSair = new JButton("Sair");
-		btnSair.setForeground(Color.WHITE);
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmPrincipal.dispose();
-			}
-		});
-		btnSair.setBackground(Color.decode("#0049aa"));
-		btnSair.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSair.setFocusable(false);
-		btnSair.setBounds(10, 275, 89, 23);
-		frmPrincipal.getContentPane().add(btnSair);
 		
 		pnCliente = new JPanel();
 		pnCliente.setOpaque(false);
