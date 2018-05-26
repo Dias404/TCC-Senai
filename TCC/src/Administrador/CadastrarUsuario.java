@@ -75,7 +75,7 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setBounds(100, 100, 344, 290);
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
-		frmCadastroUsu.getContentPane().setLayout(null)
+		frmCadastroUsu.getContentPane().setLayout(null);
 		
 		JLabel lblCadastroUsu = new JLabel("Cadastro de Usuários");
 		lblCadastroUsu.setFont(new Font("Tahoma", Font.BOLD, 14));
