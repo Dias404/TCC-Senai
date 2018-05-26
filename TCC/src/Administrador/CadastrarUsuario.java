@@ -159,7 +159,7 @@ public class CadastrarUsuario {
 					tfEmail.setText(null);
 					tfFone.setText(null);
 					tfCel.setText(null);
-					JOptionPane.showMessageDialog(null, "Os campos foram esvaziados!");
+					JOptionPane.showMessgeDialog(null, "Os campos foram esvaziados!");
 				}else {
 					JOptionPane.showMessageDialog(null, "Os campos já estão vazios!");
 				}
