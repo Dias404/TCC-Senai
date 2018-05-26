@@ -62,6 +62,35 @@ public class CadastroDeClientes {
 	private JButton btnVoltar;
 	private JButton btnSalvar;
 	private JButton btnLimpar;
+	private JPanel pnJuridica;
+	private JLabel label;
+	private JTextField tfRazaoSocial;
+	private JLabel label_1;
+	private JTextField textField_1;
+	private JLabel label_2;
+	private JTextField tfEmailJ;
+	private JLabel label_3;
+	private JTextField textField_3;
+	private JLabel label_4;
+	private JTextField textField_4;
+	private JLabel label_5;
+	private JLabel label_6;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JLabel label_7;
+	private JTextField textField_7;
+	private JLabel label_8;
+	private JTextField textField_8;
+	private JLabel label_9;
+	private JTextField textField_9;
+	private JLabel label_10;
+	private JLabel label_11;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JLabel label_12;
+	private JTextField textField_12;
+	private JLabel label_13;
+	private JPanel pnFisica;
 
 	/**
 	  POSSÍVEIS CAMPOS PARA O CADASTRO:
@@ -114,7 +143,207 @@ public class CadastroDeClientes {
 		lblCadastrosDeClientes.setBounds(10, 11, 149, 17);
 		frmCadastroDeClientes.getContentPane().add(lblCadastrosDeClientes);
 		
-		JPanel pnFisica = new JPanel();
+		pnJuridica = new JPanel();
+		pnJuridica.setVisible(false);
+		
+		btnAdicionarRua = new JButton("...");
+		btnAdicionarRua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
+			}
+		});
+		btnAdicionarRua.setBounds(310, 199, 27, 23);
+		frmCadastroDeClientes.getContentPane().add(btnAdicionarRua);
+		btnAdicionarRua.setForeground(Color.WHITE);
+		btnAdicionarRua.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdicionarRua.setFocusable(false);
+		btnAdicionarRua.setBackground(new Color(0, 73, 170));
+		
+		btnAdicionarBairro = new JButton("...");
+		btnAdicionarBairro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+			}
+		});
+		btnAdicionarBairro.setBounds(310, 167, 27, 23);
+		frmCadastroDeClientes.getContentPane().add(btnAdicionarBairro);
+		btnAdicionarBairro.setForeground(Color.WHITE);
+		btnAdicionarBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdicionarBairro.setFocusable(false);
+		btnAdicionarBairro.setBackground(new Color(0, 73, 170));
+		
+		JComboBox comboUF = new JComboBox();
+		comboUF.setBounds(68, 138, 133, 20);
+		frmCadastroDeClientes.getContentPane().add(comboUF);
+		comboUF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
+		comboUF.setSelectedItem("São Paulo");
+		
+		btnAdicionarCidade = new JButton("...");
+		btnAdicionarCidade.setBounds(493, 137, 27, 23);
+		frmCadastroDeClientes.getContentPane().add(btnAdicionarCidade);
+		btnAdicionarCidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+			}
+		});
+		btnAdicionarCidade.setFocusable(false);
+		btnAdicionarCidade.setBackground(new Color(0, 73, 170));
+		btnAdicionarCidade.setForeground(Color.WHITE);
+		btnAdicionarCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		pnJuridica.setBounds(10, 65, 521, 416);
+		frmCadastroDeClientes.getContentPane().add(pnJuridica);
+		pnJuridica.setLayout(null);
+		pnJuridica.setOpaque(false);
+		
+		label = new JLabel("Razão Social:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label.setBounds(10, 13, 83, 14);
+		pnJuridica.add(label);
+		
+		tfRazaoSocial = new JTextField();
+		tfRazaoSocial.setColumns(10);
+		tfRazaoSocial.setBounds(103, 11, 407, 20);
+		pnJuridica.add(tfRazaoSocial);
+		
+		label_1 = new JLabel("Email:");
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_1.setBounds(8, 42, 40, 18);
+		pnJuridica.add(label_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(58, 42, 232, 20);
+		pnJuridica.add(textField_1);
+		
+		label_2 = new JLabel("UF:");
+		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_2.setBounds(30, 76, 18, 14);
+		pnJuridica.add(label_2);
+		
+		tfEmailJ = new JTextField();
+		tfEmailJ.setColumns(10);
+		tfEmailJ.setBounds(310, 73, 163, 20);
+		pnJuridica.add(tfEmailJ);
+		
+		label_3 = new JLabel("Cidade:");
+		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_3.setBounds(255, 76, 45, 14);
+		pnJuridica.add(label_3);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(58, 104, 232, 20);
+		pnJuridica.add(textField_3);
+		
+		label_4 = new JLabel("Bairro:");
+		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_4.setBounds(8, 106, 40, 14);
+		pnJuridica.add(label_4);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(58, 135, 232, 20);
+		pnJuridica.add(textField_4);
+		
+		label_5 = new JLabel("Rua:");
+		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_5.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_5.setBounds(18, 138, 32, 14);
+		pnJuridica.add(label_5);
+		
+		label_6 = new JLabel("Número:");
+		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_6.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_6.setBounds(346, 137, 51, 14);
+		pnJuridica.add(label_6);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(407, 135, 103, 20);
+		pnJuridica.add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(58, 166, 200, 20);
+		pnJuridica.add(textField_6);
+		
+		label_7 = new JLabel("CNPJ:");
+		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_7.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_7.setBounds(10, 168, 38, 14);
+		pnJuridica.add(label_7);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(310, 168, 200, 20);
+		pnJuridica.add(textField_7);
+		
+		label_8 = new JLabel("IE:");
+		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_8.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_8.setBounds(273, 168, 27, 14);
+		pnJuridica.add(label_8);
+		
+		textField_8 = new JTextField();
+		textField_8.setColumns(10);
+		textField_8.setBounds(58, 197, 200, 20);
+		pnJuridica.add(textField_8);
+		
+		label_9 = new JLabel("Tel 1:");
+		label_9.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_9.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_9.setBounds(10, 199, 38, 14);
+		pnJuridica.add(label_9);
+		
+		textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(58, 228, 200, 20);
+		pnJuridica.add(textField_9);
+		
+		label_10 = new JLabel("Tel 2:");
+		label_10.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_10.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_10.setBounds(10, 230, 38, 14);
+		pnJuridica.add(label_10);
+		
+		label_11 = new JLabel("Cel 1:");
+		label_11.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_11.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_11.setBounds(262, 199, 38, 14);
+		pnJuridica.add(label_11);
+		
+		textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(310, 199, 200, 20);
+		pnJuridica.add(textField_10);
+		
+		textField_11 = new JTextField();
+		textField_11.setColumns(10);
+		textField_11.setBounds(310, 228, 200, 20);
+		pnJuridica.add(textField_11);
+		
+		label_12 = new JLabel("Cel 2:");
+		label_12.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_12.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_12.setBounds(262, 230, 38, 14);
+		pnJuridica.add(label_12);
+		
+		textField_12 = new JTextField();
+		textField_12.setColumns(10);
+		textField_12.setBounds(58, 259, 452, 146);
+		pnJuridica.add(textField_12);
+		
+		label_13 = new JLabel("Obs:");
+		label_13.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_13.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_13.setBounds(10, 259, 38, 14);
+		pnJuridica.add(label_13);
+		
+		pnFisica = new JPanel();
 		pnFisica.setOpaque(false);
 		pnFisica.setLayout(null);
 		pnFisica.setBounds(10, 65, 521, 416);
@@ -171,32 +400,19 @@ public class CadastroDeClientes {
 		tfCidade.setBounds(310, 73, 163, 20);
 		pnFisica.add(tfCidade);
 		
-		btnAdicionarCidade = new JButton("...");
-		btnAdicionarCidade.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
-			}
-		});
-		btnAdicionarCidade.setFocusable(false);
-		btnAdicionarCidade.setBackground(new Color(0, 73, 170));
-		btnAdicionarCidade.setForeground(Color.WHITE);
-		btnAdicionarCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarCidade.setBounds(483, 72, 27, 23);
-		pnFisica.add(btnAdicionarCidade);
-		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblCidade.setBounds(255, 76, 45, 14);
 		pnFisica.add(lblCidade);
 		
-		JComboBox comboUF = new JComboBox();
-		comboUF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
-		comboUF.setBounds(58, 73, 133, 20);
-		comboUF.setSelectedItem("São Paulo");
-		pnFisica.add(comboUF);
-		
 		rbFisica = new JRadioButton("Física");
+		rbFisica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pnFisica.setVisible(true);
+				pnJuridica.setVisible(false);
+			}
+		});
 		rbFisica.setOpaque(false);
 		rbFisica.setFocusable(false);
 		rbFisica.setSelected(true);
@@ -205,6 +421,12 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(rbFisica);
 		
 		rbJuridica = new JRadioButton("Jurídica");
+		rbJuridica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pnJuridica.setVisible(true);
+				pnFisica.setVisible(false);
+			}
+		});
 		rbJuridica.setOpaque(false);
 		rbJuridica.setFocusable(false);
 		rbJuridica.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -242,22 +464,6 @@ public class CadastroDeClientes {
 		lblRua.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblRua.setBounds(18, 138, 32, 14);
 		pnFisica.add(lblRua);
-		
-		btnAdicionarBairro = new JButton("...");
-		btnAdicionarBairro.setForeground(Color.WHITE);
-		btnAdicionarBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairro.setFocusable(false);
-		btnAdicionarBairro.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairro.setBounds(300, 102, 27, 23);
-		pnFisica.add(btnAdicionarBairro);
-		
-		btnAdicionarRua = new JButton("...");
-		btnAdicionarRua.setForeground(Color.WHITE);
-		btnAdicionarRua.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarRua.setFocusable(false);
-		btnAdicionarRua.setBackground(new Color(0, 73, 170));
-		btnAdicionarRua.setBounds(300, 134, 27, 23);
-		pnFisica.add(btnAdicionarRua);
 		
 		JLabel lblNmero = new JLabel("Número:");
 		lblNmero.setHorizontalAlignment(SwingConstants.RIGHT);
