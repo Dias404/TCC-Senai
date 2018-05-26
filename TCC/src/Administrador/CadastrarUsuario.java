@@ -83,7 +83,7 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblUsuario);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(69, 9, 228, 20);
+		tfUsuario.setBounds(69, 9, 243, 20);
 		pnlInfo.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
@@ -93,7 +93,7 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblSenha);
 		
 		pfSenha = new JPasswordField();
-		pfSenha.setBounds(62, 40, 228, 20);
+		pfSenha.setBounds(62, 40, 250, 20);
 		pnlInfo.add(pfSenha);
 		
 		JLabel lblConfirmar = new JLabel("Confirmar:");
@@ -111,7 +111,7 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblEmail);
 		
 		tfEmail = new JTextField();
-		tfEmail.setBounds(55, 98, 228, 20);
+		tfEmail.setBounds(55, 102, 257, 20);
 		pnlInfo.add(tfEmail);
 		tfEmail.setColumns(10);
 		
@@ -121,7 +121,7 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblFone);
 		
 		tfFone = new JTextField();
-		tfFone.setBounds(55, 129, 228, 20);
+		tfFone.setBounds(55, 133, 257, 20);
 		pnlInfo.add(tfFone);
 		tfFone.setColumns(10);
 		
@@ -132,14 +132,14 @@ public class CadastrarUsuario {
 		
 		tfCel = new JTextField();
 		tfCel.setColumns(10);
-		tfCel.setBounds(42, 160, 228, 20);
+		tfCel.setBounds(42, 164, 270, 20);
 		pnlInfo.add(tfCel);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setFocusable(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setBounds(240, 222, 89, 23);
+		btnSalvar.setBounds(239, 229, 89, 23);
 		btnSalvar.setBackground(new Color(0,73,170));
 		frmCadastroUsu.getContentPane().add(btnSalvar);
 		
@@ -153,7 +153,7 @@ public class CadastrarUsuario {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 222, 89, 23);
+		btnVoltar.setBounds(10, 229, 89, 23);
 		frmCadastroUsu.getContentPane().add(btnVoltar);
 		
 		JButton button = new JButton("Salvar");
@@ -161,7 +161,7 @@ public class CadastrarUsuario {
 		button.setFont(new Font("Impact", Font.PLAIN, 13));
 		button.setFocusable(false);
 		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(125, 222, 89, 23);
+		button.setBounds(126, 229, 89, 23);
 		frmCadastroUsu.getContentPane().add(button);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
