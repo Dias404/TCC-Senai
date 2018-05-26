@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import java.awt.Font;
@@ -64,7 +65,6 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(null);
 		frmCadastroUsu.getContentPane().setLayout(null);
-		frmCadastroUsu.setFocusableWindowState(false);
 		
 		JLabel lblCadastroUsu = new JLabel("Cadastro de Usuários");
 		lblCadastroUsu.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -135,14 +135,6 @@ public class CadastrarUsuario {
 		tfCel.setBounds(42, 164, 270, 20);
 		pnlInfo.add(tfCel);
 		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setFocusable(false);
-		btnSalvar.setForeground(Color.WHITE);
-		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setBounds(239, 229, 89, 23);
-		btnSalvar.setBackground(new Color(0,73,170));
-		frmCadastroUsu.getContentPane().add(btnSalvar);
-		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -156,17 +148,42 @@ public class CadastrarUsuario {
 		btnVoltar.setBounds(10, 229, 89, 23);
 		frmCadastroUsu.getContentPane().add(btnVoltar);
 		
-		JButton button = new JButton("Salvar");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Impact", Font.PLAIN, 13));
-		button.setFocusable(false);
-		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(126, 229, 89, 23);
-		frmCadastroUsu.getContentPane().add(button);
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!(tfUsuario.getText().isEmpty() && pfSenha.getText().isEmpty() && pfConfirmar.getText().isEmpty() && 
+				tfEmail.getText().isEmpty() && tfFone.getText().isEmpty() && tfCel.getText().isEmpty())) {
+					tfUsuario.setText(null);
+					pfSenha.setText(null);
+					pfConfirmar.setText(null);
+					tfEmail.setText(null);
+					tfFone.setText(null);
+					tfCel.setText(null);
+					JOptionPane.showMessageDialog(null, "Os campos foram esvaziados!");
+				}else {
+					JOptionPane.showMessageDialog(null, "Os campos já estão vazios!");
+				}
+				
+			}
+		});
+		btnLimpar.setForeground(Color.WHITE);
+		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnLimpar.setFocusable(false);
+		btnLimpar.setBackground(new Color(0, 73, 170));
+		btnLimpar.setBounds(126, 229, 89, 23);
+		frmCadastroUsu.getContentPane().add(btnLimpar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
 		Image BG2 = BG.getImage().getScaledInstance(338, 261, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setFocusable(false);
+		btnSalvar.setForeground(Color.WHITE);
+		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSalvar.setBounds(239, 229, 89, 23);
+		btnSalvar.setBackground(new Color(0,73,170));
+		frmCadastroUsu.getContentPane().add(btnSalvar);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
