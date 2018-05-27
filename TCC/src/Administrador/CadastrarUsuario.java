@@ -190,7 +190,7 @@ public class CadastrarUsuario {
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setFocusable(false);
-		btnSalvar.setForeground(Color.WHITE);;
+		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setBounds(220, 229, 89, 23);
 		btnSalvar.setBackground(new Color(0,73,170));
