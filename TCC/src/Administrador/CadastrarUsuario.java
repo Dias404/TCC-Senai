@@ -72,7 +72,7 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarUsuario.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroUsu.setTitle("SIG - Cadastro de Usuários");
 		frmCadastroUsu.setResizable(false);
-		frmCadastroUsu.setBounds(100, 100, 344, 290);
+		frmCadastroUsu.setBounds(100, 100, 326, 290);
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		frmCadastroUsu.getContentPane().setLayout(null);
@@ -84,7 +84,7 @@ public class CadastrarUsuario {
 		
 		JPanel pnlInfo = new JPanel();
 		pnlInfo.setOpaque(false);
-		pnlInfo.setBounds(10, 32, 319, 186);
+		pnlInfo.setBounds(0, 32, 309, 186);
 		frmCadastroUsu.getContentPane().add(pnlInfo);
 		pnlInfo.setLayout(null);
 		
@@ -100,11 +100,11 @@ public class CadastrarUsuario {
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSenha.setBounds(10, 42, 42, 14);
+		lblSenha.setBounds(17, 42, 42, 14);
 		pnlInfo.add(lblSenha);
 		
 		pfSenha = new JPasswordField();
-		pfSenha.setBounds(62, 40, 250, 20);
+		pfSenha.setBounds(69, 40, 243, 20);
 		pnlInfo.add(pfSenha);
 		
 		JLabel lblConfirmar = new JLabel("Confirmar:");
@@ -118,7 +118,7 @@ public class CadastrarUsuario {
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEmail.setBounds(10, 100, 35, 14);
+		lblEmail.setBounds(10, 104, 35, 14);
 		pnlInfo.add(lblEmail);
 		
 		tfEmail = new JTextField();
@@ -128,7 +128,7 @@ public class CadastrarUsuario {
 		
 		JLabel lblFone = new JLabel("Fone:");
 		lblFone.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFone.setBounds(10, 131, 35, 14);
+		lblFone.setBounds(10, 135, 35, 14);
 		pnlInfo.add(lblFone);
 		
 		tfFone = new JTextField();
@@ -138,12 +138,12 @@ public class CadastrarUsuario {
 		
 		JLabel lblCel = new JLabel("Cel:");
 		lblCel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCel.setBounds(10, 162, 22, 14);
+		lblCel.setBounds(23, 166, 22, 14);
 		pnlInfo.add(lblCel);
 		
 		tfCel = new JTextField();
 		tfCel.setColumns(10);
-		tfCel.setBounds(42, 164, 270, 20);
+		tfCel.setBounds(55, 164, 257, 20);
 		pnlInfo.add(tfCel);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -181,24 +181,24 @@ public class CadastrarUsuario {
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(126, 229, 89, 23);
+		btnLimpar.setBounds(115, 229, 89, 23);
 		frmCadastroUsu.getContentPane().add(btnLimpar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(338, 261, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(320, 261, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setFocusable(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setBounds(239, 229, 89, 23);
+		btnSalvar.setBounds(220, 229, 89, 23);
 		btnSalvar.setBackground(new Color(0,73,170));
 		frmCadastroUsu.getContentPane().add(btnSalvar);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 338, 261);
+		lblBG.setBounds(0, 0, 320, 261);
 		frmCadastroUsu.getContentPane().add(lblBG);
 	}
 }
