@@ -399,10 +399,16 @@ public class CadastroDeClientes {
 		pnFisica.add(label_18);
 		
 		comboUFF = new JComboBox();
-		comboUFF.setBounds(58, 74, 133, 20);
+		comboUFF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
+		comboUFF.setBounds(58, 74, 163, 20);
 		pnFisica.add(comboUFF);
 		
 		btnAdicionarCidadeF = new JButton("...");
+		btnAdicionarCidadeF.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+			}
+		});
 		btnAdicionarCidadeF.setForeground(Color.WHITE);
 		btnAdicionarCidadeF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarCidadeF.setFocusable(false);
@@ -411,14 +417,24 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarCidadeF);
 		
 		btnAdicionarBairroF = new JButton("...");
+		btnAdicionarBairroF.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+			}
+		});
 		btnAdicionarBairroF.setForeground(Color.WHITE);
 		btnAdicionarBairroF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarBairroF.setFocusable(false);
 		btnAdicionarBairroF.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairroF.setBounds(297, 103, 27, 23);
+		btnAdicionarBairroF.setBounds(297, 102, 27, 23);
 		pnFisica.add(btnAdicionarBairroF);
 		
 		btnAdicionarRuaF = new JButton("...");
+		btnAdicionarRuaF.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
+			}
+		});
 		btnAdicionarRuaF.setForeground(Color.WHITE);
 		btnAdicionarRuaF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarRuaF.setFocusable(false);
@@ -579,10 +595,16 @@ public class CadastroDeClientes {
 		pnJuridica.add(label_31);
 		
 		comboUFJ = new JComboBox();
-		comboUFJ.setBounds(58, 74, 133, 20);
+		comboUFJ.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
+		comboUFJ.setBounds(58, 74, 163, 20);
 		pnJuridica.add(comboUFJ);
 		
 		btnAdicionarCidadeJ = new JButton("...");
+		btnAdicionarCidadeJ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+			}
+		});
 		btnAdicionarCidadeJ.setForeground(Color.WHITE);
 		btnAdicionarCidadeJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarCidadeJ.setFocusable(false);
@@ -590,15 +612,12 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeJ.setBounds(483, 73, 27, 23);
 		pnJuridica.add(btnAdicionarCidadeJ);
 		
-		btnAdicionarBairroJ = new JButton("...");
-		btnAdicionarBairroJ.setForeground(Color.WHITE);
-		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroJ.setFocusable(false);
-		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairroJ.setBounds(297, 103, 27, 23);
-		pnJuridica.add(btnAdicionarBairroJ);
-		
 		btnAdicionarRuaJ = new JButton("...");
+		btnAdicionarRuaJ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
+			}
+		});
 		btnAdicionarRuaJ.setForeground(Color.WHITE);
 		btnAdicionarRuaJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarRuaJ.setFocusable(false);
@@ -630,5 +649,18 @@ public class CadastroDeClientes {
 		ButtonGroup grupoSexo = new ButtonGroup();
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
+		
+		btnAdicionarBairroJ = new JButton("...");
+		btnAdicionarBairroJ.setBounds(297, 102, 27, 23);
+		pnFisica.add(btnAdicionarBairroJ);
+		btnAdicionarBairroJ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+			}
+		});
+		btnAdicionarBairroJ.setForeground(Color.WHITE);
+		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdicionarBairroJ.setFocusable(false);
+		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
 	}
 }
