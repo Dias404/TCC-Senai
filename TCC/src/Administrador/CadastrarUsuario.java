@@ -150,6 +150,7 @@ public class CadastrarUsuario {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmCadastroUsu.dispose();
+				
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);

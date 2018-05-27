@@ -15,6 +15,7 @@ import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.border.LineBorder;
 
+import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 
 import javax.swing.ImageIcon;
@@ -124,6 +125,8 @@ public class TelaPrincipal {
 		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnCadastrarLoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CadastrarLoja.main(null);
+				frmPrincipal.setEnabled(false);
 			}
 		});
 		btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
