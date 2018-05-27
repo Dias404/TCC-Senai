@@ -193,6 +193,35 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tfNome.setText(null);
+				tfRazaoSocial.setText(null);
+				tfEmailF.setText(null);
+				tfEmailJ.setText(null);
+				tfNumeroF.setText(null);
+				tfNumeroJ.setText(null);
+				tfCPF.setText(null);
+				tfCNPJ.setText(null);
+				tfRG.setText(null);
+				tfIE.setText(null);
+				tfMae.setText(null);
+				tfPai.setText(null);
+				tfDataDeNascimento.setText(null);
+				tfEstadoCivil.setText(null);
+				tfTel1F.setText(null);
+				tfTel2F.setText(null);
+				tfTel1J.setText(null);
+				tfTel2J.setText(null);
+				tfCel1F.setText(null);
+				tfCel2F.setText(null);
+				tfCel1J.setText(null);
+				tfCel2J.setText(null);
+				tpObservacoesF.setText(null);
+				tpObservacoesJ.setText(null);
+				rbMasculino.setSelected(true);
+			}
+		});
 		btnLimpar.setForeground(Color.WHITE);
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
@@ -401,6 +430,7 @@ public class CadastroDeClientes {
 		comboUFF = new JComboBox();
 		comboUFF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		comboUFF.setBounds(58, 74, 163, 20);
+		comboUFF.setSelectedItem("São Paulo");
 		pnFisica.add(comboUFF);
 		
 		btnAdicionarCidadeF = new JButton("...");
@@ -597,6 +627,7 @@ public class CadastroDeClientes {
 		comboUFJ = new JComboBox();
 		comboUFJ.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		comboUFJ.setBounds(58, 74, 163, 20);
+		comboUFJ.setSelectedItem("São Paulo");
 		pnJuridica.add(comboUFJ);
 		
 		btnAdicionarCidadeJ = new JButton("...");
