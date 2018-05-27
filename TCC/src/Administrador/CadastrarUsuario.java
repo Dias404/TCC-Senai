@@ -90,7 +90,7 @@ public class CadastrarUsuario {
 		
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(10, 11, 49, 14);;
+		lblUsuario.setBounds(10, 11, 49, 14);
 		pnlInfo.add(lblUsuario);
 		
 		tfUsuario = new JTextField();
