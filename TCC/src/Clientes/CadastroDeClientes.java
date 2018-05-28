@@ -1,4 +1,4 @@
-package Telas;
+package Clientes;
 
 import java.awt.EventQueue;
 
