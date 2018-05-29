@@ -61,7 +61,6 @@ public class CadastroDeClientes {
 	private JTextField tfPai;
 	private JLabel label_10;
 	private JLabel label_11;
-	private JTextField tfEstadoCivil;
 	private JLabel label_12;
 	private JLabel label_13;
 	private JTextField tfDataDeNascimento;
@@ -114,6 +113,7 @@ public class CadastroDeClientes {
 	private JComboBox comboBairroJ;
 	private JComboBox comboRuaJ;
 	private JTextPane tpObservacoesJ;
+	private JComboBox comboEstadoCivil;
 
 	
 	public static void main(String[] args) {
@@ -210,7 +210,7 @@ public class CadastroDeClientes {
 					cliFi.setRG_IE(tfRG.getText().toString());
 					cliFi.setMae(tfMae.getText().toString());
 					cliFi.setPai(tfPai.getText().toString());
-					cliFi.setEstadoCivil(tfEstadoCivil.getText().toString());
+					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
 					cliFi.setTel1(tfTel1F.getText().toString());
 					cliFi.setTel2(tfTel2F.getText().toString());
 					cliFi.setCel1(tfCel1F.getText().toString());
@@ -221,7 +221,25 @@ public class CadastroDeClientes {
 					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
 					btnLimpar.doClick();
 				}else {
+					Clientes cliJu = new Clientes();
+					cliJu.setTipoDePessoa("Jurídica");
+					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
+					cliJu.setEmail(tfEmailJ.getText().toString());
+					cliJu.setUF(comboUFJ.getSelectedItem().toString());
+					cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
+					cliJu.setRua(comboRuaJ.getSelectedItem().toString());
+					cliJu.setNumero(tfNumeroJ.getText().toString());
+					cliJu.setCPF_CNPJ(tfCNPJ.getText().toString());
+					cliJu.setRG_IE(tfIE.getText().toString());
+					cliJu.setTel1(tfTel1J.getText().toString());
+					cliJu.setTel2(tfTel2J.getText().toString());
+					cliJu.setCel1(tfCel1J.getText().toString());
+					cliJu.setCel2(tfCel2J.getText().toString());
 					
+					CRUDClientes insert = new CRUDClientes();
+					insert.insertClienteJuridico(cliJu);
+					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
+					btnLimpar.doClick();
 				}
 			}
 		});
@@ -248,7 +266,6 @@ public class CadastroDeClientes {
 				tfMae.setText(null);
 				tfPai.setText(null);
 				tfDataDeNascimento.setText(null);
-				tfEstadoCivil.setText(null);
 				tfTel1F.setText(null);
 				tfTel2F.setText(null);
 				tfTel1J.setText(null);
@@ -394,11 +411,6 @@ public class CadastroDeClientes {
 		label_11.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label_11.setBounds(262, 199, 38, 14);
 		pnFisica.add(label_11);
-		
-		tfEstadoCivil = new JTextField();
-		tfEstadoCivil.setColumns(10);
-		tfEstadoCivil.setBounds(407, 229, 103, 20);
-		pnFisica.add(tfEstadoCivil);
 		
 		label_12 = new JLabel("Data de nascimento:");
 		label_12.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -713,14 +725,17 @@ public class CadastroDeClientes {
 		pnJuridica.add(btnAdicionarRuaJ);
 		
 		comboCidadeJ = new JComboBox();
+		comboCidadeJ.setModel(new DefaultComboBoxModel(new String[] {"teste4"}));
 		comboCidadeJ.setBounds(310, 74, 163, 19);
 		pnJuridica.add(comboCidadeJ);
 		
 		comboBairroJ = new JComboBox();
+		comboBairroJ.setModel(new DefaultComboBoxModel(new String[] {"teste5"}));
 		comboBairroJ.setBounds(58, 104, 232, 19);
 		pnJuridica.add(comboBairroJ);
 		
 		comboRuaJ = new JComboBox();
+		comboRuaJ.setModel(new DefaultComboBoxModel(new String[] {"teste6"}));
 		comboRuaJ.setBounds(58, 136, 232, 19);
 		pnJuridica.add(comboRuaJ);
 		
@@ -736,5 +751,10 @@ public class CadastroDeClientes {
 		ButtonGroup grupoSexo = new ButtonGroup();
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
+		
+		comboEstadoCivil = new JComboBox();
+		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"}));
+		comboEstadoCivil.setBounds(407, 229, 103, 20);
+		pnFisica.add(comboEstadoCivil);
 	}
 }
