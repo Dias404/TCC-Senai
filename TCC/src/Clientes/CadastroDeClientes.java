@@ -25,6 +25,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+
+import CRUD.CRUDClientes;
+import DAO.Clientes;
+
 import javax.swing.JFormattedTextField;
 
 public class CadastroDeClientes {
@@ -186,6 +190,41 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(btnVoltar);
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (rbFisica.isSelected()) {
+					Clientes cliFi = new Clientes();
+					cliFi.setTipoDePessoa("Física");
+					cliFi.setNomeRazao(tfNome.getText().toString());
+					if (rbMasculino.isSelected()) {
+						cliFi.setSexo("M");
+					}else {
+						cliFi.setSexo("F");
+					}
+					cliFi.setEmail(tfEmailF.getText().toString());
+					cliFi.setUF(comboUFF.getSelectedItem().toString());
+					cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
+					cliFi.setRua(comboRuaF.getSelectedItem().toString());
+					cliFi.setNumero(tfNumeroF.getText().toString());
+					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
+					cliFi.setRG_IE(tfRG.getText().toString());
+					cliFi.setMae(tfMae.getText().toString());
+					cliFi.setPai(tfPai.getText().toString());
+					cliFi.setEstadoCivil(tfEstadoCivil.getText().toString());
+					cliFi.setTel1(tfTel1F.getText().toString());
+					cliFi.setTel2(tfTel2F.getText().toString());
+					cliFi.setCel1(tfCel1F.getText().toString());
+					cliFi.setCel2(tfCel2F.getText().toString());
+					
+					CRUDClientes insert = new CRUDClientes();
+					insert.insertClienteFisico(cliFi);
+					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
+					btnLimpar.doClick();
+				}else {
+					
+				}
+			}
+		});
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
@@ -474,14 +513,17 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
+		comboCidadeF.setModel(new DefaultComboBoxModel(new String[] {"teste1"}));
 		comboCidadeF.setBounds(310, 74, 163, 19);
 		pnFisica.add(comboCidadeF);
 		
 		comboBairroF = new JComboBox();
+		comboBairroF.setModel(new DefaultComboBoxModel(new String[] {"teste2"}));
 		comboBairroF.setBounds(58, 104, 232, 19);
 		pnFisica.add(comboBairroF);
 		
 		comboRuaF = new JComboBox();
+		comboRuaF.setModel(new DefaultComboBoxModel(new String[] {"teste3"}));
 		comboRuaF.setBounds(58, 136, 232, 19);
 		pnFisica.add(comboRuaF);
 		
@@ -650,6 +692,19 @@ public class CadastroDeClientes {
 				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
 			}
 		});
+		
+		btnAdicionarBairroJ = new JButton("...");
+		btnAdicionarBairroJ.setBounds(297, 102, 27, 23);
+		pnJuridica.add(btnAdicionarBairroJ);
+		btnAdicionarBairroJ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+			}
+		});
+		btnAdicionarBairroJ.setForeground(Color.WHITE);
+		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdicionarBairroJ.setFocusable(false);
+		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
 		btnAdicionarRuaJ.setForeground(Color.WHITE);
 		btnAdicionarRuaJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarRuaJ.setFocusable(false);
@@ -681,18 +736,5 @@ public class CadastroDeClientes {
 		ButtonGroup grupoSexo = new ButtonGroup();
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
-		
-		btnAdicionarBairroJ = new JButton("...");
-		btnAdicionarBairroJ.setBounds(297, 102, 27, 23);
-		pnFisica.add(btnAdicionarBairroJ);
-		btnAdicionarBairroJ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
-			}
-		});
-		btnAdicionarBairroJ.setForeground(Color.WHITE);
-		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroJ.setFocusable(false);
-		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
 	}
 }

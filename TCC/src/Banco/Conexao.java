@@ -17,7 +17,6 @@ public class Conexao {
 		 String url = "jdbc:mysql://"+ip+":"+porta+"/"+nomeBanco;
 		 try {
 			conexao = DriverManager.getConnection(url,usuario,senha);
-			System.out.println("Conectado");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
