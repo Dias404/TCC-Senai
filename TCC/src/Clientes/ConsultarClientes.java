@@ -14,8 +14,6 @@ import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDClientes;
 
-import javax.swing.JTextArea;
-
 public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
