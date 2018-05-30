@@ -1,6 +1,7 @@
 package CRUD;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Banco.Conexao;
@@ -9,7 +10,7 @@ import DAO.Clientes;
 public class CRUDClientes {
 	
 	Conexao con = new Conexao();
-	public Clientes dados = null;
+	public ResultSet dadosSelect = null;
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
@@ -68,6 +69,21 @@ public class CRUDClientes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public ResultSet selectClientes() {
+		String sql = "SELECT * FROM clientes";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
 		}
 	}
 }

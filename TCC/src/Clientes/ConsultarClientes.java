@@ -4,11 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import CRUD.CRUDClientes;
+
 import javax.swing.JTextArea;
 
 public class ConsultarClientes {
@@ -71,5 +76,20 @@ public class ConsultarClientes {
 				"ID", "Nome/Raz\u00E3o", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
 			}
 		));
+		preencherTabela();
+	}
+	
+	public boolean preencherTabela() {
+		CRUDClientes select = new CRUDClientes();
+		select.selectClientes();
+		try {
+			while (select.dadosSelect.next()) {
+				System.out.println(select.dadosSelect.getInt("id_cliente")+" / "+select.dadosSelect.getString("nome_razao"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 }
