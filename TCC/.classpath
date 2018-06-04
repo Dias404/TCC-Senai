@@ -10,5 +10,8 @@
 	<classpathentry kind="lib" path="Img/background.jar"/>
 	<classpathentry kind="lib" path="Img/logoSIG.jar"/>
 	<classpathentry kind="lib" path="Img/iconeSIG.jar"/>
+	<classpathentry kind="lib" path="Drivers/commons-email-1.4.jar"/>
+	<classpathentry kind="lib" path="Drivers/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="Drivers/mail.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

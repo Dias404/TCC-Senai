@@ -14,6 +14,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.border.LineBorder;
+
+import Administrador.CadastrarLoja;
+import Administrador.CadastrarUsuario;
+import Administrador.MandarEmail;
+
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Label;
@@ -21,7 +26,7 @@ import java.awt.Toolkit;
 
 public class TelaPrincipal {
 
-	private JFrame frmPrincipal;
+	public static JFrame frmPrincipal;
 	private JPanel pnCliente;
 	private JPanel pnEstoque;
 	private JPanel pnCaixa;
@@ -57,7 +62,7 @@ public class TelaPrincipal {
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
 		frmPrincipal.setTitle("SIG");
 		frmPrincipal.setBounds(100, 100, 492, 346);
-		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setLocationRelativeTo(null);
 		frmPrincipal.getContentPane().setLayout(null);
@@ -103,6 +108,8 @@ public class TelaPrincipal {
 		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
 		btnCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				CadastrarUsuario.main(null);
+				frmPrincipal.setEnabled(false);
 			}
 		});
 		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
@@ -119,6 +126,8 @@ public class TelaPrincipal {
 		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnCadastrarLoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CadastrarLoja.main(null);
+				frmPrincipal.setEnabled(false);
 			}
 		});
 		btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
@@ -131,6 +140,8 @@ public class TelaPrincipal {
 		btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnMandarEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MandarEmail.main(null);
+				frmPrincipal.setEnabled(false);
 			}
 		});
 		btnMandarEmail.setFocusable(false);
