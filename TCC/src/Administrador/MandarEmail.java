@@ -7,6 +7,7 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -28,6 +29,8 @@ import java.awt.event.WindowEvent;
 public class MandarEmail {
 
 	private JFrame frmMandarEmail;
+	private JComboBox cbEmail;
+	private JEditorPane epMsg;
 	
 	
 
@@ -84,6 +87,11 @@ public class MandarEmail {
 		frmMandarEmail.getContentPane().add(lblMandarEmail);
 		
 		JButton btnMandar = new JButton("Mandar");
+		btnMandar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				enviarEmail();
+			}
+		});
 		btnMandar.setBounds(445, 363, 89, 23);
 		frmMandarEmail.getContentPane().add(btnMandar);
 		btnMandar.setForeground(Color.WHITE);
@@ -116,14 +124,15 @@ public class MandarEmail {
 		lblPara.setBounds(10, 11, 31, 14);
 		pnEmail.add(lblPara);
 		
-		JComboBox cbEmail = new JComboBox();
+		cbEmail = new JComboBox();
 		cbEmail.setBounds(51, 9, 313, 20);
 		pnEmail.add(cbEmail);
+		cbEmail.addItem("carol.dragneel14@gmail.com");
 		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBorder(new LineBorder(Color.decode("#0049aa"), 2));
-		editorPane.setBounds(10, 36, 504, 272);
-		pnEmail.add(editorPane);
+		epMsg = new JEditorPane();
+		epMsg.setBorder(new LineBorder(Color.decode("#0049aa"), 2));
+		epMsg.setBounds(10, 36, 504, 272);
+		pnEmail.add(epMsg);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
@@ -132,22 +141,36 @@ public class MandarEmail {
 	}
 	
 	public String enviarEmail() {
+		String para = cbEmail.getSelectedItem().toString();
+		
+		String emailLogado = "projetojavasenai@gmail.com";
+		String senhaEmailLogado = "senai123";
+		String usuarioEmailLogado = "Jão";
+		String msg = epMsg.getText();
+		
 		try {
 			SimpleEmail enviarEmail = new SimpleEmail();
-			enviarEmail.setHostName("smtp.gmail.com"); //smtp-mail.outlook.com para hotmail
-			enviarEmail.setSmtpPort(465); //25 ou 587 caso não funcione
-			enviarEmail.setAuthentication("projetojavasenai@gmail.com", "senai123");
+			if(para.contains("@gmail.com")) { // para gmail
+				enviarEmail.setHostName("smtp.gmail.com"); 
+				enviarEmail.setSmtpPort(465);
+			}if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
+				enviarEmail.setHostName("smtp-mail.outlook.com"); 
+				enviarEmail.setSmtpPort(587);
+			}
+			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
 			enviarEmail.setSSLOnConnect(true);
 			//enviarEmail.setTLSOnConnect(true); <-- Se precisar
-			enviarEmail.setFrom("projetojavasenai@gmail.com");
-			enviarEmail.setSubject("Teste");
-			enviarEmail.setMsg("Teste: Mandar Email - TCC: Projeto SIG");
-			enviarEmail.addTo("carol.dragneel14@gmail.com");
+			enviarEmail.setFrom(emailLogado);
+			enviarEmail.setSubject("SIG - "+usuarioEmailLogado);
+			enviarEmail.setMsg(msg);
+			enviarEmail.addTo(para);
 			enviarEmail.send();
-			return "E-mail enviado";
+			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
+			return "certo";
 		} catch (EmailException arg0) {
 			// TODO Auto-generated catch block
 			arg0.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Email Inválido");
 			return "Fail";
 		}
 		
