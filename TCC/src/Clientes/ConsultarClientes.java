@@ -22,7 +22,7 @@ public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
-	private int idSelecionado;
+	public int idSelecionado;
 
 	/**
 	 * Launch the application.
@@ -75,6 +75,8 @@ public class ConsultarClientes {
 			public void mouseClicked(MouseEvent arg0) {
 				int indexLinha = tabela.getSelectedRow();
 				idSelecionado = (int) tabela.getValueAt(indexLinha, 0);
+				frmConsultaDeClientes.dispose();
+				AtualizarClientes.main(null);
 			}
 		});
 		
@@ -119,7 +121,7 @@ public class ConsultarClientes {
 		preencherTabela();
 	}
 	
-	public boolean preencherTabela() {
+	private boolean preencherTabela() {
 		CRUDClientes selecionar = new CRUDClientes();
 		selecionar.selectClientes();
 		try {
@@ -128,10 +130,12 @@ public class ConsultarClientes {
 			while (selecionar.dadosSelect.next()) {
 				modelo.addRow(new Object[]{selecionar.dadosSelect.getInt("id_cliente"), selecionar.dadosSelect.getString("tipo_de_pessoa"), selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("sexo"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
 			}
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return true;
+		
 	}
 }

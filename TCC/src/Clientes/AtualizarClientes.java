@@ -11,19 +11,24 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+
+import CRUD.CRUDClientes;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.sound.midi.Soundbank;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class AtualizarClientes {
 
-	private JFrame frmSigAtualizar;
+	private JFrame frmAtualizarClientes;
 	private JTextField tfRazaoSocial;
 	private JTextField tfEmailJ;
 	private JTextField tfNumeroJ;
@@ -81,7 +86,7 @@ public class AtualizarClientes {
 			public void run() {
 				try {
 					AtualizarClientes window = new AtualizarClientes();
-					window.frmSigAtualizar.setVisible(true);
+					window.frmAtualizarClientes.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -100,19 +105,19 @@ public class AtualizarClientes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmSigAtualizar = new JFrame();
-		frmSigAtualizar.setTitle("SIG - Atualizar Clientes");
-		frmSigAtualizar.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarClientes.class.getResource("/Img/SIG 16x16.png")));
-		frmSigAtualizar.setBounds(100, 100, 559, 575);
-		frmSigAtualizar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmSigAtualizar.setResizable(false);
-		frmSigAtualizar.setLocationRelativeTo(null);
-		frmSigAtualizar.getContentPane().setLayout(null);
+		frmAtualizarClientes = new JFrame();
+		frmAtualizarClientes.setTitle("SIG - Atualizar Clientes");
+		frmAtualizarClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarClientes.class.getResource("/Img/SIG 16x16.png")));
+		frmAtualizarClientes.setBounds(100, 100, 559, 575);
+		frmAtualizarClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmAtualizarClientes.setResizable(false);
+		frmAtualizarClientes.setLocationRelativeTo(null);
+		frmAtualizarClientes.getContentPane().setLayout(null);
 		
 		JLabel lblAtualizarClientes = new JLabel("Atualizar Clientes");
 		lblAtualizarClientes.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblAtualizarClientes.setBounds(10, 11, 149, 17);
-		frmSigAtualizar.getContentPane().add(lblAtualizarClientes);
+		frmAtualizarClientes.getContentPane().add(lblAtualizarClientes);
 		
 		rbFisica = new JRadioButton("Física");
 		rbFisica.setEnabled(false);
@@ -135,7 +140,7 @@ public class AtualizarClientes {
 		rbFisica.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbFisica.setFocusable(false);
 		rbFisica.setBounds(10, 35, 57, 23);
-		frmSigAtualizar.getContentPane().add(rbFisica);
+		frmAtualizarClientes.getContentPane().add(rbFisica);
 		
 		rbJuridica = new JRadioButton("Jurídica");
 		rbJuridica.setEnabled(false);
@@ -157,11 +162,11 @@ public class AtualizarClientes {
 		rbJuridica.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbJuridica.setFocusable(false);
 		rbJuridica.setBounds(69, 35, 71, 23);
-		frmSigAtualizar.getContentPane().add(rbJuridica);
+		frmAtualizarClientes.getContentPane().add(rbJuridica);
 		
 		pnFisica = new JPanel();
 		pnFisica.setBounds(10, 65, 521, 416);
-		frmSigAtualizar.getContentPane().add(pnFisica);
+		frmAtualizarClientes.getContentPane().add(pnFisica);
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
 		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -430,7 +435,7 @@ public class AtualizarClientes {
 		pnJuridica.setOpaque(false);
 		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnJuridica.setBounds(10, 65, 521, 416);
-		frmSigAtualizar.getContentPane().add(pnJuridica);
+		frmAtualizarClientes.getContentPane().add(pnJuridica);
 		
 		JLabel lblRazoSocial = new JLabel("Razão Social:");
 		lblRazoSocial.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -622,12 +627,18 @@ public class AtualizarClientes {
 		pnJuridica.add(tpObservacoesJ);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConsultarClientes.main(null);
+				frmAtualizarClientes.dispose();
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
 		btnVoltar.setBounds(10, 492, 89, 23);
-		frmSigAtualizar.getContentPane().add(btnVoltar);
+		frmAtualizarClientes.getContentPane().add(btnVoltar);
 		
 		btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
@@ -685,7 +696,7 @@ public class AtualizarClientes {
 		btnAlterar.setFocusable(false);
 		btnAlterar.setBackground(new Color(0, 73, 170));
 		btnAlterar.setBounds(442, 492, 89, 23);
-		frmSigAtualizar.getContentPane().add(btnAlterar);
+		frmAtualizarClientes.getContentPane().add(btnAlterar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -744,7 +755,7 @@ public class AtualizarClientes {
 		btnCancelar.setFocusable(false);
 		btnCancelar.setBackground(new Color(0, 73, 170));
 		btnCancelar.setBounds(343, 492, 89, 23);
-		frmSigAtualizar.getContentPane().add(btnCancelar);
+		frmAtualizarClientes.getContentPane().add(btnCancelar);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setVisible(false);
@@ -753,7 +764,7 @@ public class AtualizarClientes {
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
 		btnSalvar.setBounds(442, 492, 89, 23);
-		frmSigAtualizar.getContentPane().add(btnSalvar);
+		frmAtualizarClientes.getContentPane().add(btnSalvar);
 		
 		ButtonGroup grupoTipoDePessoa = new ButtonGroup();
 		grupoTipoDePessoa.add(rbFisica);
@@ -762,5 +773,27 @@ public class AtualizarClientes {
 		ButtonGroup grupoSexo = new ButtonGroup();
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
+		
+		preencherCampos();
 	}
+	
+	private boolean preencherCampos() {
+		CRUDClientes select = new CRUDClientes();
+		ConsultarClientes pegarIdTabela = new ConsultarClientes();
+		select.selectDadosClienteEspecifico(pegarIdTabela.idSelecionado);
+		try {
+			System.out.println(select.dadosEspecificos.getString("nome"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	
+	
+	
+	
+	
 }

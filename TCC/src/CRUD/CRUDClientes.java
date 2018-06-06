@@ -11,6 +11,7 @@ public class CRUDClientes {
 	
 	Conexao con = new Conexao();
 	public ResultSet dadosSelect = null;
+	public ResultSet dadosEspecificos = null;
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
@@ -84,6 +85,22 @@ public class CRUDClientes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return dadosSelect = null;
+		}
+	}
+	
+	public ResultSet selectDadosClienteEspecifico(int idClienteSelecionado) {
+		String sql = "SELECT * FROM clientes WHERE id_cliente=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idClienteSelecionado);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosEspecificos;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosEspecificos = null;
 		}
 	}
 }
