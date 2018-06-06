@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
@@ -67,6 +69,9 @@ public class AtualizarClientes {
 	private JComboBox comboBairroF;
 	private JComboBox comboRuaF;
 	private JComboBox comboEstadoCivil;
+	private JButton btnAdicionarBairroF;
+	private JButton btnAdicionarRuaF;
+	private JButton btnAdicionarCidadeJ;
 
 	/**
 	 * Launch the application.
@@ -113,8 +118,16 @@ public class AtualizarClientes {
 		rbFisica.setEnabled(false);
 		rbFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pnFisica.setVisible(true);
-				pnJuridica.setVisible(false);
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja mudar o tipo de pessoa?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					pnFisica.setVisible(true);
+					pnJuridica.setVisible(false);
+				}
+				if (respostaJOP == JOptionPane.NO_OPTION) {
+					rbJuridica.setSelected(true);
+					pnFisica.setVisible(false);
+					pnJuridica.setVisible(true);
+				}
 			}
 		});
 		rbFisica.setSelected(true);
@@ -128,8 +141,16 @@ public class AtualizarClientes {
 		rbJuridica.setEnabled(false);
 		rbJuridica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pnFisica.setVisible(false);
-				pnJuridica.setVisible(true);
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja mudar o tipo de pessoa?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					pnFisica.setVisible(false);
+					pnJuridica.setVisible(true);
+				}
+				if (respostaJOP == JOptionPane.NO_OPTION) {
+					rbFisica.setSelected(true);
+					pnFisica.setVisible(true);
+					pnJuridica.setVisible(false);
+				}
 			}
 		});
 		rbJuridica.setOpaque(false);
@@ -359,7 +380,7 @@ public class AtualizarClientes {
 		btnAdicionarCidadeF.setBounds(483, 73, 27, 23);
 		pnFisica.add(btnAdicionarCidadeF);
 		
-		JButton btnAdicionarBairroF = new JButton("...");
+		btnAdicionarBairroF = new JButton("...");
 		btnAdicionarBairroF.setEnabled(false);
 		btnAdicionarBairroF.setForeground(Color.WHITE);
 		btnAdicionarBairroF.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -368,7 +389,7 @@ public class AtualizarClientes {
 		btnAdicionarBairroF.setBounds(297, 102, 27, 23);
 		pnFisica.add(btnAdicionarBairroF);
 		
-		JButton btnAdicionarRuaF = new JButton("...");
+		btnAdicionarRuaF = new JButton("...");
 		btnAdicionarRuaF.setEnabled(false);
 		btnAdicionarRuaF.setForeground(Color.WHITE);
 		btnAdicionarRuaF.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -552,7 +573,7 @@ public class AtualizarClientes {
 		comboUFJ.setBounds(58, 74, 163, 20);
 		pnJuridica.add(comboUFJ);
 		
-		JButton btnAdicionarCidadeJ = new JButton("...");
+		btnAdicionarCidadeJ = new JButton("...");
 		btnAdicionarCidadeJ.setEnabled(false);
 		btnAdicionarCidadeJ.setForeground(Color.WHITE);
 		btnAdicionarCidadeJ.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -614,6 +635,49 @@ public class AtualizarClientes {
 				btnAlterar.setVisible(false);
 				btnCancelar.setVisible(true);
 				btnSalvar.setVisible(true);
+				
+				rbFisica.setEnabled(true);
+				rbJuridica.setEnabled(true);
+				tfNome.setEnabled(true);
+				tfRazaoSocial.setEnabled(true);
+				tfEmailF.setEnabled(true);
+				tfEmailJ.setEnabled(true);
+				rbMasculino.setEnabled(true);
+				rbFeminino.setEnabled(true);
+				comboUFF.setEnabled(true);
+				comboUFJ.setEnabled(true);
+				comboCidadeF.setEnabled(true);
+				comboCidadeJ.setEnabled(true);
+				btnAdicionarCidadeF.setEnabled(true);
+				btnAdicionarCidadeJ.setEnabled(true);
+				comboBairroF.setEnabled(true);
+				comboBairroJ.setEnabled(true);
+				btnAdicionarBairroF.setEnabled(true);
+				btnAdicionarBairroJ.setEnabled(true);
+				comboRuaF.setEnabled(true);
+				comboRuaJ.setEnabled(true);
+				btnAdicionarRuaF.setEnabled(true);
+				btnAdicionarRuaJ.setEnabled(true);
+				tfNumeroF.setEnabled(true);
+				tfNumeroJ.setEnabled(true);
+				tfCPF.setEnabled(true);
+				tfCNPJ.setEnabled(true);
+				tfRG.setEnabled(true);
+				tfIE.setEnabled(true);
+				tfMae.setEnabled(true);
+				tfPai.setEnabled(true);
+				tfDataDeNascimento.setEnabled(true);
+				comboEstadoCivil.setEnabled(true);
+				tfTel1F.setEnabled(true);
+				tfTel1J.setEnabled(true);
+				tfTel2F.setEnabled(true);
+				tfTel2J.setEnabled(true);
+				tfCel1F.setEnabled(true);
+				tfCel1J.setEnabled(true);
+				tfCel2F.setEnabled(true);
+				tfCel2J.setEnabled(true);
+				tpObservacoesF.setEnabled(true);
+				tpObservacoesJ.setEnabled(true);
 			}
 		});
 		btnAlterar.setForeground(Color.WHITE);
@@ -629,6 +693,49 @@ public class AtualizarClientes {
 				btnAlterar.setVisible(true);
 				btnCancelar.setVisible(false);
 				btnSalvar.setVisible(false);
+				
+				rbFisica.setEnabled(false);
+				rbJuridica.setEnabled(false);
+				tfNome.setEnabled(false);
+				tfRazaoSocial.setEnabled(false);
+				tfEmailF.setEnabled(false);
+				tfEmailJ.setEnabled(false);
+				rbMasculino.setEnabled(false);
+				rbFeminino.setEnabled(false);
+				comboUFF.setEnabled(false);
+				comboUFJ.setEnabled(false);
+				comboCidadeF.setEnabled(false);
+				comboCidadeJ.setEnabled(false);
+				btnAdicionarCidadeF.setEnabled(false);
+				btnAdicionarCidadeJ.setEnabled(false);
+				comboBairroF.setEnabled(false);
+				comboBairroJ.setEnabled(false);
+				btnAdicionarBairroF.setEnabled(false);
+				btnAdicionarBairroJ.setEnabled(false);
+				comboRuaF.setEnabled(false);
+				comboRuaJ.setEnabled(false);
+				btnAdicionarRuaF.setEnabled(false);
+				btnAdicionarRuaJ.setEnabled(false);
+				tfNumeroF.setEnabled(false);
+				tfNumeroJ.setEnabled(false);
+				tfCPF.setEnabled(false);
+				tfCNPJ.setEnabled(false);
+				tfRG.setEnabled(false);
+				tfIE.setEnabled(false);
+				tfMae.setEnabled(false);
+				tfPai.setEnabled(false);
+				tfDataDeNascimento.setEnabled(false);
+				comboEstadoCivil.setEnabled(false);
+				tfTel1F.setEnabled(false);
+				tfTel1J.setEnabled(false);
+				tfTel2F.setEnabled(false);
+				tfTel2J.setEnabled(false);
+				tfCel1F.setEnabled(false);
+				tfCel1J.setEnabled(false);
+				tfCel2F.setEnabled(false);
+				tfCel2J.setEnabled(false);
+				tpObservacoesF.setEnabled(false);
+				tpObservacoesJ.setEnabled(false);
 			}
 		});
 		btnCancelar.setVisible(false);
