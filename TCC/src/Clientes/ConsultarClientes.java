@@ -13,12 +13,16 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDClientes;
+
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
-	private JTable tbDados;
+	private JTable tabela;
+	private int idSelecionado;
 
 	/**
 	 * Launch the application.
@@ -65,53 +69,64 @@ public class ConsultarClientes {
 		scrollPane.setBounds(10, 39, 662, 385);
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
 		
-		tbDados = new JTable();
-		tbDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tbDados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(tbDados);
-		tbDados.setEnabled(false);
-		tbDados.setModel(new DefaultTableModel(
+		tabela = new JTable();
+		tabela.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int indexLinha = tabela.getSelectedRow();
+				idSelecionado = (int) tabela.getValueAt(indexLinha, 0);
+			}
+		});
+		
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(tabela);
+		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Nome/Raz\u00E3o", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
+				"ID", "Tipo de Pessoa", "Nome/Raz\u00E3o", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+				false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		tbDados.getColumnModel().getColumn(0).setResizable(false);
-		tbDados.getColumnModel().getColumn(1).setResizable(false);
-		tbDados.getColumnModel().getColumn(2).setResizable(false);
-		tbDados.getColumnModel().getColumn(3).setResizable(false);
-		tbDados.getColumnModel().getColumn(4).setResizable(false);
-		tbDados.getColumnModel().getColumn(5).setResizable(false);
-		tbDados.getColumnModel().getColumn(6).setResizable(false);
-		tbDados.getColumnModel().getColumn(7).setResizable(false);
-		tbDados.getColumnModel().getColumn(8).setResizable(false);
-		tbDados.getColumnModel().getColumn(9).setResizable(false);
-		tbDados.getColumnModel().getColumn(10).setResizable(false);
-		tbDados.getColumnModel().getColumn(11).setResizable(false);
-		tbDados.getColumnModel().getColumn(12).setResizable(false);
-		tbDados.getColumnModel().getColumn(13).setResizable(false);
-		tbDados.getColumnModel().getColumn(14).setResizable(false);
-		tbDados.getColumnModel().getColumn(15).setResizable(false);
-		tbDados.getColumnModel().getColumn(16).setResizable(false);
-		tbDados.getColumnModel().getColumn(17).setResizable(false);
-		tbDados.getColumnModel().getColumn(18).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setResizable(false);
+		tabela.getColumnModel().getColumn(2).setResizable(false);
+		tabela.getColumnModel().getColumn(3).setResizable(false);
+		tabela.getColumnModel().getColumn(4).setResizable(false);
+		tabela.getColumnModel().getColumn(5).setResizable(false);
+		tabela.getColumnModel().getColumn(6).setResizable(false);
+		tabela.getColumnModel().getColumn(7).setResizable(false);
+		tabela.getColumnModel().getColumn(8).setResizable(false);
+		tabela.getColumnModel().getColumn(9).setResizable(false);
+		tabela.getColumnModel().getColumn(10).setResizable(false);
+		tabela.getColumnModel().getColumn(11).setResizable(false);
+		tabela.getColumnModel().getColumn(12).setResizable(false);
+		tabela.getColumnModel().getColumn(13).setResizable(false);
+		tabela.getColumnModel().getColumn(14).setResizable(false);
+		tabela.getColumnModel().getColumn(15).setResizable(false);
+		tabela.getColumnModel().getColumn(16).setResizable(false);
+		tabela.getColumnModel().getColumn(17).setResizable(false);
+		tabela.getColumnModel().getColumn(18).setResizable(false);
+		tabela.getColumnModel().getColumn(19).setResizable(false);
+		tabela.getTableHeader().setReorderingAllowed(false);
+		
 		preencherTabela();
 	}
 	
 	public boolean preencherTabela() {
-		CRUDClientes select = new CRUDClientes();
-		select.selectClientes();
+		CRUDClientes selecionar = new CRUDClientes();
+		selecionar.selectClientes();
 		try {
-			while (select.dadosSelect.next()) {
-				System.out.println(select.dadosSelect.getInt("id_cliente")+" / "+select.dadosSelect.getString("nome_razao"));
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while (selecionar.dadosSelect.next()) {
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getInt("id_cliente"), selecionar.dadosSelect.getString("tipo_de_pessoa"), selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("sexo"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
