@@ -110,6 +110,7 @@ public class AtualizarClientes {
 		frmSigAtualizar.getContentPane().add(lblAtualizarClientes);
 		
 		rbFisica = new JRadioButton("Física");
+		rbFisica.setEnabled(false);
 		rbFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pnFisica.setVisible(true);
@@ -124,6 +125,7 @@ public class AtualizarClientes {
 		frmSigAtualizar.getContentPane().add(rbFisica);
 		
 		rbJuridica = new JRadioButton("Jurídica");
+		rbJuridica.setEnabled(false);
 		rbJuridica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pnFisica.setVisible(false);
@@ -149,6 +151,7 @@ public class AtualizarClientes {
 		pnFisica.add(label);
 		
 		rbMasculino = new JRadioButton("Masculino");
+		rbMasculino.setEnabled(false);
 		rbMasculino.setSelected(true);
 		rbMasculino.setOpaque(false);
 		rbMasculino.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -157,6 +160,7 @@ public class AtualizarClientes {
 		pnFisica.add(rbMasculino);
 		
 		rbFeminino = new JRadioButton("Feminino");
+		rbFeminino.setEnabled(false);
 		rbFeminino.setOpaque(false);
 		rbFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbFeminino.setFocusable(false);
@@ -169,6 +173,7 @@ public class AtualizarClientes {
 		pnFisica.add(label_1);
 		
 		tfNome = new JTextField();
+		tfNome.setEnabled(false);
 		tfNome.setColumns(10);
 		tfNome.setBounds(58, 11, 266, 20);
 		pnFisica.add(tfNome);
@@ -179,6 +184,7 @@ public class AtualizarClientes {
 		pnFisica.add(label_8);
 		
 		tfEmailF = new JTextField();
+		tfEmailF.setEnabled(false);
 		tfEmailF.setColumns(10);
 		tfEmailF.setBounds(58, 42, 232, 20);
 		pnFisica.add(tfEmailF);
@@ -214,11 +220,13 @@ public class AtualizarClientes {
 		pnFisica.add(label_13);
 		
 		tfNumeroF = new JTextField();
+		tfNumeroF.setEnabled(false);
 		tfNumeroF.setColumns(10);
 		tfNumeroF.setBounds(407, 135, 103, 20);
 		pnFisica.add(tfNumeroF);
 		
 		tfCPF = new JTextField();
+		tfCPF.setEnabled(false);
 		tfCPF.setColumns(10);
 		tfCPF.setBounds(58, 166, 200, 20);
 		pnFisica.add(tfCPF);
@@ -230,6 +238,7 @@ public class AtualizarClientes {
 		pnFisica.add(label_19);
 		
 		tfRG = new JTextField();
+		tfRG.setEnabled(false);
 		tfRG.setColumns(10);
 		tfRG.setBounds(58, 197, 200, 20);
 		pnFisica.add(tfRG);
@@ -241,11 +250,13 @@ public class AtualizarClientes {
 		pnFisica.add(label_20);
 		
 		tfMae = new JTextField();
+		tfMae.setEnabled(false);
 		tfMae.setColumns(10);
 		tfMae.setBounds(310, 168, 200, 20);
 		pnFisica.add(tfMae);
 		
 		tfPai = new JTextField();
+		tfPai.setEnabled(false);
 		tfPai.setColumns(10);
 		tfPai.setBounds(310, 197, 200, 20);
 		pnFisica.add(tfPai);
@@ -275,11 +286,13 @@ public class AtualizarClientes {
 		pnFisica.add(label_24);
 		
 		tfDataDeNascimento = new JTextField();
+		tfDataDeNascimento.setEnabled(false);
 		tfDataDeNascimento.setColumns(10);
 		tfDataDeNascimento.setBounds(157, 229, 153, 20);
 		pnFisica.add(tfDataDeNascimento);
 		
 		tfTel1F = new JTextField();
+		tfTel1F.setEnabled(false);
 		tfTel1F.setColumns(10);
 		tfTel1F.setBounds(58, 260, 200, 20);
 		pnFisica.add(tfTel1F);
@@ -291,6 +304,7 @@ public class AtualizarClientes {
 		pnFisica.add(label_25);
 		
 		tfTel2F = new JTextField();
+		tfTel2F.setEnabled(false);
 		tfTel2F.setColumns(10);
 		tfTel2F.setBounds(58, 291, 200, 20);
 		pnFisica.add(tfTel2F);
@@ -308,11 +322,13 @@ public class AtualizarClientes {
 		pnFisica.add(label_27);
 		
 		tfCel1F = new JTextField();
+		tfCel1F.setEnabled(false);
 		tfCel1F.setColumns(10);
 		tfCel1F.setBounds(310, 260, 200, 20);
 		pnFisica.add(tfCel1F);
 		
 		tfCel2F = new JTextField();
+		tfCel2F.setEnabled(false);
 		tfCel2F.setColumns(10);
 		tfCel2F.setBounds(310, 291, 200, 20);
 		pnFisica.add(tfCel2F);
@@ -330,10 +346,12 @@ public class AtualizarClientes {
 		pnFisica.add(label_29);
 		
 		comboUFF = new JComboBox();
+		comboUFF.setEnabled(false);
 		comboUFF.setBounds(58, 74, 163, 20);
 		pnFisica.add(comboUFF);
 		
 		btnAdicionarCidadeF = new JButton("...");
+		btnAdicionarCidadeF.setEnabled(false);
 		btnAdicionarCidadeF.setForeground(Color.WHITE);
 		btnAdicionarCidadeF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarCidadeF.setFocusable(false);
@@ -342,6 +360,7 @@ public class AtualizarClientes {
 		pnFisica.add(btnAdicionarCidadeF);
 		
 		JButton btnAdicionarBairroF = new JButton("...");
+		btnAdicionarBairroF.setEnabled(false);
 		btnAdicionarBairroF.setForeground(Color.WHITE);
 		btnAdicionarBairroF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarBairroF.setFocusable(false);
@@ -350,6 +369,7 @@ public class AtualizarClientes {
 		pnFisica.add(btnAdicionarBairroF);
 		
 		JButton btnAdicionarRuaF = new JButton("...");
+		btnAdicionarRuaF.setEnabled(false);
 		btnAdicionarRuaF.setForeground(Color.WHITE);
 		btnAdicionarRuaF.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarRuaF.setFocusable(false);
@@ -358,27 +378,33 @@ public class AtualizarClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
+		comboCidadeF.setEnabled(false);
 		comboCidadeF.setBounds(310, 74, 163, 19);
 		pnFisica.add(comboCidadeF);
 		
 		comboBairroF = new JComboBox();
+		comboBairroF.setEnabled(false);
 		comboBairroF.setBounds(58, 104, 232, 19);
 		pnFisica.add(comboBairroF);
 		
 		comboRuaF = new JComboBox();
+		comboRuaF.setEnabled(false);
 		comboRuaF.setBounds(58, 136, 232, 19);
 		pnFisica.add(comboRuaF);
 		
 		tpObservacoesF = new JTextPane();
+		tpObservacoesF.setEnabled(false);
 		tpObservacoesF.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		tpObservacoesF.setBounds(58, 322, 453, 83);
 		pnFisica.add(tpObservacoesF);
 		
 		comboEstadoCivil = new JComboBox();
+		comboEstadoCivil.setEnabled(false);
 		comboEstadoCivil.setBounds(407, 229, 103, 20);
 		pnFisica.add(comboEstadoCivil);
 		
 		pnJuridica = new JPanel();
+		pnJuridica.setVisible(false);
 		pnJuridica.setLayout(null);
 		pnJuridica.setOpaque(false);
 		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -391,6 +417,7 @@ public class AtualizarClientes {
 		pnJuridica.add(lblRazoSocial);
 		
 		tfRazaoSocial = new JTextField();
+		tfRazaoSocial.setEnabled(false);
 		tfRazaoSocial.setColumns(10);
 		tfRazaoSocial.setBounds(100, 11, 410, 20);
 		pnJuridica.add(tfRazaoSocial);
@@ -401,6 +428,7 @@ public class AtualizarClientes {
 		pnJuridica.add(label_2);
 		
 		tfEmailJ = new JTextField();
+		tfEmailJ.setEnabled(false);
 		tfEmailJ.setColumns(10);
 		tfEmailJ.setBounds(58, 42, 232, 20);
 		pnJuridica.add(tfEmailJ);
@@ -436,11 +464,13 @@ public class AtualizarClientes {
 		pnJuridica.add(label_7);
 		
 		tfNumeroJ = new JTextField();
+		tfNumeroJ.setEnabled(false);
 		tfNumeroJ.setColumns(10);
 		tfNumeroJ.setBounds(407, 135, 103, 20);
 		pnJuridica.add(tfNumeroJ);
 		
 		tfCNPJ = new JTextField();
+		tfCNPJ.setEnabled(false);
 		tfCNPJ.setColumns(10);
 		tfCNPJ.setBounds(58, 166, 200, 20);
 		pnJuridica.add(tfCNPJ);
@@ -452,6 +482,7 @@ public class AtualizarClientes {
 		pnJuridica.add(lblCnpj);
 		
 		tfIE = new JTextField();
+		tfIE.setEnabled(false);
 		tfIE.setColumns(10);
 		tfIE.setBounds(310, 168, 200, 20);
 		pnJuridica.add(tfIE);
@@ -463,6 +494,7 @@ public class AtualizarClientes {
 		pnJuridica.add(lblIe);
 		
 		tfTel1J = new JTextField();
+		tfTel1J.setEnabled(false);
 		tfTel1J.setColumns(10);
 		tfTel1J.setBounds(58, 197, 200, 20);
 		pnJuridica.add(tfTel1J);
@@ -474,6 +506,7 @@ public class AtualizarClientes {
 		pnJuridica.add(label_14);
 		
 		tfTel2J = new JTextField();
+		tfTel2J.setEnabled(false);
 		tfTel2J.setColumns(10);
 		tfTel2J.setBounds(58, 228, 200, 20);
 		pnJuridica.add(tfTel2J);
@@ -491,11 +524,13 @@ public class AtualizarClientes {
 		pnJuridica.add(label_16);
 		
 		tfCel1J = new JTextField();
+		tfCel1J.setEnabled(false);
 		tfCel1J.setColumns(10);
 		tfCel1J.setBounds(310, 199, 200, 20);
 		pnJuridica.add(tfCel1J);
 		
 		tfCel2J = new JTextField();
+		tfCel2J.setEnabled(false);
 		tfCel2J.setColumns(10);
 		tfCel2J.setBounds(310, 230, 200, 20);
 		pnJuridica.add(tfCel2J);
@@ -513,10 +548,12 @@ public class AtualizarClientes {
 		pnJuridica.add(label_18);
 		
 		comboUFJ = new JComboBox();
+		comboUFJ.setEnabled(false);
 		comboUFJ.setBounds(58, 74, 163, 20);
 		pnJuridica.add(comboUFJ);
 		
 		JButton btnAdicionarCidadeJ = new JButton("...");
+		btnAdicionarCidadeJ.setEnabled(false);
 		btnAdicionarCidadeJ.setForeground(Color.WHITE);
 		btnAdicionarCidadeJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarCidadeJ.setFocusable(false);
@@ -525,6 +562,7 @@ public class AtualizarClientes {
 		pnJuridica.add(btnAdicionarCidadeJ);
 		
 		btnAdicionarBairroJ = new JButton("...");
+		btnAdicionarBairroJ.setEnabled(false);
 		btnAdicionarBairroJ.setForeground(Color.WHITE);
 		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarBairroJ.setFocusable(false);
@@ -533,6 +571,7 @@ public class AtualizarClientes {
 		pnJuridica.add(btnAdicionarBairroJ);
 		
 		btnAdicionarRuaJ = new JButton("...");
+		btnAdicionarRuaJ.setEnabled(false);
 		btnAdicionarRuaJ.setForeground(Color.WHITE);
 		btnAdicionarRuaJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAdicionarRuaJ.setFocusable(false);
@@ -541,18 +580,22 @@ public class AtualizarClientes {
 		pnJuridica.add(btnAdicionarRuaJ);
 		
 		comboCidadeJ = new JComboBox();
+		comboCidadeJ.setEnabled(false);
 		comboCidadeJ.setBounds(310, 74, 163, 19);
 		pnJuridica.add(comboCidadeJ);
 		
 		comboBairroJ = new JComboBox();
+		comboBairroJ.setEnabled(false);
 		comboBairroJ.setBounds(58, 104, 232, 19);
 		pnJuridica.add(comboBairroJ);
 		
 		comboRuaJ = new JComboBox();
+		comboRuaJ.setEnabled(false);
 		comboRuaJ.setBounds(58, 136, 232, 19);
 		pnJuridica.add(comboRuaJ);
 		
 		tpObservacoesJ = new JTextPane();
+		tpObservacoesJ.setEnabled(false);
 		tpObservacoesJ.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		tpObservacoesJ.setBounds(58, 259, 453, 146);
 		pnJuridica.add(tpObservacoesJ);
@@ -566,6 +609,13 @@ public class AtualizarClientes {
 		frmSigAtualizar.getContentPane().add(btnVoltar);
 		
 		btnAlterar = new JButton("Alterar");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAlterar.setVisible(false);
+				btnCancelar.setVisible(true);
+				btnSalvar.setVisible(true);
+			}
+		});
 		btnAlterar.setForeground(Color.WHITE);
 		btnAlterar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnAlterar.setFocusable(false);
@@ -574,6 +624,13 @@ public class AtualizarClientes {
 		frmSigAtualizar.getContentPane().add(btnAlterar);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAlterar.setVisible(true);
+				btnCancelar.setVisible(false);
+				btnSalvar.setVisible(false);
+			}
+		});
 		btnCancelar.setVisible(false);
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("Impact", Font.PLAIN, 13));
