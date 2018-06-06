@@ -93,7 +93,7 @@ public class CRUDClientes {
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			stmt.setInt(1, idClienteSelecionado);
-			dadosSelect = stmt.executeQuery();
+			dadosEspecificos = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
 			return dadosEspecificos;
@@ -103,4 +103,5 @@ public class CRUDClientes {
 			return dadosEspecificos = null;
 		}
 	}
+	
 }

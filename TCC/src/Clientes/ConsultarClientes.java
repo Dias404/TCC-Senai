@@ -22,7 +22,7 @@ public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
-	public int idSelecionado;
+	public static int idSelecionado;
 
 	/**
 	 * Launch the application.

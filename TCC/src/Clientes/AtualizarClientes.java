@@ -25,6 +25,8 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AtualizarClientes {
 
@@ -779,16 +781,33 @@ public class AtualizarClientes {
 	
 	private boolean preencherCampos() {
 		CRUDClientes select = new CRUDClientes();
-		ConsultarClientes pegarIdTabela = new ConsultarClientes();
-		select.selectDadosClienteEspecifico(pegarIdTabela.idSelecionado);
+		select.selectDadosClienteEspecifico(ConsultarClientes.idSelecionado);
 		try {
-			System.out.println(select.dadosEspecificos.getString("nome"));
+			if (select.dadosEspecificos.first()) {
+				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Física")) {
+					rbFisica.setSelected(true);
+					pnFisica.setVisible(true);
+					pnJuridica.setVisible(false);
+					
+					tfNome.setText(select.dadosEspecificos.getString("nome_razao").toString());
+					tfEmailF.setText(select.dadosEspecificos.getString("email").toString());
+					tfNumeroF.setText(select.dadosEspecificos.getString("numero").toString());
+					tfCPF.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
+				}
+				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Jurídica")) {
+					rbJuridica.setSelected(true);
+					pnJuridica.setVisible(true);
+					pnFisica.setVisible(false);
+					
+					tfRazaoSocial.setText(select.dadosEspecificos.getString("nome_razao").toString());
+				}
+			}
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		
-		return true;
 	}
 	
 	
