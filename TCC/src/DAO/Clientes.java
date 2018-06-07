@@ -16,11 +16,11 @@ public class Clientes {
 	public String RG_IE;
 	public String mae;
 	public String pai;
+	public String dataDeNascimento;
 	public String estadoCivil;
 	public String tel1;
 	public String tel2;
 	public String cel1;
-	public String cel2;
 	
 	public int getIdCliente() {
 		return idCliente;
@@ -106,6 +106,12 @@ public class Clientes {
 	public void setPai(String pai) {
 		this.pai = pai;
 	}
+	public String getDataDeNascimento() {
+		return dataDeNascimento;
+	}
+	public void setDataDeNascimento(String dataDeNascimento) {
+		this.dataDeNascimento = dataDeNascimento;
+	}
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}
@@ -136,5 +142,6 @@ public class Clientes {
 	public void setCel2(String cel2) {
 		this.cel2 = cel2;
 	}
+	public String cel2;
 	
 }

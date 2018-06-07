@@ -210,6 +210,7 @@ public class CadastroDeClientes {
 					cliFi.setRG_IE(tfRG.getText().toString());
 					cliFi.setMae(tfMae.getText().toString());
 					cliFi.setPai(tfPai.getText().toString());
+					cliFi.setDataDeNascimento(tfDataDeNascimento.getText().toString());
 					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
 					cliFi.setTel1(tfTel1F.getText().toString());
 					cliFi.setTel2(tfTel2F.getText().toString());

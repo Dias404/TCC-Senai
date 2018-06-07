@@ -799,6 +799,7 @@ public class AtualizarClientes {
 						rbFeminino.setSelected(true);
 					}
 					tfEmailF.setText(select.dadosEspecificos.getString("email").toString());
+					//comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
 					comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
 					comboCidadeF.setSelectedItem(select.dadosEspecificos.getString("cidade").toString());
 					comboBairroF.setSelectedItem(select.dadosEspecificos.getString("bairro").toString());
@@ -808,7 +809,12 @@ public class AtualizarClientes {
 					tfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
 					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
 					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
-					tfDataDeNascimento.setText(select.dadosEspecificos.getString("data_").toString());
+					tfDataDeNascimento.setText(select.dadosEspecificos.getString("data_de_nascimento").toString());
+					comboEstadoCivil.setSelectedItem(select.dadosEspecificos.getString("estado_civil").toString());
+					tfTel1F.setText(select.dadosEspecificos.getString("tel1").toString());
+					tfTel2F.setText(select.dadosEspecificos.getString("tel2").toString());
+					tfCel1F.setText(select.dadosEspecificos.getString("cel1").toString());
+					tfCel2F.setText(select.dadosEspecificos.getString("cel2").toString());
 					
 				}
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Jurídica")) {
@@ -817,6 +823,17 @@ public class AtualizarClientes {
 					pnFisica.setVisible(false);
 					
 					tfRazaoSocial.setText(select.dadosEspecificos.getString("nome_razao").toString());
+					tfEmailJ.setText(select.dadosEspecificos.getString("email").toString());
+					comboCidadeJ.setSelectedItem(select.dadosEspecificos.getString("cidade").toString());
+					comboBairroJ.setSelectedItem(select.dadosEspecificos.getString("bairro").toString());
+					comboRuaJ.setSelectedItem(select.dadosEspecificos.getString("rua").toString());
+					tfNumeroJ.setText(select.dadosEspecificos.getString("numero").toString());
+					tfCNPJ.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
+					tfIE.setText(select.dadosEspecificos.getString("rg_ie").toString());
+					tfTel1J.setText(select.dadosEspecificos.getString("tel1").toString());
+					tfTel2J.setText(select.dadosEspecificos.getString("tel2").toString());
+					tfCel1J.setText(select.dadosEspecificos.getString("cel1").toString());
+					tfCel2J.setText(select.dadosEspecificos.getString("cel2").toString());
 				}
 			}
 			return true;

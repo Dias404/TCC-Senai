@@ -15,7 +15,7 @@ public class CRUDClientes {
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
-			String sql = "INSERT INTO clientes (tipo_de_pessoa,nome_razao,sexo,email,uf,cidade,bairro,rua,numero,cpf_cnpj,rg_ie,mae,pai,estado_civil,tel1,tel2,cel1,cel2) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO clientes (tipo_de_pessoa,nome_razao,sexo,email,uf,cidade,bairro,rua,numero,cpf_cnpj,rg_ie,mae,pai,data_de_nascimento,estado_civil,tel1,tel2,cel1,cel2) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			stmt.setString(1, cliente.getTipoDePessoa());
 			stmt.setString(2, cliente.getNomeRazao());
@@ -30,11 +30,12 @@ public class CRUDClientes {
 			stmt.setString(11, cliente.getRG_IE());
 			stmt.setString(12, cliente.getMae());
 			stmt.setString(13, cliente.getPai());
-			stmt.setString(14, cliente.getEstadoCivil());
-			stmt.setString(15, cliente.getTel1());
-			stmt.setString(16, cliente.getTel2());
-			stmt.setString(17, cliente.getCel1());
-			stmt.setString(18, cliente.getCel2());
+			stmt.setString(14, cliente.getDataDeNascimento());
+			stmt.setString(15, cliente.getEstadoCivil());
+			stmt.setString(16, cliente.getTel1());
+			stmt.setString(17, cliente.getTel2());
+			stmt.setString(18, cliente.getCel1());
+			stmt.setString(19, cliente.getCel2());
 			stmt.execute();
 			stmt.close();
 			return true;
