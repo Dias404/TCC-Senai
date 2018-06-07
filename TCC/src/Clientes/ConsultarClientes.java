@@ -136,6 +136,6 @@ public class ConsultarClientes {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
+	
 }

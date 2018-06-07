@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
@@ -481,7 +482,6 @@ public class CadastroDeClientes {
 		pnFisica.add(label_18);
 		
 		comboUFF = new JComboBox();
-		comboUFF.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		comboUFF.setBounds(58, 74, 163, 20);
 		comboUFF.setSelectedItem("São Paulo");
 		pnFisica.add(comboUFF);
@@ -526,17 +526,14 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
-		comboCidadeF.setModel(new DefaultComboBoxModel(new String[] {"teste1"}));
 		comboCidadeF.setBounds(310, 74, 163, 19);
 		pnFisica.add(comboCidadeF);
 		
 		comboBairroF = new JComboBox();
-		comboBairroF.setModel(new DefaultComboBoxModel(new String[] {"teste2"}));
 		comboBairroF.setBounds(58, 104, 232, 19);
 		pnFisica.add(comboBairroF);
 		
 		comboRuaF = new JComboBox();
-		comboRuaF.setModel(new DefaultComboBoxModel(new String[] {"teste3"}));
 		comboRuaF.setBounds(58, 136, 232, 19);
 		pnFisica.add(comboRuaF);
 		
@@ -681,7 +678,6 @@ public class CadastroDeClientes {
 		pnJuridica.add(label_31);
 		
 		comboUFJ = new JComboBox();
-		comboUFJ.setModel(new DefaultComboBoxModel(new String[] {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		comboUFJ.setBounds(58, 74, 163, 20);
 		comboUFJ.setSelectedItem("São Paulo");
 		pnJuridica.add(comboUFJ);
@@ -726,17 +722,14 @@ public class CadastroDeClientes {
 		pnJuridica.add(btnAdicionarRuaJ);
 		
 		comboCidadeJ = new JComboBox();
-		comboCidadeJ.setModel(new DefaultComboBoxModel(new String[] {"teste4"}));
 		comboCidadeJ.setBounds(310, 74, 163, 19);
 		pnJuridica.add(comboCidadeJ);
 		
 		comboBairroJ = new JComboBox();
-		comboBairroJ.setModel(new DefaultComboBoxModel(new String[] {"teste5"}));
 		comboBairroJ.setBounds(58, 104, 232, 19);
 		pnJuridica.add(comboBairroJ);
 		
 		comboRuaJ = new JComboBox();
-		comboRuaJ.setModel(new DefaultComboBoxModel(new String[] {"teste6"}));
 		comboRuaJ.setBounds(58, 136, 232, 19);
 		pnJuridica.add(comboRuaJ);
 		
@@ -757,5 +750,25 @@ public class CadastroDeClientes {
 		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"}));
 		comboEstadoCivil.setBounds(407, 229, 103, 20);
 		pnFisica.add(comboEstadoCivil);
+		
+		preencherComboUF();
+		comboUFF.setSelectedItem("São Paulo");
+		comboUFJ.setSelectedItem("São Paulo");
+	}
+	
+	private boolean preencherComboUF() {
+		CRUDClientes selecionar = new CRUDClientes();
+		selecionar.selectUF();
+		try {
+			while (selecionar.dadosEstados.next()) {
+				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
+				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

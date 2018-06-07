@@ -12,6 +12,7 @@ public class CRUDClientes {
 	Conexao con = new Conexao();
 	public ResultSet dadosSelect = null;
 	public ResultSet dadosEspecificos = null;
+	public ResultSet dadosEstados = null;
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
@@ -102,6 +103,21 @@ public class CRUDClientes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return dadosEspecificos = null;
+		}
+	}
+	
+	public ResultSet selectUF() {
+		String sql = "SELECT (nome_estado) FROM estados";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosEstados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosEstados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosEstados = null;
 		}
 	}
 	
