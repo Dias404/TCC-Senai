@@ -790,9 +790,26 @@ public class AtualizarClientes {
 					pnJuridica.setVisible(false);
 					
 					tfNome.setText(select.dadosEspecificos.getString("nome_razao").toString());
+					if (select.dadosEspecificos.getString("sexo").equals("Masculino")) {
+						rbMasculino.setSelected(true);
+						rbFeminino.setSelected(false);
+					}
+					if (select.dadosEspecificos.getString("sexo").equals("Feminino")) {
+						rbMasculino.setSelected(false);
+						rbFeminino.setSelected(true);
+					}
 					tfEmailF.setText(select.dadosEspecificos.getString("email").toString());
+					comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
+					comboCidadeF.setSelectedItem(select.dadosEspecificos.getString("cidade").toString());
+					comboBairroF.setSelectedItem(select.dadosEspecificos.getString("bairro").toString());
+					comboRuaF.setSelectedItem(select.dadosEspecificos.getString("rua").toString());
 					tfNumeroF.setText(select.dadosEspecificos.getString("numero").toString());
 					tfCPF.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
+					tfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
+					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
+					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
+					tfDataDeNascimento.setText(select.dadosEspecificos.getString("data_").toString());
+					
 				}
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Jurídica")) {
 					rbJuridica.setSelected(true);
