@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Banco.Conexao;
-import DAO.Clientes;
 import DAO.Usuarios;
 
 public class CRUDUsuarios {
@@ -33,7 +32,7 @@ public class CRUDUsuarios {
 	}
 	
 	public ResultSet selectUsuarios() {
-		String sql = "SELECT * FROM usuarios";
+		String sql = "SELECT * FROM usuarios ORDER BY email ASC";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();

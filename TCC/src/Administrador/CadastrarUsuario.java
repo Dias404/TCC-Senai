@@ -13,6 +13,8 @@ import java.awt.Image;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import CRUD.CRUDUsuarios;
+import DAO.Usuarios;
 import Telas.TelaPrincipal;
 
 import javax.swing.JPasswordField;
@@ -163,19 +165,12 @@ public class CadastrarUsuario {
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!(tfUsuario.getText().isEmpty() && pfSenha.getText().isEmpty() && pfConfirmar.getText().isEmpty() && 
-				tfEmail.getText().isEmpty() && tfFone.getText().isEmpty() && tfCel.getText().isEmpty())) {
-					tfUsuario.setText(null);
-					pfSenha.setText(null);
-					pfConfirmar.setText(null);
-					tfEmail.setText(null);
-					tfFone.setText(null);
-					tfCel.setText(null);
-					JOptionPane.showMessageDialog(null, "Os campos foram esvaziados!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Os campos já estão vazios!");
-				}
-				
+				tfUsuario.setText(null);
+				pfSenha.setText(null);
+				pfConfirmar.setText(null);
+				tfEmail.setText(null);
+				tfFone.setText(null);
+				tfCel.setText(null);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
@@ -190,6 +185,25 @@ public class CadastrarUsuario {
 		BG = new ImageIcon(BG2);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if((!tfUsuario.getText().isEmpty()) && (!pfSenha.getText().isEmpty()) && (!tfEmail.getText().isEmpty())
+				&& (pfSenha.getText().equals(pfConfirmar.getText()))) {
+					CRUDUsuarios insert = new CRUDUsuarios();
+					Usuarios u = new Usuarios();
+					u.setNome(tfUsuario.getText().toString());
+					u.setSenha(pfSenha.getText().toString());
+					u.setEmail(tfEmail.getText().toString());
+					u.setFone(tfFone.getText().toString());
+					u.setCel(tfCel.getText().toString());
+					insert.insertUsuario(u);
+					JOptionPane.showMessageDialog(null, "O Usuário foi cadastrado!");
+					btnLimpar.doClick();
+				}else {
+					JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Usuário!");
+				}
+			}
+		});
 		btnSalvar.setFocusable(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));

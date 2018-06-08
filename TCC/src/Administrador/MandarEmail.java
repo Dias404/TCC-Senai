@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
+import CRUD.CRUDClientes;
 import CRUD.CRUDUsuarios;
 import Telas.TelaPrincipal;
 
@@ -92,6 +93,7 @@ public class MandarEmail {
 		btnMandar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				enviarEmail();
+				epMsg.setText(null);
 			}
 		});
 		btnMandar.setBounds(445, 363, 89, 23);
@@ -105,7 +107,6 @@ public class MandarEmail {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMandarEmail.dispose();
-				
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);
@@ -129,7 +130,6 @@ public class MandarEmail {
 		cbEmail = new JComboBox();
 		cbEmail.setBounds(51, 9, 313, 20);
 		pnEmail.add(cbEmail);
-		cbEmail.addItem("carol.dragneel14@gmail.com");
 		
 		epMsg = new JEditorPane();
 		epMsg.setBorder(new LineBorder(Color.decode("#0049aa"), 2));
@@ -140,6 +140,8 @@ public class MandarEmail {
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 544, 397);
 		frmMandarEmail.getContentPane().add(lblBG);
+		
+		preencherEmailUsuarios();
 	}
 	
 	public String enviarEmail() {
@@ -178,9 +180,21 @@ public class MandarEmail {
 	
 	}
 	
-	public void preencherEmail() {
+	public void preencherEmailUsuarios() {
 		CRUDUsuarios select = new CRUDUsuarios();
 		select.selectUsuarios();
+		try {
+			while(select.dadosSelect.next()) {
+				cbEmail.addItem(select.dadosSelect.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void preencherEmailClientes() {
+		CRUDClientes select = new CRUDClientes();
+		select.selectClientes();
 		try {
 			while(select.dadosSelect.next()) {
 				cbEmail.addItem(select.dadosSelect.getString("email"));

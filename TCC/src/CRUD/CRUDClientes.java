@@ -76,7 +76,22 @@ public class CRUDClientes {
 	}
 	
 	public ResultSet selectClientes() {
-		String sql = "SELECT * FROM clientes";
+		String sql = "SELECT * FROM clientes ORDER BY nome";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
+	public ResultSet selectClientesByEmail() {
+		String sql = "SELECT * FROM clientes ORDER BY email";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
