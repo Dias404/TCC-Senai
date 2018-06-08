@@ -13,6 +13,7 @@ public class CRUDClientes {
 	public ResultSet dadosSelect = null;
 	public ResultSet dadosEspecificos = null;
 	public ResultSet dadosEstados = null;
+	public ResultSet dadosCidades = null;
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
@@ -122,7 +123,7 @@ public class CRUDClientes {
 	}
 	
 	public ResultSet selectUF() {
-		String sql = "SELECT (nome_estado) FROM estados";
+		String sql = "SELECT * FROM estados";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosEstados = stmt.executeQuery();
@@ -133,6 +134,22 @@ public class CRUDClientes {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return dadosEstados = null;
+		}
+	}
+	
+	public ResultSet selectCidade(int idEstado) {
+		String sql = "SELECT (nome_cidade) FROM cidades WHERE id_estado=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idEstado);
+			dadosCidades = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosCidades;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosCidades = null;
 		}
 	}
 	
