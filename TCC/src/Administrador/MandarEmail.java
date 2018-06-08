@@ -147,7 +147,6 @@ public class MandarEmail {
 	
 	public String enviarEmail() {
 		String para = cbEmail.getSelectedItem().toString();
-		
 		String emailLogado = "projetojavasenai@gmail.com";
 		String senhaEmailLogado = "senai123";
 		String usuarioEmailLogado = "Jão";
@@ -160,7 +159,7 @@ public class MandarEmail {
 				enviarEmail.setSmtpPort(465);
 			}if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
 				enviarEmail.setHostName("smtp-mail.outlook.com"); 
-				enviarEmail.setSmtpPort(587);
+				enviarEmail.setSmtpPort(587); //25
 			}
 			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
 			enviarEmail.setSSLOnConnect(true);
@@ -185,7 +184,7 @@ public class MandarEmail {
 		select.selectUsuarios();
 		try {
 			while(select.dadosSelect.next()) {
-				cbEmail.addItem(select.dadosSelect.getString("nome")+" - "+select.dadosSelect.getString("email"));
+				cbEmail.addItem(/*select.dadosSelect.getString("nome")+" - "+*/select.dadosSelect.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,7 +196,7 @@ public class MandarEmail {
 		select.selectClientesByEmail();
 		try {
 			while(select.dadosSelect.next()) {
-				cbEmail.addItem(select.dadosSelect.getString("nome")+" - "+select.dadosSelect.getString("email"));
+				cbEmail.addItem(/*select.dadosSelect.getString("nome")+" - "+*/select.dadosSelect.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
