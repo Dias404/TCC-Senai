@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import javax.swing.JSeparator;
 
 public class MandarEmail {
 
@@ -172,7 +173,6 @@ public class MandarEmail {
 			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
 			return "certo";
 		} catch (EmailException arg0) {
-			// TODO Auto-generated catch block
 			arg0.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Email Inválido");
 			return "Fail";
@@ -185,7 +185,7 @@ public class MandarEmail {
 		select.selectUsuarios();
 		try {
 			while(select.dadosSelect.next()) {
-				cbEmail.addItem(select.dadosSelect.getString("email"));
+				cbEmail.addItem(select.dadosSelect.getString("nome")+" - "+select.dadosSelect.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -194,14 +194,13 @@ public class MandarEmail {
 	
 	public void preencherEmailClientes() {
 		CRUDClientes select = new CRUDClientes();
-		select.selectClientes();
+		select.selectClientesByEmail();
 		try {
 			while(select.dadosSelect.next()) {
-				cbEmail.addItem(select.dadosSelect.getString("email"));
+				cbEmail.addItem(select.dadosSelect.getString("nome")+" - "+select.dadosSelect.getString("email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
 }

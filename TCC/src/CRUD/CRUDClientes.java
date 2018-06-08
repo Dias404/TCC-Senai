@@ -92,7 +92,7 @@ public class CRUDClientes {
 	}
 	
 	public ResultSet selectClientesByEmail() {
-		String sql = "SELECT * FROM clientes ORDER BY email";
+		String sql = "SELECT * FROM clientes ORDER BY nome";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
