@@ -761,9 +761,12 @@ public class CadastroDeClientes {
 		selecionar.selectUF();
 		try {
 			while (selecionar.dadosEstados.next()) {
+				comboUFF.removeAllItems();
+				comboUFJ.removeAllItems();
 				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
 			}
+			while () {}
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
