@@ -32,7 +32,7 @@ public class CRUDUsuarios {
 	}
 	
 	public ResultSet selectUsuarios() {
-		String sql = "SELECT * FROM usuarios ORDER BY email ASC";
+		String sql = "SELECT * FROM usuarios ORDER BY nome ASC";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
