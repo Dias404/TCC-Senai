@@ -760,13 +760,19 @@ public class CadastroDeClientes {
 		CRUDClientes selecionar = new CRUDClientes();
 		selecionar.selectUF();
 		try {
+			selecionar.selectCidade(selecionar.dadosEstados.getInt("id_estado"));
 			while (selecionar.dadosEstados.next()) {
 				comboUFF.removeAllItems();
 				comboUFJ.removeAllItems();
 				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
 			}
-			while () {}
+			while (selecionar.dadosCidades.next()) {
+				comboCidadeF.removeAllItems();
+				comboCidadeJ.removeAllItems();
+				comboCidadeF.addItem(selecionar.dadosEstados.getString("nome_estado"));
+				comboCidadeJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
+			}
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
