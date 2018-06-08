@@ -31,6 +31,8 @@ import CRUD.CRUDClientes;
 import DAO.Clientes;
 
 import javax.swing.JFormattedTextField;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CadastroDeClientes {
 
@@ -482,6 +484,11 @@ public class CadastroDeClientes {
 		pnFisica.add(label_18);
 		
 		comboUFF = new JComboBox();
+		comboUFF.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+			}
+		});
 		comboUFF.setBounds(58, 74, 163, 20);
 		comboUFF.setSelectedItem("São Paulo");
 		pnFisica.add(comboUFF);
@@ -489,7 +496,24 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeF = new JButton("...");
 		btnAdicionarCidadeF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+				CRUDClientes insert = new CRUDClientes();
+				insert.selectUFId(comboUFF.getSelectedItem().toString());
+				int idEstado = 0;
+				try {
+					if (insert.idEstadoSelecionado.first()) {
+						idEstado = insert.idEstadoSelecionado.getInt("id_estado");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (insert.insertCidade(nomeCidade, idEstado)) {
+					JOptionPane.showMessageDialog(null, "Nova cidade inserida com sucesso!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir a nova cidade!", null, JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnAdicionarCidadeF.setForeground(Color.WHITE);
@@ -502,7 +526,24 @@ public class CadastroDeClientes {
 		btnAdicionarBairroF = new JButton("...");
 		btnAdicionarBairroF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+				String nomeBairro = JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+				CRUDClientes insert = new CRUDClientes();
+				insert.selectCidadeId(comboCidadeF.getSelectedItem().toString());
+				int idCidade = 0;
+				try {
+					if (insert.idCidadeSelecionado.first()) {
+						idCidade = insert.idCidadeSelecionado.getInt("id_cidade");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (insert.insertBairro(nomeBairro, idCidade)) {
+					JOptionPane.showMessageDialog(null, "Novo bairro inserido com sucesso!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir o novo bairro!", null, JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnAdicionarBairroF.setForeground(Color.WHITE);
@@ -526,6 +567,11 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
+		comboCidadeF.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+			
+			}
+		});
 		comboCidadeF.setBounds(310, 74, 163, 19);
 		pnFisica.add(comboCidadeF);
 		
@@ -685,7 +731,23 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeJ = new JButton("...");
 		btnAdicionarCidadeJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
+				CRUDClientes insert = new CRUDClientes();
+				insert.selectUFId(comboUFJ.getSelectedItem().toString());
+				int idEstado = 0;
+				try {
+					if (insert.idEstadoSelecionado.first()) {
+						idEstado = insert.idEstadoSelecionado.getInt("id_estado");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (insert.insertCidade(nomeCidade, idEstado)) {
+					JOptionPane.showMessageDialog(null, "Nova cidade inserida com sucesso!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir a nova cidade!", null, JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnAdicionarCidadeJ.setForeground(Color.WHITE);
@@ -752,6 +814,7 @@ public class CadastroDeClientes {
 		pnFisica.add(comboEstadoCivil);
 		
 		preencherComboUF();
+		//preencherComboCidade();
 		comboUFF.setSelectedItem("São Paulo");
 		comboUFJ.setSelectedItem("São Paulo");
 	}
@@ -759,19 +822,12 @@ public class CadastroDeClientes {
 	private boolean preencherComboUF() {
 		CRUDClientes selecionar = new CRUDClientes();
 		selecionar.selectUF();
+		comboUFF.removeAllItems();
+		comboUFJ.removeAllItems();
 		try {
-			selecionar.selectCidade(selecionar.dadosEstados.getInt("id_estado"));
 			while (selecionar.dadosEstados.next()) {
-				comboUFF.removeAllItems();
-				comboUFJ.removeAllItems();
 				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
-			}
-			while (selecionar.dadosCidades.next()) {
-				comboCidadeF.removeAllItems();
-				comboCidadeJ.removeAllItems();
-				comboCidadeF.addItem(selecionar.dadosEstados.getString("nome_estado"));
-				comboCidadeJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
 			}
 			return true;
 		} catch (SQLException e) {
@@ -780,4 +836,43 @@ public class CadastroDeClientes {
 			return false;
 		}
 	}
+	
+	/*
+	private boolean preencherComboCidade(int idEstado) {
+		CRUDClientes selecionar = new CRUDClientes();
+		selecionar.selectUF();
+		comboCidadeF.removeAllItems();
+		comboCidadeJ.removeAllItems();
+		try {
+			selecionar.selectCidade(idEstado);
+			while (selecionar.dadosCidades.next()) {
+				comboCidadeF.addItem(selecionar.dadosCidades.getString("nome_cidade"));
+				comboCidadeJ.addItem(selecionar.dadosCidades.getString("nome_cidade"));
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private boolean preencherComboBairro(int idCidade) {
+		CRUDClientes selecionar = new CRUDClientes();
+		comboBairroF.removeAllItems();
+		comboBairroJ.removeAllItems();
+		try {
+			selecionar.selectBairro(idCidade);
+			while (selecionar.dadosCidades.next()) {
+				comboCidadeF.addItem(selecionar.dadosBairros.getString("nome_bairro"));
+				comboCidadeJ.addItem(selecionar.dadosBairros.getString("nome_bairro"));
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	*/
 }

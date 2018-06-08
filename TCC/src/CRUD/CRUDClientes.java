@@ -13,7 +13,10 @@ public class CRUDClientes {
 	public ResultSet dadosSelect = null;
 	public ResultSet dadosEspecificos = null;
 	public ResultSet dadosEstados = null;
+	public ResultSet idEstadoSelecionado = null;
 	public ResultSet dadosCidades = null;
+	public ResultSet idCidadeSelecionado = null;
+	public ResultSet dadosBairros = null;
 	
 	public boolean insertClienteFisico(Clientes cliente) {
 		try {
@@ -137,6 +140,22 @@ public class CRUDClientes {
 		}
 	}
 	
+	public ResultSet selectUFId(String nomeEstado) {
+		String sql = "SELECT (id_estado) FROM estados WHERE nome_estado=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeEstado);
+			idEstadoSelecionado = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return idEstadoSelecionado;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return idEstadoSelecionado = null;
+		}
+	}
+	
 	public ResultSet selectCidade(int idEstado) {
 		String sql = "SELECT (nome_cidade) FROM cidades WHERE id_estado=?";
 		try {
@@ -152,5 +171,68 @@ public class CRUDClientes {
 			return dadosCidades = null;
 		}
 	}
+
+	public ResultSet selectCidadeId(String nomeCidade) {
+		String sql = "SELECT (id_cidade) FROM cidades WHERE nome_cidade=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeCidade);
+			idCidadeSelecionado = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return idCidadeSelecionado;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return idCidadeSelecionado = null;
+		}
+	}
 	
+	public ResultSet selectBairro(int idCidade) {
+		String sql = "SELECT (nome_bairro) FROM bairros WHERE id_cidade=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idCidade);
+			dadosBairros = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosBairros;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosBairros = null;
+		}
+	}
+	
+	public boolean insertCidade(String nomeCidade, int idEstado) {
+		String sql = "INSERT INTO cidades (nome_cidade,id_estado) VALUES (?,?)";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeCidade);
+			stmt.setInt(2, idEstado);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean insertBairro(String nomeBairro, int idCidade) {
+		String sql = "INSERT INTO bairros (nome_bairro,id_cidade) VALUES (?,?)";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeBairro);
+			stmt.setInt(2, idCidade);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
