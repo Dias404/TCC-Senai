@@ -70,6 +70,7 @@ public class MandarEmail {
 			public void windowClosed(WindowEvent arg0) {
 				TelaPrincipal.frmPrincipal.setEnabled(true);
 				TelaPrincipal.frmPrincipal.setVisible(true);
+				//teste
 			}
 		});
 		frmMandarEmail.setIconImage(Toolkit.getDefaultToolkit().getImage(MandarEmail.class.getResource("/Img/SIG 16x16.png")));
