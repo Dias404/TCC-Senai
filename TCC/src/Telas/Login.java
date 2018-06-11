@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -96,7 +97,7 @@ public class Login {
 		JButton btnRecuperarSenha = new JButton("Recuperar Senha");
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				String resp = JOptionPane.showInputDialog("Entre com um email cadastrado.");
 			}
 		});
 		btnRecuperarSenha.setForeground(Color.WHITE);

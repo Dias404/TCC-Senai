@@ -9,8 +9,8 @@ import DAO.Usuarios;
 
 public class CRUDUsuarios {
 
-	Conexao con = new Conexao();
-	public ResultSet dadosSelect = null;
+	static Conexao con = new Conexao();
+	public static ResultSet dadosSelect = null;
 	
 	public boolean insertUsuario(Usuarios usuario) {
 		try {
@@ -41,6 +41,35 @@ public class CRUDUsuarios {
 			return dadosSelect;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
+	public static ResultSet selectUsuarioCondition(String condicao) {
+		String sql = "SELECT * FROM usuarios WHERE "+condicao;
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
+	public ResultSet selectUsuarioLogado() {
+		String sql = "SELECT * FROM usuarios WHERE logged = 1";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return dadosSelect = null;
 		}
