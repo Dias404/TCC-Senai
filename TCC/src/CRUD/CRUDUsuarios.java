@@ -89,4 +89,20 @@ public class CRUDUsuarios {
 		}
 	}
 	
+	public static ResultSet selectCondicao2(String nome, String email) {
+		String sql = "SELECT * FROM usuarios WHERE nome = ? AND email = ?";
+		ResultSet rs = null;
+		try {
+			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			s.setString(1, nome);
+			s.setString(2, email);
+			rs = s.executeQuery();
+			s.execute();
+			s.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return rs;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package Email;
 
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -49,43 +50,32 @@ public class Email {
 	
 	}
 	
-	public static String enviarEmailRecuperarSenha(String resp) {
-		String emailLogado = "tccsig0@gmail.com";
-		String senhaEmailLogado = "siganadiasribeirojere";
-		String condicao = "email = "+resp;
-		ResultSet dados = CRUDUsuarios.selectUsuarioCondition(condicao);
-		String para = null;
-		String senha = null;
+	public static String enviarEmailRecuperarSenha(String nome, String email) {
+		ResultSet rs = CRUDUsuarios.selectCondicao2(nome, email);
 		try {
-			para = dados.getString("email");
-			senha = dados.getString("senha");
-		} catch (SQLException e) {e.printStackTrace();}
-		String msg = "Sua senha é: "+senha;
-		try {
-			SimpleEmail enviarEmail = new SimpleEmail();
-			if(para.contains("@gmail.com")) { // para gmail
-				enviarEmail.setHostName("smtp.gmail.com"); 
+			if(rs.next()) {
+				SimpleEmail enviarEmail = new SimpleEmail();
+				enviarEmail.setHostName("smtp.gmail.com");
 				enviarEmail.setSmtpPort(465);
+				enviarEmail.setAuthentication("tccsig0@gmail.com", "siganadiasribeirojere");
+				enviarEmail.setSSLOnConnect(true);
+				enviarEmail.setFrom("tccsig0@gmail.com");
+				enviarEmail.setSubject("SIG - Recuperação de Senha");
+				try {
+					enviarEmail.setMsg("Recuperação de Senha\n"
+						+ "Sua senha é: "+rs.getString("senha")
+						+"\n\nNão responda a este email. email automático.\n"
+						+ "SIG");
+				} catch (SQLException e) {e.printStackTrace();}
+				enviarEmail.addTo(email);
+				enviarEmail.send();
+				JOptionPane.showMessageDialog(null, "Um email contendo sua\nsenha foi enviado a \n"+email);
+			}else {
+				JOptionPane.showMessageDialog(null, nome+" ou "+email+"\nnão foi encontrado no banco.");
 			}
-			if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
-				enviarEmail.setHostName("smtp-mail.outlook.com"); 
-				enviarEmail.setSmtpPort(587); //25
-			}
-			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
-			enviarEmail.setSSLOnConnect(true);
-			//enviarEmail.setTLSOnConnect(true); <-- Se precisar
-			enviarEmail.setFrom(emailLogado);
-			enviarEmail.setSubject("SIG - Recuperação de Senha");
-			enviarEmail.setMsg(msg);
-			enviarEmail.addTo(para);
-			enviarEmail.send();
-			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
-			return "certo";
-		} catch (EmailException arg0) {
-			arg0.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Email Inválido");
-			return "Fail";
-		}
+			}catch(EmailException e){e.printStackTrace();
+			}catch (SQLException e) {e.printStackTrace();}
+	return "E-mail enviado com sucesso!";
 	}
 	
 }

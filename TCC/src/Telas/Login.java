@@ -103,20 +103,14 @@ public class Login {
 		JButton btnRecuperarSenha = new JButton("Recuperar Senha");
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String resp = JOptionPane.showInputDialog("Entre com um email cadastrado.");
-				String condicao = "email = "+resp;
-				ResultSet dados = CRUDUsuarios.selectUsuarioCondition(condicao);
-				try {
-					if(dados.next()) {
-						Email.enviarEmailRecuperarSenha(resp);
-						JOptionPane.showMessageDialog(frmLogin, "A sua senha está contida no email\nque foi enviado a este endereço:\n"+resp);
-					}else {
-						JOptionPane.showMessageDialog(frmLogin, "Este usuário não está cadastrado no banco de dados.");
-					}
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(frmLogin, "Ocorreu um erro ao mandar um email neste endereço: "+resp, 
-					"Erro", JOptionPane.ERROR_MESSAGE);
+				String nome = JOptionPane.showInputDialog("Entre com o nome do usuário cadastrado.");
+				String email = JOptionPane.showInputDialog("Entre com o email cadastrado neste usuário.");
+				if(nome.isEmpty() || email.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Usuário e(ou) Email inválido(s)");
+				}else {
+					Email.enviarEmailRecuperarSenha(nome, email);
+					nome = null;
+					email = null;
 				}
 			}
 		});
