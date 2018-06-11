@@ -22,7 +22,7 @@ public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
-	public static int idSelecionado;
+	public static String cliSelecionado;
 
 	/**
 	 * Launch the application.
@@ -74,7 +74,7 @@ public class ConsultarClientes {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int indexLinha = tabela.getSelectedRow();
-				idSelecionado = (int) tabela.getValueAt(indexLinha, 0);
+				cliSelecionado = (String) tabela.getValueAt(indexLinha, 9);
 				frmConsultaDeClientes.dispose();
 				AtualizarClientes.main(null);
 			}

@@ -81,11 +81,11 @@ public class CRUDClientes {
 		}
 	}
 	
-	public ResultSet selectDadosClienteEspecifico(int idClienteSelecionado) {
-		String sql = "SELECT * FROM clientes WHERE id_cliente=?";
+	public ResultSet selectDadosClienteEspecifico(String ClienteSelecionado) {
+		String sql = "SELECT * FROM clientes WHERE cpf_cnpj=?";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setInt(1, idClienteSelecionado);
+			stmt.setString(1, ClienteSelecionado);
 			dadosEspecificos = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -206,5 +206,21 @@ public class CRUDClientes {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean deleteCliente(int idCliente){
+		String sql = "DELETE FROM clientes WHERE id_cliente=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idCliente);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 }

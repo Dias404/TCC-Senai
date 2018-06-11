@@ -79,7 +79,8 @@ public class AtualizarClientes {
 	private JButton btnAdicionarBairroF;
 	private JButton btnAdicionarRuaF;
 	private JButton btnAdicionarCidadeJ;
-
+	private JButton btnRemover;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -645,52 +646,59 @@ public class AtualizarClientes {
 		btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnAlterar.setVisible(false);
-				btnCancelar.setVisible(true);
-				btnSalvar.setVisible(true);
-				
-				rbFisica.setEnabled(true);
-				rbJuridica.setEnabled(true);
-				tfNome.setEnabled(true);
-				tfRazaoSocial.setEnabled(true);
-				tfEmailF.setEnabled(true);
-				tfEmailJ.setEnabled(true);
-				rbMasculino.setEnabled(true);
-				rbFeminino.setEnabled(true);
-				comboUFF.setEnabled(true);
-				comboUFJ.setEnabled(true);
-				comboCidadeF.setEnabled(true);
-				comboCidadeJ.setEnabled(true);
-				btnAdicionarCidadeF.setEnabled(true);
-				btnAdicionarCidadeJ.setEnabled(true);
-				comboBairroF.setEnabled(true);
-				comboBairroJ.setEnabled(true);
-				btnAdicionarBairroF.setEnabled(true);
-				btnAdicionarBairroJ.setEnabled(true);
-				comboRuaF.setEnabled(true);
-				comboRuaJ.setEnabled(true);
-				btnAdicionarRuaF.setEnabled(true);
-				btnAdicionarRuaJ.setEnabled(true);
-				tfNumeroF.setEnabled(true);
-				tfNumeroJ.setEnabled(true);
-				tfCPF.setEnabled(true);
-				tfCNPJ.setEnabled(true);
-				tfRG.setEnabled(true);
-				tfIE.setEnabled(true);
-				tfMae.setEnabled(true);
-				tfPai.setEnabled(true);
-				tfDataDeNascimento.setEnabled(true);
-				comboEstadoCivil.setEnabled(true);
-				tfTel1F.setEnabled(true);
-				tfTel1J.setEnabled(true);
-				tfTel2F.setEnabled(true);
-				tfTel2J.setEnabled(true);
-				tfCel1F.setEnabled(true);
-				tfCel1J.setEnabled(true);
-				tfCel2F.setEnabled(true);
-				tfCel2J.setEnabled(true);
-				tpObservacoesF.setEnabled(true);
-				tpObservacoesJ.setEnabled(true);
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar os dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					btnAlterar.setVisible(false);
+					btnRemover.setVisible(true);
+					btnCancelar.setVisible(true);
+					btnSalvar.setVisible(true);
+					
+					rbFisica.setEnabled(true);
+					rbJuridica.setEnabled(true);
+					tfNome.setEnabled(true);
+					tfRazaoSocial.setEnabled(true);
+					tfEmailF.setEnabled(true);
+					tfEmailJ.setEnabled(true);
+					rbMasculino.setEnabled(true);
+					rbFeminino.setEnabled(true);
+					comboUFF.setEnabled(true);
+					comboUFJ.setEnabled(true);
+					comboCidadeF.setEnabled(true);
+					comboCidadeJ.setEnabled(true);
+					btnAdicionarCidadeF.setEnabled(true);
+					btnAdicionarCidadeJ.setEnabled(true);
+					comboBairroF.setEnabled(true);
+					comboBairroJ.setEnabled(true);
+					btnAdicionarBairroF.setEnabled(true);
+					btnAdicionarBairroJ.setEnabled(true);
+					comboRuaF.setEnabled(true);
+					comboRuaJ.setEnabled(true);
+					btnAdicionarRuaF.setEnabled(true);
+					btnAdicionarRuaJ.setEnabled(true);
+					tfNumeroF.setEnabled(true);
+					tfNumeroJ.setEnabled(true);
+					tfCPF.setEnabled(true);
+					tfCNPJ.setEnabled(true);
+					tfRG.setEnabled(true);
+					tfIE.setEnabled(true);
+					tfMae.setEnabled(true);
+					tfPai.setEnabled(true);
+					tfDataDeNascimento.setEnabled(true);
+					comboEstadoCivil.setEnabled(true);
+					tfTel1F.setEnabled(true);
+					tfTel1J.setEnabled(true);
+					tfTel2F.setEnabled(true);
+					tfTel2J.setEnabled(true);
+					tfCel1F.setEnabled(true);
+					tfCel1J.setEnabled(true);
+					tfCel2F.setEnabled(true);
+					tfCel2J.setEnabled(true);
+					tpObservacoesF.setEnabled(true);
+					tpObservacoesJ.setEnabled(true);
+				}
+				if (respostaJOP == JOptionPane.NO_OPTION) {
+					return;
+				}
 			}
 		});
 		btnAlterar.setForeground(Color.WHITE);
@@ -704,6 +712,7 @@ public class AtualizarClientes {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAlterar.setVisible(true);
+				btnRemover.setVisible(false);
 				btnCancelar.setVisible(false);
 				btnSalvar.setVisible(false);
 				
@@ -776,12 +785,47 @@ public class AtualizarClientes {
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
 		
+		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja romover o cliente?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					int idSelecionado = 0;
+					CRUDClientes id = new CRUDClientes();
+					id.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
+					try {
+						if (id.dadosEspecificos.first()) {
+							idSelecionado = id.dadosEspecificos.getInt("id_cliente");
+							id.deleteCliente(idSelecionado);
+							
+							JOptionPane.showMessageDialog(null, "O cliente foi removido com sucesso!");
+							ConsultarClientes.main(null);
+							frmAtualizarClientes.dispose();
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				if (respostaJOP == JOptionPane.NO_OPTION) {
+					return;
+				}
+			}
+		});
+		btnRemover.setVisible(false);
+		btnRemover.setForeground(Color.WHITE);
+		btnRemover.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnRemover.setFocusable(false);
+		btnRemover.setBackground(new Color(0, 73, 170));
+		btnRemover.setBounds(244, 492, 89, 23);
+		frmAtualizarClientes.getContentPane().add(btnRemover);
+		
 		preencherCampos();
 	}
 	
 	private boolean preencherCampos() {
 		CRUDClientes select = new CRUDClientes();
-		select.selectDadosClienteEspecifico(ConsultarClientes.idSelecionado);
+		select.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
 		try {
 			if (select.dadosEspecificos.first()) {
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Física")) {
@@ -843,10 +887,4 @@ public class AtualizarClientes {
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
-	
 }
