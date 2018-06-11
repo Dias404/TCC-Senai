@@ -17,12 +17,18 @@ import CRUD.CRUDClientes;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
 	public static String cliSelecionado;
+	private JButton btnVoltar;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -54,7 +60,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes = new JFrame();
 		frmConsultaDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeClientes.setTitle("SIG - Consulta de Clientes");
-		frmConsultaDeClientes.setBounds(100, 100, 688, 464);
+		frmConsultaDeClientes.setBounds(100, 100, 688, 620);
 		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmConsultaDeClientes.setResizable(false);
 		frmConsultaDeClientes.setLocationRelativeTo(null);
@@ -66,7 +72,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes.getContentPane().add(lblConsultaDeClientes);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 39, 662, 385);
+		scrollPane.setBounds(10, 162, 662, 385);
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
@@ -85,7 +91,6 @@ public class ConsultarClientes {
 		scrollPane.setViewportView(tabela);
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"Nome/Raz\u00E3o", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
@@ -116,6 +121,25 @@ public class ConsultarClientes {
 		tabela.getColumnModel().getColumn(16).setResizable(false);
 		tabela.getColumnModel().getColumn(17).setResizable(false);
 		tabela.getColumnModel().getColumn(18).setResizable(false);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 558, 89, 23);
+		frmConsultaDeClientes.getContentPane().add(btnVoltar);
+		
+		panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(10, 39, 662, 112);
+		frmConsultaDeClientes.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblPesquisarPor = new JLabel("Pesquisar por:");
+		lblPesquisarPor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPesquisarPor.setBounds(10, 11, 87, 15);
+		panel.add(lblPesquisarPor);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		
 		preencherTabela();
@@ -137,5 +161,4 @@ public class ConsultarClientes {
 			return false;
 		}
 	}
-	
 }
