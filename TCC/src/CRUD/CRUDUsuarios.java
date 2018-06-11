@@ -46,22 +46,7 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public static ResultSet selectUsuarioCondition(String condicao) {
-		String sql = "SELECT * FROM usuarios WHERE "+condicao;
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			dadosSelect = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return dadosSelect;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return dadosSelect = null;
-		}
-	}
-	
-	public ResultSet selectUsuarioLogado() {
+	public static ResultSet verificaLogado() {
 		String sql = "SELECT * FROM usuarios WHERE logged = 1";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
@@ -89,6 +74,22 @@ public class CRUDUsuarios {
 		}
 	}
 	
+	public static ResultSet selectCondicao1(String user, String senha) {
+		String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ?";
+		ResultSet rs = null;
+		try {
+			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			s.setString(1, user);
+			s.setString(2, senha);
+			rs = s.executeQuery();
+			s.execute();
+			s.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return rs;
+	}
+	
 	public static ResultSet selectCondicao2(String nome, String email) {
 		String sql = "SELECT * FROM usuarios WHERE nome = ? AND email = ?";
 		ResultSet rs = null;
@@ -103,6 +104,34 @@ public class CRUDUsuarios {
 			e1.printStackTrace();
 		}
 		return rs;
+	}
+	
+	public static boolean login(String user, String senha) {
+		String sql = "UPDATE usuarios SET logged = 1 WHERE nome = ? AND senha = ?";
+		try {
+			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			s.setString(1, user);
+			s.setString(2, senha);
+			s.execute();
+			s.close();
+			return true;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean logoff() {
+		String sql = "UPDATE usuarios SET logged = 0 WHERE logged = 1";
+		java.sql.PreparedStatement stmt;
+		try {
+			stmt = con.getConexao().prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e1) {e1.printStackTrace();
+			return false;
+		}
 	}
 	
 }

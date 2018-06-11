@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.HeadlessException;
+
 import javax.swing.JTextField;
 
 import CRUD.CRUDUsuarios;
@@ -97,7 +99,7 @@ public class Login {
 		btnFechar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnFechar.setFocusable(false);
 		btnFechar.setBackground(new Color(0, 73, 170));
-		btnFechar.setBounds(10, 95, 89, 23);
+		btnFechar.setBounds(10, 95, 79, 23);
 		frmLogin.getContentPane().add(btnFechar);
 		
 		JButton btnRecuperarSenha = new JButton("Recuperar Senha");
@@ -118,15 +120,45 @@ public class Login {
 		btnRecuperarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnRecuperarSenha.setFocusable(false);
 		btnRecuperarSenha.setBackground(new Color(0, 73, 170));
-		btnRecuperarSenha.setBounds(109, 95, 127, 23);
+		btnRecuperarSenha.setBounds(99, 95, 147, 23);
 		frmLogin.getContentPane().add(btnRecuperarSenha);
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String user = tfUsuario.getText().toString();
+				String senha = pfSenha.getText().toString();
+				ResultSet verifica = CRUDUsuarios.verificaLogado();
+				try {
+					if(verifica.next()) {
+						JOptionPane.showMessageDialog(frmLogin, "Já existe um usuário logado!");
+					}else {
+						ResultSet rs = CRUDUsuarios.selectCondicao1(user, senha);
+						if(rs.next()) {
+							CRUDUsuarios.login(user, senha);
+							JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
+							TelaPrincipal.main(null);
+							frmLogin.dispose();
+						}else {
+							JOptionPane.showMessageDialog(frmLogin, "Senha ou(e) Usuário Incorreto(s)!");
+							tfUsuario.setText(null);
+							pfSenha.setText(null);
+						}
+					}
+				} catch (HeadlessException e1) {e1.printStackTrace();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frmLogin, "An error has occured while logging in!");
+					tfUsuario.setText(null);
+					pfSenha.setText(null);
+				}
+			}
+		});
 		btnEntrar.setForeground(Color.WHITE);
 		btnEntrar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnEntrar.setFocusable(false);
 		btnEntrar.setBackground(new Color(0, 73, 170));
-		btnEntrar.setBounds(246, 95, 89, 23);
+		btnEntrar.setBounds(256, 95, 79, 23);
 		frmLogin.getContentPane().add(btnEntrar);
 		
 		JLabel lblOuEmail = new JLabel("ou Email");

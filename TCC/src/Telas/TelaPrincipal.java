@@ -18,11 +18,14 @@ import javax.swing.border.LineBorder;
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 import Administrador.MandarEmail;
+import CRUD.CRUDUsuarios;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Label;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class TelaPrincipal {
 
@@ -59,6 +62,12 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frmPrincipal = new JFrame();
+		frmPrincipal.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				CRUDUsuarios.logoff();
+			}
+		});
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
 		frmPrincipal.setTitle("SIG");
 		frmPrincipal.setBounds(100, 100, 492, 346);
