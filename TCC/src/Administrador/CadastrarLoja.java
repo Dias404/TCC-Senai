@@ -10,6 +10,7 @@ import java.awt.Image;
 
 import javax.swing.SwingConstants;
 
+import CRUD.CRUDClientes;
 import Telas.TelaPrincipal;
 
 import javax.swing.JComboBox;
@@ -22,11 +23,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 public class CadastrarLoja {
 
@@ -36,6 +41,16 @@ public class CadastrarLoja {
 	private JTextField tfIE;
 	private JTextField tfNum;
 	private JTextField tfTel;
+	private JComboBox cbUF;
+	private JComboBox cbCidade;
+	private JLabel lblBG;
+	private JComboBox cbRua;
+	private JButton btnAddCidade;
+	private JButton btnAddBairro;
+	private JButton btnAddRua;
+	private JButton btnVoltar;
+	private JButton btnLimpar;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -75,10 +90,16 @@ public class CadastrarLoja {
 		frmCadastrarLoja.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarLoja.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastrarLoja.setTitle("SIG - Cadastrar Loja");
 		frmCadastrarLoja.setResizable(false);
-		frmCadastrarLoja.setBounds(100, 100, 372, 307);
+		frmCadastrarLoja.setBounds(100, 100, 548, 515);
 		frmCadastrarLoja.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastrarLoja.getContentPane().setLayout(null);
 		frmCadastrarLoja.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
+		
+		panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(100, 363, 158, 41);
+		frmCadastrarLoja.getContentPane().add(panel);
 		
 		JLabel lblCadastroLoja = new JLabel("Cadastro de Lojas");
 		lblCadastroLoja.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -114,7 +135,7 @@ public class CadastrarLoja {
 		frmCadastrarLoja.getContentPane().add(lblNome);
 		
 		tfNome = new JTextField();
-		tfNome.setBounds(58, 37, 221, 20);
+		tfNome.setBounds(58, 37, 298, 20);
 		frmCadastrarLoja.getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 		
@@ -124,9 +145,8 @@ public class CadastrarLoja {
 		lblUf.setBounds(10, 64, 38, 14);
 		frmCadastrarLoja.getContentPane().add(lblUf);
 		
-		JComboBox cbUF = new JComboBox();
+		cbUF = new JComboBox();
 		cbUF.setBounds(58, 62, 163, 20);
-		cbUF.setModel(new DefaultComboBoxModel(new String[] {"", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"}));
 		frmCadastrarLoja.getContentPane().add(cbUF);
 		
 		JLabel lblBairro = new JLabel("Bairro:");
@@ -139,7 +159,7 @@ public class CadastrarLoja {
 		cbBairro.setBounds(58, 112, 232, 19);
 		frmCadastrarLoja.getContentPane().add(cbBairro);
 		
-		JButton btnAddBairro = new JButton("...");
+		btnAddBairro = new JButton("...");
 		btnAddBairro.setForeground(Color.WHITE);
 		btnAddBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddBairro.setFocusable(false);
@@ -153,11 +173,11 @@ public class CadastrarLoja {
 		lblCidade.setBounds(0, 89, 51, 14);
 		frmCadastrarLoja.getContentPane().add(lblCidade);
 		
-		JComboBox cbCidade = new JComboBox();
+		cbCidade = new JComboBox();
 		cbCidade.setBounds(58, 87, 163, 19);
 		frmCadastrarLoja.getContentPane().add(cbCidade);
 		
-		JButton btnAddCidade = new JButton("...");
+		btnAddCidade = new JButton("...");
 		btnAddCidade.setForeground(Color.WHITE);
 		btnAddCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddCidade.setFocusable(false);
@@ -171,11 +191,11 @@ public class CadastrarLoja {
 		lblRua.setBounds(10, 139, 38, 14);
 		frmCadastrarLoja.getContentPane().add(lblRua);
 		
-		JComboBox cbRua = new JComboBox();
+		cbRua = new JComboBox();
 		cbRua.setBounds(58, 137, 232, 19);
 		frmCadastrarLoja.getContentPane().add(cbRua);
 		
-		JButton btnAddRua = new JButton("...");
+		btnAddRua = new JButton("...");
 		btnAddRua.setForeground(Color.WHITE);
 		btnAddRua.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddRua.setFocusable(false);
@@ -205,7 +225,7 @@ public class CadastrarLoja {
 		tfTel.setBounds(58, 212, 298, 20);
 		frmCadastrarLoja.getContentPane().add(tfTel);
 		
-		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmCadastrarLoja.dispose();
@@ -218,7 +238,7 @@ public class CadastrarLoja {
 		btnVoltar.setBounds(10, 246, 89, 23);
 		frmCadastrarLoja.getContentPane().add(btnVoltar);
 		
-		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tfNome.setText(null);
@@ -248,14 +268,18 @@ public class CadastrarLoja {
 		frmCadastrarLoja.getContentPane().add(btnSalvar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(431, 278, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(542, 487, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
-		JLabel lblBG = new JLabel("");
+		lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 366, 278);
+		lblBG.setBounds(0, 0, 542, 487);
 		frmCadastrarLoja.getContentPane().add(lblBG);
+		
+		preencherComboUF();
+		cbUF.setSelectedItem("São Paulo");
 	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -272,5 +296,21 @@ public class CadastrarLoja {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	private boolean preencherComboUF() {
+		CRUDClientes selecionar = new CRUDClientes();
+		selecionar.selectUF();
+		cbUF.removeAllItems();
+		try {
+			while (selecionar.dadosEstados.next()) {
+				cbUF.addItem(selecionar.dadosEstados.getString("nome_estado"));
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

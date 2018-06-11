@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.SwingConstants;
 
 public class ConsultarClientes {
 
@@ -60,7 +61,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes = new JFrame();
 		frmConsultaDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeClientes.setTitle("SIG - Consulta de Clientes");
-		frmConsultaDeClientes.setBounds(100, 100, 688, 620);
+		frmConsultaDeClientes.setBounds(100, 100, 688, 626);
 		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmConsultaDeClientes.setResizable(false);
 		frmConsultaDeClientes.setLocationRelativeTo(null);
@@ -72,10 +73,11 @@ public class ConsultarClientes {
 		frmConsultaDeClientes.getContentPane().add(lblConsultaDeClientes);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 162, 662, 385);
+		scrollPane.setBounds(10, 167, 662, 385);
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -127,12 +129,12 @@ public class ConsultarClientes {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 558, 89, 23);
+		btnVoltar.setBounds(10, 563, 89, 23);
 		frmConsultaDeClientes.getContentPane().add(btnVoltar);
 		
 		panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 39, 662, 112);
+		panel.setBounds(10, 39, 662, 117);
 		frmConsultaDeClientes.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -140,6 +142,38 @@ public class ConsultarClientes {
 		lblPesquisarPor.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPesquisarPor.setBounds(10, 11, 87, 15);
 		panel.add(lblPesquisarPor);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNome.setBounds(10, 37, 87, 15);
+		panel.add(lblNome);
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setForeground(Color.WHITE);
+		btnPesquisar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnPesquisar.setFocusable(false);
+		btnPesquisar.setBackground(new Color(0, 73, 170));
+		btnPesquisar.setBounds(554, 83, 98, 23);
+		panel.add(btnPesquisar);
+		
+		JLabel label = new JLabel("Nome:");
+		label.setHorizontalAlignment(SwingConstants.RIGHT);
+		label.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label.setBounds(10, 63, 87, 15);
+		panel.add(label);
+		
+		JLabel label_1 = new JLabel("Nome:");
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_1.setBounds(263, 37, 87, 15);
+		panel.add(label_1);
+		
+		JLabel label_2 = new JLabel("Nome:");
+		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_2.setBounds(263, 63, 87, 15);
+		panel.add(label_2);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		
 		preencherTabela();
