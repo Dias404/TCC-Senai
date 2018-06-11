@@ -9,10 +9,16 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import CRUD.CRUDUsuarios;
+import Email.Email;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Login {
@@ -98,6 +104,20 @@ public class Login {
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String resp = JOptionPane.showInputDialog("Entre com um email cadastrado.");
+				String condicao = "email = "+resp;
+				ResultSet dados = CRUDUsuarios.selectUsuarioCondition(condicao);
+				try {
+					if(dados.next()) {
+						Email.enviarEmailRecuperarSenha(resp);
+						JOptionPane.showMessageDialog(frmLogin, "A sua senha está contida no email\nque foi enviado a este endereço:\n"+resp);
+					}else {
+						JOptionPane.showMessageDialog(frmLogin, "Este usuário não está cadastrado no banco de dados.");
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frmLogin, "Ocorreu um erro ao mandar um email neste endereço: "+resp, 
+					"Erro", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnRecuperarSenha.setForeground(Color.WHITE);

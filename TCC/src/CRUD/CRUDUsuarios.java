@@ -75,4 +75,18 @@ public class CRUDUsuarios {
 		}
 	}
 	
+	public ResultSet selectEmailUsuario() {
+		String sql = "SELECT * FROM usuarios WHERE logged = 1";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
 }

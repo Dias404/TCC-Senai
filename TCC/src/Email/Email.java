@@ -52,7 +52,7 @@ public class Email {
 	public static String enviarEmailRecuperarSenha(String resp) {
 		String emailLogado = "tccsig0@gmail.com";
 		String senhaEmailLogado = "siganadiasribeirojere";
-		String condicao = "nome = "+resp;
+		String condicao = "email = "+resp;
 		ResultSet dados = CRUDUsuarios.selectUsuarioCondition(condicao);
 		String para = null;
 		String senha = null;
@@ -66,7 +66,8 @@ public class Email {
 			if(para.contains("@gmail.com")) { // para gmail
 				enviarEmail.setHostName("smtp.gmail.com"); 
 				enviarEmail.setSmtpPort(465);
-			}if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
+			}
+			if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
 				enviarEmail.setHostName("smtp-mail.outlook.com"); 
 				enviarEmail.setSmtpPort(587); //25
 			}
@@ -85,7 +86,6 @@ public class Email {
 			JOptionPane.showMessageDialog(null, "Email Inválido");
 			return "Fail";
 		}
-	
 	}
 	
 }
