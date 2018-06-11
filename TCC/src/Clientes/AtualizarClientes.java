@@ -834,11 +834,11 @@ public class AtualizarClientes {
 					pnJuridica.setVisible(false);
 					
 					tfNome.setText(select.dadosEspecificos.getString("nome_razao").toString());
-					if (select.dadosEspecificos.getString("sexo").equals("Masculino")) {
+					if (select.dadosEspecificos.getString("sexo").equals("M")) {
 						rbMasculino.setSelected(true);
 						rbFeminino.setSelected(false);
 					}
-					if (select.dadosEspecificos.getString("sexo").equals("Feminino")) {
+					if (select.dadosEspecificos.getString("sexo").equals("F")) {
 						rbMasculino.setSelected(false);
 						rbFeminino.setSelected(true);
 					}
