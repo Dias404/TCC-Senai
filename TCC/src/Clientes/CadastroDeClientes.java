@@ -206,8 +206,15 @@ public class CadastroDeClientes {
 					}
 					cliFi.setEmail(tfEmailF.getText().toString());
 					cliFi.setUF(comboUFF.getSelectedItem().toString());
+					/*
 					cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
+					cliFi.setBairro(comboBairroF.getSelectedItem().toString());
 					cliFi.setRua(comboRuaF.getSelectedItem().toString());
+					*/
+					cliFi.setCidade("testeCidade1");
+					cliFi.setBairro("testeBairro1");
+					cliFi.setRua("testeRua1");
+					
 					cliFi.setNumero(tfNumeroF.getText().toString());
 					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
 					cliFi.setRG_IE(tfRG.getText().toString());
@@ -221,27 +228,39 @@ public class CadastroDeClientes {
 					cliFi.setCel2(tfCel2F.getText().toString());
 					
 					CRUDClientes insert = new CRUDClientes();
-					insert.insertClienteFisico(cliFi);
+					insert.insertCliente(cliFi);
 					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
 					btnLimpar.doClick();
 				}else {
 					Clientes cliJu = new Clientes();
 					cliJu.setTipoDePessoa("Jurídica");
 					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
+					cliJu.setSexo("----------");
 					cliJu.setEmail(tfEmailJ.getText().toString());
 					cliJu.setUF(comboUFJ.getSelectedItem().toString());
+					/*
 					cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
+					cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
 					cliJu.setRua(comboRuaJ.getSelectedItem().toString());
+					*/
+					cliJu.setCidade("testeCidade2");
+					cliJu.setBairro("testeBairro2");
+					cliJu.setRua("testeRua2");
+					
 					cliJu.setNumero(tfNumeroJ.getText().toString());
 					cliJu.setCPF_CNPJ(tfCNPJ.getText().toString());
 					cliJu.setRG_IE(tfIE.getText().toString());
+					cliJu.setMae("----------");
+					cliJu.setPai("----------");
+					cliJu.setDataDeNascimento("----------");
+					cliJu.setEstadoCivil("----------");
 					cliJu.setTel1(tfTel1J.getText().toString());
 					cliJu.setTel2(tfTel2J.getText().toString());
 					cliJu.setCel1(tfCel1J.getText().toString());
 					cliJu.setCel2(tfCel2J.getText().toString());
 					
 					CRUDClientes insert = new CRUDClientes();
-					insert.insertClienteJuridico(cliJu);
+					insert.insertCliente(cliJu);
 					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
 					btnLimpar.doClick();
 				}
