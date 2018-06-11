@@ -20,6 +20,7 @@ import org.apache.commons.mail.SimpleEmail;
 
 import CRUD.CRUDClientes;
 import CRUD.CRUDUsuarios;
+import Email.Email;
 import Telas.TelaPrincipal;
 
 import java.awt.Color;
@@ -93,7 +94,7 @@ public class MandarEmail {
 		JButton btnMandar = new JButton("Mandar");
 		btnMandar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				enviarEmail();
+				Email.enviarEmailAdmin(cbEmail, epMsg);
 				epMsg.setText(null);
 			}
 		});
@@ -143,40 +144,6 @@ public class MandarEmail {
 		frmMandarEmail.getContentPane().add(lblBG);
 		
 		preencherEmailUsuarios();
-	}
-	
-	public String enviarEmail() {
-		String para = cbEmail.getSelectedItem().toString();
-		String emailLogado = "projetojavasenai@gmail.com";
-		String senhaEmailLogado = "senai123";
-		String usuarioEmailLogado = "Jão";
-		String msg = epMsg.getText();
-		
-		try {
-			SimpleEmail enviarEmail = new SimpleEmail();
-			if(para.contains("@gmail.com")) { // para gmail
-				enviarEmail.setHostName("smtp.gmail.com"); 
-				enviarEmail.setSmtpPort(465);
-			}if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
-				enviarEmail.setHostName("smtp-mail.outlook.com"); 
-				enviarEmail.setSmtpPort(587); //25
-			}
-			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
-			enviarEmail.setSSLOnConnect(true);
-			//enviarEmail.setTLSOnConnect(true); <-- Se precisar
-			enviarEmail.setFrom(emailLogado);
-			enviarEmail.setSubject("SIG - "+usuarioEmailLogado);
-			enviarEmail.setMsg(msg);
-			enviarEmail.addTo(para);
-			enviarEmail.send();
-			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
-			return "certo";
-		} catch (EmailException arg0) {
-			arg0.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Email Inválido");
-			return "Fail";
-		}
-	
 	}
 
 	public void preencherEmailUsuarios() {
