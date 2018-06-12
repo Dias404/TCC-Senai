@@ -446,7 +446,7 @@ public class TelaPrincipal {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroDeClientes.main(null);
-				frmPrincipal.dispose();
+				frmPrincipal.setVisible(false);;
 			}
 		});
 	}
