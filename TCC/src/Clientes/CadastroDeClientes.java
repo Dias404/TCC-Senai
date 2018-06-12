@@ -146,7 +146,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes = new JFrame();
 		frmCadastroDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeClientes.setTitle("SIG - Cadastro de Clientes");
-		frmCadastroDeClientes.setBounds(100, 100, 559, 575);
+		frmCadastroDeClientes.setBounds(100, 100, 548, 553);
 		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastroDeClientes.getContentPane().setLayout(null);
 		
@@ -591,7 +591,7 @@ public class CadastroDeClientes {
 			
 			}
 		});
-		comboCidadeF.setBounds(310, 74, 163, 19);
+		comboCidadeF.setBounds(310, 74, 163, 20);
 		pnFisica.add(comboCidadeF);
 		
 		comboBairroF = new JComboBox();

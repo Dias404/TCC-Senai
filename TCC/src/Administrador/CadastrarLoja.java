@@ -32,15 +32,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
 public class CadastrarLoja {
 
 	private JFrame frmCadastrarLoja;
-	private JTextField tfNome;
 	private JTextField tfCNPJ;
 	private JTextField tfIE;
 	private JTextField tfNum;
-	private JTextField tfTel;
+	private JTextField tfTel1;
 	private JComboBox cbUF;
 	private JComboBox cbCidade;
 	private JLabel lblBG;
@@ -51,6 +51,10 @@ public class CadastrarLoja {
 	private JButton btnVoltar;
 	private JButton btnLimpar;
 	private JPanel panel;
+	private JTextField tfNome;
+	private JTextField tfTel2;
+	private JTextField tfCel1;
+	private JTextField tfCel2;
 
 	/**
 	 * Launch the application.
@@ -90,140 +94,175 @@ public class CadastrarLoja {
 		frmCadastrarLoja.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarLoja.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastrarLoja.setTitle("SIG - Cadastrar Loja");
 		frmCadastrarLoja.setResizable(false);
-		frmCadastrarLoja.setBounds(100, 100, 548, 515);
+		frmCadastrarLoja.setBounds(100, 100, 548, 343);
 		frmCadastrarLoja.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastrarLoja.getContentPane().setLayout(null);
 		frmCadastrarLoja.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		
 		panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(100, 363, 158, 41);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, new Color(64, 64, 64)));
+		panel.setBounds(10, 39, 522, 229);
 		frmCadastrarLoja.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblIE = new JLabel("IE:");
+		lblIE.setBounds(262, 135, 38, 14);
+		panel.add(lblIE);
+		lblIE.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblIE.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		tfIE = new JTextField();
+		tfIE.setBounds(310, 133, 200, 20);
+		panel.add(tfIE);
+		tfIE.setColumns(10);
+		
+		JLabel lblCNPJ = new JLabel("CNPJ:");
+		lblCNPJ.setBounds(13, 135, 35, 14);
+		panel.add(lblCNPJ);
+		lblCNPJ.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCNPJ.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		tfCNPJ = new JTextField();
+		tfCNPJ.setBounds(58, 133, 200, 20);
+		panel.add(tfCNPJ);
+		tfCNPJ.setColumns(10);
+		
+		JLabel lblNome = new JLabel("Razão Social:");
+		lblNome.setBounds(10, 13, 82, 14);
+		panel.add(lblNome);
+		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JLabel lblUf = new JLabel("UF:");
+		lblUf.setBounds(10, 44, 38, 14);
+		panel.add(lblUf);
+		lblUf.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		cbUF = new JComboBox();
+		cbUF.setBounds(58, 42, 163, 20);
+		panel.add(cbUF);
+		cbUF.setSelectedItem("São Paulo");
+		
+		JLabel lblBairro = new JLabel("Bairro:");
+		lblBairro.setBounds(10, 74, 40, 14);
+		panel.add(lblBairro);
+		lblBairro.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JComboBox cbBairro = new JComboBox();
+		cbBairro.setBounds(58, 73, 232, 19);
+		panel.add(cbBairro);
+		
+		btnAddBairro = new JButton("...");
+		btnAddBairro.setBounds(300, 70, 27, 23);
+		panel.add(btnAddBairro);
+		btnAddBairro.setForeground(Color.WHITE);
+		btnAddBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAddBairro.setFocusable(false);
+		btnAddBairro.setBackground(new Color(0, 73, 170));
+		
+		JLabel lblCidade = new JLabel("Cidade:");
+		lblCidade.setBounds(249, 44, 51, 14);
+		panel.add(lblCidade);
+		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		cbCidade = new JComboBox();
+		cbCidade.setBounds(310, 42, 163, 19);
+		panel.add(cbCidade);
+		
+		btnAddCidade = new JButton("...");
+		btnAddCidade.setBounds(483, 40, 27, 23);
+		panel.add(btnAddCidade);
+		btnAddCidade.setForeground(Color.WHITE);
+		btnAddCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAddCidade.setFocusable(false);
+		btnAddCidade.setBackground(new Color(0, 73, 170));
+		
+		JLabel lblRua = new JLabel("Rua:");
+		lblRua.setBounds(10, 104, 38, 14);
+		panel.add(lblRua);
+		lblRua.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRua.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		cbRua = new JComboBox();
+		cbRua.setBounds(58, 103, 232, 19);
+		panel.add(cbRua);
+		
+		btnAddRua = new JButton("...");
+		btnAddRua.setBounds(300, 100, 27, 23);
+		panel.add(btnAddRua);
+		btnAddRua.setForeground(Color.WHITE);
+		btnAddRua.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAddRua.setFocusable(false);
+		btnAddRua.setBackground(new Color(0, 73, 170));
+		
+		JLabel lblNum = new JLabel("Número:");
+		lblNum.setBounds(335, 104, 62, 14);
+		panel.add(lblNum);
+		lblNum.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNum.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		tfNum = new JTextField();
+		tfNum.setBounds(407, 102, 103, 20);
+		panel.add(tfNum);
+		tfNum.setColumns(10);
+		
+		JLabel lblTel = new JLabel("Tel 1:");
+		lblTel.setBounds(13, 166, 35, 14);
+		panel.add(lblTel);
+		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		tfTel1 = new JTextField();
+		tfTel1.setBounds(57, 164, 201, 20);
+		panel.add(tfTel1);
+		tfTel1.setColumns(10);
+		
+		tfNome = new JTextField();
+		tfNome.setColumns(10);
+		tfNome.setBounds(102, 11, 410, 20);
+		panel.add(tfNome);
+		
+		tfTel2 = new JTextField();
+		tfTel2.setColumns(10);
+		tfTel2.setBounds(57, 195, 201, 20);
+		panel.add(tfTel2);
+		
+		tfCel1 = new JTextField();
+		tfCel1.setColumns(10);
+		tfCel1.setBounds(310, 164, 201, 20);
+		panel.add(tfCel1);
+		
+		tfCel2 = new JTextField();
+		tfCel2.setColumns(10);
+		tfCel2.setBounds(310, 195, 201, 20);
+		panel.add(tfCel2);
+		
+		JLabel lblTel_1 = new JLabel("Tel 2:");
+		lblTel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTel_1.setBounds(13, 198, 35, 14);
+		panel.add(lblTel_1);
+		
+		JLabel lblCel = new JLabel("Cel 2:");
+		lblCel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCel.setBounds(265, 198, 35, 14);
+		panel.add(lblCel);
+		
+		JLabel lblTel_2 = new JLabel("Tel 1:");
+		lblTel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTel_2.setBounds(265, 167, 35, 14);
+		panel.add(lblTel_2);
 		
 		JLabel lblCadastroLoja = new JLabel("Cadastro de Lojas");
 		lblCadastroLoja.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCadastroLoja.setBounds(10, 11, 125, 17);
 		frmCadastrarLoja.getContentPane().add(lblCadastroLoja);
-		
-		JLabel lblIE = new JLabel("IE:");
-		lblIE.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblIE.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblIE.setBounds(10, 189, 38, 14);
-		frmCadastrarLoja.getContentPane().add(lblIE);
-		
-		tfIE = new JTextField();
-		tfIE.setColumns(10);
-		tfIE.setBounds(58, 187, 298, 20);
-		frmCadastrarLoja.getContentPane().add(tfIE);
-		
-		JLabel lblCNPJ = new JLabel("CNPJ:");
-		lblCNPJ.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCNPJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCNPJ.setBounds(108, 164, 35, 14);
-		frmCadastrarLoja.getContentPane().add(lblCNPJ);
-		
-		tfCNPJ = new JTextField();
-		tfCNPJ.setColumns(10);
-		tfCNPJ.setBounds(153, 162, 200, 20);
-		frmCadastrarLoja.getContentPane().add(tfCNPJ);
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNome.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNome.setBounds(10, 39, 38, 14);
-		frmCadastrarLoja.getContentPane().add(lblNome);
-		
-		tfNome = new JTextField();
-		tfNome.setBounds(58, 37, 298, 20);
-		frmCadastrarLoja.getContentPane().add(tfNome);
-		tfNome.setColumns(10);
-		
-		JLabel lblUf = new JLabel("UF:");
-		lblUf.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUf.setBounds(10, 64, 38, 14);
-		frmCadastrarLoja.getContentPane().add(lblUf);
-		
-		cbUF = new JComboBox();
-		cbUF.setBounds(58, 62, 163, 20);
-		frmCadastrarLoja.getContentPane().add(cbUF);
-		
-		JLabel lblBairro = new JLabel("Bairro:");
-		lblBairro.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblBairro.setBounds(10, 114, 40, 14);
-		frmCadastrarLoja.getContentPane().add(lblBairro);
-		
-		JComboBox cbBairro = new JComboBox();
-		cbBairro.setBounds(58, 112, 232, 19);
-		frmCadastrarLoja.getContentPane().add(cbBairro);
-		
-		btnAddBairro = new JButton("...");
-		btnAddBairro.setForeground(Color.WHITE);
-		btnAddBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddBairro.setFocusable(false);
-		btnAddBairro.setBackground(new Color(0, 73, 170));
-		btnAddBairro.setBounds(300, 109, 27, 23);
-		frmCadastrarLoja.getContentPane().add(btnAddBairro);
-		
-		JLabel lblCidade = new JLabel("Cidade:");
-		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCidade.setBounds(0, 89, 51, 14);
-		frmCadastrarLoja.getContentPane().add(lblCidade);
-		
-		cbCidade = new JComboBox();
-		cbCidade.setBounds(58, 87, 163, 19);
-		frmCadastrarLoja.getContentPane().add(cbCidade);
-		
-		btnAddCidade = new JButton("...");
-		btnAddCidade.setForeground(Color.WHITE);
-		btnAddCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddCidade.setFocusable(false);
-		btnAddCidade.setBackground(new Color(0, 73, 170));
-		btnAddCidade.setBounds(231, 85, 27, 23);
-		frmCadastrarLoja.getContentPane().add(btnAddCidade);
-		
-		JLabel lblRua = new JLabel("Rua:");
-		lblRua.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblRua.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRua.setBounds(10, 139, 38, 14);
-		frmCadastrarLoja.getContentPane().add(lblRua);
-		
-		cbRua = new JComboBox();
-		cbRua.setBounds(58, 137, 232, 19);
-		frmCadastrarLoja.getContentPane().add(cbRua);
-		
-		btnAddRua = new JButton("...");
-		btnAddRua.setForeground(Color.WHITE);
-		btnAddRua.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddRua.setFocusable(false);
-		btnAddRua.setBackground(new Color(0, 73, 170));
-		btnAddRua.setBounds(300, 135, 27, 23);
-		frmCadastrarLoja.getContentPane().add(btnAddRua);
-		
-		JLabel lblNum = new JLabel("N°:");
-		lblNum.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNum.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNum.setBounds(10, 164, 38, 14);
-		frmCadastrarLoja.getContentPane().add(lblNum);
-		
-		tfNum = new JTextField();
-		tfNum.setColumns(10);
-		tfNum.setBounds(58, 162, 40, 20);
-		frmCadastrarLoja.getContentPane().add(tfNum);
-		
-		JLabel lblTel = new JLabel("Tel:");
-		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTel.setBounds(20, 214, 28, 14);
-		frmCadastrarLoja.getContentPane().add(lblTel);
-		
-		tfTel = new JTextField();
-		tfTel.setColumns(10);
-		tfTel.setBounds(58, 212, 298, 20);
-		frmCadastrarLoja.getContentPane().add(tfTel);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -235,7 +274,7 @@ public class CadastrarLoja {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 246, 89, 23);
+		btnVoltar.setBounds(10, 279, 89, 23);
 		frmCadastrarLoja.getContentPane().add(btnVoltar);
 		
 		btnLimpar = new JButton("Limpar");
@@ -249,14 +288,14 @@ public class CadastrarLoja {
 				tfNum.setText(null);
 				tfCNPJ.setText(null);
 				tfIE.setText(null);
-				tfTel.setText(null);
+				tfTel1.setText(null);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(168, 246, 89, 23);
+		btnLimpar.setBounds(344, 279, 89, 23);
 		frmCadastrarLoja.getContentPane().add(btnLimpar);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -264,20 +303,19 @@ public class CadastrarLoja {
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(267, 246, 89, 23);
+		btnSalvar.setBounds(443, 279, 89, 23);
 		frmCadastrarLoja.getContentPane().add(btnSalvar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(542, 487, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(542, 315, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 542, 487);
+		lblBG.setBounds(0, 0, 542, 315);
 		frmCadastrarLoja.getContentPane().add(lblBG);
 		
 		preencherComboUF();
-		cbUF.setSelectedItem("São Paulo");
 	}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
