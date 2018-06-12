@@ -135,27 +135,6 @@ public class Login {
 		btnFechar.setBounds(10, 95, 79, 23);
 		frmLogin.getContentPane().add(btnFechar);
 		
-		JButton btnRecuperarSenha = new JButton("Recuperar Senha");
-		btnRecuperarSenha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nome = JOptionPane.showInputDialog("Entre com o nome do usuário cadastrado.");
-				String email = JOptionPane.showInputDialog("Entre com o email cadastrado neste usuário.");
-				if(nome.isEmpty() || email.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Usuário e(ou) Email inválido(s)");
-				}else {
-					Email.enviarEmailRecuperarSenha(nome, email);
-					nome = null;
-					email = null;
-				}
-			}
-		});
-		btnRecuperarSenha.setForeground(Color.WHITE);
-		btnRecuperarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnRecuperarSenha.setFocusable(false);
-		btnRecuperarSenha.setBackground(new Color(0, 73, 170));
-		btnRecuperarSenha.setBounds(229, 8, 148, 23);
-		frmLogin.getContentPane().add(btnRecuperarSenha);
-		
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
