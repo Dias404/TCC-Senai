@@ -22,6 +22,8 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConsultarClientes {
 
@@ -125,6 +127,12 @@ public class ConsultarClientes {
 		tabela.getColumnModel().getColumn(18).setResizable(false);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroDeClientes.main(null);
+				frmConsultaDeClientes.dispose();
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);

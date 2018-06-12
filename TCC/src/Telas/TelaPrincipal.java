@@ -20,6 +20,8 @@ import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 import Administrador.MandarEmail;
 import CRUD.CRUDUsuarios;
+import Clientes.CadastroDeClientes;
+import Clientes.ConsultarClientes;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -430,6 +432,8 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(lblBG);
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CadastroDeClientes.main(null);
+				frmPrincipal.dispose();
 			}
 		});
 	}

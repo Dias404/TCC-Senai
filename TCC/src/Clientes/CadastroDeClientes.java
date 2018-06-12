@@ -29,6 +29,7 @@ import javax.swing.border.EtchedBorder;
 
 import CRUD.CRUDClientes;
 import DAO.Clientes;
+import Telas.TelaPrincipal;
 
 import javax.swing.JFormattedTextField;
 import java.awt.event.ItemListener;
@@ -117,6 +118,7 @@ public class CadastroDeClientes {
 	private JComboBox comboRuaJ;
 	private JTextPane tpObservacoesJ;
 	private JComboBox comboEstadoCivil;
+	private JButton btnConsultarClientes;
 
 	
 	public static void main(String[] args) {
@@ -185,6 +187,12 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.setLocationRelativeTo(null);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaPrincipal.main(null);
+				frmCadastroDeClientes.dispose();
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
@@ -836,6 +844,20 @@ public class CadastroDeClientes {
 		//preencherComboCidade();
 		comboUFF.setSelectedItem("São Paulo");
 		comboUFJ.setSelectedItem("São Paulo");
+		
+		btnConsultarClientes = new JButton("<html>Consultar<br/>&nbsp;&nbsp;Clientes</html>");
+		btnConsultarClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConsultarClientes.main(null);
+				frmCadastroDeClientes.dispose();
+			}
+		});
+		btnConsultarClientes.setForeground(Color.WHITE);
+		btnConsultarClientes.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnConsultarClientes.setFocusable(false);
+		btnConsultarClientes.setBackground(new Color(0, 73, 170));
+		btnConsultarClientes.setBounds(442, 10, 89, 48);
+		frmCadastroDeClientes.getContentPane().add(btnConsultarClientes);
 	}
 	
 	private boolean preencherComboUF() {
@@ -855,43 +877,4 @@ public class CadastroDeClientes {
 			return false;
 		}
 	}
-	
-	/*
-	private boolean preencherComboCidade(int idEstado) {
-		CRUDClientes selecionar = new CRUDClientes();
-		selecionar.selectUF();
-		comboCidadeF.removeAllItems();
-		comboCidadeJ.removeAllItems();
-		try {
-			selecionar.selectCidade(idEstado);
-			while (selecionar.dadosCidades.next()) {
-				comboCidadeF.addItem(selecionar.dadosCidades.getString("nome_cidade"));
-				comboCidadeJ.addItem(selecionar.dadosCidades.getString("nome_cidade"));
-			}
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	private boolean preencherComboBairro(int idCidade) {
-		CRUDClientes selecionar = new CRUDClientes();
-		comboBairroF.removeAllItems();
-		comboBairroJ.removeAllItems();
-		try {
-			selecionar.selectBairro(idCidade);
-			while (selecionar.dadosCidades.next()) {
-				comboCidadeF.addItem(selecionar.dadosBairros.getString("nome_bairro"));
-				comboCidadeJ.addItem(selecionar.dadosBairros.getString("nome_bairro"));
-			}
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-	}
-	*/
 }
