@@ -83,7 +83,20 @@ public class TelaPrincipal {
 		frmPrincipal.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
-				CRUDUsuarios.logoff();
+				
+			}
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				int escolha = JOptionPane.showConfirmDialog(frmPrincipal,
+						"Você deseja desconectar desta conta?", "Aviso", 
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(escolha==0) {
+							CRUDUsuarios.logoff();
+							frmPrincipal.dispose();
+							Login.main(null);
+						}else {
+							
+						}
 			}
 		});
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
@@ -266,14 +279,14 @@ public class TelaPrincipal {
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int escolha = JOptionPane.showConfirmDialog(frmPrincipal,
-				"Você deseja desconectar desta conta?", "Aviso", 
-				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if(escolha==0) {
-					frmPrincipal.dispose();
-					Login.main(null);
-				}else {
-					
-				}
+						"Você deseja desconectar desta conta?", "Aviso", 
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(escolha==0) {
+							frmPrincipal.dispose();
+							Login.main(null);
+						}else {
+							
+						}
 			}
 		});
 		btnSair.setBackground(Color.decode("#0049aa"));
