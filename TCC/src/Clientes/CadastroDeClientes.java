@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -27,6 +30,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
@@ -158,6 +162,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(lblCadastrosDeClientes);
 		
 		rbFisica = new JRadioButton("Física");
+		rbFisica.setBackground(new Color(119, 136, 153));
 		rbFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pnFisica.setVisible(true);
@@ -172,6 +177,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(rbFisica);
 		
 		rbJuridica = new JRadioButton("Jurídica");
+		rbJuridica.setBackground(new Color(119, 136, 153));
 		rbJuridica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pnJuridica.setVisible(true);
@@ -318,7 +324,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(btnLimpar);
 		
 		pnFisica = new JPanel();
-		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
 		pnFisica.setBounds(10, 65, 521, 416);
@@ -330,6 +336,7 @@ public class CadastroDeClientes {
 		pnFisica.add(label);
 		
 		rbMasculino = new JRadioButton("Masculino");
+		rbMasculino.setBackground(new Color(119, 136, 153));
 		rbMasculino.setSelected(true);
 		rbMasculino.setOpaque(false);
 		rbMasculino.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -338,6 +345,7 @@ public class CadastroDeClientes {
 		pnFisica.add(rbMasculino);
 		
 		rbFeminino = new JRadioButton("Feminino");
+		rbFeminino.setBackground(new Color(119, 136, 153));
 		rbFeminino.setOpaque(false);
 		rbFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbFeminino.setFocusable(false);
@@ -616,7 +624,7 @@ public class CadastroDeClientes {
 		pnFisica.add(tpObservacoesF);
 		
 		pnJuridica = new JPanel();
-		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnJuridica.setVisible(false);
 		pnJuridica.setBounds(10, 65, 521, 416);
 		frmCadastroDeClientes.getContentPane().add(pnJuridica);
@@ -713,7 +721,7 @@ public class CadastroDeClientes {
 		
 		tfTel2J = new JTextField();
 		tfTel2J.setColumns(10);
-		tfTel2J.setBounds(58, 228, 200, 20);
+		tfTel2J.setBounds(58, 229, 200, 20);
 		pnJuridica.add(tfTel2J);
 		
 		label_28 = new JLabel("Tel 2:");
@@ -730,12 +738,12 @@ public class CadastroDeClientes {
 		
 		tfCel1J = new JTextField();
 		tfCel1J.setColumns(10);
-		tfCel1J.setBounds(310, 199, 200, 20);
+		tfCel1J.setBounds(310, 197, 200, 20);
 		pnJuridica.add(tfCel1J);
 		
 		tfCel2J = new JTextField();
 		tfCel2J.setColumns(10);
-		tfCel2J.setBounds(310, 228, 200, 20);
+		tfCel2J.setBounds(310, 229, 200, 20);
 		pnJuridica.add(tfCel2J);
 		
 		label_30 = new JLabel("Cel 2:");
@@ -858,6 +866,15 @@ public class CadastroDeClientes {
 		btnConsultarClientes.setBackground(new Color(0, 73, 170));
 		btnConsultarClientes.setBounds(442, 10, 89, 48);
 		frmCadastroDeClientes.getContentPane().add(btnConsultarClientes);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(542, 525, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 542, 525);
+		frmCadastroDeClientes.getContentPane().add(lblBG);
 	}
 	
 	private boolean preencherComboUF() {
