@@ -8,10 +8,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 
 import javax.swing.JTextField;
@@ -19,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.sound.midi.Soundbank;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextPane;
@@ -80,6 +84,7 @@ public class AtualizarClientes {
 	private JButton btnAdicionarRuaF;
 	private JButton btnAdicionarCidadeJ;
 	private JButton btnRemover;
+	private JLabel lblBG;
 	
 	/**
 	 * Launch the application.
@@ -123,6 +128,7 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(lblAtualizarClientes);
 		
 		rbFisica = new JRadioButton("Física");
+		rbFisica.setBackground(new Color(119, 136, 153));
 		rbFisica.setEnabled(false);
 		rbFisica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,6 +152,7 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(rbFisica);
 		
 		rbJuridica = new JRadioButton("Jurídica");
+		rbJuridica.setBackground(new Color(119, 136, 153));
 		rbJuridica.setEnabled(false);
 		rbJuridica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +179,7 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(pnFisica);
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
-		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		
 		JLabel label = new JLabel("Nome:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -180,6 +187,7 @@ public class AtualizarClientes {
 		pnFisica.add(label);
 		
 		rbMasculino = new JRadioButton("Masculino");
+		rbMasculino.setBackground(new Color(119, 136, 153));
 		rbMasculino.setEnabled(false);
 		rbMasculino.setSelected(true);
 		rbMasculino.setOpaque(false);
@@ -189,6 +197,7 @@ public class AtualizarClientes {
 		pnFisica.add(rbMasculino);
 		
 		rbFeminino = new JRadioButton("Feminino");
+		rbFeminino.setBackground(new Color(119, 136, 153));
 		rbFeminino.setEnabled(false);
 		rbFeminino.setOpaque(false);
 		rbFeminino.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -436,7 +445,7 @@ public class AtualizarClientes {
 		pnJuridica.setVisible(false);
 		pnJuridica.setLayout(null);
 		pnJuridica.setOpaque(false);
-		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnJuridica.setBounds(10, 65, 521, 416);
 		frmAtualizarClientes.getContentPane().add(pnJuridica);
 		
@@ -819,6 +828,15 @@ public class AtualizarClientes {
 		btnRemover.setBackground(new Color(0, 73, 170));
 		btnRemover.setBounds(244, 492, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnRemover);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(553, 547, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 553, 547);
+		frmAtualizarClientes.getContentPane().add(lblBG);
 		
 		preencherCampos();
 	}

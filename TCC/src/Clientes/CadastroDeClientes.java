@@ -195,7 +195,7 @@ public class CadastroDeClientes {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaPrincipal.main(null);
+				TelaPrincipal.frmPrincipal.setVisible(true);
 				frmCadastroDeClientes.dispose();
 			}
 		});
