@@ -128,7 +128,7 @@ public class Login {
 			public void actionPerformed(ActionEvent arg0) {
 				String user = tfUsuario.getText().toString();
 				String senha = pfSenha.getText().toString();
-				ResultSet verifica = CRUDUsuarios.verificaLogado();
+				ResultSet verifica = CRUDUsuarios.selectUsuarioLogado();
 				try {
 					if(verifica.next()) {
 						JOptionPane.showMessageDialog(frmLogin, "Já existe um usuário logado!");

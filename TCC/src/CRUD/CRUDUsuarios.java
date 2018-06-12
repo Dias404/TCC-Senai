@@ -46,21 +46,7 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public static ResultSet verificaLogado() {
-		String sql = "SELECT * FROM usuarios WHERE logged = 1";
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			dadosSelect = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return dadosSelect;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return dadosSelect = null;
-		}
-	}
-	
-	public ResultSet selectEmailUsuario() {
+	public static ResultSet selectUsuarioLogado() {
 		String sql = "SELECT * FROM usuarios WHERE logged = 1";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);

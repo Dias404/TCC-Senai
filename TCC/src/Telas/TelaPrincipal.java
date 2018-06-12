@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -26,6 +27,8 @@ import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class TelaPrincipal {
 
@@ -61,6 +64,19 @@ public class TelaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ResultSet rs = CRUDUsuarios.selectUsuarioLogado();
+		String nivel = null;
+		String usuario = null;
+		try {
+			if(rs.first()) {
+				nivel = rs.getString("nivel");
+				usuario = rs.getString("nome");
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		frmPrincipal = new JFrame();
 		frmPrincipal.addWindowListener(new WindowAdapter() {
 			@Override
@@ -71,7 +87,7 @@ public class TelaPrincipal {
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
 		frmPrincipal.setTitle("SIG");
 		frmPrincipal.setBounds(100, 100, 492, 346);
-		frmPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmPrincipal.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setLocationRelativeTo(null);
 		frmPrincipal.getContentPane().setLayout(null);
@@ -82,79 +98,117 @@ public class TelaPrincipal {
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
-		JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do");
-		lblAdmin.setBounds(192, 11, 113, 16);
-		frmPrincipal.getContentPane().add(lblAdmin);
-		lblAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblAdmin.setBorder(null);
+		if(nivel.equalsIgnoreCase("Admin")) {
+			JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do");
+			lblAdmin.setBounds(192, 11, 113, 16);
+			frmPrincipal.getContentPane().add(lblAdmin);
+			lblAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblAdmin.setBorder(null);
 		
-		JLabel lblAdmin2 = new JLabel("Administrador->");
-		lblAdmin2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblAdmin2.setBorder(null);
-		lblAdmin2.setBounds(192, 29, 113, 16);
-		frmPrincipal.getContentPane().add(lblAdmin2);
-		
-		JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(192, 56, 57, 14);
-		frmPrincipal.getContentPane().add(lblUsuario);
-		
-		JLabel lblNomeUsuario = new JLabel("Exemplo");
-		lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNomeUsuario.setBounds(192, 79, 105, 14);
-		frmPrincipal.getContentPane().add(lblNomeUsuario);
-		
-		JLabel lblNivel = new JLabel("N\u00EDvel:");
-		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNivel.setBounds(192, 104, 57, 14);
-		frmPrincipal.getContentPane().add(lblNivel);
-		
-		JLabel lblNivelUsuario = new JLabel("Admin");
-		lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNivelUsuario.setBounds(192, 131, 105, 14);
-		frmPrincipal.getContentPane().add(lblNivelUsuario);
-		
-		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
-		btnCadastrarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarUsuario.main(null);
-				frmPrincipal.setEnabled(false);
-			}
-		});
-		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
-		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
-		btnCadastrarUsuario.setForeground(Color.WHITE);
-		btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnCadastrarUsuario.setBackground(Color.decode("#0049aa"));
-		btnCadastrarUsuario.setFocusable(false);
-		
-		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
-		btnCadastrarLoja.setBounds(307, 45, 151, 23);
-		frmPrincipal.getContentPane().add(btnCadastrarLoja);
-		btnCadastrarLoja.setForeground(Color.WHITE);
-		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnCadastrarLoja.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastrarLoja.main(null);
-				frmPrincipal.setEnabled(false);
-			}
-		});
-		btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
-		btnCadastrarLoja.setFocusable(false);
-		
-		JButton btnMandarEmail = new JButton("Mandar Email");
-		btnMandarEmail.setBounds(307, 79, 151, 23);
-		frmPrincipal.getContentPane().add(btnMandarEmail);
-		btnMandarEmail.setForeground(Color.WHITE);
-		btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnMandarEmail.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MandarEmail.main(null);
-				frmPrincipal.setEnabled(false);
-			}
-		});
-		btnMandarEmail.setFocusable(false);
-		btnMandarEmail.setBackground(Color.decode("#0049aa"));
+			JLabel lblAdmin2 = new JLabel("Administrador->");
+			lblAdmin2.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblAdmin2.setBorder(null);
+			lblAdmin2.setBounds(192, 29, 113, 16);
+			frmPrincipal.getContentPane().add(lblAdmin2);
+			
+			JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
+			btnCadastrarUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					CadastrarUsuario.main(null);
+					frmPrincipal.setEnabled(false);
+				}
+			});
+			btnCadastrarUsuario.setBounds(307, 11, 151, 23);
+			frmPrincipal.getContentPane().add(btnCadastrarUsuario);
+			btnCadastrarUsuario.setForeground(Color.WHITE);
+			btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
+			btnCadastrarUsuario.setBackground(Color.decode("#0049aa"));
+			btnCadastrarUsuario.setFocusable(false);
+			
+			JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
+			btnCadastrarLoja.setBounds(307, 45, 151, 23);
+			frmPrincipal.getContentPane().add(btnCadastrarLoja);
+			btnCadastrarLoja.setForeground(Color.WHITE);
+			btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
+			btnCadastrarLoja.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CadastrarLoja.main(null);
+					frmPrincipal.setEnabled(false);
+				}
+			});
+			btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
+			btnCadastrarLoja.setFocusable(false);
+			
+			JButton btnMandarEmail = new JButton("Mandar Email");
+			btnMandarEmail.setBounds(307, 79, 151, 23);
+			frmPrincipal.getContentPane().add(btnMandarEmail);
+			btnMandarEmail.setForeground(Color.WHITE);
+			btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
+			btnMandarEmail.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					MandarEmail.main(null);
+					frmPrincipal.setEnabled(false);
+				}
+			});
+			btnMandarEmail.setFocusable(false);
+			btnMandarEmail.setBackground(Color.decode("#0049aa"));
+			
+			JButton btnAlterarSenha = new JButton("Alterar Senha");
+			btnAlterarSenha.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnAlterarSenha.setForeground(Color.WHITE);
+			btnAlterarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
+			btnAlterarSenha.setFocusable(false);
+			btnAlterarSenha.setBackground(Color.decode("#0049aa"));
+			btnAlterarSenha.setBounds(307, 113, 151, 23);
+			frmPrincipal.getContentPane().add(btnAlterarSenha);
+			
+			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
+			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblUsuario.setBounds(192, 56, 57, 14);
+			frmPrincipal.getContentPane().add(lblUsuario);
+			
+			JLabel lblNomeUsuario = new JLabel(usuario);
+			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNomeUsuario.setBounds(192, 79, 105, 14);
+			frmPrincipal.getContentPane().add(lblNomeUsuario);
+			
+			JLabel lblNivel = new JLabel("N\u00EDvel:");
+			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblNivel.setBounds(192, 104, 57, 14);
+			frmPrincipal.getContentPane().add(lblNivel);
+			
+			JLabel lblNivelUsuario = null;
+			lblNivelUsuario = new JLabel(nivel);
+			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNivelUsuario.setBounds(192, 127, 105, 14);
+			frmPrincipal.getContentPane().add(lblNivelUsuario);
+			
+		}else {
+			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
+			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblUsuario.setBounds(215, 29, 57, 14);
+			frmPrincipal.getContentPane().add(lblUsuario);
+			
+			JLabel lblNomeUsuario = new JLabel(usuario);
+			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNomeUsuario.setBounds(215, 52, 105, 14);
+			frmPrincipal.getContentPane().add(lblNomeUsuario);
+			
+			JLabel lblNivel = new JLabel("N\u00EDvel:");
+			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblNivel.setBounds(215, 77, 57, 14);
+			frmPrincipal.getContentPane().add(lblNivel);
+			
+			JLabel lblNivelUsuario = null;
+			lblNivelUsuario = new JLabel(nivel);
+			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNivelUsuario.setBounds(215, 100, 105, 14);
+			frmPrincipal.getContentPane().add(lblNivelUsuario);
+			
+		}
 		
 		JButton btnCliente = new JButton("Cliente");
 		btnCliente.setForeground(Color.WHITE);
@@ -168,18 +222,6 @@ public class TelaPrincipal {
 				pnEstoque.setVisible(false);
 			}
 		});
-		
-		JButton btnAlterarSenha = new JButton("Alterar Senha");
-		btnAlterarSenha.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAlterarSenha.setForeground(Color.WHITE);
-		btnAlterarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnAlterarSenha.setFocusable(false);
-		btnAlterarSenha.setBackground(Color.decode("#0049aa"));
-		btnAlterarSenha.setBounds(307, 113, 151, 23);
-		frmPrincipal.getContentPane().add(btnAlterarSenha);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 151, 466, 2);
@@ -221,7 +263,15 @@ public class TelaPrincipal {
 		btnSair.setForeground(Color.WHITE);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmPrincipal.dispose();
+				int escolha = JOptionPane.showConfirmDialog(frmPrincipal,
+				"Você deseja desconectar desta conta?", "Aviso", 
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(escolha==0) {
+					frmPrincipal.dispose();
+					Login.main(null);
+				}else {
+					
+				}
 			}
 		});
 		btnSair.setBackground(Color.decode("#0049aa"));
