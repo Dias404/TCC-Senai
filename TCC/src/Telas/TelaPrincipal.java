@@ -447,7 +447,11 @@ public class TelaPrincipal {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroDeClientes.main(null);
+<<<<<<< HEAD
 				frmPrincipal.setVisible(false);
+=======
+				frmPrincipal.setVisible(false);;
+>>>>>>> branch 'master' of https://github.com/Dias404/TCC-Senai.git
 			}
 		});
 	}

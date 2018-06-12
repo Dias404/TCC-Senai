@@ -8,15 +8,20 @@ import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -32,6 +37,7 @@ public class ConsultarClientes {
 	public static String cliSelecionado;
 	private JButton btnVoltar;
 	private JPanel panel;
+	private JLabel lblBG;
 
 	/**
 	 * Launch the application.
@@ -182,6 +188,15 @@ public class ConsultarClientes {
 		label_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label_2.setBounds(263, 63, 87, 15);
 		panel.add(label_2);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(682, 598, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 682, 598);
+		frmConsultaDeClientes.getContentPane().add(lblBG);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		
 		preencherTabela();
