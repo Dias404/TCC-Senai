@@ -22,12 +22,20 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login {
 
 	private JFrame frmLogin;
 	private JTextField tfUsuario;
 	private JPasswordField pfSenha;
+	private JButton btnEntrar;
 
 	/**
 	 * Launch the application.
@@ -60,7 +68,7 @@ public class Login {
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/Img/SIG 16x16.png")));
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("SIG - Login");
-		frmLogin.setBounds(100, 100, 351, 153);
+		frmLogin.setBounds(100, 100, 396, 159);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setLocationRelativeTo(frmLogin);
 		frmLogin.getContentPane().setLayout(null);
@@ -76,17 +84,42 @@ public class Login {
 		frmLogin.getContentPane().add(lblUsuario);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(69, 37, 187, 20);
+		tfUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (tfUsuario.getText().toString().equals("Ou E-mail")) {
+					tfUsuario.setText(null);
+					tfUsuario.setForeground(Color.BLACK);
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (tfUsuario.getText().toString().isEmpty()) {
+					tfUsuario.setText("Ou E-mail");
+					tfUsuario.setForeground(Color.LIGHT_GRAY);
+				}
+			}
+		});
+		tfUsuario.setBounds(69, 37, 308, 20);
 		frmLogin.getContentPane().add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha:");
+		lblSenha.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSenha.setBounds(10, 70, 42, 14);
+		lblSenha.setBounds(10, 70, 49, 14);
 		frmLogin.getContentPane().add(lblSenha);
 		
 		pfSenha = new JPasswordField();
-		pfSenha.setBounds(62, 68, 194, 20);
+		pfSenha.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == e.VK_ENTER) {
+					btnEntrar.doClick();
+				}
+			}
+		});
+		pfSenha.setBounds(69, 68, 148, 20);
 		frmLogin.getContentPane().add(pfSenha);
 		
 		JButton btnFechar = new JButton("Fechar");
@@ -120,26 +153,32 @@ public class Login {
 		btnRecuperarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnRecuperarSenha.setFocusable(false);
 		btnRecuperarSenha.setBackground(new Color(0, 73, 170));
-		btnRecuperarSenha.setBounds(99, 95, 147, 23);
+		btnRecuperarSenha.setBounds(229, 8, 148, 23);
 		frmLogin.getContentPane().add(btnRecuperarSenha);
 		
-		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int x = 0;
 				String user = tfUsuario.getText().toString();
 				String senha = pfSenha.getText().toString();
 				ResultSet verifica = CRUDUsuarios.selectUsuarioLogado();
 				try {
-					if(verifica.next()) {
+					if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Ou E-mail")) {
+						JOptionPane.showMessageDialog(null, "Campo usuário vazio!");
+						pfSenha.setText(null);
+						x=1;
+					}
+					if(verifica.next() && x ==0) {
 						JOptionPane.showMessageDialog(frmLogin, "Já existe um usuário logado!");
 					}else {
 						ResultSet rs = CRUDUsuarios.selectCondicao1(user, senha);
-						if(rs.next()) {
+						if(rs.next() && x ==0) {
 							CRUDUsuarios.login(user, senha);
 							JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
 							TelaPrincipal.main(null);
 							frmLogin.dispose();
-						}else {
+						}else if(x==0){
 							JOptionPane.showMessageDialog(frmLogin, "Senha ou(e) Usuário Incorreto(s)!");
 							tfUsuario.setText(null);
 							pfSenha.setText(null);
@@ -152,18 +191,46 @@ public class Login {
 					tfUsuario.setText(null);
 					pfSenha.setText(null);
 				}
+				x=0;
 			}
 		});
 		btnEntrar.setForeground(Color.WHITE);
 		btnEntrar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnEntrar.setFocusable(false);
 		btnEntrar.setBackground(new Color(0, 73, 170));
-		btnEntrar.setBounds(256, 95, 79, 23);
+		btnEntrar.setBounds(298, 95, 79, 23);
 		frmLogin.getContentPane().add(btnEntrar);
 		
-		JLabel lblOuEmail = new JLabel("ou Email");
-		lblOuEmail.setBounds(266, 40, 69, 14);
-		frmLogin.getContentPane().add(lblOuEmail);
+		JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
+		lblRecuperarSenha.setForeground(new Color(0, 0, 255));
+		lblRecuperarSenha.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblRecuperarSenha.setText("<html><u>Recuperar Senha<u/></html>");
+				lblRecuperarSenha.setForeground(new Color(100, 149, 237));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				String nome = JOptionPane.showInputDialog("Entre com o nome do usuário cadastrado.");
+				String email = JOptionPane.showInputDialog("Entre com o email cadastrado neste usuário.");
+				if(nome.isEmpty() || email.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Usuário e(ou) Email inválido(s)");
+				}else {
+					Email.enviarEmailRecuperarSenha(nome, email);
+					nome = null;
+					email = null;
+				}
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+		});
+		lblRecuperarSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblRecuperarSenha.setBounds(227, 69, 150, 17);
+		frmLogin.getContentPane().add(lblRecuperarSenha);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(new ImageIcon(Login.class.getResource("/backgroundPrincipal.jpg")));
