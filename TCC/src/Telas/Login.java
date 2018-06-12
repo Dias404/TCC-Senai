@@ -202,15 +202,17 @@ public class Login {
 		frmLogin.getContentPane().add(btnEntrar);
 		
 		JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
-		lblRecuperarSenha.setForeground(new Color(0, 0, 255));
+		lblRecuperarSenha.setForeground(new Color(0, 73, 170));
 		lblRecuperarSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				lblRecuperarSenha.setText("<html><u>Recuperar Senha<u/></html>");
-				lblRecuperarSenha.setForeground(new Color(100, 149, 237));
+				lblRecuperarSenha.setForeground(new Color(255, 255, 0));
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
+				lblRecuperarSenha.setForeground(new Color(0, 73, 170));
 				String nome = JOptionPane.showInputDialog("Entre com o nome do usuário cadastrado.");
 				String email = JOptionPane.showInputDialog("Entre com o email cadastrado neste usuário.");
 				if(nome.isEmpty() || email.isEmpty()) {
@@ -223,18 +225,22 @@ public class Login {
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
+				lblRecuperarSenha.setText("Recuperar Senha");
+				lblRecuperarSenha.setForeground(new Color(0, 73, 170));
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				lblRecuperarSenha.setText("<html><u>Recuperar Senha<u/></html>");
+				lblRecuperarSenha.setForeground(new Color(0, 0, 102));
 			}
 		});
 		lblRecuperarSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRecuperarSenha.setBounds(227, 69, 150, 17);
+		lblRecuperarSenha.setBounds(227, 68, 104, 15);
 		frmLogin.getContentPane().add(lblRecuperarSenha);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(new ImageIcon(Login.class.getResource("/backgroundPrincipal.jpg")));
-		lblBG.setBounds(0, 0, 346, 127);
+		lblBG.setBounds(0, 0, 390, 130);
 		frmLogin.getContentPane().add(lblBG);
 	}
 }
