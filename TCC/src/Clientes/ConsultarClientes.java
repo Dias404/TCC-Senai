@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.sql.SQLException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 
@@ -41,6 +43,8 @@ public class ConsultarClientes {
 	public static String cliSelecionado;
 	private JButton btnVoltar;
 	private JLabel lblBG;
+	private JButton btnPesquisar;
+	private JComboBox comboPesquisa;
 
 	/**
 	 * Launch the application.
@@ -90,6 +94,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.setRowSelectionAllowed(false);
 		tabela.setOpaque(false);
 		//((JComponent) tabela.getDefaultRenderer(Object.class)).setOpaque(false); // TABLE TRANSPARENTE
 		tabela.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -157,12 +162,79 @@ public class ConsultarClientes {
 		Image BG2 = BG.getImage().getScaledInstance(682, 598, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(339, 438, 163, 20);
-		frmConsultaDeClientes.getContentPane().add(comboBox_1);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Nome/Razão Social", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "Número", "CPF/CNPJ", "RG/IE", "Mãe", "Pai", "Data de Nascimento", "Estado Civil"}));
+		comboPesquisa = new JComboBox();
+		comboPesquisa.setBounds(339, 438, 163, 20);
+		frmConsultaDeClientes.getContentPane().add(comboPesquisa);
+		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome/Razão Social", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "Número", "CPF/CNPJ", "RG/IE", "Mãe", "Pai", "Estado Civil"}));
 		
-		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (comboPesquisa.getSelectedItem().toString().equals("Nome/Razão Social")) {
+					JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Tipo de Pessoa")) {
+					Object[] possiveisValores = { "Física", "Jurídica" };
+			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
+			        if (selectedValue.equals("Física")) {
+						
+					}
+			        if (selectedValue.equals("Jurídica")) {
+						
+					}
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Sexo")) {
+					Object[] possiveisValores = { "Masculino", "Feminino" };
+			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o sexo que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
+			        if (selectedValue.equals("Masculino")) {
+						
+					}
+			        if (selectedValue.equals("Feminino")) {
+						
+					}
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("E-mail")) {
+					JOptionPane.showInputDialog("Entre com o e-mail que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("UF")) {
+					Object[] possiveisValores = {"Acre", "Alagoas", "Amapá" , "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Raraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
+			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
+			        if (selectedValue.equals("Física")) {
+						
+					}
+			        if (selectedValue.equals("Jurídica")) {
+						
+					}
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Cidade")) {
+	
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Bairro")) {
+	
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Rua")) {
+					
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Número")) {
+					JOptionPane.showInputDialog("Entre com o número da casa que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("CPF/CNPJ")) {
+					JOptionPane.showInputDialog("Entre com o CPF ou o CPNJ que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("RG/IE")) {
+					JOptionPane.showInputDialog("Entre com o RG ou o IE que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Mãe")) {
+					JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Pai")) {
+					JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Estado Civil")) {
+					
+				}
+			}
+		});
 		btnPesquisar.setBounds(512, 435, 98, 23);
 		frmConsultaDeClientes.getContentPane().add(btnPesquisar);
 		btnPesquisar.setForeground(Color.WHITE);
