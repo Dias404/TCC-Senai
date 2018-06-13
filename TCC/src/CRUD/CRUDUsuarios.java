@@ -120,10 +120,11 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public static boolean updateNome() {
-		String sql = "UPDATE usuarios SET nome WHERE ";
-		java.sql.PreparedStatement stmt;
+	public static boolean updateNome(String email) {
+		String sql = "UPDATE usuarios SET nome WHERE email = ?";
+		java.sql.PreparedStatement stmt = null;
 		try {
+			stmt.setString(1, email);
 			stmt = con.getConexao().prepareStatement(sql);
 			stmt.execute();
 			stmt.close();
