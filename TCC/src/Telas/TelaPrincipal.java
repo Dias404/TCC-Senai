@@ -16,6 +16,7 @@ import java.awt.SystemColor;
 import java.awt.Panel;
 import javax.swing.border.LineBorder;
 
+import Administrador.AlterarDados;
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 import Administrador.MandarEmail;
@@ -168,17 +169,19 @@ public class TelaPrincipal {
 			btnMandarEmail.setFocusable(false);
 			btnMandarEmail.setBackground(Color.decode("#0049aa"));
 			
-			JButton btnAlterarSenha = new JButton("Alterar Senha");
-			btnAlterarSenha.addActionListener(new ActionListener() {
+			JButton btnAlterarDados = new JButton("Alterar Dados");
+			btnAlterarDados.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					AlterarDados.main(null);
+					frmPrincipal.setEnabled(false);
 				}
 			});
-			btnAlterarSenha.setForeground(Color.WHITE);
-			btnAlterarSenha.setFont(new Font("Impact", Font.PLAIN, 13));
-			btnAlterarSenha.setFocusable(false);
-			btnAlterarSenha.setBackground(Color.decode("#0049aa"));
-			btnAlterarSenha.setBounds(307, 113, 151, 23);
-			frmPrincipal.getContentPane().add(btnAlterarSenha);
+			btnAlterarDados.setForeground(Color.WHITE);
+			btnAlterarDados.setFont(new Font("Impact", Font.PLAIN, 13));
+			btnAlterarDados.setFocusable(false);
+			btnAlterarDados.setBackground(Color.decode("#0049aa"));
+			btnAlterarDados.setBounds(307, 113, 151, 23);
+			frmPrincipal.getContentPane().add(btnAlterarDados);
 			
 			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
 			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));

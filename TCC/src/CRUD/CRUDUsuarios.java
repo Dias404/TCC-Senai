@@ -120,4 +120,17 @@ public class CRUDUsuarios {
 		}
 	}
 	
+	public static boolean updateNome() {
+		String sql = "UPDATE usuarios SET nome WHERE ";
+		java.sql.PreparedStatement stmt;
+		try {
+			stmt = con.getConexao().prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e1) {e1.printStackTrace();
+			return false;
+		}
+	}
+	
 }
