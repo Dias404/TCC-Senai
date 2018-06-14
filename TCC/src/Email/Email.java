@@ -15,26 +15,28 @@ import org.apache.commons.mail.SimpleEmail;
 import CRUD.CRUDUsuarios;
 
 public class Email {
-
-	public static String enviarEmailAdmin(JComboBox cbEmail, JEditorPane epMsg) {
-		String para = cbEmail.getSelectedItem().toString();
-		String emailLogado = "tccsig0@gmail.com";
-		String senhaEmailLogado = "siganadiasribeirojere";
-		String usuarioEmailLogado = "SIG";
-		String msg = epMsg.getText();
-		
+	
+	public static String enviarEmailAdmin(JComboBox cbEmail, JEditorPane epMsg, String senha) {
 		try {
+			ResultSet dados = CRUDUsuarios.selectUsuarioLogado();
+			String para = cbEmail.getSelectedItem().toString();
+			String emailLogado = dados.getString("email");
+			String senhaEmailLogado = senha;
+			String usuarioEmailLogado = dados.getString("nome");
+			String msg = epMsg.getText();
+			
+			System.out.println(emailLogado);
+			System.out.println(senhaEmailLogado);
+			System.out.println(usuarioEmailLogado);
+			
 			SimpleEmail enviarEmail = new SimpleEmail();
-			if(para.contains("@gmail.com")) { // para gmail
-				enviarEmail.setHostName("smtp.gmail.com"); 
-				enviarEmail.setSmtpPort(465);
-			}if(para.contains("@hotmail.com") || para.contains("@outlook.com")) { // para hotmail
-				enviarEmail.setHostName("smtp-mail.outlook.com"); 
-				enviarEmail.setSmtpPort(587); //25
-			}
+			enviarEmail.setHostName("smtp.gmail.com"); 
+			enviarEmail.setSmtpPort(465);
 			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
 			enviarEmail.setSSLOnConnect(true);
 			//enviarEmail.setTLSOnConnect(true); <-- Se precisar
+			//enviarEmail.setHostName("smtp-mail.outlook.com"); 
+			//enviarEmail.setSmtpPort(587); //25
 			enviarEmail.setFrom(emailLogado);
 			enviarEmail.setSubject("SIG - "+usuarioEmailLogado);
 			enviarEmail.setMsg(msg);
@@ -42,9 +44,13 @@ public class Email {
 			enviarEmail.send();
 			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
 			return "certo";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Email Inválido.");
+			return "Fail";
 		} catch (EmailException arg0) {
 			arg0.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Email Inválido");
+			JOptionPane.showMessageDialog(null, "Email Inválido ou senha incorreta.");
 			return "Fail";
 		}
 	

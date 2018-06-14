@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -70,7 +71,6 @@ public class MandarEmail {
 			public void windowClosed(WindowEvent arg0) {
 				TelaPrincipal.frmPrincipal.setEnabled(true);
 				TelaPrincipal.frmPrincipal.setVisible(true);
-				//testem
 			}
 		});
 		frmMandarEmail.setIconImage(Toolkit.getDefaultToolkit().getImage(MandarEmail.class.getResource("/Img/SIG 16x16.png")));
@@ -89,7 +89,8 @@ public class MandarEmail {
 		JButton btnMandar = new JButton("Mandar");
 		btnMandar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Email.enviarEmailAdmin(cbEmail, epMsg);
+				String input = JOptionPane.showInputDialog("Insira a senha de seu e-mail.");
+				Email.enviarEmailAdmin(cbEmail, epMsg, input);
 				epMsg.setText(null);
 			}
 		});
