@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import Banco.Conexao;
 import DAO.Usuarios;
 
@@ -120,16 +122,88 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public static boolean updateNome(String email) {
-		String sql = "UPDATE usuarios SET nome WHERE email = ?";
-		java.sql.PreparedStatement stmt = null;
+	public static boolean updateNome(String nome, String email) {
+		String sql = "UPDATE usuarios SET nome = ? WHERE email = ?";
 		try {
-			stmt.setString(1, email);
-			stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			stmt.setString(1, nome);
+			stmt.setString(2, email);
 			stmt.execute();
 			stmt.close();
+			JOptionPane.showMessageDialog(null, "O nome deste usuário foi alterado com sucesso.");
 			return true;
-		} catch (SQLException e1) {e1.printStackTrace();
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar o nome deste usuário.", null, JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean updateSenha(String senha, String email) {
+		String sql = "UPDATE usuarios SET senha = ? WHERE email = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			stmt.setString(1, senha);
+			stmt.setString(2, email);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "A senha deste usuário foi alterado com sucesso.");
+			return true;
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar a senha deste usuário.", null, JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean updateEmail(String email, String senha, String nome) {
+		String sql = "UPDATE usuarios SET email = ? WHERE senha = ? AND nome = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			stmt.setString(1, email);
+			stmt.setString(2, senha);
+			stmt.setString(3, nome);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "O e-mail deste usuário foi alterado com sucesso.");
+			return true;
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar o e-mail deste usuário.", null, JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean updateFone(String fone, String email) {
+		String sql = "UPDATE usuarios SET fone = ? WHERE email = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			stmt.setString(1, fone);
+			stmt.setString(2, email);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "O número de telefone deste usuário foi alterado com sucesso.");
+			return true;
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar o número de telefone deste usuário.", null, JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean updateCel(String cel, String email) {
+		String sql = "UPDATE usuarios SET cel = ? WHERE email = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			stmt.setString(1, cel);
+			stmt.setString(2, email);
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null, "O número de celular deste usuário foi alterado com sucesso.");
+			return true;
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar o número de celular deste usuário.", null, JOptionPane.ERROR_MESSAGE);
+			e1.printStackTrace();
 			return false;
 		}
 	}

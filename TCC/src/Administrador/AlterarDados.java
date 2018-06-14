@@ -21,6 +21,8 @@ import Telas.TelaPrincipal;
 
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -29,6 +31,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 
 public class AlterarDados {
 
@@ -76,7 +79,7 @@ public class AlterarDados {
 		frmAlterarDados.setTitle("SIG - Alterar Dados");
 		frmAlterarDados.setIconImage(Toolkit.getDefaultToolkit().getImage(AlterarDados.class.getResource("/Img/SIG 16x16.png")));
 		frmAlterarDados.setResizable(false);
-		frmAlterarDados.setBounds(100, 100, 626, 626);
+		frmAlterarDados.setBounds(100, 100, 626, 379);
 		frmAlterarDados.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAlterarDados.getContentPane().setLayout(null);
 		frmAlterarDados.setLocationRelativeTo(null);
@@ -121,7 +124,11 @@ public class AlterarDados {
 				int indexColuna = table.getSelectedColumn();
 				String nomeColuna = table.getColumnName(indexColuna);
 				campoSelecionado = (String) table.getValueAt(indexLinha, indexColuna);
-				System.out.println(nomeColuna);
+				String email = (String) table.getValueAt(indexLinha, 2);
+				String senha = (String) table.getValueAt(indexLinha, 1);
+				String nome = (String) table.getValueAt(indexLinha, 0);
+				String fone = (String) table.getValueAt(indexLinha, 3);
+				String cel = (String) table.getValueAt(indexLinha, 4);
 				if(nomeColuna.equals("Nome")) {
 					int escolha = JOptionPane.showConfirmDialog(frmAlterarDados, 
 					"Você deseja alterar o "+nomeColuna.toLowerCase()+" deste usuário?", null, JOptionPane.YES_NO_OPTION, 
@@ -129,6 +136,8 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo nome para este usuário.");
+						CRUDUsuarios.updateNome(input, email);
+						table.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Senha")) {
@@ -138,6 +147,8 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira uma nova senha para este usuário.");
+						CRUDUsuarios.updateSenha(input, email);
+						table.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Email")) {
@@ -147,6 +158,8 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo email para este usuário.");
+						CRUDUsuarios.updateEmail(input, senha, nome);
+						table.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Telefone")) {
@@ -156,6 +169,8 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo número de telefone para este usuário.");
+						CRUDUsuarios.updateFone(input, email);
+						table.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Celular")) {
@@ -165,6 +180,8 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo número de celular para este usuário.");
+						CRUDUsuarios.updateCel(input, email);
+						table.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 			}
@@ -185,8 +202,17 @@ public class AlterarDados {
 		button.setFont(new Font("Impact", Font.PLAIN, 13));
 		button.setFocusable(false);
 		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(10, 317, 89, 23);
+		button.setBounds(10, 316, 89, 23);
 		frmAlterarDados.getContentPane().add(button);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(620, 350, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 620, 350);
+		frmAlterarDados.getContentPane().add(lblBG);
 		
 		preencherTabela();
 	}
