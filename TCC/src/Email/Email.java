@@ -17,40 +17,40 @@ import CRUD.CRUDUsuarios;
 public class Email {
 	
 	public static String enviarEmailAdmin(JComboBox cbEmail, JEditorPane epMsg, String senha) {
+		ResultSet dados = CRUDUsuarios.selectUsuarioLogado();
 		try {
-			ResultSet dados = CRUDUsuarios.selectUsuarioLogado();
-			String para = cbEmail.getSelectedItem().toString();
-			String emailLogado = dados.getString("email");
-			String senhaEmailLogado = senha;
-			String usuarioEmailLogado = dados.getString("nome");
-			String msg = epMsg.getText();
-			
-			System.out.println(emailLogado);
-			System.out.println(senhaEmailLogado);
-			System.out.println(usuarioEmailLogado);
-			
-			SimpleEmail enviarEmail = new SimpleEmail();
-			enviarEmail.setHostName("smtp.gmail.com"); 
-			enviarEmail.setSmtpPort(465);
-			enviarEmail.setAuthentication(emailLogado, senhaEmailLogado);
-			enviarEmail.setSSLOnConnect(true);
-			//enviarEmail.setTLSOnConnect(true); <-- Se precisar
-			//enviarEmail.setHostName("smtp-mail.outlook.com"); 
-			//enviarEmail.setSmtpPort(587); //25
-			enviarEmail.setFrom(emailLogado);
-			enviarEmail.setSubject("SIG - "+usuarioEmailLogado);
-			enviarEmail.setMsg(msg);
-			enviarEmail.addTo(para);
-			enviarEmail.send();
-			JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
-			return "certo";
+			if(dados.next()) {
+				String para = cbEmail.getSelectedItem().toString();
+				String emailLogado = dados.getString("email");
+				String usuarioEmailLogado = dados.getString("nome");
+				String msg = epMsg.getText();
+				
+				SimpleEmail enviarEmail = new SimpleEmail();
+				enviarEmail.setHostName("smtp.gmail.com"); 
+				enviarEmail.setSmtpPort(465);
+				enviarEmail.setAuthentication(emailLogado, senha);
+				enviarEmail.setSSLOnConnect(true);
+				//enviarEmail.setTLSOnConnect(true); <-- Se precisar
+				//enviarEmail.setHostName("smtp-mail.outlook.com"); 
+				//enviarEmail.setSmtpPort(587); //25
+				enviarEmail.setFrom(emailLogado);
+				enviarEmail.setSubject("SIG - "+usuarioEmailLogado);
+				enviarEmail.setMsg(msg);
+				enviarEmail.addTo(para);
+				enviarEmail.send();
+				JOptionPane.showMessageDialog(null, "Email Enviado com sucesso!");
+				return "Success";
+			}else {
+				JOptionPane.showMessageDialog(null, "Erro.");
+				return "Fail";
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Email Inválido.");
 			return "Fail";
 		} catch (EmailException arg0) {
 			arg0.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Email Inválido ou senha incorreta.");
+			JOptionPane.showMessageDialog(null, "Email Inválido ou senha incorreta.\nVerifique se seu e-mail permite\no uso dele neste aplicativo.");
 			return "Fail";
 		}
 	

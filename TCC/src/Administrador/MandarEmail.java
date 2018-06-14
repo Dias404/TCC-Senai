@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -25,6 +27,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDUsuarios;
 import Email.Email;
 import Telas.TelaPrincipal;
+import javax.swing.JPasswordField;
 
 public class MandarEmail {
 
@@ -89,8 +92,8 @@ public class MandarEmail {
 		JButton btnMandar = new JButton("Mandar");
 		btnMandar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String input = JOptionPane.showInputDialog("Insira a senha de seu e-mail.");
-				Email.enviarEmailAdmin(cbEmail, epMsg, input);
+				String senha = JOptionPane.showInputDialog("Insira a senha de seu e-mail.");
+				Email.enviarEmailAdmin(cbEmail, epMsg, senha);
 				epMsg.setText(null);
 			}
 		});
