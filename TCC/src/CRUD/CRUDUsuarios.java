@@ -16,13 +16,14 @@ public class CRUDUsuarios {
 	
 	public boolean insertUsuario(Usuarios usuario) {
 		try {
-			String sql = "INSERT INTO usuarios (nome, senha, email, fone, cel) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO usuarios (nome, senha, email, fone, cel, nivel) VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getSenha());
 			stmt.setString(3, usuario.getEmail());
 			stmt.setString(4, usuario.getFone());
 			stmt.setString(5, usuario.getCel());
+			stmt.setString(6, usuario.getNivel());
 			stmt.execute();
 			stmt.close();
 			return true;

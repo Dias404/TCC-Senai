@@ -36,9 +36,9 @@ import java.sql.SQLException;
 public class TelaPrincipal {
 
 	public static JFrame frmPrincipal;
-	private JPanel pnCliente;
-	private JPanel pnEstoque;
-	private JPanel pnCaixa;
+	
+	String nivel = null;
+	String usuario = null;
 
 	/**
 	 * Launch the application.
@@ -68,15 +68,12 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		ResultSet rs = CRUDUsuarios.selectUsuarioLogado();
-		String nivel = null;
-		String usuario = null;
 		try {
 			if(rs.first()) {
 				nivel = rs.getString("nivel");
 				usuario = rs.getString("nome");
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -113,6 +110,26 @@ public class TelaPrincipal {
 		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
 		lblLogo.setBounds(10, 11, 172, 129);
 		frmPrincipal.getContentPane().add(lblLogo);
+		
+		JPanel pnCliente = new JPanel();
+		pnCliente.setOpaque(false);
+		pnCliente.setBounds(152, 159, 324, 148);
+		frmPrincipal.getContentPane().add(pnCliente);
+		pnCliente.setLayout(null);
+		
+		JPanel pnCaixa = new JPanel();
+		pnCaixa.setVisible(false);
+		pnCaixa.setOpaque(false);
+		pnCaixa.setLayout(null);
+		pnCaixa.setBounds(152, 159, 324, 148);
+		frmPrincipal.getContentPane().add(pnCaixa);
+		
+		JPanel pnEstoque = new JPanel();
+		pnEstoque.setVisible(false);
+		pnEstoque.setOpaque(false);
+		pnEstoque.setBounds(152, 159, 324, 148);
+		frmPrincipal.getContentPane().add(pnEstoque);
+		pnEstoque.setLayout(null);
 		
 		if(nivel.equalsIgnoreCase("Admin")) {
 			JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do");
@@ -198,13 +215,65 @@ public class TelaPrincipal {
 			lblNivel.setBounds(192, 104, 57, 14);
 			frmPrincipal.getContentPane().add(lblNivel);
 			
-			JLabel lblNivelUsuario = null;
-			lblNivelUsuario = new JLabel(nivel);
+			JLabel lblNivelUsuario = new JLabel(nivel);
 			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblNivelUsuario.setBounds(192, 127, 105, 14);
 			frmPrincipal.getContentPane().add(lblNivelUsuario);
 			
-		}else {
+			JButton btnConferencia = new JButton("");
+			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
+			btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnConferencia.setFocusable(false);
+			btnConferencia.setBackground(Color.decode("#0049aa"));
+			btnConferencia.setBounds(114, 81, 94, 59);
+			pnCaixa.add(btnConferencia);
+			
+			JButton btnContas = new JButton("");
+			btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
+			btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnContas.setFocusable(false);
+			btnContas.setBackground(Color.decode("#0049aa"));
+			btnContas.setBounds(218, 81, 94, 59);
+			pnCaixa.add(btnContas);
+			
+			JButton btnCorrecaoProduto = new JButton("");
+			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
+			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnCorrecaoProduto.setFocusable(false);
+			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
+			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
+			pnEstoque.add(btnCorrecaoProduto);
+			
+			btnContas.setEnabled(true);
+			btnConferencia.setEnabled(true);
+			btnCorrecaoProduto.setEnabled(true);
+			
+		}if(nivel.equalsIgnoreCase("Autorizado")) {
+			
+			JButton btnConferencia = new JButton("");
+			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
+			btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnConferencia.setFocusable(false);
+			btnConferencia.setBackground(Color.decode("#0049aa"));
+			btnConferencia.setBounds(114, 81, 94, 59);
+			pnCaixa.add(btnConferencia);
+			
+			JButton btnContas = new JButton("");
+			btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
+			btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnContas.setFocusable(false);
+			btnContas.setBackground(Color.decode("#0049aa"));
+			btnContas.setBounds(218, 81, 94, 59);
+			pnCaixa.add(btnContas);
+			
+			JButton btnCorrecaoProduto = new JButton("");
+			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
+			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnCorrecaoProduto.setFocusable(false);
+			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
+			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
+			pnEstoque.add(btnCorrecaoProduto);
+			
 			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
 			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 			lblUsuario.setBounds(215, 29, 57, 14);
@@ -220,12 +289,64 @@ public class TelaPrincipal {
 			lblNivel.setBounds(215, 77, 57, 14);
 			frmPrincipal.getContentPane().add(lblNivel);
 			
-			JLabel lblNivelUsuario = null;
-			lblNivelUsuario = new JLabel(nivel);
+			JLabel lblNivelUsuario = new JLabel(nivel);
 			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblNivelUsuario.setBounds(215, 100, 105, 14);
 			frmPrincipal.getContentPane().add(lblNivelUsuario);
 			
+			btnContas.setEnabled(false);
+			btnConferencia.setEnabled(true);
+			btnCorrecaoProduto.setEnabled(true);
+			
+		}else if(nivel.equalsIgnoreCase("Básico")){
+			
+			JButton btnConferencia = new JButton("");
+			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
+			btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnConferencia.setFocusable(false);
+			btnConferencia.setBackground(Color.decode("#0049aa"));
+			btnConferencia.setBounds(114, 81, 94, 59);
+			pnCaixa.add(btnConferencia);
+			
+			JButton btnContas = new JButton("");
+			btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
+			btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnContas.setFocusable(false);
+			btnContas.setBackground(Color.decode("#0049aa"));
+			btnContas.setBounds(218, 81, 94, 59);
+			pnCaixa.add(btnContas);
+			
+			JButton btnCorrecaoProduto = new JButton("");
+			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
+			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnCorrecaoProduto.setFocusable(false);
+			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
+			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
+			pnEstoque.add(btnCorrecaoProduto);
+			
+			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
+			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblUsuario.setBounds(215, 29, 57, 14);
+			frmPrincipal.getContentPane().add(lblUsuario);
+			
+			JLabel lblNomeUsuario = new JLabel(usuario);
+			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNomeUsuario.setBounds(215, 52, 105, 14);
+			frmPrincipal.getContentPane().add(lblNomeUsuario);
+			
+			JLabel lblNivel = new JLabel("N\u00EDvel:");
+			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblNivel.setBounds(215, 77, 57, 14);
+			frmPrincipal.getContentPane().add(lblNivel);
+			
+			JLabel lblNivelUsuario = new JLabel(nivel);
+			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNivelUsuario.setBounds(215, 100, 105, 14);
+			frmPrincipal.getContentPane().add(lblNivelUsuario);
+			
+			btnContas.setEnabled(false);
+			btnConferencia.setEnabled(false);
+			btnCorrecaoProduto.setEnabled(false);
 		}
 		
 		JButton btnCliente = new JButton("Cliente");
@@ -299,12 +420,6 @@ public class TelaPrincipal {
 		btnSair.setBounds(10, 275, 89, 23);
 		frmPrincipal.getContentPane().add(btnSair);
 		
-		pnCliente = new JPanel();
-		pnCliente.setOpaque(false);
-		pnCliente.setBounds(152, 159, 324, 148);
-		frmPrincipal.getContentPane().add(pnCliente);
-		pnCliente.setLayout(null);
-		
 		JButton btnClientes = new JButton("");
 		btnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/clientes.png")));
 		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -348,13 +463,6 @@ public class TelaPrincipal {
 		btnDemonstracao.setBackground(Color.decode("#0049aa"));
 		btnDemonstracao.setBounds(63, 81, 94, 59);
 		pnCliente.add(btnDemonstracao);
-		
-		pnCaixa = new JPanel();
-		pnCaixa.setVisible(false);
-		pnCaixa.setOpaque(false);
-		pnCaixa.setLayout(null);
-		pnCaixa.setBounds(152, 159, 324, 148);
-		frmPrincipal.getContentPane().add(pnCaixa);
 		
 		JButton btnVenda = new JButton("");
 		btnVenda.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/vendas.png")));
@@ -403,13 +511,6 @@ public class TelaPrincipal {
 		btnContas.setBackground(Color.decode("#0049aa"));
 		btnContas.setBounds(218, 81, 94, 59);
 		pnCaixa.add(btnContas);
-		
-		pnEstoque = new JPanel();
-		pnEstoque.setVisible(false);
-		pnEstoque.setOpaque(false);
-		pnEstoque.setBounds(152, 159, 324, 148);
-		frmPrincipal.getContentPane().add(pnEstoque);
-		pnEstoque.setLayout(null);
 		
 		JButton btnConsulta = new JButton("");
 		btnConsulta.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/consulta.png")));

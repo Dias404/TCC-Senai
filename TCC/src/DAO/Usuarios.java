@@ -8,6 +8,7 @@ public class Usuarios {
 	public String email;
 	public String fone;
 	public String cel;
+	public String nivel;
 	
 	public int getIdUsuarios() {
 		return idUsuarios;
@@ -44,6 +45,12 @@ public class Usuarios {
 	}
 	public void setCel(String cel) {
 		this.cel = cel;
+	}
+	public String getNivel() {
+		return nivel;
+	}
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
 	}
 	
 }
