@@ -249,7 +249,7 @@ public class CadastroDeClientes {
 					Clientes cliJu = new Clientes();
 					cliJu.setTipoDePessoa("Jurídica");
 					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
-					cliJu.setSexo("----------");
+					cliJu.setSexo("-");
 					cliJu.setEmail(tfEmailJ.getText().toString());
 					cliJu.setUF(comboUFJ.getSelectedItem().toString());
 					/*

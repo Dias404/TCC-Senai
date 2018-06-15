@@ -45,7 +45,7 @@ public class ConsultarClientes {
 	private JLabel lblBG;
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -88,7 +88,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes.getContentPane().add(lblConsultaDeClientes);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		//scrollPane.setOpaque(false);				// SCROLL PANE
+		//scrollPane.setOpaque(false);					// SCROLL PANE
 		//scrollPane.getViewport().setOpaque(false);	// TRANSPARENTE
 		scrollPane.setBounds(10, 39, 600, 385);
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
@@ -113,19 +113,26 @@ public class ConsultarClientes {
 		scrollPane.setViewportView(tabela);
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Nome/Raz\u00E3o", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
+				"Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+				false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
 		tabela.getColumnModel().getColumn(0).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(200);
+		tabela.getColumnModel().getColumn(0).setMinWidth(200);
+		tabela.getColumnModel().getColumn(0).setMaxWidth(200);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(60);
+		tabela.getColumnModel().getColumn(1).setMinWidth(60);
+		tabela.getColumnModel().getColumn(1).setMaxWidth(60);
 		tabela.getColumnModel().getColumn(2).setResizable(false);
 		tabela.getColumnModel().getColumn(3).setResizable(false);
 		tabela.getColumnModel().getColumn(4).setResizable(false);
@@ -257,13 +264,23 @@ public class ConsultarClientes {
 	}
 	
 	private boolean preencherTabela() {
+		String sexo = null;
 		CRUDClientes selecionar = new CRUDClientes();
 		selecionar.selectClientes();
 		try {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (selecionar.dadosSelect.next()) {
-				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), selecionar.dadosSelect.getString("sexo"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("M")) {
+					sexo = "Masculino";
+				}
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("F")) {
+					sexo = "Feminino";
+				}
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("-")) {
+					sexo = "----------";
+				}
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
 			}
 			return true;
 		} catch (SQLException e) {

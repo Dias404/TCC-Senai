@@ -16,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 
 import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
+import DAO.Clientes;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -31,6 +32,7 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class AtualizarClientes {
 
@@ -85,6 +87,8 @@ public class AtualizarClientes {
 	private JButton btnAdicionarCidadeJ;
 	private JButton btnRemover;
 	private JLabel lblBG;
+	
+	private int idCliente = 0;
 	
 	/**
 	 * Launch the application.
@@ -437,6 +441,7 @@ public class AtualizarClientes {
 		pnFisica.add(tpObservacoesF);
 		
 		comboEstadoCivil = new JComboBox();
+		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"}));
 		comboEstadoCivil.setEnabled(false);
 		comboEstadoCivil.setBounds(407, 229, 103, 20);
 		pnFisica.add(comboEstadoCivil);
@@ -708,6 +713,7 @@ public class AtualizarClientes {
 				if (respostaJOP == JOptionPane.NO_OPTION) {
 					return;
 				}
+				System.out.println(idCliente);
 			}
 		});
 		btnAlterar.setForeground(Color.WHITE);
@@ -778,6 +784,81 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(btnCancelar);
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (rbFisica.isSelected()) {
+					Clientes cliFi = new Clientes();
+					cliFi.setTipoDePessoa("Física");
+					cliFi.setNomeRazao(tfNome.getText().toString());
+					if (rbMasculino.isSelected()) {
+						cliFi.setSexo("M");
+					}else {
+						cliFi.setSexo("F");
+					}
+					cliFi.setEmail(tfEmailF.getText().toString());
+					/*
+					cliFi.setUF(comboUFF.getSelectedItem().toString());
+					cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
+					cliFi.setBairro(comboBairroF.getSelectedItem().toString());
+					cliFi.setRua(comboRuaF.getSelectedItem().toString());
+					*/
+					cliFi.setUF("testeUF1");
+					cliFi.setCidade("testeCidade1");
+					cliFi.setBairro("testeBairro1");
+					cliFi.setRua("testeRua1");
+					
+					cliFi.setNumero(tfNumeroF.getText().toString());
+					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
+					cliFi.setRG_IE(tfRG.getText().toString());
+					cliFi.setMae(tfMae.getText().toString());
+					cliFi.setPai(tfPai.getText().toString());
+					cliFi.setDataDeNascimento(tfDataDeNascimento.getText().toString());
+					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
+					cliFi.setTel1(tfTel1F.getText().toString());
+					cliFi.setTel2(tfTel2F.getText().toString());
+					cliFi.setCel1(tfCel1F.getText().toString());
+					cliFi.setCel2(tfCel2F.getText().toString());
+					
+					CRUDClientes update = new CRUDClientes();
+					update.updateCliente(cliFi, idCliente);
+					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+					btnCancelar.doClick();
+				}else {
+					Clientes cliJu = new Clientes();
+					cliJu.setTipoDePessoa("Jurídica");
+					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
+					cliJu.setSexo("-");
+					cliJu.setEmail(tfEmailJ.getText().toString());
+					/*
+					cliJu.setUF(comboUFJ.getSelectedItem().toString());
+					cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
+					cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
+					cliJu.setRua(comboRuaJ.getSelectedItem().toString());
+					*/
+					cliJu.setUF("testeUF2");
+					cliJu.setCidade("testeCidade2");
+					cliJu.setBairro("testeBairro2");
+					cliJu.setRua("testeRua2");
+					
+					cliJu.setNumero(tfNumeroJ.getText().toString());
+					cliJu.setCPF_CNPJ(tfCNPJ.getText().toString());
+					cliJu.setRG_IE(tfIE.getText().toString());
+					cliJu.setMae("----------");
+					cliJu.setPai("----------");
+					cliJu.setDataDeNascimento("----------");
+					cliJu.setEstadoCivil("----------");
+					cliJu.setTel1(tfTel1J.getText().toString());
+					cliJu.setTel2(tfTel2J.getText().toString());
+					cliJu.setCel1(tfCel1J.getText().toString());
+					cliJu.setCel2(tfCel2J.getText().toString());
+					
+					CRUDClientes update = new CRUDClientes();
+					update.updateCliente(cliJu, idCliente);
+					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+					btnCancelar.doClick();
+				}
+			}
+		});
 		btnSalvar.setVisible(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -846,17 +927,18 @@ public class AtualizarClientes {
 		select.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
 		try {
 			if (select.dadosEspecificos.first()) {
+				idCliente = select.dadosEspecificos.getInt("id_cliente");
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Física")) {
 					rbFisica.setSelected(true);
 					pnFisica.setVisible(true);
 					pnJuridica.setVisible(false);
 					
 					tfNome.setText(select.dadosEspecificos.getString("nome_razao").toString());
-					if (select.dadosEspecificos.getString("sexo").equals("M")) {
+					if (select.dadosEspecificos.getString("sexo").equalsIgnoreCase("M")) {
 						rbMasculino.setSelected(true);
 						rbFeminino.setSelected(false);
 					}
-					if (select.dadosEspecificos.getString("sexo").equals("F")) {
+					if (select.dadosEspecificos.getString("sexo").equalsIgnoreCase("F")) {
 						rbMasculino.setSelected(false);
 						rbFeminino.setSelected(true);
 					}
