@@ -56,7 +56,6 @@ public class AtualizarClientes {
 	private JButton btnAdicionarBairroJ;
 	private JComboBox comboRuaJ;
 	private JButton btnAdicionarRuaJ;
-	private JTextPane tpObservacoesJ;
 	private JRadioButton rbFisica;
 	private JRadioButton rbJuridica;
 	private JTextField tfNome;
@@ -75,7 +74,6 @@ public class AtualizarClientes {
 	private JPanel pnJuridica;
 	private JRadioButton rbMasculino;
 	private JRadioButton rbFeminino;
-	private JTextPane tpObservacoesF;
 	private JComboBox comboUFF;
 	private JButton btnAdicionarCidadeF;
 	private JComboBox comboCidadeF;
@@ -120,7 +118,7 @@ public class AtualizarClientes {
 		frmAtualizarClientes = new JFrame();
 		frmAtualizarClientes.setTitle("SIG - Atualizar Clientes");
 		frmAtualizarClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarClientes.class.getResource("/Img/SIG 16x16.png")));
-		frmAtualizarClientes.setBounds(100, 100, 559, 575);
+		frmAtualizarClientes.setBounds(100, 100, 548, 464);
 		frmAtualizarClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAtualizarClientes.setResizable(false);
 		frmAtualizarClientes.setLocationRelativeTo(null);
@@ -179,7 +177,7 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(rbJuridica);
 		
 		pnFisica = new JPanel();
-		pnFisica.setBounds(10, 65, 521, 416);
+		pnFisica.setBounds(10, 65, 521, 325);
 		frmAtualizarClientes.getContentPane().add(pnFisica);
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
@@ -381,12 +379,6 @@ public class AtualizarClientes {
 		label_28.setBounds(262, 294, 38, 14);
 		pnFisica.add(label_28);
 		
-		JLabel label_29 = new JLabel("Obs:");
-		label_29.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_29.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_29.setBounds(10, 325, 38, 14);
-		pnFisica.add(label_29);
-		
 		comboUFF = new JComboBox();
 		comboUFF.setEnabled(false);
 		comboUFF.setBounds(58, 74, 163, 20);
@@ -434,12 +426,6 @@ public class AtualizarClientes {
 		comboRuaF.setBounds(58, 136, 232, 19);
 		pnFisica.add(comboRuaF);
 		
-		tpObservacoesF = new JTextPane();
-		tpObservacoesF.setEnabled(false);
-		tpObservacoesF.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		tpObservacoesF.setBounds(58, 322, 453, 83);
-		pnFisica.add(tpObservacoesF);
-		
 		comboEstadoCivil = new JComboBox();
 		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"}));
 		comboEstadoCivil.setEnabled(false);
@@ -451,7 +437,7 @@ public class AtualizarClientes {
 		pnJuridica.setLayout(null);
 		pnJuridica.setOpaque(false);
 		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
-		pnJuridica.setBounds(10, 65, 521, 416);
+		pnJuridica.setBounds(10, 65, 521, 325);
 		frmAtualizarClientes.getContentPane().add(pnJuridica);
 		
 		JLabel lblRazoSocial = new JLabel("Razão Social:");
@@ -584,12 +570,6 @@ public class AtualizarClientes {
 		label_17.setBounds(262, 230, 38, 14);
 		pnJuridica.add(label_17);
 		
-		JLabel label_18 = new JLabel("Obs:");
-		label_18.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_18.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_18.setBounds(12, 261, 38, 14);
-		pnJuridica.add(label_18);
-		
 		comboUFJ = new JComboBox();
 		comboUFJ.setEnabled(false);
 		comboUFJ.setBounds(58, 74, 163, 20);
@@ -637,12 +617,6 @@ public class AtualizarClientes {
 		comboRuaJ.setBounds(58, 136, 232, 19);
 		pnJuridica.add(comboRuaJ);
 		
-		tpObservacoesJ = new JTextPane();
-		tpObservacoesJ.setEnabled(false);
-		tpObservacoesJ.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		tpObservacoesJ.setBounds(58, 259, 453, 146);
-		pnJuridica.add(tpObservacoesJ);
-		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -654,7 +628,7 @@ public class AtualizarClientes {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 492, 89, 23);
+		btnVoltar.setBounds(10, 401, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnVoltar);
 		
 		btnAlterar = new JButton("Alterar");
@@ -707,25 +681,24 @@ public class AtualizarClientes {
 					tfCel1J.setEnabled(true);
 					tfCel2F.setEnabled(true);
 					tfCel2J.setEnabled(true);
-					tpObservacoesF.setEnabled(true);
-					tpObservacoesJ.setEnabled(true);
 				}
 				if (respostaJOP == JOptionPane.NO_OPTION) {
 					return;
 				}
-				System.out.println(idCliente);
 			}
 		});
 		btnAlterar.setForeground(Color.WHITE);
 		btnAlterar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnAlterar.setFocusable(false);
 		btnAlterar.setBackground(new Color(0, 73, 170));
-		btnAlterar.setBounds(442, 492, 89, 23);
+		btnAlterar.setBounds(442, 401, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnAlterar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				preencherCampos();
+				
 				btnAlterar.setVisible(true);
 				btnRemover.setVisible(false);
 				btnCancelar.setVisible(false);
@@ -771,8 +744,6 @@ public class AtualizarClientes {
 				tfCel1J.setEnabled(false);
 				tfCel2F.setEnabled(false);
 				tfCel2J.setEnabled(false);
-				tpObservacoesF.setEnabled(false);
-				tpObservacoesJ.setEnabled(false);
 			}
 		});
 		btnCancelar.setVisible(false);
@@ -780,7 +751,7 @@ public class AtualizarClientes {
 		btnCancelar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnCancelar.setFocusable(false);
 		btnCancelar.setBackground(new Color(0, 73, 170));
-		btnCancelar.setBounds(343, 492, 89, 23);
+		btnCancelar.setBounds(343, 401, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnCancelar);
 		
 		btnSalvar = new JButton("Salvar");
@@ -822,7 +793,52 @@ public class AtualizarClientes {
 					CRUDClientes update = new CRUDClientes();
 					update.updateCliente(cliFi, idCliente);
 					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
-					btnCancelar.doClick();
+					
+					btnAlterar.setVisible(true);
+					btnRemover.setVisible(false);
+					btnCancelar.setVisible(false);
+					btnSalvar.setVisible(false);
+					
+					rbFisica.setEnabled(false);
+					rbJuridica.setEnabled(false);
+					tfNome.setEnabled(false);
+					tfRazaoSocial.setEnabled(false);
+					tfEmailF.setEnabled(false);
+					tfEmailJ.setEnabled(false);
+					rbMasculino.setEnabled(false);
+					rbFeminino.setEnabled(false);
+					comboUFF.setEnabled(false);
+					comboUFJ.setEnabled(false);
+					comboCidadeF.setEnabled(false);
+					comboCidadeJ.setEnabled(false);
+					btnAdicionarCidadeF.setEnabled(false);
+					btnAdicionarCidadeJ.setEnabled(false);
+					comboBairroF.setEnabled(false);
+					comboBairroJ.setEnabled(false);
+					btnAdicionarBairroF.setEnabled(false);
+					btnAdicionarBairroJ.setEnabled(false);
+					comboRuaF.setEnabled(false);
+					comboRuaJ.setEnabled(false);
+					btnAdicionarRuaF.setEnabled(false);
+					btnAdicionarRuaJ.setEnabled(false);
+					tfNumeroF.setEnabled(false);
+					tfNumeroJ.setEnabled(false);
+					tfCPF.setEnabled(false);
+					tfCNPJ.setEnabled(false);
+					tfRG.setEnabled(false);
+					tfIE.setEnabled(false);
+					tfMae.setEnabled(false);
+					tfPai.setEnabled(false);
+					tfDataDeNascimento.setEnabled(false);
+					comboEstadoCivil.setEnabled(false);
+					tfTel1F.setEnabled(false);
+					tfTel1J.setEnabled(false);
+					tfTel2F.setEnabled(false);
+					tfTel2J.setEnabled(false);
+					tfCel1F.setEnabled(false);
+					tfCel1J.setEnabled(false);
+					tfCel2F.setEnabled(false);
+					tfCel2J.setEnabled(false);
 				}else {
 					Clientes cliJu = new Clientes();
 					cliJu.setTipoDePessoa("Jurídica");
@@ -864,7 +880,7 @@ public class AtualizarClientes {
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(442, 492, 89, 23);
+		btnSalvar.setBounds(442, 401, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnSalvar);
 		
 		ButtonGroup grupoTipoDePessoa = new ButtonGroup();
@@ -907,7 +923,7 @@ public class AtualizarClientes {
 		btnRemover.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnRemover.setFocusable(false);
 		btnRemover.setBackground(new Color(0, 73, 170));
-		btnRemover.setBounds(244, 492, 89, 23);
+		btnRemover.setBounds(244, 401, 89, 23);
 		frmAtualizarClientes.getContentPane().add(btnRemover);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));

@@ -80,7 +80,6 @@ public class CadastroDeClientes {
 	private JTextField tfCel1F;
 	private JTextField tfCel2F;
 	private JLabel lblCel;
-	private JLabel label_18;
 	private JComboBox comboUFF;
 	private JButton btnAdicionarCidadeF;
 	private JButton btnAdicionarBairroF;
@@ -88,7 +87,6 @@ public class CadastroDeClientes {
 	private JComboBox comboCidadeF;
 	private JComboBox comboBairroF;
 	private JComboBox comboRuaF;
-	private JTextPane tpObservacoesF;
 	private JPanel pnJuridica;
 	private JLabel label_17;
 	private JTextField tfRazaoSocial;
@@ -112,7 +110,6 @@ public class CadastroDeClientes {
 	private JTextField tfCel1J;
 	private JTextField tfCel2J;
 	private JLabel label_30;
-	private JLabel label_31;
 	private JComboBox comboUFJ;
 	private JButton btnAdicionarCidadeJ;
 	private JButton btnAdicionarBairroJ;
@@ -120,7 +117,6 @@ public class CadastroDeClientes {
 	private JComboBox comboCidadeJ;
 	private JComboBox comboBairroJ;
 	private JComboBox comboRuaJ;
-	private JTextPane tpObservacoesJ;
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
 
@@ -152,7 +148,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes = new JFrame();
 		frmCadastroDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeClientes.setTitle("SIG - Cadastro de Clientes");
-		frmCadastroDeClientes.setBounds(100, 100, 548, 553);
+		frmCadastroDeClientes.setBounds(100, 100, 548, 464);
 		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastroDeClientes.getContentPane().setLayout(null);
 		
@@ -203,7 +199,7 @@ public class CadastroDeClientes {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 492, 89, 23);
+		btnVoltar.setBounds(10, 401, 89, 23);
 		frmCadastroDeClientes.getContentPane().add(btnVoltar);
 		
 		btnSalvar = new JButton("Salvar");
@@ -284,7 +280,7 @@ public class CadastroDeClientes {
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(442, 492, 89, 23);
+		btnSalvar.setBounds(442, 401, 89, 23);
 		frmCadastroDeClientes.getContentPane().add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
@@ -311,8 +307,6 @@ public class CadastroDeClientes {
 				tfCel2F.setText(null);
 				tfCel1J.setText(null);
 				tfCel2J.setText(null);
-				tpObservacoesF.setText(null);
-				tpObservacoesJ.setText(null);
 				rbMasculino.setSelected(true);
 			}
 		});
@@ -320,14 +314,14 @@ public class CadastroDeClientes {
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(343, 492, 89, 23);
+		btnLimpar.setBounds(343, 401, 89, 23);
 		frmCadastroDeClientes.getContentPane().add(btnLimpar);
 		
 		pnFisica = new JPanel();
 		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
-		pnFisica.setBounds(10, 65, 521, 416);
+		pnFisica.setBounds(10, 65, 521, 325);
 		frmCadastroDeClientes.getContentPane().add(pnFisica);
 		
 		label = new JLabel("Nome:");
@@ -512,12 +506,6 @@ public class CadastroDeClientes {
 		lblCel.setBounds(262, 294, 38, 14);
 		pnFisica.add(lblCel);
 		
-		label_18 = new JLabel("Obs:");
-		label_18.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_18.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_18.setBounds(10, 325, 38, 14);
-		pnFisica.add(label_18);
-		
 		comboUFF = new JComboBox();
 		comboUFF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -618,15 +606,10 @@ public class CadastroDeClientes {
 		comboRuaF.setBounds(58, 136, 232, 19);
 		pnFisica.add(comboRuaF);
 		
-		tpObservacoesF = new JTextPane();
-		tpObservacoesF.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		tpObservacoesF.setBounds(58, 322, 453, 83);
-		pnFisica.add(tpObservacoesF);
-		
 		pnJuridica = new JPanel();
 		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnJuridica.setVisible(false);
-		pnJuridica.setBounds(10, 65, 521, 416);
+		pnJuridica.setBounds(10, 65, 521, 325);
 		frmCadastroDeClientes.getContentPane().add(pnJuridica);
 		pnJuridica.setLayout(null);
 		pnJuridica.setOpaque(false);
@@ -752,12 +735,6 @@ public class CadastroDeClientes {
 		label_30.setBounds(262, 230, 38, 14);
 		pnJuridica.add(label_30);
 		
-		label_31 = new JLabel("Obs:");
-		label_31.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_31.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_31.setBounds(12, 263, 38, 14);
-		pnJuridica.add(label_31);
-		
 		comboUFJ = new JComboBox();
 		comboUFJ.setBounds(58, 74, 163, 20);
 		comboUFJ.setSelectedItem("São Paulo");
@@ -829,11 +806,6 @@ public class CadastroDeClientes {
 		comboRuaJ = new JComboBox();
 		comboRuaJ.setBounds(58, 136, 232, 19);
 		pnJuridica.add(comboRuaJ);
-		
-		tpObservacoesJ = new JTextPane();
-		tpObservacoesJ.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		tpObservacoesJ.setBounds(58, 259, 452, 146);
-		pnJuridica.add(tpObservacoesJ);
 		
 		ButtonGroup grupoTipoDePessoa = new ButtonGroup();
 		grupoTipoDePessoa.add(rbFisica);

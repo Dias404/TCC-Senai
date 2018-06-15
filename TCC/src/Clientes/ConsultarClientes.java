@@ -181,22 +181,22 @@ public class ConsultarClientes {
 					JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Tipo de Pessoa")) {
-					Object[] possiveisValores = { "Física", "Jurídica" };
-			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
-			        if (selectedValue.equals("Física")) {
+					Object[] valoresComboBox = { "Física", "Jurídica" };
+			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);
+			        if (valorSelecionado.equals("Física")) {
 						
 					}
-			        if (selectedValue.equals("Jurídica")) {
+			        if (valorSelecionado.equals("Jurídica")) {
 						
 					}
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Sexo")) {
-					Object[] possiveisValores = { "Masculino", "Feminino" };
-			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o sexo que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
-			        if (selectedValue.equals("Masculino")) {
+					Object[] valoresComboBox = { "Masculino", "Feminino" };
+			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o sexo que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);
+			        if (valorSelecionado.equals("Masculino")) {
 						
 					}
-			        if (selectedValue.equals("Feminino")) {
+			        if (valorSelecionado.equals("Feminino")) {
 						
 					}
 				}
@@ -204,23 +204,18 @@ public class ConsultarClientes {
 					JOptionPane.showInputDialog("Entre com o e-mail que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("UF")) {
-					Object[] possiveisValores = {"Acre", "Alagoas", "Amapá" , "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Raraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
-			        Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
-			        if (selectedValue.equals("Física")) {
-						
-					}
-			        if (selectedValue.equals("Jurídica")) {
-						
-					}
+					//Object[] possiveisValores = {"Acre", "Alagoas", "Amapá" , "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Raraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
+					//Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o estado que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
+					JOptionPane.showInputDialog("Entre com a cidade que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Cidade")) {
-	
+					JOptionPane.showInputDialog("Entre com a cidade que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Bairro")) {
-	
+					JOptionPane.showInputDialog("Entre com o bairro que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Rua")) {
-					
+					JOptionPane.showInputDialog("Entre com a rua que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Número")) {
 					JOptionPane.showInputDialog("Entre com o número da casa que deseja procurar:");
@@ -238,7 +233,23 @@ public class ConsultarClientes {
 					JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
 				}
 				if (comboPesquisa.getSelectedItem().toString().equals("Estado Civil")) {
-					
+					Object[] valoresComboBox = {"Solteiro(a)","Casado(a)","Separado(a)","Divorciado","Viúvo(a)"};
+			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o estado civil que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);	
+			        if (valoresComboBox.equals("Solteiro(a)")) {
+						
+					}
+			        if (valoresComboBox.equals("Casado(a)")) {
+						
+					}
+			        if (valoresComboBox.equals("Separado(a)")) {
+						
+					}
+			        if (valoresComboBox.equals("Divorciado(a)")) {
+						
+					}
+			        if (valoresComboBox.equals("Viúvo(a)")) {
+						
+					}
 				}
 			}
 		});
