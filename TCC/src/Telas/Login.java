@@ -36,6 +36,9 @@ public class Login {
 	private JTextField tfUsuario;
 	private JPasswordField pfSenha;
 	private JButton btnEntrar;
+	
+	public String user;
+	public String senha;
 
 	/**
 	 * Launch the application.
@@ -84,6 +87,7 @@ public class Login {
 		frmLogin.getContentPane().add(lblUsuario);
 		
 		tfUsuario = new JTextField();
+		/*
 		tfUsuario.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -100,6 +104,7 @@ public class Login {
 				}
 			}
 		});
+		*/
 		tfUsuario.setBounds(69, 37, 308, 20);
 		frmLogin.getContentPane().add(tfUsuario);
 		tfUsuario.setColumns(10);
@@ -139,8 +144,8 @@ public class Login {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int x = 0;
-				String user = tfUsuario.getText().toString();
-				String senha = pfSenha.getText().toString();
+				user = tfUsuario.getText().toString();
+				senha = pfSenha.getText().toString();
 				ResultSet verifica = CRUDUsuarios.selectUsuarioLogado();
 				try {
 					if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Ou E-mail")) {
@@ -155,6 +160,8 @@ public class Login {
 						if(rs.next() && x ==0) {
 							CRUDUsuarios.login(user, senha);
 							JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
+							TelaPrincipal.usuario = user;
+							TelaPrincipal.senha = senha;
 							TelaPrincipal.main(null);
 							frmLogin.dispose();
 						}else if(x==0){

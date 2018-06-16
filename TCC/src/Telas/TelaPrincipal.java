@@ -23,6 +23,7 @@ import Administrador.MandarEmail;
 import CRUD.CRUDUsuarios;
 import Clientes.CadastroDeClientes;
 import Clientes.ConsultarClientes;
+import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -38,7 +39,8 @@ public class TelaPrincipal {
 	public static JFrame frmPrincipal;
 	
 	String nivel = null;
-	String usuario = null;
+	public static String usuario;
+	public static String senha;
 
 	/**
 	 * Launch the application.
@@ -67,7 +69,7 @@ public class TelaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ResultSet rs = CRUDUsuarios.selectUsuarioLogado();
+		ResultSet rs = CRUDUsuarios.selectCondicao1(usuario, senha);
 		try {
 			if(rs.first()) {
 				nivel = rs.getString("nivel");
@@ -89,6 +91,8 @@ public class TelaPrincipal {
 						"Você deseja desconectar desta conta?", "Aviso", 
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(escolha==0) {
+							usuario = null;
+							senha = null;
 							CRUDUsuarios.logoff();
 							frmPrincipal.dispose();
 							Login.main(null);

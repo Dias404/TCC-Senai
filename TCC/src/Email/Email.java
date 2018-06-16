@@ -13,16 +13,17 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
 import CRUD.CRUDUsuarios;
+import Telas.TelaPrincipal;
 
 public class Email {
 	
 	public static String enviarEmailAdmin(JComboBox cbEmail, JEditorPane epMsg, String senha) {
-		ResultSet dados = CRUDUsuarios.selectUsuarioLogado();
+		ResultSet dados = CRUDUsuarios.selectCondicao1(TelaPrincipal.usuario, TelaPrincipal.senha);
 		try {
 			if(dados.next()) {
 				String para = cbEmail.getSelectedItem().toString();
 				String emailLogado = dados.getString("email");
-				String usuarioEmailLogado = dados.getString("nome");
+				String usuarioEmailLogado = TelaPrincipal.usuario;
 				String msg = epMsg.getText();
 				
 				SimpleEmail enviarEmail = new SimpleEmail();
