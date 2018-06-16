@@ -9,13 +9,22 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import CRUD.CRUDClientes;
+import CRUD.CRUDLojas;
+import CRUD.CRUDLugar;
+import CRUD.CRUDUsuarios;
+import DAO.Lojas;
+import DAO.Lugar;
+import DAO.Usuarios;
 import Telas.TelaPrincipal;
 
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -24,15 +33,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 
 public class CadastrarLoja {
 
@@ -174,6 +186,23 @@ public class CadastrarLoja {
 		panel.add(cbCidade);
 		
 		btnAddCidade = new JButton("...");
+		btnAddCidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Object[] possibilidades = {1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27};
+				String input1 = JOptionPane.showInputDialog("Insira uma nova cidade:");
+				Integer input2 = (Integer) JOptionPane.showInputDialog(null, "De que estado é essa cidade?\n1-Acre\n2-Alagoas\n3-Amapá\n4-Amazonas\n"
+				+ "5-Bahia\n6-Ceará\n7-Distrito Federal\n8-Espírito Santo\n9-Goiás\n10-Maranhão\n11-Mato Grosso\n"
+				+ "12-Mato Grosso do Sul\n13-Minas Gerais\n14-Pará\n15-Paraíba\n16-Paraná\n17-Pernambuco\n18-Piauí\n"
+				+ "19-Rio de Janeiro\n20-Rio Grande do Norte\n21-Rio Grande do Sul\n22-Rondônia\n23-Roraima\n24-Santa Catarina\n"
+				+ "25-São Paulo\n26-Sergipe\n27-Tocantins", null, JOptionPane.PLAIN_MESSAGE, null, possibilidades, "Numeros");
+				CRUDLugar insert = new CRUDLugar();
+				Lugar cidade = new Lugar();
+				cidade.setNomeCidade(input1);
+				insert.insertCidade(cidade, input2);
+				JOptionPane.showMessageDialog(null, "A Cidade foi cadastrada!");
+				btnLimpar.doClick();
+			}
+		});
 		btnAddCidade.setBounds(483, 40, 27, 23);
 		panel.add(btnAddCidade);
 		btnAddCidade.setForeground(Color.WHITE);
@@ -210,6 +239,11 @@ public class CadastrarLoja {
 		panel.add(tfNum);
 		tfNum.setColumns(10);
 		
+		tfNome = new JTextField();
+		tfNome.setColumns(10);
+		tfNome.setBounds(102, 11, 410, 20);
+		panel.add(tfNome);
+		
 		JLabel lblTel = new JLabel("Tel 1:");
 		lblTel.setBounds(13, 166, 35, 14);
 		panel.add(lblTel);
@@ -221,43 +255,38 @@ public class CadastrarLoja {
 		panel.add(tfTel1);
 		tfTel1.setColumns(10);
 		
-		tfNome = new JTextField();
-		tfNome.setColumns(10);
-		tfNome.setBounds(102, 11, 410, 20);
-		panel.add(tfNome);
+		JLabel lblTel2 = new JLabel("Tel 2:");
+		lblTel2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTel2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTel2.setBounds(13, 198, 35, 14);
+		panel.add(lblTel2);
 		
 		tfTel2 = new JTextField();
 		tfTel2.setColumns(10);
 		tfTel2.setBounds(57, 195, 201, 20);
 		panel.add(tfTel2);
 		
+		JLabel lblCel1 = new JLabel("Cel 1:");
+		lblCel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCel1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCel1.setBounds(265, 167, 35, 14);
+		panel.add(lblCel1);
+		
 		tfCel1 = new JTextField();
 		tfCel1.setColumns(10);
 		tfCel1.setBounds(310, 164, 201, 20);
 		panel.add(tfCel1);
 		
+		JLabel lblCel2 = new JLabel("Cel 2:");
+		lblCel2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCel2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCel2.setBounds(265, 198, 35, 14);
+		panel.add(lblCel2);
+		
 		tfCel2 = new JTextField();
 		tfCel2.setColumns(10);
 		tfCel2.setBounds(310, 195, 201, 20);
 		panel.add(tfCel2);
-		
-		JLabel lblTel_1 = new JLabel("Tel 2:");
-		lblTel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTel_1.setBounds(13, 198, 35, 14);
-		panel.add(lblTel_1);
-		
-		JLabel lblCel = new JLabel("Cel 2:");
-		lblCel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCel.setBounds(265, 198, 35, 14);
-		panel.add(lblCel);
-		
-		JLabel lblTel_2 = new JLabel("Tel 1:");
-		lblTel_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTel_2.setBounds(265, 167, 35, 14);
-		panel.add(lblTel_2);
 		
 		JLabel lblCadastroLoja = new JLabel("Cadastro de Lojas");
 		lblCadastroLoja.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -299,6 +328,31 @@ public class CadastrarLoja {
 		frmCadastrarLoja.getContentPane().add(btnLimpar);
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tfNome.getText().isEmpty() || tfNum.getText().isEmpty() || tfCNPJ.getText().isEmpty() || tfIE.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frmCadastrarLoja, "Não foi possível cadastrar a Loja!");
+				}else {
+					CRUDLojas insert = new CRUDLojas();
+					Lojas l = new Lojas();
+					l.setRazao(tfNome.getText().toString());
+					l.setEstado(cbUF.getSelectedItem().toString());
+					l.setEstado(cbCidade.getSelectedItem().toString());
+					l.setEstado(cbBairro.getSelectedItem().toString());
+					l.setEstado(cbRua.getSelectedItem().toString());
+					l.setRazao(tfNum.getText().toString());
+					l.setRazao(tfCNPJ.getText().toString());
+					l.setRazao(tfIE.getText().toString());
+					l.setRazao(tfTel1.getText().toString());
+					l.setRazao(tfTel2.getText().toString());
+					l.setRazao(tfCel1.getText().toString());
+					l.setRazao(tfCel2.getText().toString());
+					insert.insertLoja(l);
+					JOptionPane.showMessageDialog(null, "A Loja foi cadastrado!");
+					btnLimpar.doClick();
+				}
+			}
+		});
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
