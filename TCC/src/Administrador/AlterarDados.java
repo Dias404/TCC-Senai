@@ -32,14 +32,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class AlterarDados {
 
 	private JFrame frmAlterarDados;
-	private JTable table;
+	private JTable tabela;
 	private JLabel lblAlterarDados;
 	
 	public static String campoSelecionado;
+	private JButton button_1;
+	private JComboBox comboPesquisar;
 
 	/**
 	 * Launch the application.
@@ -88,10 +92,10 @@ public class AlterarDados {
 		scrollPane.setBounds(10, 39, 600, 267);
 		frmAlterarDados.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setModel(new DefaultTableModel(
+		tabela = new JTable();
+		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -105,30 +109,30 @@ public class AlterarDados {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setPreferredWidth(150);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(140);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		table.getColumnModel().getColumn(2).setPreferredWidth(220);
-		table.getColumnModel().getColumn(3).setResizable(false);
-		table.getColumnModel().getColumn(3).setPreferredWidth(120);
-		table.getColumnModel().getColumn(4).setResizable(false);
-		table.getColumnModel().getColumn(4).setPreferredWidth(120);
-		table.getTableHeader().setReorderingAllowed(false);
-		scrollPane.setViewportView(table);
-		table.addMouseListener(new MouseAdapter() {
+		tabela.getColumnModel().getColumn(0).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(1).setResizable(false);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
+		tabela.getColumnModel().getColumn(2).setResizable(false);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(220);
+		tabela.getColumnModel().getColumn(3).setResizable(false);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(4).setResizable(false);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(120);
+		tabela.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(tabela);
+		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int indexLinha = table.getSelectedRow();
-				int indexColuna = table.getSelectedColumn();
-				String nomeColuna = table.getColumnName(indexColuna);
-				campoSelecionado = (String) table.getValueAt(indexLinha, indexColuna);
-				String email = (String) table.getValueAt(indexLinha, 2);
-				String senha = (String) table.getValueAt(indexLinha, 1);
-				String nome = (String) table.getValueAt(indexLinha, 0);
-				String fone = (String) table.getValueAt(indexLinha, 3);
-				String cel = (String) table.getValueAt(indexLinha, 4);
+				int indexLinha = tabela.getSelectedRow();
+				int indexColuna = tabela.getSelectedColumn();
+				String nomeColuna = tabela.getColumnName(indexColuna);
+				campoSelecionado = (String) tabela.getValueAt(indexLinha, indexColuna);
+				String email = (String) tabela.getValueAt(indexLinha, 2);
+				String senha = (String) tabela.getValueAt(indexLinha, 1);
+				String nome = (String) tabela.getValueAt(indexLinha, 0);
+				String fone = (String) tabela.getValueAt(indexLinha, 3);
+				String cel = (String) tabela.getValueAt(indexLinha, 4);
 				if(nomeColuna.equals("Nome")) {
 					int escolha = JOptionPane.showConfirmDialog(frmAlterarDados, 
 					"Você deseja alterar o "+nomeColuna.toLowerCase()+" deste usuário?", null, JOptionPane.YES_NO_OPTION, 
@@ -137,7 +141,7 @@ public class AlterarDados {
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo nome para este usuário.");
 						CRUDUsuarios.updateNome(input, email);
-						table.setValueAt(input, indexLinha, indexColuna);
+						tabela.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Senha")) {
@@ -148,7 +152,7 @@ public class AlterarDados {
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira uma nova senha para este usuário.");
 						CRUDUsuarios.updateSenha(input, email);
-						table.setValueAt(input, indexLinha, indexColuna);
+						tabela.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Email")) {
@@ -159,7 +163,7 @@ public class AlterarDados {
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo email para este usuário.");
 						CRUDUsuarios.updateEmail(input, senha, nome);
-						table.setValueAt(input, indexLinha, indexColuna);
+						tabela.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Telefone")) {
@@ -170,7 +174,7 @@ public class AlterarDados {
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo número de telefone para este usuário.");
 						CRUDUsuarios.updateFone(input, email);
-						table.setValueAt(input, indexLinha, indexColuna);
+						tabela.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 				if(nomeColuna.equals("Celular")) {
@@ -181,7 +185,7 @@ public class AlterarDados {
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira um novo número de celular para este usuário.");
 						CRUDUsuarios.updateCel(input, email);
-						table.setValueAt(input, indexLinha, indexColuna);
+						tabela.setValueAt(input, indexLinha, indexColuna);
 					}
 				}
 			}
@@ -209,6 +213,49 @@ public class AlterarDados {
 		Image BG2 = BG.getImage().getScaledInstance(620, 350, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
+		button_1 = new JButton("Pesquisar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String variavelSelect = null;
+				String valorSelect = null;
+				
+				if (comboPesquisar.getSelectedItem().toString().equals("Nome")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome que deseja procurar:");
+					variavelSelect = "nome";
+				}
+				if (comboPesquisar.getSelectedItem().toString().equals("E-mail")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o e-mail que deseja procurar:");
+					variavelSelect = "email";
+				}
+				if (comboPesquisar.getSelectedItem().toString().equals("Telefone")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o telefone que deseja procurar:");
+					variavelSelect = "fone";
+				}
+				if (comboPesquisar.getSelectedItem().toString().equals("Celular")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o celular que deseja procurar:");
+					variavelSelect = "cel";
+				}
+				
+				preencherTabelaWhere(variavelSelect, valorSelect);
+			}
+		});
+		button_1.setForeground(Color.WHITE);
+		button_1.setFont(new Font("Impact", Font.PLAIN, 13));
+		button_1.setFocusable(false);
+		button_1.setBackground(new Color(0, 73, 170));
+		button_1.setBounds(512, 317, 98, 23);
+		frmAlterarDados.getContentPane().add(button_1);
+		
+		comboPesquisar = new JComboBox();
+		comboPesquisar.setModel(new DefaultComboBoxModel(new String[] {"Nome", "E-mail", "Telefone", "Celular"}));
+		comboPesquisar.setBounds(415, 317, 87, 22);
+		frmAlterarDados.getContentPane().add(comboPesquisar);
+		
+		JLabel label = new JLabel("Pesquisar por:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label.setBounds(318, 321, 87, 15);
+		frmAlterarDados.getContentPane().add(label);
+		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 620, 350);
@@ -221,7 +268,7 @@ public class AlterarDados {
 		CRUDUsuarios selecionar = new CRUDUsuarios();
 		selecionar.selectUsuarios();
 		try {
-			DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (selecionar.dadosSelect.next()) {
 				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome"), selecionar.dadosSelect.getString("senha"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("fone"), selecionar.dadosSelect.getString("cel")});
@@ -231,5 +278,21 @@ public class AlterarDados {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+		CRUDUsuarios selecionar = new CRUDUsuarios();
+		selecionar.selectComWhere(variavelSelect, valorSelect);
+		try {
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while (selecionar.dadosSelect.next()) {
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome"), selecionar.dadosSelect.getString("senha"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("fone"), selecionar.dadosSelect.getString("cel")});
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 }

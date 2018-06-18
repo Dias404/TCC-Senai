@@ -173,7 +173,7 @@ public class ConsultarClientes implements Runnable{
 		BG = new ImageIcon(BG2);
 		
 		comboPesquisa = new JComboBox();
-		comboPesquisa.setBounds(339, 438, 163, 20);
+		comboPesquisa.setBounds(339, 435, 163, 23);
 		frmConsultaDeClientes.getContentPane().add(comboPesquisa);
 		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome/Razão Social", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "Número", "CPF/CNPJ", "RG/IE", "Mãe", "Pai", "Estado Civil"}));
 		
