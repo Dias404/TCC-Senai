@@ -370,6 +370,7 @@ public class CadastrarLoja {
 		frmCadastrarLoja.getContentPane().add(lblBG);
 		
 		preencherComboUF();
+		cbUF.setSelectedItem("São Paulo");
 	}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {

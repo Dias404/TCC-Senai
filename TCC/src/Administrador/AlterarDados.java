@@ -289,10 +289,11 @@ public class AlterarDados {
 			while (selecionar.dadosSelect.next()) {
 				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome"), selecionar.dadosSelect.getString("senha"), selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("fone"), selecionar.dadosSelect.getString("cel")});
 			}
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return true;
 	}
 }
