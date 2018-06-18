@@ -210,9 +210,9 @@ public class CadastroDeClientes {
 					cliFi.setTipoDePessoa("Física");
 					cliFi.setNomeRazao(tfNome.getText().toString());
 					if (rbMasculino.isSelected()) {
-						cliFi.setSexo("M");
+						cliFi.setSexo("m");
 					}else {
-						cliFi.setSexo("F");
+						cliFi.setSexo("f");
 					}
 					cliFi.setEmail(tfEmailF.getText().toString());
 					cliFi.setUF(comboUFF.getSelectedItem().toString());

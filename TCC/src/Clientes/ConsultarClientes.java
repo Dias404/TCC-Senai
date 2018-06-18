@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class ConsultarClientes {
+public class ConsultarClientes implements Runnable{
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
@@ -45,6 +45,9 @@ public class ConsultarClientes {
 	private JLabel lblBG;
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
+	private JButton btnRefresh;
+	
+	Thread tarefa;
 	
 	/**
 	 * Launch the application.
@@ -76,7 +79,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes = new JFrame();
 		frmConsultaDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeClientes.setTitle("SIG - Consulta de Clientes");
-		frmConsultaDeClientes.setBounds(100, 100, 626, 626);
+		frmConsultaDeClientes.setBounds(100, 100, 626, 497);
 		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmConsultaDeClientes.setResizable(false);
 		frmConsultaDeClientes.setLocationRelativeTo(null);
@@ -177,80 +180,112 @@ public class ConsultarClientes {
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String variavelSelect = null;
+				String valorSelect = null;
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Nome/Razão Social")) {
-					JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
+					variavelSelect = "nome_razao";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Tipo de Pessoa")) {
 					Object[] valoresComboBox = { "Física", "Jurídica" };
 			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o tipo de pessoa que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);
 			        if (valorSelecionado.equals("Física")) {
-						
+						valorSelect = "Física";
 					}
 			        if (valorSelecionado.equals("Jurídica")) {
-						
+						valorSelect = "Jurídica";
 					}
+			        variavelSelect = "tipo_de_pessoa";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Sexo")) {
 					Object[] valoresComboBox = { "Masculino", "Feminino" };
 			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o sexo que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);
 			        if (valorSelecionado.equals("Masculino")) {
-						
+						valorSelect = "m";
 					}
 			        if (valorSelecionado.equals("Feminino")) {
-						
+						valorSelect = "f";
 					}
+			        variavelSelect = "sexo";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("E-mail")) {
-					JOptionPane.showInputDialog("Entre com o e-mail que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o e-mail que deseja procurar:");
+					variavelSelect = "email";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("UF")) {
 					//Object[] possiveisValores = {"Acre", "Alagoas", "Amapá" , "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Raraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
 					//Object selectedValue = JOptionPane.showInputDialog(null, "Entre com o estado que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, possiveisValores, possiveisValores [0]);
-					JOptionPane.showInputDialog("Entre com a cidade que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o estado que deseja procurar:");
+					variavelSelect = "uf";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Cidade")) {
-					JOptionPane.showInputDialog("Entre com a cidade que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com a cidade que deseja procurar:");
+					variavelSelect = "cidade";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Bairro")) {
-					JOptionPane.showInputDialog("Entre com o bairro que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o bairro que deseja procurar:");
+					variavelSelect = "bairro";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Rua")) {
-					JOptionPane.showInputDialog("Entre com a rua que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com a rua que deseja procurar:");
+					variavelSelect = "rua";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Número")) {
-					JOptionPane.showInputDialog("Entre com o número da casa que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o número da casa que deseja procurar:");
+					variavelSelect = "numero";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("CPF/CNPJ")) {
-					JOptionPane.showInputDialog("Entre com o CPF ou o CPNJ que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o CPF ou o CPNJ que deseja procurar:");
+					variavelSelect = "cpf_cnpj";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("RG/IE")) {
-					JOptionPane.showInputDialog("Entre com o RG ou o IE que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o RG ou o IE que deseja procurar:");
+					variavelSelect = "rg_ie";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Mãe")) {
-					JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+					variavelSelect = "mae";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Pai")) {
-					JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome da filiação que deseja procurar:");
+					variavelSelect = "pai";
 				}
+				
 				if (comboPesquisa.getSelectedItem().toString().equals("Estado Civil")) {
 					Object[] valoresComboBox = {"Solteiro(a)","Casado(a)","Separado(a)","Divorciado","Viúvo(a)"};
 			        Object valorSelecionado = JOptionPane.showInputDialog(null, "Entre com o estado civil que deseja procurar:", null, JOptionPane.INFORMATION_MESSAGE, null, valoresComboBox, valoresComboBox [0]);	
 			        if (valoresComboBox.equals("Solteiro(a)")) {
-						
+			        	valorSelect = "Solteiro(a)";
 					}
 			        if (valoresComboBox.equals("Casado(a)")) {
-						
+			        	valorSelect = "Casado(a)";
 					}
 			        if (valoresComboBox.equals("Separado(a)")) {
-						
+			        	valorSelect = "Separado(a)";
 					}
 			        if (valoresComboBox.equals("Divorciado(a)")) {
-						
+			        	valorSelect = "Divorciado(a)";
 					}
 			        if (valoresComboBox.equals("Viúvo(a)")) {
-						
+			        	valorSelect = "Viúvo(a)";
 					}
+			        variavelSelect = "estado_civil";
 				}
+				
+				preencherTabelaWhere(variavelSelect, valorSelect);
 			}
 		});
 		btnPesquisar.setBounds(512, 435, 98, 23);
@@ -260,6 +295,21 @@ public class ConsultarClientes {
 		btnPesquisar.setFocusable(false);
 		btnPesquisar.setBackground(new Color(0, 73, 170));
 		
+		btnRefresh = new JButton("");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				preencherTabela();
+				tarefa = new Thread(ConsultarClientes.this);
+				tarefa.start();
+			}
+		});
+		btnRefresh.setForeground(Color.WHITE);
+		btnRefresh.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnRefresh.setFocusable(false);
+		btnRefresh.setBackground(new Color(0, 73, 170));
+		btnRefresh.setBounds(587, 8, 23, 23);
+		frmConsultaDeClientes.getContentPane().add(btnRefresh);
+		
 		JLabel lblPesquisarPor = new JLabel("Pesquisar por:");
 		lblPesquisarPor.setBounds(242, 440, 87, 15);
 		frmConsultaDeClientes.getContentPane().add(lblPesquisarPor);
@@ -267,7 +317,7 @@ public class ConsultarClientes {
 		
 		lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 620, 598);
+		lblBG.setBounds(0, 0, 620, 469);
 		frmConsultaDeClientes.getContentPane().add(lblBG);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		
@@ -299,5 +349,43 @@ public class ConsultarClientes {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+		String sexo = null;
+		CRUDClientes selecionar = new CRUDClientes();
+		selecionar.selectComWhere(variavelSelect, valorSelect);
+		try {
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while (selecionar.dadosSelect.next()) {
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("M")) {
+					sexo = "Masculino";
+				}
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("F")) {
+					sexo = "Feminino";
+				}
+				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("-")) {
+					sexo = "----------";
+				}
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public void run() {
+		btnRefresh.setEnabled(false);
+		try {
+			Thread.sleep(25000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		btnRefresh.setEnabled(true);
 	}
 }
