@@ -1,0 +1,180 @@
+package CRUD;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
+
+import Administrador.CadastrarUsuario;
+import DAO.Lugar;
+import Telas.Login;
+
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class CadastrarCidades {
+
+	private JFrame frmCadCidade;
+	private JTextField tfNome;
+	private JLabel lblBG;
+	private JComboBox cbEstado;
+	private JButton btnCadastrar;
+	private JButton btnVoltar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CadastrarCidades window = new CadastrarCidades();
+					window.frmCadCidade.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public CadastrarCidades() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmCadCidade = new JFrame();
+		frmCadCidade.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				int escolha = JOptionPane.showConfirmDialog(null,
+						"Você deseja sair desta tela?", "Aviso", 
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						if(escolha==0) {
+							frmCadCidade.dispose();
+						}else {
+							
+						}
+			}
+		});
+		frmCadCidade.setTitle("Cadastrar Cidades");
+		frmCadCidade.setBounds(100, 100, 284, 130);
+		frmCadCidade.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmCadCidade.setResizable(false);
+		frmCadCidade.setLocationRelativeTo(null);
+		frmCadCidade.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarCidades.class.getResource("/Img/SIG 16x16.png")));
+		frmCadCidade.getContentPane().setLayout(null);
+		
+		int frameWidth = frmCadCidade.getWidth();
+		int frameHeight = frmCadCidade.getHeight();
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNome.setBounds(10, 11, 46, 14);
+		frmCadCidade.getContentPane().add(lblNome);
+		
+		tfNome = new JTextField();
+		tfNome.setBounds(66, 9, 205, 20);
+		frmCadCidade.getContentPane().add(tfNome);
+		tfNome.setColumns(10);
+		
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEstado.setBounds(10, 42, 46, 14);
+		frmCadCidade.getContentPane().add(lblEstado);
+		
+		cbEstado = new JComboBox();
+		cbEstado.setBounds(66, 40, 205, 20);
+		frmCadCidade.getContentPane().add(cbEstado);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int escolha = JOptionPane.showConfirmDialog(null,
+						"Você deseja sair desta tela?", "Aviso", 
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						if(escolha==0) {
+							frmCadCidade.dispose();
+						}else {
+							
+						}
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 68, 89, 23);
+		frmCadCidade.getContentPane().add(btnVoltar);
+		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int idEstado;
+				System.out.println(cbEstado.getSelectedItem().toString());
+				idEstado = CRUDLugar.pegaIdEstado(cbEstado.getSelectedItem().toString());
+				//Teste se a cidade ainda n existe
+				CRUDLugar.selectCidadeCondicao1(tfNome.getText().toString(), idEstado);
+				//Insere nova cidade
+				if(!tfNome.getText().isEmpty()) {
+					Lugar l = new Lugar();
+					l.setNomeCidade(tfNome.getText().toString());
+					CRUDLugar.insertCidade(l, idEstado);
+				}else {
+					JOptionPane.showMessageDialog(null, "O campo nome está vazio.");
+				}
+			}
+		});
+		btnCadastrar.setForeground(Color.WHITE);
+		btnCadastrar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnCadastrar.setFocusable(false);
+		btnCadastrar.setBackground(new Color(0, 73, 170));
+		btnCadastrar.setBounds(182, 68, 89, 23);
+		frmCadCidade.getContentPane().add(btnCadastrar);
+		
+		lblBG = new JLabel("");
+		lblBG.setBounds(0, 0, frameWidth, frameHeight);
+		lblBG.setIcon(BG);
+		frmCadCidade.getContentPane().add(lblBG);
+		
+		preencherEstados(cbEstado);
+	}
+	
+	public static void preencherEstados(JComboBox cb) {
+		ResultSet dados = CRUDLugar.selectEstados();
+		try {
+			while(dados.next()) {
+				cb.addItem(dados.getString("nome_estado"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}
