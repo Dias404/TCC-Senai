@@ -70,6 +70,7 @@ public class CRUDLugar {
 		PreparedStatement stmt;
 		try {
 			stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeEstado);
 			estados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
