@@ -20,15 +20,16 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDGastos;
+import CRUD.CRUDLojas;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class LancamentoDeGastos {
 
 	private JFrame frmLancamentoDeCaixa;
-	private JTextField tfLoja;
 	private JTextField tfDescricao;
 	private JTextField tfValorTotal;
 	private JTextField tfNotaFiscal;
@@ -36,6 +37,7 @@ public class LancamentoDeGastos {
 	private JButton btnSalvar;
 	private JFormattedTextField ftfData;
 	private JTable tabela;
+	private JComboBox comboLojas;
 
 	/**
 	 * Launch the application.
@@ -67,7 +69,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeCaixa = new JFrame();
 		frmLancamentoDeCaixa.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
 		frmLancamentoDeCaixa.setTitle("SIG - Lançamento de Gastos");
-		frmLancamentoDeCaixa.setBounds(100, 100, 497, 600);
+		frmLancamentoDeCaixa.setBounds(100, 100, 497, 685);
 		frmLancamentoDeCaixa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLancamentoDeCaixa.setResizable(false);
 		frmLancamentoDeCaixa.setLocationRelativeTo(null);
@@ -108,11 +110,6 @@ public class LancamentoDeGastos {
 		lblData.setBounds(10, 70, 70, 14);
 		frmLancamentoDeCaixa.getContentPane().add(lblData);
 		
-		tfLoja = new JTextField();
-		tfLoja.setColumns(10);
-		tfLoja.setBounds(90, 39, 390, 20);
-		frmLancamentoDeCaixa.getContentPane().add(tfLoja);
-		
 		tfDescricao = new JTextField();
 		tfDescricao.setColumns(10);
 		tfDescricao.setBounds(90, 99, 390, 20);
@@ -131,7 +128,7 @@ public class LancamentoDeGastos {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String loja = tfLoja.getText().toString();
+				String loja = comboLojas.getSelectedItem().toString();
 				String data = ftfData.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				String valorTotal = tfValorTotal.getText().toString();
@@ -157,7 +154,6 @@ public class LancamentoDeGastos {
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tfLoja.setText(null);
 				ftfData.setText(null);
 				tfDescricao.setText(null);
 				tfValorTotal.setText(null);
@@ -206,7 +202,28 @@ public class LancamentoDeGastos {
 		button.setBounds(10, 538, 89, 23);
 		frmLancamentoDeCaixa.getContentPane().add(button);
 		
+		comboLojas = new JComboBox();
+		comboLojas.setBounds(90, 39, 390, 20);
+		frmLancamentoDeCaixa.getContentPane().add(comboLojas);
+		
 		preencherTabela();
+		preencherComboLojas();
+	}
+	
+	public boolean preencherComboLojas() {
+		CRUDLojas select = new CRUDLojas();
+		select.selectLoja();
+		comboLojas.removeAllItems();
+		try {
+			while (select.dadosSelect.next()) {
+				comboLojas.addItem(select.dadosSelect.getString("razao"));
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean preencherTabela() {
