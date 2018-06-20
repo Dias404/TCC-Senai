@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
+import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 import DAO.Lugar;
 import Telas.Login;
@@ -76,6 +77,11 @@ public class CadastrarCidades {
 						}else {
 							
 						}
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				CadastrarLoja.frmCadastrarLoja.setEnabled(true);
+				CadastrarLoja.frmCadastrarLoja.setVisible(true);
 			}
 		});
 		frmCadCidade.setTitle("Cadastrar Cidades");
@@ -138,18 +144,24 @@ public class CadastrarCidades {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int idEstado;
-				System.out.println(cbEstado.getSelectedItem().toString());
-				idEstado = CRUDLugar.pegaIdEstado(cbEstado.getSelectedItem().toString());
-				//Teste se a cidade ainda n existe
-				CRUDLugar.selectCidadeCondicao1(tfNome.getText().toString(), idEstado);
-				//Insere nova cidade
-				if(!tfNome.getText().isEmpty()) {
-					Lugar l = new Lugar();
-					l.setNomeCidade(tfNome.getText().toString());
-					CRUDLugar.insertCidade(l, idEstado);
-				}else {
-					JOptionPane.showMessageDialog(null, "O campo nome está vazio.");
+				idEstado = CRUDLugar.selectIdEstado(cbEstado.getSelectedItem().toString());
+				ResultSet verifica = CRUDLugar.selectCidadeCondicao1(tfNome.getText().toString(), idEstado);
+				try {
+					if(verifica.next()) {
+						JOptionPane.showMessageDialog(frmCadCidade, "Já existe uma cidade com este\nnome cadastrado neste estado!", "Erro", JOptionPane.ERROR_MESSAGE);
+					}else {
+						if(!tfNome.getText().isEmpty()) {
+							Lugar l = new Lugar();
+							l.setNomeCidade(tfNome.getText().toString());
+							CRUDLugar.insertCidade(l, idEstado);
+						}else {
+							JOptionPane.showMessageDialog(null, "O campo nome está vazio.");
+						}
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
+				
 			}
 		});
 		btnCadastrar.setForeground(Color.WHITE);

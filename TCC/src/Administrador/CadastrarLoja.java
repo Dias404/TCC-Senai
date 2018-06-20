@@ -15,6 +15,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDLugar;
 import CRUD.CRUDUsuarios;
+import CRUD.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
 import DAO.Usuarios;
@@ -48,7 +49,7 @@ import javax.swing.text.MaskFormatter;
 
 public class CadastrarLoja {
 
-	private JFrame frmCadastrarLoja;
+	public static JFrame frmCadastrarLoja;
 	private JTextField tfCNPJ;
 	private JTextField tfIE;
 	private JTextField tfNum;
@@ -188,19 +189,8 @@ public class CadastrarLoja {
 		btnAddCidade = new JButton("...");
 		btnAddCidade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Object[] possibilidades = {1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27};
-				String input1 = JOptionPane.showInputDialog("Insira uma nova cidade:");
-				Integer input2 = (Integer) JOptionPane.showInputDialog(null, "De que estado é essa cidade?\n1-Acre\n2-Alagoas\n3-Amapá\n4-Amazonas\n"
-				+ "5-Bahia\n6-Ceará\n7-Distrito Federal\n8-Espírito Santo\n9-Goiás\n10-Maranhão\n11-Mato Grosso\n"
-				+ "12-Mato Grosso do Sul\n13-Minas Gerais\n14-Pará\n15-Paraíba\n16-Paraná\n17-Pernambuco\n18-Piauí\n"
-				+ "19-Rio de Janeiro\n20-Rio Grande do Norte\n21-Rio Grande do Sul\n22-Rondônia\n23-Roraima\n24-Santa Catarina\n"
-				+ "25-São Paulo\n26-Sergipe\n27-Tocantins", null, JOptionPane.PLAIN_MESSAGE, null, possibilidades, "Numeros");
-				CRUDLugar insert = new CRUDLugar();
-				Lugar cidade = new Lugar();
-				cidade.setNomeCidade(input1);
-				insert.insertCidade(cidade, input2);
-				JOptionPane.showMessageDialog(null, "A Cidade foi cadastrada!");
-				btnLimpar.doClick();
+				CadastrarCidades.main(null);
+				frmCadastrarLoja.setEnabled(false);
 			}
 		});
 		btnAddCidade.setBounds(483, 40, 27, 23);

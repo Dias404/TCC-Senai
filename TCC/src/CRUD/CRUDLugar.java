@@ -63,10 +63,10 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static int pegaIdEstado(String nomeEstado) {
+	public static int selectIdEstado(String nomeEstado) {
 		ResultSet estados;
 		int resposta = 0;
-		String sql = "SELECT * from estados WHERE nome_estado = ?";
+		String sql = "SELECT * FROM estados WHERE nome_estado = ?";
 		PreparedStatement stmt;
 		try {
 			stmt = con.getConexao().prepareStatement(sql);
@@ -84,4 +84,5 @@ public class CRUDLugar {
 		}
 		return resposta;
 	}
+	
 }
