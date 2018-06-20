@@ -33,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -360,38 +361,32 @@ public class CadastrarLoja {
 		frmCadastrarLoja.getContentPane().add(lblBG);
 		
 		preencherComboUF();
-		cbUF.setSelectedItem("São Paulo");
-	}
-	
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+		preencherComboCidade();
 	}
 	
 	private boolean preencherComboUF() {
-		CRUDClientes selecionar = new CRUDClientes();
-		selecionar.selectUF();
+		ResultSet selecionar = new CRUDLugar().selectUF();
 		cbUF.removeAllItems();
 		try {
-			while (selecionar.dadosEstados.next()) {
-				cbUF.addItem(selecionar.dadosEstados.getString("nome_estado"));
+			while (selecionar.next()) {
+				cbUF.addItem(selecionar.getString("nome_estado"));
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboCidade() {
+		ResultSet selecionar = new CRUDLugar().selectCidade();
+		cbCidade.removeAllItems();
+		try {
+			while (selecionar.next()) {
+				cbCidade.addItem(selecionar.getString("nome_cidade"));
+			}
+			return true;
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}

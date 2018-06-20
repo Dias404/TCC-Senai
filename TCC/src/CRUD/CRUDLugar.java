@@ -17,6 +17,39 @@ public class CRUDLugar {
 	static Conexao con = new Conexao();
 	public static ResultSet dadosSelect = null;
 	
+	public ResultSet idEstadoSelecionado = null;
+	
+	public ResultSet selectUF() {
+		String sql = "SELECT * FROM estados";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
+	public ResultSet selectUFId(String nomeEstado) {
+		String sql = "SELECT (id_estado) FROM estados WHERE nome_estado=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, nomeEstado);
+			idEstadoSelecionado = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return idEstadoSelecionado;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return idEstadoSelecionado = null;
+		}
+	}
+	
 	public static boolean insertCidade(Lugar cidade, int idEstado) {
 		try {
 			String sql = "INSERT INTO cidades (nome_cidade, id_estado) VALUES (?,?)";
@@ -30,6 +63,20 @@ public class CRUDLugar {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar a cidade.");
 			return false;
+		}
+	}
+	
+	public static ResultSet selectCidade() {
+		String sql = "SELECT * FROM cidades";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
 		}
 	}
 	
@@ -79,7 +126,6 @@ public class CRUDLugar {
 				resposta = estados.getInt("id_estado");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resposta;

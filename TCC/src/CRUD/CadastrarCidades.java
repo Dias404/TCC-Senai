@@ -154,6 +154,7 @@ public class CadastrarCidades {
 							Lugar l = new Lugar();
 							l.setNomeCidade(tfNome.getText().toString());
 							CRUDLugar.insertCidade(l, idEstado);
+							JOptionPane.showMessageDialog(null, "A cidade foi cadastrado.");
 						}else {
 							JOptionPane.showMessageDialog(null, "O campo nome está vazio.");
 						}

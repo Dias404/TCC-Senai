@@ -96,53 +96,6 @@ public class CRUDClientes {
 			return dadosEspecificos = null;
 		}
 	}
-	
-	public ResultSet selectUF() {
-		String sql = "SELECT * FROM estados";
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			dadosEstados = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return dadosEstados;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return dadosEstados = null;
-		}
-	}
-	
-	public ResultSet selectUFId(String nomeEstado) {
-		String sql = "SELECT (id_estado) FROM estados WHERE nome_estado=?";
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setString(1, nomeEstado);
-			idEstadoSelecionado = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return idEstadoSelecionado;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return idEstadoSelecionado = null;
-		}
-	}
-	
-	public ResultSet selectCidade(int idEstado) {
-		String sql = "SELECT (nome_cidade) FROM cidades WHERE id_estado=?";
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setInt(1, idEstado);
-			dadosCidades = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return dadosCidades;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return dadosCidades = null;
-		}
-	}
 
 	public ResultSet selectCidadeId(String nomeCidade) {
 		String sql = "SELECT (id_cidade) FROM cidades WHERE nome_cidade=?";
