@@ -21,6 +21,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
@@ -31,9 +33,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import Administrador.CadastrarUsuario;
+import Banco.Conexao;
 import CRUD.CRUDClientes;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
+import sun.awt.image.VolatileSurfaceManager;
 
 import javax.swing.JFormattedTextField;
 import java.awt.event.ItemListener;
@@ -120,6 +124,7 @@ public class CadastroDeClientes {
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
 
+	private ResultSet UF = null;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -509,7 +514,17 @@ public class CadastroDeClientes {
 		comboUFF = new JComboBox();
 		comboUFF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				
+				comboCidadeF.setEnabled(true);
+				if(UF != null) {
+					try {
+						UF.absolute(comboUFF.getSelectedIndex());
+						preencherCidade(UF.getInt("id_estado")+1);
+
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		comboUFF.setBounds(58, 74, 163, 20);
@@ -590,6 +605,7 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
+		comboCidadeF.setEnabled(false);
 		comboCidadeF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 			
@@ -859,11 +875,31 @@ public class CadastroDeClientes {
 				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
 			}
-			return true;
+			UF = selecionar.dadosEstados;
+			return true;	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
 	}
+	public void preencherCidade(int UF) {
+		ResultSet dadosUF;
+		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
+		try {
+			PreparedStatement stmt = new Conexao().getConexao().prepareStatement(sql);
+			stmt.setInt(1, UF);
+			dadosUF = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			comboCidadeF.removeAllItems();
+			while(dadosUF.next()) {
+				comboCidadeF.addItem(dadosUF.getString("nome_cidade"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+		}
+	}
+	
 }

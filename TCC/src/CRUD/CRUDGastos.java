@@ -9,16 +9,39 @@ import Banco.Conexao;
 public class CRUDGastos {
 
 	Conexao con = new Conexao();
-	ResultSet dados = null;
+	public ResultSet dados = null;
 	
-	public boolean insertGastos() {
-		String sql = "INSERT INTO gastos (id_gasto,data,descricao,valor_total,nota_fiscal) VALUES (?,?,?,?,?)";
+	public boolean insertGastos(String loja, String data, String descricao, String valorTotal, String notaFiscal) {
+		String sql = "INSERT INTO gastos (loja,data,descricao,valor_total,nota_fiscal) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, loja);
+			stmt.setString(2, data);
+			stmt.setString(3, descricao);
+			stmt.setString(4, valorTotal);
+			stmt.setString(5, notaFiscal);
+			stmt.execute();
+			stmt.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return true;
+	}
+	
+	public ResultSet selectGastos() {
+		String sql = "SELECT * FROM gastos ORDER BY loja";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
 	}
 }

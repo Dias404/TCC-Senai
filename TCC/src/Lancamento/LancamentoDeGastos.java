@@ -18,7 +18,11 @@ import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import CRUD.CRUDGastos;
+
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class LancamentoDeGastos {
@@ -127,11 +131,20 @@ public class LancamentoDeGastos {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (tfLoja.getText().toString().isEmpty() || ftfData.getText().toString().isEmpty() || tfDescricao.getText().toString().isEmpty() || tfValorTotal.getText().toString().isEmpty() || tfNotaFiscal.getText().toString().isEmpty()) {
+				String loja = tfLoja.getText().toString();
+				String data = ftfData.getText().toString();
+				String descricao = tfDescricao.getText().toString();
+				String valorTotal = tfValorTotal.getText().toString();
+				String notaFiscal = tfNotaFiscal.getText().toString();
+				if (loja.isEmpty() || data.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				}else {
-					
+					CRUDGastos insert = new CRUDGastos();
+					insert.insertGastos(loja, data, descricao, valorTotal, notaFiscal);
+					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 				}
+				preencherTabela();
+				btnLimpar.doClick();
 			}
 		});
 		btnSalvar.setForeground(Color.WHITE);
@@ -192,5 +205,24 @@ public class LancamentoDeGastos {
 		button.setBackground(new Color(0, 73, 170));
 		button.setBounds(10, 538, 89, 23);
 		frmLancamentoDeCaixa.getContentPane().add(button);
+		
+		preencherTabela();
+	}
+	
+	public boolean preencherTabela() {
+		CRUDGastos select = new CRUDGastos();
+		select.selectGastos();
+		try {
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while (select.dados.next()) {
+				modelo.addRow(new Object[]{select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

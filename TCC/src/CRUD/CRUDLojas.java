@@ -42,4 +42,18 @@ public class CRUDLojas {
 		}
 	}
 	
+	public ResultSet selectLoja() {
+		String sql = "SELECT * FROM lojas ORDER BY razao";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
 }
