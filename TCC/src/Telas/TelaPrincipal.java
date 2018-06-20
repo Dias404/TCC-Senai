@@ -493,6 +493,11 @@ public class TelaPrincipal {
 		pnCaixa.add(btnCorrecaoParcela);
 		
 		JButton btnLancamento = new JButton("");
+		btnLancamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnLancamento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/lancamento.png")));
 		btnLancamento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLancamento.setFocusable(false);
