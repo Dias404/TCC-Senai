@@ -190,8 +190,8 @@ public class CadastrarLoja {
 		btnAddCidade = new JButton("...");
 		btnAddCidade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(null);
-				frmCadastrarLoja.setEnabled(false);
+				CadastrarCidades.main(new String[] {"Loja"});
+				//frmCadastrarLoja.setEnabled(false);
 			}
 		});
 		btnAddCidade.setBounds(483, 40, 27, 23);

@@ -35,12 +35,15 @@ import javax.swing.border.EtchedBorder;
 import Administrador.CadastrarUsuario;
 import Banco.Conexao;
 import CRUD.CRUDClientes;
+import CRUD.CRUDLugar;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
 import sun.awt.image.VolatileSurfaceManager;
 
 import javax.swing.JFormattedTextField;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.awt.event.ItemEvent;
 
 public class CadastroDeClientes {
@@ -126,6 +129,10 @@ public class CadastroDeClientes {
 
 	private ResultSet UF = null;
 	
+	
+	static String x;
+	static String janela;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -156,6 +163,18 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.setBounds(100, 100, 548, 464);
 		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastroDeClientes.getContentPane().setLayout(null);
+		frmCadastroDeClientes.addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
+			}
+			public void windowLostFocus(WindowEvent arg0) {
+				if(x.equals("sla")) {
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Feche a janela de cadastrar cidades\nantes de voltar para a janela\n"+janela);
+					frmCadastroDeClientes.requestFocus();
+				}
+			}
+		});
 		
 		JLabel lblCadastrosDeClientes = new JLabel("Cadastros de Clientes");
 		lblCadastrosDeClientes.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -535,7 +554,7 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
-				CRUDClientes insert = new CRUDClientes();
+				CRUDLugar insert = new CRUDLugar();
 				insert.selectUFId(comboUFF.getSelectedItem().toString());
 				int idEstado = 0;
 				try {
@@ -760,7 +779,7 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
-				CRUDClientes insert = new CRUDClientes();
+				CRUDLugar insert = new CRUDLugar();
 				insert.selectUFId(comboUFJ.getSelectedItem().toString());
 				int idEstado = 0;
 				try {
@@ -866,16 +885,16 @@ public class CadastroDeClientes {
 	}
 	
 	private boolean preencherComboUF() {
-		CRUDClientes selecionar = new CRUDClientes();
+		CRUDLugar selecionar = new CRUDLugar();
 		selecionar.selectUF();
 		comboUFF.removeAllItems();
 		comboUFJ.removeAllItems();
 		try {
-			while (selecionar.dadosEstados.next()) {
-				comboUFF.addItem(selecionar.dadosEstados.getString("nome_estado"));
-				comboUFJ.addItem(selecionar.dadosEstados.getString("nome_estado"));
+			while (selecionar.dadosSelect.next()) {
+				comboUFF.addItem(selecionar.dadosSelect.getString("nome_estado"));
+				comboUFJ.addItem(selecionar.dadosSelect.getString("nome_estado"));
 			}
-			UF = selecionar.dadosEstados;
+			UF = selecionar.dadosSelect;
 			return true;	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

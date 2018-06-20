@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
+import Clientes.CadastroDeClientes;
 import DAO.Lugar;
 import Telas.Login;
 
@@ -28,6 +29,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.WindowFocusListener;
 
 public class CadastrarCidades {
 
@@ -38,10 +42,13 @@ public class CadastrarCidades {
 	private JButton btnCadastrar;
 	private JButton btnVoltar;
 
+	static String janela;
+	static String x = null;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		janela = args[0];
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -66,9 +73,22 @@ public class CadastrarCidades {
 	 */
 	private void initialize() {
 		frmCadCidade = new JFrame();
+		frmCadCidade.addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
+			}
+			public void windowLostFocus(WindowEvent arg0) {
+				if(x.equals("sla")) {
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Feche a janela de cadastrar cidades\nantes de voltar para a janela\n"+janela);
+					frmCadCidade.requestFocus();
+				}
+			}
+		});
 		frmCadCidade.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
+				x = "sla";
 				int escolha = JOptionPane.showConfirmDialog(null,
 						"Você deseja sair desta tela?", "Aviso", 
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -80,8 +100,15 @@ public class CadastrarCidades {
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
-				CadastrarLoja.frmCadastrarLoja.setEnabled(true);
-				CadastrarLoja.frmCadastrarLoja.setVisible(true);
+				if(janela.equals("Loja")) {
+					CadastrarLoja.frmCadastrarLoja.setEnabled(true);
+					CadastrarLoja.frmCadastrarLoja.setVisible(true);
+				}
+				if(janela.equals("Cliente")) {
+					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
+					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
+				}
+				
 			}
 		});
 		frmCadCidade.setTitle("Cadastrar Cidades");
@@ -124,13 +151,13 @@ public class CadastrarCidades {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int escolha = JOptionPane.showConfirmDialog(null,
-						"Você deseja sair desta tela?", "Aviso", 
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-						if(escolha==0) {
-							frmCadCidade.dispose();
-						}else {
+					"Você deseja sair desta tela?", "Aviso", 
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(escolha==0) {
+					frmCadCidade.dispose();
+				}else {
 							
-						}
+				}
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);
@@ -162,7 +189,6 @@ public class CadastrarCidades {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				
 			}
 		});
 		btnCadastrar.setForeground(Color.WHITE);
