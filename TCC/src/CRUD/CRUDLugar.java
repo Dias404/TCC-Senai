@@ -19,7 +19,10 @@ public class CRUDLugar {
 	
 	public ResultSet idEstadoSelecionado = null;
 	
-	public ResultSet selectUF() {
+	/*   CRUD Lugar Ordem (Insert, Select, Update, Delete)   */
+	
+	// CRUD Estado
+	public static ResultSet selectEstados() {
 		String sql = "SELECT * FROM estados";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
@@ -28,7 +31,6 @@ public class CRUDLugar {
 			stmt.close();
 			return dadosSelect;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return dadosSelect = null;
 		}
@@ -44,12 +46,12 @@ public class CRUDLugar {
 			stmt.close();
 			return idEstadoSelecionado;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return idEstadoSelecionado = null;
 		}
 	}
 	
+	// CRUD Cidade
 	public static boolean insertCidade(Lugar cidade, int idEstado) {
 		try {
 			String sql = "INSERT INTO cidades (nome_cidade, id_estado) VALUES (?,?)";
@@ -58,6 +60,9 @@ public class CRUDLugar {
 			stmt.setInt(2, idEstado);
 			stmt.execute();
 			stmt.close();
+			CadastrarCidades.x = true;
+			JOptionPane.showMessageDialog(null, "Cidade cadastrada com sucesso.");
+			CadastrarCidades.x = false;
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,19 +101,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectEstados() {
-		String sql = "SELECT * FROM estados";
-		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			dadosSelect = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			return dadosSelect;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return dadosSelect = null;
-		}
-	}
+	
 	
 	public static int selectIdEstado(String nomeEstado) {
 		ResultSet estados;

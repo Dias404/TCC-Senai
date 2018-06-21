@@ -36,6 +36,7 @@ import Administrador.CadastrarUsuario;
 import Banco.Conexao;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
+import CRUD.CadastrarCidades;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
 import sun.awt.image.VolatileSurfaceManager;
@@ -533,9 +534,7 @@ public class CadastroDeClientes {
 					try {
 						UF.absolute(comboUFF.getSelectedIndex());
 						preencherCidade(UF.getInt("id_estado")+1);
-
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -548,24 +547,7 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeF = new JButton("...");
 		btnAdicionarCidadeF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
-				CRUDLugar insert = new CRUDLugar();
-				insert.selectUFId(comboUFF.getSelectedItem().toString());
-				int idEstado = 0;
-				try {
-					if (insert.idEstadoSelecionado.first()) {
-						idEstado = insert.idEstadoSelecionado.getInt("id_estado");
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				if (insert.insertCidade(nomeCidade, idEstado)) {
-					JOptionPane.showMessageDialog(null, "Nova cidade inserida com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir a nova cidade!", null, JOptionPane.WARNING_MESSAGE);
-				}
+				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});
 			}
 		});
 		btnAdicionarCidadeF.setForeground(Color.WHITE);
@@ -587,7 +569,6 @@ public class CadastroDeClientes {
 						idCidade = insert.idCidadeSelecionado.getInt("id_cidade");
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -773,23 +754,7 @@ public class CadastroDeClientes {
 		btnAdicionarCidadeJ = new JButton("...");
 		btnAdicionarCidadeJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nomeCidade = JOptionPane.showInputDialog("Entre com o nome da nova cidade:");
-				CRUDLugar insert = new CRUDLugar();
-				insert.selectUFId(comboUFJ.getSelectedItem().toString());
-				int idEstado = 0;
-				try {
-					if (insert.idEstadoSelecionado.first()) {
-						idEstado = insert.idEstadoSelecionado.getInt("id_estado");
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (insert.insertCidade(nomeCidade, idEstado)) {
-					JOptionPane.showMessageDialog(null, "Nova cidade inserida com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir a nova cidade!", null, JOptionPane.WARNING_MESSAGE);
-				}
+				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});
 			}
 		});
 		btnAdicionarCidadeJ.setForeground(Color.WHITE);
@@ -881,7 +846,7 @@ public class CadastroDeClientes {
 	
 	private boolean preencherComboUF() {
 		CRUDLugar selecionar = new CRUDLugar();
-		selecionar.selectUF();
+		selecionar.selectEstados();
 		comboUFF.removeAllItems();
 		comboUFJ.removeAllItems();
 		try {
@@ -892,7 +857,6 @@ public class CadastroDeClientes {
 			UF = selecionar.dadosSelect;
 			return true;	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -907,11 +871,12 @@ public class CadastroDeClientes {
 			stmt.execute();
 			stmt.close();
 			comboCidadeF.removeAllItems();
+			comboCidadeJ.removeAllItems();
 			while(dadosUF.next()) {
 				comboCidadeF.addItem(dadosUF.getString("nome_cidade"));
+				comboCidadeJ.addItem(dadosUF.getString("nome_cidade"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();	
 		}
 	}

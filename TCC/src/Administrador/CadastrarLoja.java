@@ -69,6 +69,7 @@ public class CadastrarLoja {
 	private JTextField tfTel2;
 	private JTextField tfCel1;
 	private JTextField tfCel2;
+	private JComboBox cbBairro;
 
 	/**
 	 * Launch the application.
@@ -165,7 +166,7 @@ public class CadastrarLoja {
 		lblBairro.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JComboBox cbBairro = new JComboBox();
+		cbBairro = new JComboBox();
 		cbBairro.setBounds(58, 73, 232, 19);
 		panel.add(cbBairro);
 		
@@ -190,8 +191,7 @@ public class CadastrarLoja {
 		btnAddCidade = new JButton("...");
 		btnAddCidade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(new String[] {"Loja"});
-				//frmCadastrarLoja.setEnabled(false);
+				CadastrarCidades.main(new String[] {"Cadastro de Loja"});
 			}
 		});
 		btnAddCidade.setBounds(483, 40, 27, 23);
@@ -301,14 +301,17 @@ public class CadastrarLoja {
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tfNome.setText(null);
-				cbUF.setSelectedIndex(0);
-				cbCidade.setSelectedIndex(0);
-				cbBairro.setSelectedIndex(0);
-				cbRua.setSelectedIndex(0);
 				tfNum.setText(null);
 				tfCNPJ.setText(null);
 				tfIE.setText(null);
 				tfTel1.setText(null);
+				tfTel2.setText(null);
+				tfCel1.setText(null);
+				tfCel2.setText(null);
+				cbUF.setSelectedIndex(0);
+				cbCidade.setSelectedIndex(0);
+				cbRua.setSelectedIndex(0);
+				cbBairro.setSelectedIndex(0);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
@@ -365,7 +368,7 @@ public class CadastrarLoja {
 	}
 	
 	private boolean preencherComboUF() {
-		ResultSet selecionar = new CRUDLugar().selectUF();
+		ResultSet selecionar = new CRUDLugar().selectEstados();
 		cbUF.removeAllItems();
 		try {
 			while (selecionar.next()) {
@@ -379,6 +382,20 @@ public class CadastrarLoja {
 	}
 	
 	private boolean preencherComboCidade() {
+		ResultSet selecionar = new CRUDLugar().selectCidade();
+		cbCidade.removeAllItems();
+		try {
+			while (selecionar.next()) {
+				cbCidade.addItem(selecionar.getString("nome_cidade"));
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboBairro() {
 		ResultSet selecionar = new CRUDLugar().selectCidade();
 		cbCidade.removeAllItems();
 		try {

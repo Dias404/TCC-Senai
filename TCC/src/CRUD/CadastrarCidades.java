@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -43,7 +44,7 @@ public class CadastrarCidades {
 	private JButton btnVoltar;
 
 	static String janela;
-	static String x = null;
+	static boolean x = false;
 	/**
 	 * Launch the application.
 	 */
@@ -77,8 +78,8 @@ public class CadastrarCidades {
 			public void windowGainedFocus(WindowEvent arg0) {
 			}
 			public void windowLostFocus(WindowEvent arg0) {
-				if(x.equals("sla")) {
-					
+				if(x) {
+					return;
 				}else {
 					JOptionPane.showMessageDialog(null, "Feche a janela de cadastrar cidades\nantes de voltar para a janela\n"+janela);
 					frmCadCidade.requestFocus();
@@ -88,23 +89,25 @@ public class CadastrarCidades {
 		frmCadCidade.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				x = "sla";
+				x = true;
 				int escolha = JOptionPane.showConfirmDialog(null,
 						"Você deseja sair desta tela?", "Aviso", 
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 						if(escolha==0) {
+							x = false;
 							frmCadCidade.dispose();
 						}else {
+							x = false;
 							return;
 						}
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
-				if(janela.equals("Loja")) {
+				if(janela.equals("Cadastro de Loja")) {
 					CadastrarLoja.frmCadastrarLoja.setEnabled(true);
 					CadastrarLoja.frmCadastrarLoja.setVisible(true);
 				}
-				if(janela.equals("Cliente")) {
+				if(janela.equals("Cadastro de Cliente")) {
 					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
 					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
 				}
@@ -150,12 +153,15 @@ public class CadastrarCidades {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				x = true;
 				int escolha = JOptionPane.showConfirmDialog(null,
 					"Você deseja sair desta tela?", "Aviso", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if(escolha==0) {
+					x = false;
 					frmCadCidade.dispose();
 				}else {
+					x = false;
 					return;		
 				}
 			}
@@ -170,25 +176,22 @@ public class CadastrarCidades {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int idEstado;
-				idEstado = CRUDLugar.selectIdEstado(cbEstado.getSelectedItem().toString());
-				ResultSet verifica = CRUDLugar.selectCidadeCondicao1(tfNome.getText().toString(), idEstado);
+				Lugar cidade = new Lugar();
+				cidade.setNomeCidade(tfNome.getText().toString());
+				int idEstado = cbEstado.getSelectedIndex()+1;
+				String nomeCidade = tfNome.getText().toString();
+				ResultSet dados = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
 				try {
-					if(verifica.next()) {
-						JOptionPane.showMessageDialog(frmCadCidade, "Já existe uma cidade com este\nnome cadastrado neste estado!", "Erro", JOptionPane.ERROR_MESSAGE);
+					if(dados.next()) {
+						JOptionPane.showMessageDialog(frmCadCidade, "Esta cidade já foi cadastrada!");
 					}else {
-						if(!tfNome.getText().isEmpty()) {
-							Lugar l = new Lugar();
-							l.setNomeCidade(tfNome.getText().toString());
-							CRUDLugar.insertCidade(l, idEstado);
-							JOptionPane.showMessageDialog(null, "A cidade foi cadastrado.");
-						}else {
-							JOptionPane.showMessageDialog(null, "O campo nome está vazio.");
-						}
+						CRUDLugar.insertCidade(cidade, idEstado);
 					}
-				} catch (SQLException e1) {
+				} catch (HeadlessException | SQLException e1) {
 					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frmCadCidade, "Erro ao verificar no banco!");
 				}
+				
 			}
 		});
 		btnCadastrar.setForeground(Color.WHITE);
