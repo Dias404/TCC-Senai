@@ -101,8 +101,6 @@ public class CRUDLugar {
 		}
 	}
 	
-	
-	
 	public static int selectIdEstado(String nomeEstado) {
 		ResultSet estados;
 		int resposta = 0;
@@ -122,6 +120,22 @@ public class CRUDLugar {
 			e.printStackTrace();
 		}
 		return resposta;
+	}
+	
+	
+	//CRUD Bairro
+	public static ResultSet selectBairro() {
+		String sql = "SELECT * FROM bairros";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
 	}
 	
 }

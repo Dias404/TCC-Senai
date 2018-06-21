@@ -396,11 +396,11 @@ public class CadastrarLoja {
 	}
 	
 	private boolean preencherComboBairro() {
-		ResultSet selecionar = new CRUDLugar().selectCidade();
-		cbCidade.removeAllItems();
+		ResultSet selecionar = new CRUDLugar().selectBairro();
+		cbBairro.removeAllItems();
 		try {
 			while (selecionar.next()) {
-				cbCidade.addItem(selecionar.getString("nome_cidade"));
+				cbBairro.addItem(selecionar.getString("nome_bairro"));
 			}
 			return true;
 		} catch (SQLException e) {

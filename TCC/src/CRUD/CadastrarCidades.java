@@ -183,15 +183,23 @@ public class CadastrarCidades {
 				ResultSet dados = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
 				try {
 					if(dados.next()) {
+						x = true;
 						JOptionPane.showMessageDialog(frmCadCidade, "Esta cidade já foi cadastrada!");
+						x = false;
 					}else {
-						CRUDLugar.insertCidade(cidade, idEstado);
+						if(tfNome.getText().isEmpty()) {
+							x = true;
+							JOptionPane.showMessageDialog(frmCadCidade, "O campo nome está vazio!");
+							x = false;
+						}else {
+							CRUDLugar.insertCidade(cidade, idEstado);
+						}
+						
 					}
 				} catch (HeadlessException | SQLException e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(frmCadCidade, "Erro ao verificar no banco!");
 				}
-				
 			}
 		});
 		btnCadastrar.setForeground(Color.WHITE);
