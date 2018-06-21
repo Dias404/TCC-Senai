@@ -44,4 +44,22 @@ public class CRUDGastos {
 			return dados = null;
 		}
 	}
+	
+	public ResultSet selectGastosComWhere(String variavelSelect, String valorSelect) {
+		String sql = "SELECT * FROM gastos WHERE "+variavelSelect+" LIKE ? ORDER BY loja";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, valorSelect+"%");
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+		
+	}
+	
 }

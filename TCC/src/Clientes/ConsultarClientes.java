@@ -40,13 +40,13 @@ public class ConsultarClientes implements Runnable{
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
-	public static String cliSelecionado;
 	private JButton btnVoltar;
 	private JLabel lblBG;
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
 	private JButton btnRefresh;
 	
+	public static String cliSelecionado;
 	Thread tarefa;
 	
 	/**
@@ -116,7 +116,6 @@ public class ConsultarClientes implements Runnable{
 		scrollPane.setViewportView(tabela);
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
