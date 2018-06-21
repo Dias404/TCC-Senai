@@ -48,7 +48,7 @@ import java.awt.event.ItemEvent;
 
 public class CadastroDeClientes {
 
-	private JFrame frmCadastroDeClientes;
+	public static JFrame frmCadastroDeClientes;
 	private JRadioButton rbFisica;
 	private JRadioButton rbJuridica;
 	private JButton btnVoltar;
@@ -167,12 +167,7 @@ public class CadastroDeClientes {
 			public void windowGainedFocus(WindowEvent arg0) {
 			}
 			public void windowLostFocus(WindowEvent arg0) {
-				if(x.equals("sla")) {
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Feche a janela de cadastrar cidades\nantes de voltar para a janela\n"+janela);
-					frmCadastroDeClientes.requestFocus();
-				}
+				
 			}
 		});
 		

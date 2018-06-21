@@ -95,7 +95,7 @@ public class CadastrarCidades {
 						if(escolha==0) {
 							frmCadCidade.dispose();
 						}else {
-							
+							return;
 						}
 			}
 			@Override
@@ -156,7 +156,7 @@ public class CadastrarCidades {
 				if(escolha==0) {
 					frmCadCidade.dispose();
 				}else {
-							
+					return;		
 				}
 			}
 		});
