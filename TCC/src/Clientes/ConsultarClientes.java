@@ -104,10 +104,15 @@ public class ConsultarClientes implements Runnable{
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int indexLinha = tabela.getSelectedRow();
-				cliSelecionado = (String) tabela.getValueAt(indexLinha, 9);
-				frmConsultaDeClientes.dispose();
-				AtualizarClientes.main(null);
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					int indexLinha = tabela.getSelectedRow();
+					cliSelecionado = (String) tabela.getValueAt(indexLinha, 9);
+					frmConsultaDeClientes.dispose();
+					AtualizarClientes.main(null);
+				} else {
+					return;
+				}
 			}
 		});
 		

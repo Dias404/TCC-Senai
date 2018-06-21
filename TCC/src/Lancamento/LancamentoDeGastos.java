@@ -207,24 +207,27 @@ public class LancamentoDeGastos {
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int indexLinha = tabela.getSelectedRow();
-				System.out.println(indexLinha);
-				//cliSelecionado = (String) tabela.getValueAt(indexLinha, 9);
-				//System.out.println(cliSelecionado);
-				//frmLancamentoDeCaixa.dispose();
-				//AtualizarClientes.main(null);
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					int indexColuna = tabela.getSelectedColumn();
+					int indexLinha = tabela.getSelectedRow();
+					cliSelecionado = String.valueOf(tabela.getValueAt(indexLinha, indexColuna));
+					System.out.println(cliSelecionado);
+				} else {
+					return;
+				}
 			}
 		});
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Loja", "Data", "Descri\u00E7\u00E3o", "Valor Total", "Nota Fiscal"
+				"Loja", "Data", "Descri\u00E7\u00E3o", "Valor Total", "Nota Fiscal"
 			}
 		));
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
-		tabela.getColumnModel().getColumn(0).setMinWidth(50);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(50);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
+		tabela.getColumnModel().getColumn(0).setMinWidth(0);
+		tabela.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(tabela);
 		
 		JButton button = new JButton("Salvar");
@@ -319,7 +322,7 @@ public class LancamentoDeGastos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_gasto"), select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
+				modelo.addRow(new Object[] {select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
 			}
 			return true;
 		} catch (SQLException e) {
@@ -337,7 +340,7 @@ public class LancamentoDeGastos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_gasto"), select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
+				modelo.addRow(new Object[]{select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
 			}
 			return true;
 		} catch (SQLException e) {
