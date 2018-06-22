@@ -112,10 +112,6 @@ public class CadastrarCidades {
 					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
 					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
 				}
-				if(janela.equals("C")) {
-					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
-					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
-				}
 			}
 		});
 		frmCadCidade.setTitle("Cadastrar Cidades");
@@ -174,7 +170,7 @@ public class CadastrarCidades {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 68, 89, 23);
+		btnVoltar.setBounds(8, 68, 89, 23);
 		frmCadCidade.getContentPane().add(btnVoltar);
 		
 		btnCadastrar = new JButton("Cadastrar");

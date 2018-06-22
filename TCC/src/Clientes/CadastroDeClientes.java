@@ -36,6 +36,7 @@ import Administrador.CadastrarUsuario;
 import Banco.Conexao;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
+import CadastrarLugar.CadastrarBairros;
 import CadastrarLugar.CadastrarCidades;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
@@ -560,23 +561,7 @@ public class CadastroDeClientes {
 		btnAdicionarBairroF = new JButton("...");
 		btnAdicionarBairroF.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nomeBairro = JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
-				CRUDClientes insert = new CRUDClientes();
-				insert.selectCidadeId(comboCidadeF.getSelectedItem().toString());
-				int idCidade = 0;
-				try {
-					if (insert.idCidadeSelecionado.first()) {
-						idCidade = insert.idCidadeSelecionado.getInt("id_cidade");
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
-				if (insert.insertBairro(nomeBairro, idCidade)) {
-					JOptionPane.showMessageDialog(null, "Novo bairro inserido com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro ao inserir o novo bairro!", null, JOptionPane.WARNING_MESSAGE);
-				}
+				CadastrarBairros.main(new String[] {"Cadastro de Cliente"});
 			}
 		});
 		btnAdicionarBairroF.setForeground(Color.WHITE);

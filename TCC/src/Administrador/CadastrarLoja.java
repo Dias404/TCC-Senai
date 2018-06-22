@@ -15,6 +15,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDLugar;
 import CRUD.CRUDUsuarios;
+import CadastrarLugar.CadastrarBairros;
 import CadastrarLugar.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
@@ -171,6 +172,11 @@ public class CadastrarLoja {
 		panel.add(cbBairro);
 		
 		btnAddBairro = new JButton("...");
+		btnAddBairro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarBairros.main(new String[] {"Cadastro de Loja"});
+			}
+		});
 		btnAddBairro.setBounds(300, 70, 27, 23);
 		panel.add(btnAddBairro);
 		btnAddBairro.setForeground(Color.WHITE);
