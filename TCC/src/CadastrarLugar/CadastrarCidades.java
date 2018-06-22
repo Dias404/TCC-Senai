@@ -1,4 +1,4 @@
-package CRUD;
+package CadastrarLugar;
 
 import java.awt.EventQueue;
 
@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
+import CRUD.CRUDLugar;
 import Clientes.CadastroDeClientes;
 import DAO.Lugar;
 import Telas.Login;
@@ -44,7 +45,7 @@ public class CadastrarCidades {
 	private JButton btnVoltar;
 
 	static String janela;
-	static boolean x = false;
+	public static boolean x = false;
 	/**
 	 * Launch the application.
 	 */

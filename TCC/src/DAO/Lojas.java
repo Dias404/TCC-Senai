@@ -8,7 +8,7 @@ public class Lojas {
 	public String cidade;
 	public String bairro;
 	public String rua;
-	public String numero;
+	public int numero;
 	public String cnpj;
 	public String ie;
 	public String tel1;
@@ -52,10 +52,10 @@ public class Lojas {
 	public void setRua(String rua) {
 		this.rua = rua;
 	}
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 	public String getCnpj() {

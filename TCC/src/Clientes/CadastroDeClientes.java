@@ -36,7 +36,7 @@ import Administrador.CadastrarUsuario;
 import Banco.Conexao;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
-import CRUD.CadastrarCidades;
+import CadastrarLugar.CadastrarCidades;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
 import sun.awt.image.VolatileSurfaceManager;

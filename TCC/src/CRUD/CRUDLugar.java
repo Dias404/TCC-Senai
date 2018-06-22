@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import com.sun.corba.se.spi.activation.Repository;
 
 import Banco.Conexao;
+import CadastrarLugar.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
 
@@ -138,4 +139,19 @@ public class CRUDLugar {
 		}
 	}
 	
+	
+	//CRUD Rua
+	public static ResultSet selectRua() {
+		String sql = "SELECT * FROM ruas";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
 }

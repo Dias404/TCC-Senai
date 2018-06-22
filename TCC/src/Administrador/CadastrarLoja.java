@@ -15,7 +15,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDLugar;
 import CRUD.CRUDUsuarios;
-import CRUD.CadastrarCidades;
+import CadastrarLugar.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
 import DAO.Usuarios;
@@ -310,8 +310,8 @@ public class CadastrarLoja {
 				tfCel2.setText(null);
 				cbUF.setSelectedIndex(0);
 				cbCidade.setSelectedIndex(0);
-				cbRua.setSelectedIndex(0);
 				cbBairro.setSelectedIndex(0);
+				cbRua.setSelectedIndex(0);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
@@ -331,19 +331,17 @@ public class CadastrarLoja {
 					Lojas l = new Lojas();
 					l.setRazao(tfNome.getText().toString());
 					l.setEstado(cbUF.getSelectedItem().toString());
-					l.setEstado(cbCidade.getSelectedItem().toString());
-					l.setEstado(cbBairro.getSelectedItem().toString());
-					l.setEstado(cbRua.getSelectedItem().toString());
-					l.setRazao(tfNum.getText().toString());
-					l.setRazao(tfCNPJ.getText().toString());
-					l.setRazao(tfIE.getText().toString());
-					l.setRazao(tfTel1.getText().toString());
-					l.setRazao(tfTel2.getText().toString());
-					l.setRazao(tfCel1.getText().toString());
-					l.setRazao(tfCel2.getText().toString());
-					insert.insertLoja(l);
-					JOptionPane.showMessageDialog(null, "A Loja foi cadastrado!");
-					btnLimpar.doClick();
+					l.setCidade(cbCidade.getSelectedItem().toString());
+					l.setBairro(cbBairro.getSelectedItem().toString());
+					l.setRua(cbRua.getSelectedItem().toString());
+					l.setNumero(Integer.valueOf(tfNum.getText()));
+					l.setCnpj(tfCNPJ.getText().toString());
+					l.setIe(tfIE.getText().toString());
+					l.setTel1(tfTel1.getText().toString());
+					l.setTel2(tfTel2.getText().toString());
+					l.setCel1(tfCel1.getText().toString());
+					l.setCel2(tfCel2.getText().toString());
+					insert.insertLoja(l, btnLimpar);
 				}
 			}
 		});
@@ -365,6 +363,8 @@ public class CadastrarLoja {
 		
 		preencherComboUF();
 		preencherComboCidade();
+		preencherComboBairro();
+		preencherComboRua();
 	}
 	
 	private boolean preencherComboUF() {
@@ -401,6 +401,20 @@ public class CadastrarLoja {
 		try {
 			while (selecionar.next()) {
 				cbBairro.addItem(selecionar.getString("nome_bairro"));
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboRua() {
+		ResultSet selecionar = new CRUDLugar().selectRua();
+		cbRua.removeAllItems();
+		try {
+			while (selecionar.next()) {
+				cbRua.addItem(selecionar.getString("nome_rua"));
 			}
 			return true;
 		} catch (SQLException e) {
