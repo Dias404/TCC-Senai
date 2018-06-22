@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -14,10 +16,20 @@ import javax.swing.JOptionPane;
 
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
+import CRUD.CRUDLugar;
 import Clientes.CadastroDeClientes;
+import DAO.Lugar;
+
 import java.awt.Font;
+import java.awt.HeadlessException;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastrarBairros {
 
@@ -27,6 +39,11 @@ public class CadastrarBairros {
 	static String janela;
 	public static boolean x = false;
 	private JTextField tfNome;
+	private JLabel lblEstado;
+	private static JComboBox cbEstado;
+	private JButton btnCadastrar;
+	private JButton btnVoltar;
+	private static JComboBox cbCidade;
 
 	/**
 	 * Launch the application.
@@ -97,7 +114,7 @@ public class CadastrarBairros {
 			}
 		});
 		frmCadBairro.setTitle("Cadastrar Cidades");
-		frmCadBairro.setBounds(100, 100, 284, 130);
+		frmCadBairro.setBounds(100, 100, 284, 164);
 		frmCadBairro.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadBairro.setResizable(false);
 		frmCadBairro.setLocationRelativeTo(null);
@@ -122,9 +139,114 @@ public class CadastrarBairros {
 		tfNome.setBounds(66, 9, 205, 20);
 		frmCadBairro.getContentPane().add(tfNome);
 		
+		lblEstado = new JLabel("Estado:");
+		lblEstado.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEstado.setBounds(10, 42, 46, 14);
+		frmCadBairro.getContentPane().add(lblEstado);
+		
+		cbEstado = new JComboBox();
+		cbEstado.setBounds(66, 40, 205, 20);
+		frmCadBairro.getContentPane().add(cbEstado);
+		
+		JLabel lblCidade = new JLabel("Cidade:");
+		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCidade.setBounds(10, 73, 46, 14);
+		frmCadBairro.getContentPane().add(lblCidade);
+		
+		cbCidade = new JComboBox();
+		cbCidade.setBounds(66, 71, 205, 20);
+		frmCadBairro.getContentPane().add(cbCidade);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				x = true;
+				int escolha = JOptionPane.showConfirmDialog(null,
+					"Você deseja sair desta tela?", "Aviso", 
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if(escolha==0) {
+					x = false;
+					frmCadBairro.dispose();
+				}else {
+					x = false;
+					return;		
+				}
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(8, 103, 89, 23);
+		frmCadBairro.getContentPane().add(btnVoltar);
+		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Lugar bairro = new Lugar();
+				bairro.setNomeBairro(tfNome.getText().toString());
+				int idCidade = cbCidade.getSelectedIndex()+1;
+				String nomeCidade = cbCidade.getSelectedItem().toString();
+				String nomeBairro = tfNome.getText().toString();
+				ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeCidade, idCidade);
+				try {
+					if(dados.next()) {
+						x = true;
+						JOptionPane.showMessageDialog(frmCadBairro, "Este bairro já foi cadastrada!");
+						x = false;
+					}else {
+						if(tfNome.getText().isEmpty()) {
+							x = true;
+							JOptionPane.showMessageDialog(frmCadBairro, "O campo nome está vazio!");
+							x = false;
+						}else {
+							CRUDLugar.insertCidade(bairro, idCidade);
+						}
+						
+					}
+				} catch (HeadlessException | SQLException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frmCadBairro, "Erro ao verificar no banco!");
+				}
+			}
+		});
+		btnCadastrar.setForeground(Color.WHITE);
+		btnCadastrar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnCadastrar.setFocusable(false);
+		btnCadastrar.setBackground(new Color(0, 73, 170));
+		btnCadastrar.setBounds(182, 103, 89, 23);
+		frmCadBairro.getContentPane().add(btnCadastrar);
+		
 		lblBG = new JLabel("");
 		lblBG.setBounds(0, 0, frameWidth, frameHeight);
 		lblBG.setIcon(BG);
 		frmCadBairro.getContentPane().add(lblBG);
+		
+		preencherEstados(cbEstado);
+	}
+	
+	public static void preencherEstados(JComboBox cb) {
+		ResultSet dados = CRUDLugar.selectEstados();
+		try {
+			while(dados.next()) {
+				cb.addItem(dados.getString("nome_estado"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void preencherCidades(JComboBox cb) {
+		String nomeEstado = cbEstado.getSelectedItem().toString();
+		ResultSet dados = CRUDLugar.selectCidade();
+		try {
+			while(dados.next()) {
+				cb.addItem(dados.getString("nome_cidade"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
