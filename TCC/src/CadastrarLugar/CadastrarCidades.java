@@ -112,7 +112,10 @@ public class CadastrarCidades {
 					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
 					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
 				}
-				
+				if(janela.equals("C")) {
+					CadastroDeClientes.frmCadastroDeClientes.setEnabled(true);
+					CadastroDeClientes.frmCadastroDeClientes.setVisible(true);
+				}
 			}
 		});
 		frmCadCidade.setTitle("Cadastrar Cidades");
