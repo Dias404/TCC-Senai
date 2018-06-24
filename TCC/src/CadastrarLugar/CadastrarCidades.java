@@ -176,29 +176,28 @@ public class CadastrarCidades {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lugar cidade = new Lugar();
-				cidade.setNomeCidade(tfNome.getText().toString());
-				int idEstado = cbEstado.getSelectedIndex()+1;
-				String nomeCidade = tfNome.getText().toString();
-				ResultSet dados = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
-				try {
-					if(dados.next()) {
-						x = true;
-						JOptionPane.showMessageDialog(frmCadCidade, "Esta cidade já foi cadastrada!");
-						x = false;
-					}else {
-						if(tfNome.getText().isEmpty()) {
+				if(tfNome.getText().isEmpty()) {
+					x = true;
+					JOptionPane.showMessageDialog(frmCadCidade, "O campo nome está vazio!");
+					x = false;
+				}else {	
+					Lugar cidade = new Lugar();
+					cidade.setNomeCidade(tfNome.getText().toString());
+					int idEstado = cbEstado.getSelectedIndex()+1;
+					String nomeCidade = tfNome.getText().toString();
+					ResultSet dados = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
+					try {
+						if(dados.next()) {
 							x = true;
-							JOptionPane.showMessageDialog(frmCadCidade, "O campo nome está vazio!");
+							JOptionPane.showMessageDialog(frmCadCidade, "Esta cidade já foi cadastrada!");
 							x = false;
-						}else {
+						}else{
 							CRUDLugar.insertCidade(cidade, idEstado);
 						}
-						
+					} catch (HeadlessException | SQLException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(frmCadCidade, "Erro ao verificar no banco!");
 					}
-				} catch (HeadlessException | SQLException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(frmCadCidade, "Erro ao verificar no banco!");
 				}
 			}
 		});

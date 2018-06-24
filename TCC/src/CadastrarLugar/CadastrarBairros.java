@@ -30,6 +30,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CadastrarBairros {
 
@@ -146,6 +148,11 @@ public class CadastrarBairros {
 		frmCadBairro.getContentPane().add(lblEstado);
 		
 		cbEstado = new JComboBox();
+		cbEstado.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				preencherCidades();
+			}
+		});
 		cbEstado.setBounds(66, 40, 205, 20);
 		frmCadBairro.getContentPane().add(cbEstado);
 		
@@ -185,30 +192,28 @@ public class CadastrarBairros {
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lugar bairro = new Lugar();
-				bairro.setNomeBairro(tfNome.getText().toString());
-				int idCidade = cbCidade.getSelectedIndex()+1;
-				String nomeCidade = cbCidade.getSelectedItem().toString();
-				String nomeBairro = tfNome.getText().toString();
-				ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeCidade, idCidade);
-				try {
-					if(dados.next()) {
-						x = true;
-						JOptionPane.showMessageDialog(frmCadBairro, "Este bairro já foi cadastrada!");
-						x = false;
-					}else {
-						if(tfNome.getText().isEmpty()) {
+				if(tfNome.getText().isEmpty() /*|| cbCidade.getSelectedItem().toString().isEmpty()*/) {
+					x = true;
+					JOptionPane.showMessageDialog(frmCadBairro, "Um ou mais campos estão vazios!");
+					x = false;
+				}else {
+					Lugar bairro = new Lugar();
+					bairro.setNomeBairro(tfNome.getText().toString());
+					int idCidade = cbCidade.getSelectedIndex()+1;
+					String nomeBairro = tfNome.getText().toString();
+					ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeBairro, idCidade);
+					try {
+						if(dados.next()) {
 							x = true;
-							JOptionPane.showMessageDialog(frmCadBairro, "O campo nome está vazio!");
+							JOptionPane.showMessageDialog(frmCadBairro, "Este bairro já foi cadastrado!");
 							x = false;
 						}else {
 							CRUDLugar.insertCidade(bairro, idCidade);
 						}
-						
+					}catch (HeadlessException | SQLException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(frmCadBairro, "Erro ao verificar no banco!");
 					}
-				} catch (HeadlessException | SQLException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(frmCadBairro, "Erro ao verificar no banco!");
 				}
 			}
 		});
@@ -224,26 +229,29 @@ public class CadastrarBairros {
 		lblBG.setIcon(BG);
 		frmCadBairro.getContentPane().add(lblBG);
 		
-		preencherEstados(cbEstado);
+		preencherEstados();
+		preencherCidades();
 	}
 	
-	public static void preencherEstados(JComboBox cb) {
+	public static void preencherEstados() {
 		ResultSet dados = CRUDLugar.selectEstados();
 		try {
+			cbEstado.removeAllItems();
 			while(dados.next()) {
-				cb.addItem(dados.getString("nome_estado"));
+				cbEstado.addItem(dados.getString("nome_estado"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void preencherCidades(JComboBox cb) {
-		String nomeEstado = cbEstado.getSelectedItem().toString();
-		ResultSet dados = CRUDLugar.selectCidade();
+	public static void preencherCidades() {
+		int idEstado = cbEstado.getSelectedIndex()+1;
+		ResultSet dados = CRUDLugar.selectCidadeCondicao2(idEstado);
 		try {
+			cbCidade.removeAllItems();
 			while(dados.next()) {
-				cb.addItem(dados.getString("nome_cidade"));
+				cbCidade.addItem(dados.getString("nome_cidade"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

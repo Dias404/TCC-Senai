@@ -102,6 +102,21 @@ public class CRUDLugar {
 		}
 	}
 	
+	public static ResultSet selectCidadeCondicao2(int idEstado) {
+		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idEstado);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
 	public static int selectIdEstado(String nomeEstado) {
 		ResultSet estados;
 		int resposta = 0;
@@ -143,8 +158,8 @@ public class CRUDLugar {
 		String sql = "SELECT * FROM bairros WHERE nome_bairro = ? AND id_cidade = ?";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setString(1, nomeCidade);
-			stmt.setInt(2, idEstado);
+			stmt.setString(1, nomeBairro);
+			stmt.setInt(2, idCidade);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
