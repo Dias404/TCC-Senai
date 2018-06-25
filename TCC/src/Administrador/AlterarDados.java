@@ -41,8 +41,7 @@ public class AlterarDados {
 	private JTable tabela;
 	private JLabel lblAlterarDados;
 	
-	public static String campoSelecionado;
-	private JButton button_1;
+	private JButton btnPesquisar;
 	private JComboBox comboPesquisar;
 
 	/**
@@ -127,7 +126,6 @@ public class AlterarDados {
 				int indexLinha = tabela.getSelectedRow();
 				int indexColuna = tabela.getSelectedColumn();
 				String nomeColuna = tabela.getColumnName(indexColuna);
-				campoSelecionado = (String) tabela.getValueAt(indexLinha, indexColuna);
 				String email = (String) tabela.getValueAt(indexLinha, 2);
 				String senha = (String) tabela.getValueAt(indexLinha, 1);
 				String nome = (String) tabela.getValueAt(indexLinha, 0);
@@ -196,25 +194,25 @@ public class AlterarDados {
 		lblAlterarDados.setBounds(10, 11, 186, 17);
 		frmAlterarDados.getContentPane().add(lblAlterarDados);
 		
-		JButton button = new JButton("Voltar");
-		button.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmAlterarDados.dispose();
 			}
 		});
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Impact", Font.PLAIN, 13));
-		button.setFocusable(false);
-		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(10, 316, 89, 23);
-		frmAlterarDados.getContentPane().add(button);
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 316, 89, 23);
+		frmAlterarDados.getContentPane().add(btnVoltar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
 		Image BG2 = BG.getImage().getScaledInstance(620, 350, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
-		button_1 = new JButton("Pesquisar");
-		button_1.addActionListener(new ActionListener() {
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String variavelSelect = null;
 				String valorSelect = null;
@@ -239,12 +237,12 @@ public class AlterarDados {
 				preencherTabelaWhere(variavelSelect, valorSelect);
 			}
 		});
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Impact", Font.PLAIN, 13));
-		button_1.setFocusable(false);
-		button_1.setBackground(new Color(0, 73, 170));
-		button_1.setBounds(512, 317, 98, 23);
-		frmAlterarDados.getContentPane().add(button_1);
+		btnPesquisar.setForeground(Color.WHITE);
+		btnPesquisar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnPesquisar.setFocusable(false);
+		btnPesquisar.setBackground(new Color(0, 73, 170));
+		btnPesquisar.setBounds(512, 317, 98, 23);
+		frmAlterarDados.getContentPane().add(btnPesquisar);
 		
 		comboPesquisar = new JComboBox();
 		comboPesquisar.setModel(new DefaultComboBoxModel(new String[] {"Nome", "E-mail", "Telefone", "Celular"}));

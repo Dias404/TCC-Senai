@@ -41,15 +41,20 @@ public class LancamentoDeGastos {
 	private JTextField tfValorTotal;
 	private JTextField tfNotaFiscal;
 	private JButton btnLimpar;
-	private JButton btnSalvar;
+	private JButton btnSalvarInsert;
 	private JFormattedTextField ftfData;
-	private JTable tabela;
 	private JComboBox comboLojas;
 	private JComboBox comboPesquisar;
+	private JTable tabela;
 	
-	public static String cliSelecionado;
 	private MaskFormatter mascara;
 	private ResultSet dadosBackup = null;
+	public int idGasto;
+	private JButton btnPesquisar;
+	private JButton btnRemover;
+	private JButton btnCancelar;
+	private JButton btnSalvarUpdate;
+	private int desabilitarTabela = 0;
 	
 	/**
 	 * Launch the application.
@@ -144,8 +149,8 @@ public class LancamentoDeGastos {
 		tfNotaFiscal.setBounds(330, 130, 150, 20);
 		frmLancamentoDeCaixa.getContentPane().add(tfNotaFiscal);
 		
-		btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
+		btnSalvarInsert = new JButton("Salvar");
+		btnSalvarInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String loja = comboLojas.getSelectedItem().toString();
 				String data = ftfData.getText().toString();
@@ -163,17 +168,17 @@ public class LancamentoDeGastos {
 				btnLimpar.doClick();
 			}
 		});
-		btnSalvar.setForeground(Color.WHITE);
-		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setFocusable(false);
-		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(391, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnSalvar);
+		btnSalvarInsert.setForeground(Color.WHITE);
+		btnSalvarInsert.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSalvarInsert.setFocusable(false);
+		btnSalvarInsert.setBackground(new Color(0, 73, 170));
+		btnSalvarInsert.setBounds(391, 161, 89, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnSalvarInsert);
 		
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ftfData.setText(null);
+				ftfData.setValue(null);
 				tfDescricao.setText(null);
 				tfValorTotal.setText(null);
 				tfNotaFiscal.setText(null);
@@ -206,14 +211,41 @@ public class LancamentoDeGastos {
 		tabela = new JTable();
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-				if (respostaJOP == JOptionPane.YES_OPTION) {
-					int indexColuna = tabela.getSelectedColumn();
-					int indexLinha = tabela.getSelectedRow();
-					cliSelecionado = String.valueOf(tabela.getValueAt(indexLinha, indexColuna));
-					System.out.println(cliSelecionado);
-				} else {
+			public void mouseClicked(MouseEvent e) {
+				if (desabilitarTabela == 0) {
+					int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+					if (respostaJOP == JOptionPane.YES_OPTION) {
+						int indexLinha = tabela.getSelectedRow();
+						idGasto = Integer.parseInt(tabela.getValueAt(indexLinha, 0).toString());
+						
+						CRUDGastos select = new CRUDGastos();
+						select.selectGastosComWhere(idGasto);
+						try {
+							if (select.dadosEspecificos.first()) {
+								comboLojas.setSelectedItem(select.dadosEspecificos.getString("loja"));
+								ftfData.setText(select.dadosEspecificos.getString("data"));
+								tfDescricao.setText(select.dadosEspecificos.getString("descricao"));
+								tfValorTotal.setText(select.dadosEspecificos.getString("valor_total"));
+								tfNotaFiscal.setText(select.dadosEspecificos.getString("nota_fiscal"));
+								
+								btnLimpar.setVisible(false);
+								btnSalvarInsert.setVisible(false);
+								comboPesquisar.setEnabled(false);
+								btnPesquisar.setEnabled(false);
+								btnRemover.setVisible(true);
+								btnCancelar.setVisible(true);
+								btnSalvarUpdate.setVisible(true);
+							}
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						return;
+					}
+					desabilitarTabela = 1;
+				}
+				if (desabilitarTabela == 1) {
 					return;
 				}
 			}
@@ -222,12 +254,9 @@ public class LancamentoDeGastos {
 			new Object[][] {
 			},
 			new String[] {
-				"Loja", "Data", "Descri\u00E7\u00E3o", "Valor Total", "Nota Fiscal"
+				"ID", "Loja", "Data", "Descri\u00E7\u00E3o", "Valor Total", "Nota Fiscal"
 			}
 		));
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(0);
-		tabela.getColumnModel().getColumn(0).setMinWidth(0);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(tabela);
 		
 		JButton button = new JButton("Salvar");
@@ -242,15 +271,15 @@ public class LancamentoDeGastos {
 		comboLojas.setBounds(90, 39, 390, 20);
 		frmLancamentoDeCaixa.getContentPane().add(comboLojas);
 		
-		JButton button_1 = new JButton("Pesquisar");
-		button_1.addActionListener(new ActionListener() {
+		btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String variavelSelect = null;
 				String valorSelect = null;
 				
 				if (comboPesquisar.getSelectedItem().toString().equals("Loja")) {
 					valorSelect = JOptionPane.showInputDialog("Entre com o nome da loja que deseja procurar:");
-					variavelSelect = "loja";	
+					variavelSelect = "loja";
 				}
 				
 				if (comboPesquisar.getSelectedItem().toString().equals("Data")) {
@@ -276,12 +305,12 @@ public class LancamentoDeGastos {
 				preencherTabelaWhere(variavelSelect, valorSelect);
 			}
 		});
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Impact", Font.PLAIN, 13));
-		button_1.setFocusable(false);
-		button_1.setBackground(new Color(0, 73, 170));
-		button_1.setBounds(382, 540, 98, 23);
-		frmLancamentoDeCaixa.getContentPane().add(button_1);
+		btnPesquisar.setForeground(Color.WHITE);
+		btnPesquisar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnPesquisar.setFocusable(false);
+		btnPesquisar.setBackground(new Color(0, 73, 170));
+		btnPesquisar.setBounds(382, 540, 98, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnPesquisar);
 		
 		comboPesquisar = new JComboBox();
 		comboPesquisar.setModel(new DefaultComboBoxModel(new String[] {"Loja", "Data", "Descrição", "Valor Total", "Nota Fiscal"}));
@@ -292,7 +321,83 @@ public class LancamentoDeGastos {
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label.setBounds(177, 545, 87, 15);
 		frmLancamentoDeCaixa.getContentPane().add(label);
-		tabela.getTableHeader().setReorderingAllowed(false);
+		
+		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					CRUDGastos delete = new CRUDGastos();
+					delete.deleteGastos(idGasto);
+					JOptionPane.showMessageDialog(null, "Dados removidos com sucesso!");
+					btnCancelar.doClick();
+					preencherTabela();
+				} else {
+					return;
+				}
+			}
+		});
+		btnRemover.setVisible(false);
+		btnRemover.setForeground(Color.WHITE);
+		btnRemover.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnRemover.setFocusable(false);
+		btnRemover.setBackground(new Color(0, 73, 170));
+		btnRemover.setBounds(193, 161, 89, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnRemover);
+		
+		btnSalvarUpdate = new JButton("Salvar");
+		btnSalvarUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja atualizar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					String loja = comboLojas.getSelectedItem().toString();
+					String data = ftfData.getText().toString();
+					String descricao = tfDescricao.getText().toString();
+					String valorTotal = tfValorTotal.getText().toString();
+					String notaFiscal = tfNotaFiscal.getText().toString();
+					if (loja.isEmpty() || data.equals("  /  /    ") || descricao.isEmpty() || valorTotal.isEmpty() || notaFiscal.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Existe um campo vazio!");
+					} else {
+						CRUDGastos update = new CRUDGastos();
+						update.updateGastos(loja, data, descricao, valorTotal, notaFiscal, idGasto);
+						JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!");
+						btnCancelar.doClick();
+						preencherTabela();
+					}
+				} else {
+					return;
+				}
+			}
+		});
+		btnSalvarUpdate.setVisible(false);
+		btnSalvarUpdate.setForeground(Color.WHITE);
+		btnSalvarUpdate.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSalvarUpdate.setFocusable(false);
+		btnSalvarUpdate.setBackground(new Color(0, 73, 170));
+		btnSalvarUpdate.setBounds(391, 161, 89, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnSalvarUpdate);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnRemover.setVisible(false);
+				btnCancelar.setVisible(false);
+				btnSalvarUpdate.setVisible(false);
+				btnLimpar.setVisible(true);
+				btnSalvarInsert.setVisible(true);
+				comboPesquisar.setEnabled(true);
+				btnPesquisar.setEnabled(true);
+				btnLimpar.doClick();
+				desabilitarTabela = 0;
+			}
+		});
+		btnCancelar.setVisible(false);
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnCancelar.setFocusable(false);
+		btnCancelar.setBackground(new Color(0, 73, 170));
+		btnCancelar.setBounds(292, 161, 89, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnCancelar);
 		
 		preencherTabela();
 		preencherComboLojas();
@@ -322,7 +427,7 @@ public class LancamentoDeGastos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[] {select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
+				modelo.addRow(new Object[] {select.dados.getString("id_gasto"), select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
 			}
 			return true;
 		} catch (SQLException e) {
@@ -334,13 +439,13 @@ public class LancamentoDeGastos {
 	
 	public boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
 		CRUDGastos select = new CRUDGastos();
-		select.selectGastosComWhere(variavelSelect, valorSelect);
+		select.selectGastosComLike(variavelSelect, valorSelect);
 		dadosBackup = select.dados;
 		try {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
+				modelo.addRow(new Object[]{select.dados.getString("id_gasto"), select.dados.getString("loja"), select.dados.getString("data"), select.dados.getString("descricao"), "R$ "+select.dados.getString("valor_total"), select.dados.getString("nota_fiscal")});
 			}
 			return true;
 		} catch (SQLException e) {
