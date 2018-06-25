@@ -193,6 +193,9 @@ public class CadastrarCidades {
 							x = false;
 						}else{
 							CRUDLugar.insertCidade(cidade, idEstado);
+							if(janela.equals("Cadastro de Loja")) {
+								CadastrarLoja.preencherComboCidade();
+							}
 						}
 					} catch (HeadlessException | SQLException e1) {
 						e1.printStackTrace();

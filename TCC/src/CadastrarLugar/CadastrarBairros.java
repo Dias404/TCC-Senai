@@ -115,7 +115,7 @@ public class CadastrarBairros {
 				}
 			}
 		});
-		frmCadBairro.setTitle("Cadastrar Cidades");
+		frmCadBairro.setTitle("Cadastrar Bairros");
 		frmCadBairro.setBounds(100, 100, 284, 164);
 		frmCadBairro.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadBairro.setResizable(false);
@@ -197,23 +197,55 @@ public class CadastrarBairros {
 					JOptionPane.showMessageDialog(frmCadBairro, "Um ou mais campos estão vazios!");
 					x = false;
 				}else {
-					Lugar bairro = new Lugar();
-					bairro.setNomeBairro(tfNome.getText().toString());
-					int idCidade = cbCidade.getSelectedIndex()+1;
-					String nomeBairro = tfNome.getText().toString();
-					ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeBairro, idCidade);
 					try {
-						if(dados.next()) {
-							x = true;
+						CRUDLugar pegaIdCidade = new CRUDLugar();
+						CRUDLugar verificaExistencia = new CRUDLugar();
+						int idEstado = cbEstado.getSelectedIndex()+1;
+						String nomeCidade = cbCidade.getSelectedItem().toString();
+						String nomeBairro = tfNome.getText().toString();
+						ResultSet rsIdCidade = pegaIdCidade.selectCidadeCondicao1(nomeCidade, idEstado);
+						int idCidade = 0;
+						if(rsIdCidade.next()) {
+							idCidade = rsIdCidade.getInt("id_cidade");
+						}
+						ResultSet rsVerifica = verificaExistencia.selectBairroCondicao1(nomeBairro, idCidade);
+						if(rsVerifica.next()) {
+							x = true; 
 							JOptionPane.showMessageDialog(frmCadBairro, "Este bairro já foi cadastrado!");
 							x = false;
 						}else {
-							CRUDLugar.insertCidade(bairro, idCidade);
+							x = true;
+							CRUDLugar insert = new CRUDLugar();
+							insert.insertBairro(nomeBairro, idCidade);
+							if(janela.equals("Cadastro de Loja")) {
+								CadastrarLoja.preencherComboBairro();
+							}
+							x = false; 
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					/*int idEstado = cbEstado.getSelectedIndex()+1;
+					String nomeCidade = cbCidade.getSelectedItem().toString();
+					String nomeBairro = tfNome.getText().toString();
+					try {
+						ResultSet dados0 = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
+						ResultSet dados1 = CRUDLugar.selectBairroCondicao1(nomeBairro, dados0.getInt("id_cidade"));
+						if(dados1.next()) {
+							x = true; 
+							JOptionPane.showMessageDialog(frmCadBairro, "Este bairro já foi cadastrado!");
+							x = false;
+						}else {
+							x = true;
+							CRUDLugar.insertBairro(nomeBairro, dados0.getInt("id_cidade"));
+							x = false;
 						}
 					}catch (HeadlessException | SQLException e1) {
 						e1.printStackTrace();
+						x = true;
 						JOptionPane.showMessageDialog(frmCadBairro, "Erro ao verificar no banco!");
-					}
+						x = false;
+					}*/
 				}
 			}
 		});

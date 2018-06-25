@@ -140,6 +140,27 @@ public class CRUDLugar {
 	
 	
 	//CRUD Bairro
+	public static boolean insertBairro(String bairro, int idCidade) {
+		try {
+			String sql = "INSERT INTO bairros (nome_bairro, id_cidade) VALUES (?,?)";
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, bairro);
+			stmt.setInt(2, idCidade);
+			stmt.execute();
+			stmt.close();
+			CadastrarCidades.x = true;
+			JOptionPane.showMessageDialog(null, "Bairro cadastrado com sucesso.");
+			CadastrarCidades.x = false;
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			CadastrarCidades.x = true;
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar o bairro.");
+			CadastrarCidades.x = false;
+			return false;
+		}
+	}
+	
 	public static ResultSet selectBairro() {
 		String sql = "SELECT * FROM bairros";
 		try {
@@ -160,6 +181,20 @@ public class CRUDLugar {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			stmt.setString(1, nomeBairro);
 			stmt.setInt(2, idCidade);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
+	public static ResultSet selectIdCidade() {
+		String sql = "SELECT * FROM bairros";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

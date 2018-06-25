@@ -57,7 +57,7 @@ public class CadastrarLoja {
 	private JTextField tfNum;
 	private JTextField tfTel1;
 	private JComboBox cbUF;
-	private JComboBox cbCidade;
+	private static JComboBox cbCidade;
 	private JLabel lblBG;
 	private JComboBox cbRua;
 	private JButton btnAddCidade;
@@ -70,7 +70,7 @@ public class CadastrarLoja {
 	private JTextField tfTel2;
 	private JTextField tfCel1;
 	private JTextField tfCel2;
-	private JComboBox cbBairro;
+	private static JComboBox cbBairro;
 
 	/**
 	 * Launch the application.
@@ -387,7 +387,7 @@ public class CadastrarLoja {
 		}
 	}
 	
-	private boolean preencherComboCidade() {
+	public static boolean preencherComboCidade() {
 		ResultSet selecionar = new CRUDLugar().selectCidade();
 		cbCidade.removeAllItems();
 		try {
@@ -401,7 +401,7 @@ public class CadastrarLoja {
 		}
 	}
 	
-	private boolean preencherComboBairro() {
+	public static boolean preencherComboBairro() {
 		ResultSet selecionar = new CRUDLugar().selectBairro();
 		cbBairro.removeAllItems();
 		try {
