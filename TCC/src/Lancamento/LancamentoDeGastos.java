@@ -159,12 +159,21 @@ public class LancamentoDeGastos {
 				String descricao = tfDescricao.getText().toString();
 				String valorTotal = tfValorTotal.getText().toString();
 				String notaFiscal = tfNotaFiscal.getText().toString();
-				if (loja.isEmpty() || data.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
+				/*if (loja.isEmpty() || data.equals("  /  /    ") || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				}else {
 					CRUDGastos insert = new CRUDGastos();
 					insert.insertGastos(loja, data, descricao, valorTotal, notaFiscal);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
+				}*/
+				if (data.equals("  /  /    ")) {
+					System.out.println("1");
+				}
+				if (data.equals("# /  /    ")) {
+					System.out.println("2");
+				}
+				if (data.equals("##/  /    ")) {
+					System.out.println("3");
 				}
 				preencherTabela();
 				btnLimpar.doClick();
@@ -289,6 +298,11 @@ public class LancamentoDeGastos {
 				if (comboPesquisar.getSelectedItem().toString().equals("Loja")) {
 					valorSelect = JOptionPane.showInputDialog("Entre com o nome da loja que deseja procurar:");
 					variavelSelect = "loja";
+					if (valorSelect.equals("")) {
+						return;
+					} else {
+						preencherTabelaWhere(variavelSelect, valorSelect);
+					}
 				}
 				
 				if (comboPesquisar.getSelectedItem().toString().equals("Data")) {
@@ -310,8 +324,6 @@ public class LancamentoDeGastos {
 					valorSelect = JOptionPane.showInputDialog("Entre com a Nota Fiscal que deseja procurar:");
 					variavelSelect = "nota_fiscal";	
 				}
-				
-				preencherTabelaWhere(variavelSelect, valorSelect);
 			}
 		});
 		btnPesquisar.setForeground(Color.WHITE);
