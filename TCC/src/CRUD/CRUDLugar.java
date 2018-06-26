@@ -191,6 +191,21 @@ public class CRUDLugar {
 		}
 	}
 	
+	public static ResultSet selectBairroCondicao2(int idCidade) {
+		String sql = "SELECT * FROM bairros WHERE id_cidade = ?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idCidade);
+			dadosSelect = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosSelect;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return dadosSelect = null;
+		}
+	}
+	
 	public static ResultSet selectIdCidade() {
 		String sql = "SELECT * FROM bairros";
 		try {

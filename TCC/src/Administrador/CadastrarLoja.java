@@ -48,6 +48,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CadastrarLoja {
 
@@ -66,7 +68,7 @@ public class CadastrarLoja {
 	private JButton btnVoltar;
 	private JButton btnLimpar;
 	private JPanel panel;
-	private JTextField tfNome;
+	private static JTextField tfNome;
 	private JTextField tfTel2;
 	private JTextField tfCel1;
 	private JTextField tfCel2;
@@ -157,6 +159,11 @@ public class CadastrarLoja {
 		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		cbUF = new JComboBox();
+		cbUF.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				preencherComboUF();
+			}
+		});
 		cbUF.setBounds(58, 42, 163, 20);
 		panel.add(cbUF);
 		cbUF.setSelectedItem("São Paulo");
@@ -373,7 +380,7 @@ public class CadastrarLoja {
 		preencherComboRua();
 	}
 	
-	private boolean preencherComboUF() {
+	private static boolean preencherComboUF() {
 		ResultSet selecionar = new CRUDLugar().selectEstados();
 		cbUF.removeAllItems();
 		try {
@@ -401,13 +408,16 @@ public class CadastrarLoja {
 	}
 	
 	public static boolean preencherComboBairro() {
-		String nomeBairro = tf
-		ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeBairro, idCidade);
-		cbBairro.removeAllItems();
 		try {
-			while (selecionar.next()) {
-				cbBairro.addItem(selecionar.getString("nome_bairro"));
+			ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(cbCidade.getSelectedItem().toString(), cbUF.getSelectedIndex()+1);;
+			ResultSet dados = null;
+			if(idCidade.next()) {
+				dados = CRUDLugar.selectBairroCondicao2(idCidade.getInt("id_cidade"));
 			}
+				cbBairro.removeAllItems();
+				while (dados.next()) {
+					cbBairro.addItem(dados.getString("nome_bairro"));
+				}
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
