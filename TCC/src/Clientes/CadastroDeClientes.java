@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
@@ -31,6 +32,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.MaskFormatter;
 
 import Administrador.CadastrarUsuario;
 import Banco.Conexao;
@@ -72,7 +74,6 @@ public class CadastroDeClientes {
 	private JTextField tfNumeroF;
 	private JTextField tfCPF;
 	private JLabel label_8;
-	private JTextField tfRG;
 	private JLabel label_9;
 	private JTextField tfMae;
 	private JTextField tfPai;
@@ -80,7 +81,6 @@ public class CadastroDeClientes {
 	private JLabel label_11;
 	private JLabel label_12;
 	private JLabel label_13;
-	private JTextField tfDataDeNascimento;
 	private JTextField tfTel1F;
 	private JLabel label_14;
 	private JTextField tfTel2F;
@@ -107,9 +107,7 @@ public class CadastroDeClientes {
 	private JLabel label_23;
 	private JLabel label_24;
 	private JTextField tfNumeroJ;
-	private JTextField tfCNPJ;
 	private JLabel label_25;
-	private JTextField tfIE;
 	private JLabel label_26;
 	private JTextField tfTel1J;
 	private JLabel label_27;
@@ -128,9 +126,18 @@ public class CadastroDeClientes {
 	private JComboBox comboRuaJ;
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
-
-	public static ResultSet UF = null;
+	private JFormattedTextField ftfDataDeNascimento;
+	private JFormattedTextField ftfCPF;
+	private JFormattedTextField ftfCNPJ;
+	private JFormattedTextField ftfRG;
+	private JFormattedTextField ftfIE;
 	
+	public static ResultSet UF = null;
+	private MaskFormatter mascaraData;
+	private MaskFormatter mascaraCPF;
+	private MaskFormatter mascaraCNPJ;
+	private MaskFormatter mascaraRG;
+	private MaskFormatter mascaraIE;
 	
 	static String x;
 	static String janela;
@@ -159,6 +166,17 @@ public class CadastroDeClientes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			mascaraData = new MaskFormatter("##/##/####");
+			mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCNPJ = new MaskFormatter("##.###.###/####-##");
+			mascaraRG = new MaskFormatter("##.###.###-#");
+			mascaraIE = new MaskFormatter("###.###.###.###");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		frmCadastroDeClientes = new JFrame();
 		frmCadastroDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeClientes.setTitle("SIG - Cadastro de Clientes");
@@ -266,10 +284,10 @@ public class CadastroDeClientes {
 					
 					cliFi.setNumero(tfNumeroF.getText().toString());
 					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
-					cliFi.setRG_IE(tfRG.getText().toString());
+					cliFi.setRG_IE(ftfRG.getText().toString());
 					cliFi.setMae(tfMae.getText().toString());
 					cliFi.setPai(tfPai.getText().toString());
-					cliFi.setDataDeNascimento(tfDataDeNascimento.getText().toString());
+					cliFi.setDataDeNascimento(ftfDataDeNascimento.getText().toString());
 					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
 					cliFi.setTel1(tfTel1F.getText().toString());
 					cliFi.setTel2(tfTel2F.getText().toString());
@@ -297,8 +315,8 @@ public class CadastroDeClientes {
 					cliJu.setRua("testeRua2");
 					
 					cliJu.setNumero(tfNumeroJ.getText().toString());
-					cliJu.setCPF_CNPJ(tfCNPJ.getText().toString());
-					cliJu.setRG_IE(tfIE.getText().toString());
+					cliJu.setCPF_CNPJ(ftfCNPJ.getText().toString());
+					cliJu.setRG_IE(ftfIE.getText().toString());
 					cliJu.setMae("----------");
 					cliJu.setPai("----------");
 					cliJu.setDataDeNascimento("----------");
@@ -332,12 +350,12 @@ public class CadastroDeClientes {
 				tfNumeroF.setText(null);
 				tfNumeroJ.setText(null);
 				tfCPF.setText(null);
-				tfCNPJ.setText(null);
-				tfRG.setText(null);
-				tfIE.setText(null);
+				ftfCNPJ.setText(null);
+				ftfRG.setText(null);
+				ftfIE.setText(null);
 				tfMae.setText(null);
 				tfPai.setText(null);
-				tfDataDeNascimento.setText(null);
+				ftfDataDeNascimento.setText(null);
 				tfTel1F.setText(null);
 				tfTel2F.setText(null);
 				tfTel1J.setText(null);
@@ -451,10 +469,10 @@ public class CadastroDeClientes {
 		label_8.setBounds(21, 168, 27, 14);
 		pnFisica.add(label_8);
 		
-		tfRG = new JTextField();
-		tfRG.setColumns(10);
-		tfRG.setBounds(58, 197, 200, 20);
-		pnFisica.add(tfRG);
+		ftfRG = new JFormattedTextField(mascaraRG);
+		ftfRG.setColumns(10);
+		ftfRG.setBounds(58, 197, 200, 20);
+		pnFisica.add(ftfRG);
 		
 		label_9 = new JLabel("RG:");
 		label_9.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -496,10 +514,10 @@ public class CadastroDeClientes {
 		label_13.setBounds(320, 232, 77, 14);
 		pnFisica.add(label_13);
 		
-		tfDataDeNascimento = new JTextField();
-		tfDataDeNascimento.setColumns(10);
-		tfDataDeNascimento.setBounds(157, 229, 153, 20);
-		pnFisica.add(tfDataDeNascimento);
+		ftfDataDeNascimento = new JFormattedTextField(mascaraData);
+		ftfDataDeNascimento.setColumns(10);
+		ftfDataDeNascimento.setBounds(157, 229, 153, 20);
+		pnFisica.add(ftfDataDeNascimento);
 		
 		tfTel1F = new JTextField();
 		tfTel1F.setColumns(10);
@@ -683,10 +701,10 @@ public class CadastroDeClientes {
 		tfNumeroJ.setBounds(407, 135, 103, 20);
 		pnJuridica.add(tfNumeroJ);
 		
-		tfCNPJ = new JTextField();
-		tfCNPJ.setColumns(10);
-		tfCNPJ.setBounds(58, 166, 200, 20);
-		pnJuridica.add(tfCNPJ);
+		ftfCNPJ = new JFormattedTextField(mascaraCNPJ);
+		ftfCNPJ.setColumns(10);
+		ftfCNPJ.setBounds(58, 166, 200, 20);
+		pnJuridica.add(ftfCNPJ);
 		
 		label_25 = new JLabel("CNPJ:");
 		label_25.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -694,10 +712,10 @@ public class CadastroDeClientes {
 		label_25.setBounds(10, 168, 38, 14);
 		pnJuridica.add(label_25);
 		
-		tfIE = new JTextField();
-		tfIE.setColumns(10);
-		tfIE.setBounds(310, 168, 200, 20);
-		pnJuridica.add(tfIE);
+		ftfIE = new JFormattedTextField(mascaraIE);
+		ftfIE.setColumns(10);
+		ftfIE.setBounds(310, 168, 200, 20);
+		pnJuridica.add(ftfIE);
 		
 		label_26 = new JLabel("IE:");
 		label_26.setHorizontalAlignment(SwingConstants.RIGHT);
