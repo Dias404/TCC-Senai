@@ -23,6 +23,7 @@ import javax.swing.text.MaskFormatter;
 import CRUD.CRUDGastos;
 import CRUD.CRUDLojas;
 import Clientes.AtualizarClientes;
+import Telas.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -55,6 +56,7 @@ public class LancamentoDeGastos {
 	private JButton btnCancelar;
 	private JButton btnSalvarUpdate;
 	private int desabilitarTabela = 0;
+	private JButton btnVoltar;
 	
 	/**
 	 * Launch the application.
@@ -94,7 +96,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeCaixa.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
 		frmLancamentoDeCaixa.setTitle("SIG - Lançamento de Gastos");
 		frmLancamentoDeCaixa.setBounds(100, 100, 497, 607);
-		frmLancamentoDeCaixa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLancamentoDeCaixa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmLancamentoDeCaixa.setResizable(false);
 		frmLancamentoDeCaixa.setLocationRelativeTo(null);
 		frmLancamentoDeCaixa.getContentPane().setLayout(null);
@@ -232,6 +234,7 @@ public class LancamentoDeGastos {
 								btnSalvarInsert.setVisible(false);
 								comboPesquisar.setEnabled(false);
 								btnPesquisar.setEnabled(false);
+								btnVoltar.setEnabled(false);
 								btnRemover.setVisible(true);
 								btnCancelar.setVisible(true);
 								btnSalvarUpdate.setVisible(true);
@@ -259,13 +262,19 @@ public class LancamentoDeGastos {
 		));
 		scrollPane.setViewportView(tabela);
 		
-		JButton button = new JButton("Salvar");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Impact", Font.PLAIN, 13));
-		button.setFocusable(false);
-		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(10, 540, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(button);
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaPrincipal.frmPrincipal.setVisible(true);
+				frmLancamentoDeCaixa.dispose();
+			}
+		});
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 540, 89, 23);
+		frmLancamentoDeCaixa.getContentPane().add(btnVoltar);
 		
 		comboLojas = new JComboBox();
 		comboLojas.setBounds(90, 39, 390, 20);
@@ -387,6 +396,7 @@ public class LancamentoDeGastos {
 				btnSalvarInsert.setVisible(true);
 				comboPesquisar.setEnabled(true);
 				btnPesquisar.setEnabled(true);
+				btnVoltar.setEnabled(true);
 				btnLimpar.doClick();
 				desabilitarTabela = 0;
 			}

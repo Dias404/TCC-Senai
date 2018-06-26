@@ -23,6 +23,7 @@ import Administrador.MandarEmail;
 import CRUD.CRUDUsuarios;
 import Clientes.CadastroDeClientes;
 import Clientes.ConsultarClientes;
+import Lancamento.LancamentoDeGastos;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 import javax.swing.ImageIcon;
@@ -41,6 +42,7 @@ public class TelaPrincipal {
 	String nivel = null;
 	public static String usuario;
 	public static String senha;
+	private JButton btnLancamento;
 
 	/**
 	 * Launch the application.
@@ -492,10 +494,11 @@ public class TelaPrincipal {
 		btnCorrecaoParcela.setBounds(218, 11, 94, 59);
 		pnCaixa.add(btnCorrecaoParcela);
 		
-		JButton btnLancamento = new JButton("");
+		btnLancamento = new JButton("");
 		btnLancamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				LancamentoDeGastos.main(null);
+				frmPrincipal.setVisible(false);
 			}
 		});
 		btnLancamento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/lancamento.png")));
@@ -560,7 +563,6 @@ public class TelaPrincipal {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroDeClientes.main(null);
-				frmPrincipal.setVisible(false);
 				frmPrincipal.setVisible(false);
 			}
 		});
