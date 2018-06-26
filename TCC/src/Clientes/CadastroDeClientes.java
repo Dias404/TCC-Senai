@@ -89,11 +89,11 @@ public class CadastroDeClientes {
 	private JTextField tfCel1F;
 	private JTextField tfCel2F;
 	private JLabel lblCel;
-	private JComboBox comboUFF;
+	public static JComboBox comboUFF;
 	private JButton btnAdicionarCidadeF;
 	private JButton btnAdicionarBairroF;
 	private JButton btnAdicionarRuaF;
-	private JComboBox comboCidadeF;
+	private static JComboBox comboCidadeF;
 	private JComboBox comboBairroF;
 	private JComboBox comboRuaF;
 	private JPanel pnJuridica;
@@ -123,13 +123,13 @@ public class CadastroDeClientes {
 	private JButton btnAdicionarCidadeJ;
 	private JButton btnAdicionarBairroJ;
 	private JButton btnAdicionarRuaJ;
-	private JComboBox comboCidadeJ;
+	private static JComboBox comboCidadeJ;
 	private JComboBox comboBairroJ;
 	private JComboBox comboRuaJ;
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
 
-	private ResultSet UF = null;
+	public static ResultSet UF = null;
 	
 	
 	static String x;
@@ -184,6 +184,15 @@ public class CadastroDeClientes {
 			public void actionPerformed(ActionEvent arg0) {
 				pnFisica.setVisible(true);
 				pnJuridica.setVisible(false);
+				comboCidadeF.setEnabled(true);
+				if(UF != null) {
+					try {
+						UF.absolute(comboUFF.getSelectedIndex());
+						preencherCidade(UF.getInt("id_estado")+1);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		rbFisica.setOpaque(false);
@@ -199,6 +208,15 @@ public class CadastroDeClientes {
 			public void actionPerformed(ActionEvent arg0) {
 				pnJuridica.setVisible(true);
 				pnFisica.setVisible(false);
+				comboCidadeJ.setEnabled(true);
+				if(UF != null) {
+					try {
+						UF.absolute(comboUFJ.getSelectedIndex());
+						preencherCidade(UF.getInt("id_estado")+1);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		rbJuridica.setOpaque(false);
@@ -732,6 +750,19 @@ public class CadastroDeClientes {
 		pnJuridica.add(label_30);
 		
 		comboUFJ = new JComboBox();
+		comboUFJ.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				comboCidadeJ.setEnabled(true);
+				if(UF != null) {
+					try {
+						UF.absolute(comboUFJ.getSelectedIndex());
+						preencherCidade(UF.getInt("id_estado")+1);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		comboUFJ.setBounds(58, 74, 163, 20);
 		comboUFJ.setSelectedItem("São Paulo");
 		pnJuridica.add(comboUFJ);
@@ -752,8 +783,7 @@ public class CadastroDeClientes {
 		btnAdicionarRuaJ = new JButton("...");
 		btnAdicionarRuaJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
-			}
+				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});			}
 		});
 		
 		btnAdicionarBairroJ = new JButton("...");
@@ -761,7 +791,7 @@ public class CadastroDeClientes {
 		pnJuridica.add(btnAdicionarBairroJ);
 		btnAdicionarBairroJ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome do novo bairro:");
+				CadastrarBairros.main(new String[] {"Cadastro de Cliente"});
 			}
 		});
 		btnAdicionarBairroJ.setForeground(Color.WHITE);
@@ -846,7 +876,7 @@ public class CadastroDeClientes {
 			return false;
 		}
 	}
-	public void preencherCidade(int UF) {
+	public static void preencherCidade(int UF) {
 		ResultSet dadosUF;
 		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
 		try {

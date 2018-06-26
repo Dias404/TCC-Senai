@@ -220,6 +220,16 @@ public class CadastrarBairros {
 							if(janela.equals("Cadastro de Loja")) {
 								CadastrarLoja.preencherComboBairro();
 							}
+							if(janela.equals("Cadastro de Cliente")) {
+								if(CadastroDeClientes.UF != null) {
+									try {
+										CadastroDeClientes.UF.absolute(CadastroDeClientes.comboUFF.getSelectedIndex());
+										CadastroDeClientes.preencherCidade(CadastroDeClientes.UF.getInt("id_estado")+1);
+									} catch (SQLException e2) {
+										e2.printStackTrace();
+									}
+								}
+							}
 							x = false; 
 						}
 					} catch (SQLException e1) {

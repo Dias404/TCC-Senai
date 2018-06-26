@@ -56,10 +56,10 @@ public class CadastrarLoja {
 	private JTextField tfIE;
 	private JTextField tfNum;
 	private JTextField tfTel1;
-	private JComboBox cbUF;
+	private static JComboBox cbUF;
 	private static JComboBox cbCidade;
 	private JLabel lblBG;
-	private JComboBox cbRua;
+	private static JComboBox cbRua;
 	private JButton btnAddCidade;
 	private JButton btnAddBairro;
 	private JButton btnAddRua;
@@ -387,22 +387,22 @@ public class CadastrarLoja {
 		}
 	}
 	
-	public static boolean preencherComboCidade() {
-		ResultSet selecionar = new CRUDLugar().selectCidade();
-		cbCidade.removeAllItems();
+	public static void preencherComboCidade() {
+		int idEstado = cbUF.getSelectedIndex()+1;
+		ResultSet dados = CRUDLugar.selectCidadeCondicao2(idEstado);
 		try {
-			while (selecionar.next()) {
-				cbCidade.addItem(selecionar.getString("nome_cidade"));
+			cbCidade.removeAllItems();
+			while(dados.next()) {
+				cbCidade.addItem(dados.getString("nome_cidade"));
 			}
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
 	
 	public static boolean preencherComboBairro() {
-		ResultSet selecionar = new CRUDLugar().selectBairro();
+		String nomeBairro = tf
+		ResultSet dados = CRUDLugar.selectBairroCondicao1(nomeBairro, idCidade);
 		cbBairro.removeAllItems();
 		try {
 			while (selecionar.next()) {
