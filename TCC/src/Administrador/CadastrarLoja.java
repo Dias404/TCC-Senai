@@ -382,8 +382,8 @@ public class CadastrarLoja {
 	
 	private static boolean preencherComboUF() {
 		ResultSet selecionar = new CRUDLugar().selectEstados();
-		cbUF.removeAllItems();
 		try {
+			cbUF.removeAllItems();
 			while (selecionar.next()) {
 				cbUF.addItem(selecionar.getString("nome_estado"));
 			}
@@ -394,30 +394,16 @@ public class CadastrarLoja {
 		}
 	}
 	
-	public static void preencherComboCidade() {
+	public static boolean preencherComboCidade() {
 		int idEstado = cbUF.getSelectedIndex()+1;
 		ResultSet dados = CRUDLugar.selectCidadeCondicao2(idEstado);
 		try {
 			cbCidade.removeAllItems();
-			while(dados.next()) {
-				cbCidade.addItem(dados.getString("nome_cidade"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static boolean preencherComboBairro() {
-		try {
-			ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(cbCidade.getSelectedItem().toString(), cbUF.getSelectedIndex()+1);;
-			ResultSet dados = null;
-			if(idCidade.next()) {
-				dados = CRUDLugar.selectBairroCondicao2(idCidade.getInt("id_cidade"));
-			}
-				cbBairro.removeAllItems();
-				while (dados.next()) {
-					cbBairro.addItem(dados.getString("nome_bairro"));
+			if(dados.first()) {
+				while(dados.next()) {
+					cbCidade.addItem(dados.getString("nome_cidade"));
 				}
+			}
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -425,12 +411,31 @@ public class CadastrarLoja {
 		}
 	}
 	
-	private boolean preencherComboRua() {
-		ResultSet selecionar = new CRUDLugar().selectRua();
-		cbRua.removeAllItems();
+	public static boolean preencherComboBairro() {
+		ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(cbCidade.getSelectedItem().toString(), cbUF.getSelectedIndex()+1);
 		try {
-			while (selecionar.next()) {
-				cbRua.addItem(selecionar.getString("nome_rua"));
+			ResultSet dados = CRUDLugar.selectBairroCondicao2(idCidade.getInt("id_cidade"));
+			cbBairro.removeAllItems();
+			if(dados.first()) {
+				while (dados.next()) {
+					cbBairro.addItem(dados.getString("nome_bairro"));
+				}
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static boolean preencherComboRua() {
+		ResultSet selecionar = new CRUDLugar().selectRua();
+		try {
+			cbRua.removeAllItems();
+			if(selecionar.first()) {
+				while (selecionar.next()) {
+					cbRua.addItem(selecionar.getString("nome_rua"));
+				}
 			}
 			return true;
 		} catch (SQLException e) {
