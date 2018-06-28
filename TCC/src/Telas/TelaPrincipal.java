@@ -108,7 +108,7 @@ public class TelaPrincipal {
 						if(escolha==0) {
 							usuario = null;
 							senha = null;
-							CRUDUsuarios.logoff();
+							CRUDUsuarios.logoff(usuario, senha);
 							frmPrincipal.dispose();
 							Login.main(null);
 						}else {
@@ -425,7 +425,7 @@ public class TelaPrincipal {
 						"Você deseja desconectar desta conta?", "Aviso", 
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(escolha==0) {
-							CRUDUsuarios.logoff();
+							CRUDUsuarios.logoff(usuario, senha);
 							frmPrincipal.dispose();
 							Login.main(null);
 						}else {

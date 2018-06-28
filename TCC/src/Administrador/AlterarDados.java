@@ -278,9 +278,9 @@ public class AlterarDados {
 		}
 	}
 	
-	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+	private boolean preencherTabelaWhere(String variavelSelect, String like) {
 		CRUDUsuarios selecionar = new CRUDUsuarios();
-		selecionar.selectComWhere(variavelSelect, valorSelect);
+		selecionar.selectComWhere(variavelSelect, like);
 		try {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
@@ -289,7 +289,6 @@ public class AlterarDados {
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

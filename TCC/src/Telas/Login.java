@@ -146,34 +146,35 @@ public class Login {
 				int x = 0;
 				user = tfUsuario.getText().toString();
 				senha = pfSenha.getText().toString();
-				ResultSet verifica = CRUDUsuarios.selectUsuarioLogado();
+				ResultSet verifica = CRUDUsuarios.selectUsuarios();
 				try {
-					if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Ou E-mail")) {
-						JOptionPane.showMessageDialog(null, "Campo usuário vazio!");
-						pfSenha.setText(null);
-						x=1;
-					}
-					if(verifica.next() && x ==0) {
-						JOptionPane.showMessageDialog(frmLogin, "Já existe um usuário logado!");
-					}else {
-						ResultSet rs = CRUDUsuarios.selectCondicao1(user, senha);
-						if(rs.next() && x ==0) {
-							CRUDUsuarios.login(user, senha);
-							JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
-							TelaPrincipal.usuario = user;
-							TelaPrincipal.senha = senha;
-							TelaPrincipal.main(null);
-							frmLogin.dispose();
-						}else if(x==0){
-							JOptionPane.showMessageDialog(frmLogin, "Senha ou(e) Usuário Incorreto(s)!");
-							tfUsuario.setText(null);
+					while(verifica.next()) {
+						if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Ou E-mail")) {
+							JOptionPane.showMessageDialog(null, "Campo usuário vazio!");
 							pfSenha.setText(null);
-						}
+							x=1;
+							break;
+						}else {
+							ResultSet rs = CRUDUsuarios.selectCondicao1(user, senha);
+							if(rs.next() && x ==0) {
+								JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
+								TelaPrincipal.usuario = user;
+								TelaPrincipal.senha = senha;
+								TelaPrincipal.main(null);
+								CRUDUsuarios.login(user, senha);
+								frmLogin.dispose();
+							}else if(x==0){
+								JOptionPane.showMessageDialog(frmLogin, "Senha ou(e) Usuário Incorreto(s)!");
+								tfUsuario.setText(null);
+								pfSenha.setText(null);
+							}
+						break;
+						}	
 					}
 				} catch (HeadlessException e1) {e1.printStackTrace();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(frmLogin, "An error has occured while logging in!");
+					JOptionPane.showMessageDialog(frmLogin, "Ocorreu um erro ao logar!");
 					tfUsuario.setText(null);
 					pfSenha.setText(null);
 				}

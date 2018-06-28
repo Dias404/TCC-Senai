@@ -34,7 +34,7 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public ResultSet selectUsuarios() {
+	public static ResultSet selectUsuarios() {
 		String sql = "SELECT * FROM usuarios ORDER BY nome ASC";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
@@ -129,11 +129,13 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public static boolean logoff() {
-		String sql = "UPDATE usuarios SET logged = 0 WHERE logged = 1";
+	public static boolean logoff(String user, String senha) {
+		String sql = "UPDATE usuarios SET logged = 0 WHERE nome = ? AND senha = ?";
 		java.sql.PreparedStatement stmt;
 		try {
 			stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, user);
+			stmt.setString(2, senha);
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -228,17 +230,16 @@ public class CRUDUsuarios {
 		}
 	}
 	
-	public boolean selectComWhere(String variavelSelect, String valorSelect) {
-		String sql = "SELECT * FROM usuarios WHERE "+variavelSelect+"=?";
+	public boolean selectComWhere(String variavelSelect, String like) {
+		String sql = "SELECT * FROM usuarios WHERE "+variavelSelect+" LIKE ?";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setString(1, valorSelect);
+			stmt.setString(1, "%"+like+"%");
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
