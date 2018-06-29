@@ -290,11 +290,6 @@ public class LancamentoDeGastos {
 				if (comboPesquisar.getSelectedItem().toString().equals("Loja")) {
 					valorSelect = JOptionPane.showInputDialog("Entre com o nome da loja que deseja procurar:");
 					variavelSelect = "loja";
-					if (valorSelect.equals("")) {
-						return;
-					} else {
-						preencherTabelaWhere(variavelSelect, valorSelect);
-					}
 				}
 				
 				if (comboPesquisar.getSelectedItem().toString().equals("Data")) {
@@ -315,6 +310,16 @@ public class LancamentoDeGastos {
 				if (comboPesquisar.getSelectedItem().toString().equals("Notal Fiscal")) {
 					valorSelect = JOptionPane.showInputDialog("Entre com a Nota Fiscal que deseja procurar:");
 					variavelSelect = "nota_fiscal";	
+				}
+				if(valorSelect == null) {
+					preencherTabela();
+				}else{
+					if(valorSelect.trim().equals("")){
+						preencherTabela();
+					}else {
+						valorSelect = valorSelect.trim();
+						preencherTabelaWhere(variavelSelect, valorSelect);
+					}
 				}
 			}
 		});

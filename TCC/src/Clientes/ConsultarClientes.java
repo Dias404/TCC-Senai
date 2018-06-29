@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class ConsultarClientes implements Runnable{
+public class ConsultarClientes {
 
 	private JFrame frmConsultaDeClientes;
 	private JTable tabela;
@@ -47,7 +47,6 @@ public class ConsultarClientes implements Runnable{
 	private JButton btnRefresh;
 	
 	public static String cliSelecionado;
-	Thread tarefa;
 	
 	/**
 	 * Launch the application.
@@ -288,8 +287,16 @@ public class ConsultarClientes implements Runnable{
 					}
 			        variavelSelect = "estado_civil";
 				}
-				
-				preencherTabelaWhere(variavelSelect, valorSelect);
+				if(valorSelect == null) {
+					preencherTabela();
+				}else{
+					if(valorSelect.trim().equals("")){
+						preencherTabela();
+					}else {
+						valorSelect = valorSelect.trim();
+						preencherTabelaWhere(variavelSelect, valorSelect);
+					}
+				}
 			}
 		});
 		btnPesquisar.setBounds(512, 435, 98, 23);
@@ -303,8 +310,8 @@ public class ConsultarClientes implements Runnable{
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				preencherTabela();
-				tarefa = new Thread(ConsultarClientes.this);
-				tarefa.start();
+				btnRefresh.setVisible(false);
+				new Thread(sleep).start();
 			}
 		});
 		btnRefresh.setForeground(Color.WHITE);
@@ -382,14 +389,17 @@ public class ConsultarClientes implements Runnable{
 		}
 	}
 
-	@Override
-	public void run() {
-		btnRefresh.setEnabled(false);
-		try {
-			Thread.sleep(25000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+
+	Runnable sleep = new Runnable() {	
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			btnRefresh.setVisible(true);
 		}
-		btnRefresh.setEnabled(true);
-	}
+	};
 }

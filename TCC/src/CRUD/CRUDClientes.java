@@ -211,10 +211,10 @@ public class CRUDClientes {
 	}
 	
 	public boolean selectComWhere(String variavelSelect, String valorSelect) {
-		String sql = "SELECT * FROM clientes WHERE "+variavelSelect+"=?";
+		String sql = "SELECT * FROM clientes WHERE "+variavelSelect+" LIKE ? ORDER BY nome_razao";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setString(1, valorSelect);
+			stmt.setString(1, valorSelect+"%");
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
