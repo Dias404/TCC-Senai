@@ -113,7 +113,7 @@ public class CRUDClientes {
 		}
 	}
 	
-	public ResultSet selectBairro(int idCidade) {
+	public ResultSet selectBairro(int idCidade) { 
 		String sql = "SELECT (nome_bairro) FROM bairros WHERE id_cidade=?";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
