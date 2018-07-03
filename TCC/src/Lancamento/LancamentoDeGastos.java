@@ -29,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -36,6 +38,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import com.toedter.calendar.JCalendar;
 import javax.swing.border.EtchedBorder;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class LancamentoDeGastos {
 
@@ -113,9 +117,26 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(pnCalendario);
 		pnCalendario.setLayout(null);
 		
-		JCalendar calendar = new JCalendar();
-		calendar.setBounds(0, 0, 231, 116);
-		pnCalendario.add(calendar);
+		JCalendar calendario = new JCalendar();
+		calendario.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				Date dataInformada = new Date();
+				dataInformada = calendario.getDate();
+				
+				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+					String data = formatoBR.format(calendario.getDate());
+					ftfData.setText(data);
+				} else {
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					String data = formatoBR.format(dataDeHoje);
+					ftfData.setText(data);
+				}
+			}
+		});
+		calendario.setBounds(0, 0, 231, 116);
+		pnCalendario.add(calendario);
 		
 		JLabel lblLanamentoDeCaixa = new JLabel("Lançamento de Gastos");
 		lblLanamentoDeCaixa.setFont(new Font("Tahoma", Font.BOLD, 14));
