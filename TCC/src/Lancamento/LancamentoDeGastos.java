@@ -34,10 +34,12 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.calendar.JCalendar;
+import javax.swing.border.EtchedBorder;
 
 public class LancamentoDeGastos {
 
-	private JFrame frmLancamentoDeCaixa;
+	private JFrame frmLancamentoDeGastos;
 	private JTextField tfDescricao;
 	private JTextField tfValorTotal;
 	private JTextField tfNotaFiscal;
@@ -49,14 +51,17 @@ public class LancamentoDeGastos {
 	private JTable tabela;
 	
 	private MaskFormatter mascara;
-	private ResultSet dadosBackup = null;
-	public int idGasto;
 	private JButton btnPesquisar;
 	private JButton btnRemover;
 	private JButton btnCancelar;
 	private JButton btnSalvarUpdate;
-	private int desabilitarTabela = 0;
 	private JButton btnVoltar;
+	private JButton btnMostrarCalendario;
+	
+	private ResultSet dadosBackup = null;
+	public int idGasto;
+	private int desabilitarTabela = 0;
+	private JPanel pnCalendario;
 	
 	/**
 	 * Launch the application.
@@ -66,7 +71,7 @@ public class LancamentoDeGastos {
 			public void run() {
 				try {
 					LancamentoDeGastos window = new LancamentoDeGastos();
-					window.frmLancamentoDeCaixa.setVisible(true);
+					window.frmLancamentoDeGastos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -92,64 +97,75 @@ public class LancamentoDeGastos {
 			e.printStackTrace();
 		}
 		
-		frmLancamentoDeCaixa = new JFrame();
-		frmLancamentoDeCaixa.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
-		frmLancamentoDeCaixa.setTitle("SIG - Lançamento de Gastos");
-		frmLancamentoDeCaixa.setBounds(100, 100, 497, 607);
-		frmLancamentoDeCaixa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frmLancamentoDeCaixa.setResizable(false);
-		frmLancamentoDeCaixa.setLocationRelativeTo(null);
-		frmLancamentoDeCaixa.getContentPane().setLayout(null);
+		frmLancamentoDeGastos = new JFrame();
+		frmLancamentoDeGastos.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
+		frmLancamentoDeGastos.setTitle("SIG - Lançamento de Gastos");
+		frmLancamentoDeGastos.setBounds(100, 100, 497, 607);
+		frmLancamentoDeGastos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmLancamentoDeGastos.setResizable(false);
+		frmLancamentoDeGastos.setLocationRelativeTo(null);
+		frmLancamentoDeGastos.getContentPane().setLayout(null);
+		
+		pnCalendario = new JPanel();
+		pnCalendario.setOpaque(false);
+		pnCalendario.setVisible(false);
+		pnCalendario.setBounds(250, 68, 231, 116);
+		frmLancamentoDeGastos.getContentPane().add(pnCalendario);
+		pnCalendario.setLayout(null);
+		
+		JCalendar calendar = new JCalendar();
+		calendar.setBounds(0, 0, 231, 116);
+		pnCalendario.add(calendar);
 		
 		JLabel lblLanamentoDeCaixa = new JLabel("Lançamento de Gastos");
 		lblLanamentoDeCaixa.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblLanamentoDeCaixa.setBounds(10, 11, 157, 17);
-		frmLancamentoDeCaixa.getContentPane().add(lblLanamentoDeCaixa);
+		frmLancamentoDeGastos.getContentPane().add(lblLanamentoDeCaixa);
 		
 		JLabel lblDescrio = new JLabel("Descrição:");
 		lblDescrio.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescrio.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblDescrio.setBounds(10, 101, 70, 14);
-		frmLancamentoDeCaixa.getContentPane().add(lblDescrio);
+		frmLancamentoDeGastos.getContentPane().add(lblDescrio);
 		
 		JLabel lblValor = new JLabel("Valor Total:");
 		lblValor.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblValor.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblValor.setBounds(10, 132, 70, 14);
-		frmLancamentoDeCaixa.getContentPane().add(lblValor);
+		frmLancamentoDeGastos.getContentPane().add(lblValor);
 		
 		JLabel lblNotaFiscal = new JLabel("Nota Fiscal:");
 		lblNotaFiscal.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNotaFiscal.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNotaFiscal.setBounds(250, 132, 70, 14);
-		frmLancamentoDeCaixa.getContentPane().add(lblNotaFiscal);
+		frmLancamentoDeGastos.getContentPane().add(lblNotaFiscal);
 		
 		JLabel lblLoja = new JLabel("Loja:");
 		lblLoja.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLoja.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblLoja.setBounds(10, 41, 70, 14);
-		frmLancamentoDeCaixa.getContentPane().add(lblLoja);
+		frmLancamentoDeGastos.getContentPane().add(lblLoja);
 		
 		JLabel lblData = new JLabel("Data:");
 		lblData.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblData.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblData.setBounds(10, 70, 70, 14);
-		frmLancamentoDeCaixa.getContentPane().add(lblData);
+		frmLancamentoDeGastos.getContentPane().add(lblData);
 		
 		tfDescricao = new JTextField();
 		tfDescricao.setColumns(10);
 		tfDescricao.setBounds(90, 99, 390, 20);
-		frmLancamentoDeCaixa.getContentPane().add(tfDescricao);
+		frmLancamentoDeGastos.getContentPane().add(tfDescricao);
 		
 		tfValorTotal = new JTextField();
 		tfValorTotal.setColumns(10);
 		tfValorTotal.setBounds(90, 130, 150, 20);
-		frmLancamentoDeCaixa.getContentPane().add(tfValorTotal);
+		frmLancamentoDeGastos.getContentPane().add(tfValorTotal);
 		
 		tfNotaFiscal = new JTextField();
 		tfNotaFiscal.setColumns(10);
 		tfNotaFiscal.setBounds(330, 130, 150, 20);
-		frmLancamentoDeCaixa.getContentPane().add(tfNotaFiscal);
+		frmLancamentoDeGastos.getContentPane().add(tfNotaFiscal);
 		
 		btnSalvarInsert = new JButton("Salvar");
 		btnSalvarInsert.addActionListener(new ActionListener() {
@@ -176,7 +192,7 @@ public class LancamentoDeGastos {
 		btnSalvarInsert.setFocusable(false);
 		btnSalvarInsert.setBackground(new Color(0, 73, 170));
 		btnSalvarInsert.setBounds(391, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnSalvarInsert);
+		frmLancamentoDeGastos.getContentPane().add(btnSalvarInsert);
 		
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
@@ -192,24 +208,25 @@ public class LancamentoDeGastos {
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
 		btnLimpar.setBounds(292, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnLimpar);
+		frmLancamentoDeGastos.getContentPane().add(btnLimpar);
 		
 		ftfData = new JFormattedTextField(mascara);
-		ftfData.setBounds(90, 68, 150, 20);
-		frmLancamentoDeCaixa.getContentPane().add(ftfData);
+		ftfData.setFocusable(false);
+		ftfData.setBounds(90, 68, 113, 20);
+		frmLancamentoDeGastos.getContentPane().add(ftfData);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 195, 470, 2);
-		frmLancamentoDeCaixa.getContentPane().add(separator);
+		frmLancamentoDeGastos.getContentPane().add(separator);
 		
 		JLabel lblConsultarDados = new JLabel("Consultar Gastos");
 		lblConsultarDados.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblConsultarDados.setBounds(10, 208, 118, 17);
-		frmLancamentoDeCaixa.getContentPane().add(lblConsultarDados);
+		frmLancamentoDeGastos.getContentPane().add(lblConsultarDados);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 236, 471, 293);
-		frmLancamentoDeCaixa.getContentPane().add(scrollPane);
+		frmLancamentoDeGastos.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
 		tabela.addMouseListener(new MouseAdapter() {
@@ -267,7 +284,7 @@ public class LancamentoDeGastos {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaPrincipal.frmPrincipal.setVisible(true);
-				frmLancamentoDeCaixa.dispose();
+				frmLancamentoDeGastos.dispose();
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);
@@ -275,11 +292,11 @@ public class LancamentoDeGastos {
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
 		btnVoltar.setBounds(10, 540, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnVoltar);
+		frmLancamentoDeGastos.getContentPane().add(btnVoltar);
 		
 		comboLojas = new JComboBox();
 		comboLojas.setBounds(90, 39, 390, 20);
-		frmLancamentoDeCaixa.getContentPane().add(comboLojas);
+		frmLancamentoDeGastos.getContentPane().add(comboLojas);
 		
 		btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
@@ -328,17 +345,17 @@ public class LancamentoDeGastos {
 		btnPesquisar.setFocusable(false);
 		btnPesquisar.setBackground(new Color(0, 73, 170));
 		btnPesquisar.setBounds(382, 540, 98, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnPesquisar);
+		frmLancamentoDeGastos.getContentPane().add(btnPesquisar);
 		
 		comboPesquisar = new JComboBox();
 		comboPesquisar.setModel(new DefaultComboBoxModel(new String[] {"Loja", "Data", "Descrição", "Valor Total", "Nota Fiscal"}));
 		comboPesquisar.setBounds(274, 542, 98, 23);
-		frmLancamentoDeCaixa.getContentPane().add(comboPesquisar);
+		frmLancamentoDeGastos.getContentPane().add(comboPesquisar);
 		
 		JLabel label = new JLabel("Pesquisar por:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label.setBounds(177, 545, 87, 15);
-		frmLancamentoDeCaixa.getContentPane().add(label);
+		frmLancamentoDeGastos.getContentPane().add(label);
 		
 		btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
@@ -361,7 +378,7 @@ public class LancamentoDeGastos {
 		btnRemover.setFocusable(false);
 		btnRemover.setBackground(new Color(0, 73, 170));
 		btnRemover.setBounds(193, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnRemover);
+		frmLancamentoDeGastos.getContentPane().add(btnRemover);
 		
 		btnSalvarUpdate = new JButton("Salvar");
 		btnSalvarUpdate.addActionListener(new ActionListener() {
@@ -393,7 +410,7 @@ public class LancamentoDeGastos {
 		btnSalvarUpdate.setFocusable(false);
 		btnSalvarUpdate.setBackground(new Color(0, 73, 170));
 		btnSalvarUpdate.setBounds(391, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnSalvarUpdate);
+		frmLancamentoDeGastos.getContentPane().add(btnSalvarUpdate);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -416,7 +433,24 @@ public class LancamentoDeGastos {
 		btnCancelar.setFocusable(false);
 		btnCancelar.setBackground(new Color(0, 73, 170));
 		btnCancelar.setBounds(292, 161, 89, 23);
-		frmLancamentoDeCaixa.getContentPane().add(btnCancelar);
+		frmLancamentoDeGastos.getContentPane().add(btnCancelar);
+		
+		btnMostrarCalendario = new JButton("...");
+		btnMostrarCalendario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (pnCalendario.isVisible()) {
+					pnCalendario.setVisible(false);
+				} else {
+					pnCalendario.setVisible(true);
+				}
+			}
+		});
+		btnMostrarCalendario.setForeground(Color.WHITE);
+		btnMostrarCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnMostrarCalendario.setFocusable(false);
+		btnMostrarCalendario.setBackground(new Color(0, 73, 170));
+		btnMostrarCalendario.setBounds(213, 66, 27, 23);
+		frmLancamentoDeGastos.getContentPane().add(btnMostrarCalendario);
 		
 		preencherTabela();
 		preencherComboLojas();
