@@ -201,7 +201,7 @@ public class AtualizarClientes {
 		JCalendar calendario = new JCalendar();
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				Date dataDeHoje = new Date();
+				/*Date dataDeHoje = new Date();
 				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
 				Date dataInformada = new Date();
 				dataInformada = calendario.getDate();
@@ -213,7 +213,7 @@ public class AtualizarClientes {
 					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
 					String data = formatoBR.format(dataDeHoje);
 					ftfDataDeNascimento.setText(data);
-				}
+				}*/
 			}
 		});
 		

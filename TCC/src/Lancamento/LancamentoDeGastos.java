@@ -53,19 +53,19 @@ public class LancamentoDeGastos {
 	private JComboBox comboLojas;
 	private JComboBox comboPesquisar;
 	private JTable tabela;
-	
+	private JPanel pnCalendario;
 	private MaskFormatter mascara;
 	private JButton btnPesquisar;
 	private JButton btnRemover;
 	private JButton btnCancelar;
 	private JButton btnSalvarUpdate;
 	private JButton btnVoltar;
-	private JButton btnMostrarCalendario;
+	private JButton btnCalendario;
 	
 	private ResultSet dadosBackup = null;
 	public int idGasto;
 	private int desabilitarTabela = 0;
-	private JPanel pnCalendario;
+	
 	
 	/**
 	 * Launch the application.
@@ -462,8 +462,8 @@ public class LancamentoDeGastos {
 		btnCancelar.setBounds(292, 161, 89, 23);
 		frmLancamentoDeGastos.getContentPane().add(btnCancelar);
 		
-		btnMostrarCalendario = new JButton("...");
-		btnMostrarCalendario.addActionListener(new ActionListener() {
+		btnCalendario = new JButton("...");
+		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
 					pnCalendario.setVisible(false);
@@ -472,12 +472,12 @@ public class LancamentoDeGastos {
 				}
 			}
 		});
-		btnMostrarCalendario.setForeground(Color.WHITE);
-		btnMostrarCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnMostrarCalendario.setFocusable(false);
-		btnMostrarCalendario.setBackground(new Color(0, 73, 170));
-		btnMostrarCalendario.setBounds(213, 66, 27, 23);
-		frmLancamentoDeGastos.getContentPane().add(btnMostrarCalendario);
+		btnCalendario.setForeground(Color.WHITE);
+		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCalendario.setFocusable(false);
+		btnCalendario.setBackground(new Color(0, 73, 170));
+		btnCalendario.setBounds(213, 66, 27, 23);
+		frmLancamentoDeGastos.getContentPane().add(btnCalendario);
 		
 		preencherTabela();
 		preencherComboLojas();
