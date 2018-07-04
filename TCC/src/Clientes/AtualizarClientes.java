@@ -29,10 +29,16 @@ import java.awt.Color;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.DefaultComboBoxModel;
+import com.toedter.calendar.JCalendar;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import javax.swing.JFormattedTextField;
 
 public class AtualizarClientes {
 
@@ -65,7 +71,6 @@ public class AtualizarClientes {
 	private JTextField tfRG;
 	private JTextField tfMae;
 	private JTextField tfPai;
-	private JTextField tfDataDeNascimento;
 	private JTextField tfTel1F;
 	private JTextField tfTel2F;
 	private JTextField tfCel1F;
@@ -87,6 +92,9 @@ public class AtualizarClientes {
 	private JLabel lblBG;
 	
 	private int idCliente = 0;
+	private JButton btnCalendario;
+	private JPanel pnCalendario;
+	private JFormattedTextField ftfDataDeNascimento;
 	
 	/**
 	 * Launch the application.
@@ -182,6 +190,35 @@ public class AtualizarClientes {
 		pnFisica.setLayout(null);
 		pnFisica.setOpaque(false);
 		pnFisica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
+		
+		pnCalendario = new JPanel();
+		pnCalendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnCalendario.setVisible(false);
+		pnCalendario.setBounds(320, 228, 201, 97);
+		pnFisica.add(pnCalendario);
+		pnCalendario.setLayout(null);
+		
+		JCalendar calendario = new JCalendar();
+		calendario.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				Date dataInformada = new Date();
+				dataInformada = calendario.getDate();
+				
+				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+					String data = formatoBR.format(calendario.getDate());
+					ftfDataDeNascimento.setText(data);
+				} else {
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					String data = formatoBR.format(dataDeHoje);
+					ftfDataDeNascimento.setText(data);
+				}
+			}
+		});
+		
+		calendario.setBounds(0, 0, 201, 97);
+		pnCalendario.add(calendario);
 		
 		JLabel label = new JLabel("Nome:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -324,12 +361,6 @@ public class AtualizarClientes {
 		label_24.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label_24.setBounds(320, 232, 77, 14);
 		pnFisica.add(label_24);
-		
-		tfDataDeNascimento = new JTextField();
-		tfDataDeNascimento.setEnabled(false);
-		tfDataDeNascimento.setColumns(10);
-		tfDataDeNascimento.setBounds(157, 229, 153, 20);
-		pnFisica.add(tfDataDeNascimento);
 		
 		tfTel1F = new JTextField();
 		tfTel1F.setEnabled(false);
@@ -671,7 +702,8 @@ public class AtualizarClientes {
 					tfIE.setEnabled(true);
 					tfMae.setEnabled(true);
 					tfPai.setEnabled(true);
-					tfDataDeNascimento.setEnabled(true);
+					ftfDataDeNascimento.setEnabled(true);
+					btnCalendario.setEnabled(true);
 					comboEstadoCivil.setEnabled(true);
 					tfTel1F.setEnabled(true);
 					tfTel1J.setEnabled(true);
@@ -734,7 +766,8 @@ public class AtualizarClientes {
 				tfIE.setEnabled(false);
 				tfMae.setEnabled(false);
 				tfPai.setEnabled(false);
-				tfDataDeNascimento.setEnabled(false);
+				ftfDataDeNascimento.setEnabled(false);
+				btnCalendario.setEnabled(false);
 				comboEstadoCivil.setEnabled(false);
 				tfTel1F.setEnabled(false);
 				tfTel1J.setEnabled(false);
@@ -783,7 +816,7 @@ public class AtualizarClientes {
 					cliFi.setRG_IE(tfRG.getText().toString());
 					cliFi.setMae(tfMae.getText().toString());
 					cliFi.setPai(tfPai.getText().toString());
-					cliFi.setDataDeNascimento(tfDataDeNascimento.getText().toString());
+					cliFi.setDataDeNascimento(ftfDataDeNascimento.getText().toString());
 					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
 					cliFi.setTel1(tfTel1F.getText().toString());
 					cliFi.setTel2(tfTel2F.getText().toString());
@@ -829,7 +862,7 @@ public class AtualizarClientes {
 					tfIE.setEnabled(false);
 					tfMae.setEnabled(false);
 					tfPai.setEnabled(false);
-					tfDataDeNascimento.setEnabled(false);
+					ftfDataDeNascimento.setEnabled(false);
 					comboEstadoCivil.setEnabled(false);
 					tfTel1F.setEnabled(false);
 					tfTel1J.setEnabled(false);
@@ -890,6 +923,31 @@ public class AtualizarClientes {
 		ButtonGroup grupoSexo = new ButtonGroup();
 		grupoSexo.add(rbMasculino);
 		grupoSexo.add(rbFeminino);
+		
+		btnCalendario = new JButton("...");
+		btnCalendario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pnCalendario.isVisible()) {
+					pnCalendario.setVisible(false);
+				} else {
+					pnCalendario.setVisible(true);
+				}
+			}
+		});
+		btnCalendario.setForeground(Color.WHITE);
+		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCalendario.setFocusable(false);
+		btnCalendario.setEnabled(false);
+		btnCalendario.setBackground(new Color(0, 73, 170));
+		btnCalendario.setBounds(283, 228, 27, 23);
+		pnFisica.add(btnCalendario);
+		
+		ftfDataDeNascimento = new JFormattedTextField();
+		ftfDataDeNascimento.setEnabled(false);
+		ftfDataDeNascimento.setFocusable(false);
+		ftfDataDeNascimento.setColumns(10);
+		ftfDataDeNascimento.setBounds(157, 228, 116, 20);
+		pnFisica.add(ftfDataDeNascimento);
 		
 		btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
@@ -969,7 +1027,7 @@ public class AtualizarClientes {
 					tfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
 					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
 					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
-					tfDataDeNascimento.setText(select.dadosEspecificos.getString("data_de_nascimento").toString());
+					ftfDataDeNascimento.setText(select.dadosEspecificos.getString("data_de_nascimento").toString());
 					comboEstadoCivil.setSelectedItem(select.dadosEspecificos.getString("estado_civil").toString());
 					tfTel1F.setText(select.dadosEspecificos.getString("tel1").toString());
 					tfTel2F.setText(select.dadosEspecificos.getString("tel2").toString());

@@ -111,6 +111,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().setLayout(null);
 		
 		pnCalendario = new JPanel();
+		pnCalendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnCalendario.setOpaque(false);
 		pnCalendario.setVisible(false);
 		pnCalendario.setBounds(250, 68, 231, 116);
@@ -118,6 +119,7 @@ public class LancamentoDeGastos {
 		pnCalendario.setLayout(null);
 		
 		JCalendar calendario = new JCalendar();
+		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
 				Date dataDeHoje = new Date();
@@ -197,7 +199,7 @@ public class LancamentoDeGastos {
 				String valorTotal = tfValorTotal.getText().toString();
 				String notaFiscal = tfNotaFiscal.getText().toString();
 				
-				if (loja.isEmpty() || data.equals("  /  /    ") || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
+				if (loja.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				}else {
 					CRUDGastos insert = new CRUDGastos();
@@ -218,7 +220,11 @@ public class LancamentoDeGastos {
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ftfData.setValue(null);
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formatoBR.format(dataDeHoje);
+				ftfData.setText(data);
+				
 				tfDescricao.setText(null);
 				tfValorTotal.setText(null);
 				tfNotaFiscal.setText(null);

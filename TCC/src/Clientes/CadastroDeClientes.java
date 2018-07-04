@@ -25,6 +25,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
@@ -49,6 +51,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.ItemEvent;
+import com.toedter.calendar.JCalendar;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class CadastroDeClientes {
 
@@ -141,6 +146,8 @@ public class CadastroDeClientes {
 	
 	static String x;
 	static String janela;
+	private JButton btnCalendario;
+	private JPanel pnCalendario;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -343,6 +350,11 @@ public class CadastroDeClientes {
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formatoBR.format(dataDeHoje);
+				ftfDataDeNascimento.setText(data);
+				
 				tfNome.setText(null);
 				tfRazaoSocial.setText(null);
 				tfEmailF.setText(null);
@@ -355,7 +367,6 @@ public class CadastroDeClientes {
 				ftfIE.setText(null);
 				tfMae.setText(null);
 				tfPai.setText(null);
-				ftfDataDeNascimento.setText(null);
 				tfTel1F.setText(null);
 				tfTel2F.setText(null);
 				tfTel1J.setText(null);
@@ -380,6 +391,35 @@ public class CadastroDeClientes {
 		pnFisica.setOpaque(false);
 		pnFisica.setBounds(10, 65, 521, 325);
 		frmCadastroDeClientes.getContentPane().add(pnFisica);
+		
+		pnCalendario = new JPanel();
+		pnCalendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnCalendario.setVisible(false);
+		pnCalendario.setBounds(320, 228, 201, 97);
+		pnFisica.add(pnCalendario);
+		pnCalendario.setLayout(null);
+		
+		JCalendar calendario = new JCalendar();
+		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		calendario.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				Date dataInformada = new Date();
+				dataInformada = calendario.getDate();
+				
+				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+					String data = formatoBR.format(calendario.getDate());
+					ftfDataDeNascimento.setText(data);
+				} else {
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					String data = formatoBR.format(dataDeHoje);
+					ftfDataDeNascimento.setText(data);
+				}
+			}
+		});
+		calendario.setBounds(0, 0, 201, 97);
+		pnCalendario.add(calendario);
 		
 		label = new JLabel("Nome:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -515,8 +555,9 @@ public class CadastroDeClientes {
 		pnFisica.add(label_13);
 		
 		ftfDataDeNascimento = new JFormattedTextField(mascaraData);
+		ftfDataDeNascimento.setFocusable(false);
 		ftfDataDeNascimento.setColumns(10);
-		ftfDataDeNascimento.setBounds(157, 229, 153, 20);
+		ftfDataDeNascimento.setBounds(157, 229, 116, 20);
 		pnFisica.add(ftfDataDeNascimento);
 		
 		tfTel1F = new JTextField();
@@ -851,6 +892,23 @@ public class CadastroDeClientes {
 		preencherComboUF();
 		//preencherComboCidade();
 		comboUFF.setSelectedItem("São Paulo");
+		
+		btnCalendario = new JButton("...");
+		btnCalendario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (pnCalendario.isVisible()) {
+					pnCalendario.setVisible(false);
+				} else {
+					pnCalendario.setVisible(true);
+				}
+			}
+		});
+		btnCalendario.setForeground(Color.WHITE);
+		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCalendario.setFocusable(false);
+		btnCalendario.setBackground(new Color(0, 73, 170));
+		btnCalendario.setBounds(283, 227, 27, 23);
+		pnFisica.add(btnCalendario);
 		comboUFJ.setSelectedItem("São Paulo");
 		
 		btnConsultarClientes = new JButton("<html>Consultar<br/>&nbsp;&nbsp;Clientes</html>");
@@ -913,5 +971,4 @@ public class CadastroDeClientes {
 			e.printStackTrace();	
 		}
 	}
-	
 }
