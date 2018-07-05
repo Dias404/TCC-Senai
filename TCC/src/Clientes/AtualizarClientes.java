@@ -29,6 +29,7 @@ import java.awt.Color;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -90,12 +91,16 @@ public class AtualizarClientes {
 	private JButton btnAdicionarCidadeJ;
 	private JButton btnRemover;
 	private JLabel lblBG;
+	private JFormattedTextField ftfDataDeNascimento;
 	
 	private int idCliente = 0;
 	private JButton btnCalendario;
 	private JPanel pnCalendario;
-	private JFormattedTextField ftfDataDeNascimento;
 	
+	//Date dataDeHoje = new Date();
+	Date dataSelect = new Date();
+	Date dataInformada = new Date();
+	Date datateste = new Date();
 	/**
 	 * Launch the application.
 	 */
@@ -199,20 +204,25 @@ public class AtualizarClientes {
 		pnCalendario.setLayout(null);
 		
 		JCalendar calendario = new JCalendar();
+
+		//calendario.setDate();
+		
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				/*Date dataDeHoje = new Date();
-				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				Date dataInformada = new Date();
-				dataInformada = calendario.getDate();
+				datateste = calendario.getDate();
+				System.out.println(datateste);
+				//SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				//String data = formatoBR.format(calendario.getDate());
+				//ftfDataDeNascimento.setText(data);
+				/*SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
 				
 				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
 					String data = formatoBR.format(calendario.getDate());
 					ftfDataDeNascimento.setText(data);
 				} else {
 					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
-					String data = formatoBR.format(dataDeHoje);
-					ftfDataDeNascimento.setText(data);
+					//String data = formatoBR.format(dataDeHoje);
+					//ftfDataDeNascimento.setText(data);
 				}*/
 			}
 		});
@@ -967,7 +977,6 @@ public class AtualizarClientes {
 							frmAtualizarClientes.dispose();
 						}
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -1027,7 +1036,16 @@ public class AtualizarClientes {
 					tfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
 					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
 					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
+					
+					
 					ftfDataDeNascimento.setText(select.dadosEspecificos.getString("data_de_nascimento").toString());
+					SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy");
+					try {
+						dataSelect = s.parse(ftfDataDeNascimento.getText().toString());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					
 					comboEstadoCivil.setSelectedItem(select.dadosEspecificos.getString("estado_civil").toString());
 					tfTel1F.setText(select.dadosEspecificos.getString("tel1").toString());
 					tfTel2F.setText(select.dadosEspecificos.getString("tel2").toString());
@@ -1056,7 +1074,6 @@ public class AtualizarClientes {
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
