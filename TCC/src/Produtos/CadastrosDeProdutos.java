@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import CRUD.CRUDLojas;
+import CRUD.CRUDProdutos;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -132,6 +133,7 @@ public class CadastrosDeProdutos {
 	private String corRosa3 = "#a44f79";
 	private String corRosa4 = "#4b1230";
 	private static String corSelecionada = "#ffffff";
+	private JButton btnLimpar;
 	
 	/**
 	 * Launch the application.
@@ -944,13 +946,16 @@ public class CadastrosDeProdutos {
 				String fornecedor = tfFornecedor.getText().toString();
 				String lojaEmitente = comboLojaEmitente.getSelectedItem().toString();
 				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
-				String codigo = ftfCodigo.getText().toString().trim();
+				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				
-				if (fornecedor.isEmpty() || codigo.isEmpty() || descricao.isEmpty()) {
+				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				} else {
-					
+					CRUDProdutos insert = new CRUDProdutos();
+					insert.insertProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada);
+					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
+					btnLimpar.doClick();
 				}
 			}
 		});
@@ -961,7 +966,7 @@ public class CadastrosDeProdutos {
 		btnSalvar.setBounds(433, 220, 89, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnSalvar);
 		
-		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Date dataDeHoje = new Date();

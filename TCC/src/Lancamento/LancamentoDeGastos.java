@@ -205,9 +205,9 @@ public class LancamentoDeGastos {
 					CRUDGastos insert = new CRUDGastos();
 					insert.insertGastos(loja, data, descricao, valorTotal, notaFiscal);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
+					btnLimpar.doClick();
 				}
 				preencherTabela();
-				btnLimpar.doClick();
 			}
 		});
 		btnSalvarInsert.setForeground(Color.WHITE);
