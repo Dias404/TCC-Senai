@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
@@ -25,6 +27,9 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
+import com.toedter.calendar.JCalendar;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class CadastrosDeProdutos {
 
@@ -44,46 +49,89 @@ public class CadastrosDeProdutos {
 	private JButton btnVoltar;
 	private JPanel panel;
 	private JPanel pnColorPicker;
-	private JButton button;
-	private JButton button_1;
-	private JButton button_2;
-	private JButton button_3;
-	private JButton button_4;
-	private JButton button_5;
-	private JButton button_6;
-	private JButton button_7;
-	private JButton button_8;
-	private JButton button_9;
-	private JButton button_10;
-	private JButton button_11;
-	private JButton button_12;
-	private JButton button_13;
-	private JButton button_14;
-	private JButton button_15;
-	private JButton button_16;
-	private JButton button_17;
-	private JButton button_18;
-	private JButton button_19;
-	private JButton button_20;
-	private JButton button_21;
-	private JButton button_22;
-	private JButton button_23;
-	private JButton button_24;
-	private JButton button_25;
-	private JButton button_26;
-	private JButton button_27;
-	private JButton button_28;
-	private JButton button_29;
-	private JButton button_30;
-	private JButton button_31;
-	private JButton button_32;
-	private JButton button_33;
-	private JButton button_34;
-	private JButton button_35;
-	private JButton button_36;
-	private JButton button_37;
-	private JButton button_38;
-	private JButton button_39;
+	private JButton btnPreto;
+	private JButton btnCinza1;
+	private JButton btnCinza2;
+	private JButton btnCinza3;
+	private JButton btnCinza4;
+	private JButton btnCinza5;
+	private JButton btnCinza6;
+	private JButton btnBranco;
+	private JButton btnVermelho1;
+	private JButton btnLaranja1;
+	private JButton btnAmarelo1;
+	private JButton btnVerde1;
+	private JButton btnCiano1;
+	private JButton btnAzul1;
+	private JButton btnVioleta1;
+	private JButton btnRosa1;
+	private JButton btnVermelho2;
+	private JButton btnLaranja2;
+	private JButton btnAmarelo2;
+	private JButton btnVerde2;
+	private JButton btnCiano2;
+	private JButton btnAzul2;
+	private JButton btnVioleta2;
+	private JButton btnRosa2;
+	private JButton btnVermelho3;
+	private JButton btnLaranja3;
+	private JButton btnAmarelo3;
+	private JButton btnVerde3;
+	private JButton btnCiano3;
+	private JButton btnAzul3;
+	private JButton btnVioleta3;
+	private JButton btnRosa3;
+	private JButton btnVermelho4;
+	private JButton btnLaranja4;
+	private JButton btnAmarelo4;
+	private JButton btnVerde4;
+	private JButton btnCiano4;
+	private JButton btnAzul4;
+	private JButton btnVioleta4;
+	private JButton btnRosa4;
+	private JPanel pnCalendario;
+	
+	private String corPreto = "#000000";
+	private String corBranco = "#ffffff";
+	private String corCinza1 = "#333333";
+	private String corCinza2 = "#666666";
+	private String corCinza3 = "#999999";
+	private String corCinza4 = "#cccccc";
+	private String corCinza5 = "#dddddd";
+	private String corCinza6 = "#eeeeee";
+	private String corVermelho1 = "#ca0808";
+	private String corVermelho2 = "#de6868";
+	private String corVermelho3 = "#cd1f1f";
+	private String corVermelho4 = "#650202";
+	private String corLaranja1 = "#fd9828";
+	private String corLaranja2 = "#f4b171";
+	private String corLaranja3 = "#e49042";
+	private String corLaranja4 = "#773f0e";
+	private String corAmarelo1 = "#fffd38";
+	private String corAmarelo2 = "#fed86f";
+	private String corAmarelo3 = "#f0c142";
+	private String corAmarelo4 = "#7e5f11";
+	private String corVerde1 = "#159c1f";
+	private String corVerde2 = "#94c380";
+	private String corVerde3 = "#6ca754";
+	private String corVerde4 = "#284d17";
+	private String corCiano1 = "#2dfffe";
+	private String corCiano2 = "#78a5ae";
+	private String corCiano3 = "#47818d";
+	private String corCiano4 = "#0e343c";
+	private String corAzul1 = "#307be1";
+	private String corAzul2 = "#71a9da";
+	private String corAzul3 = "#5a7fa8";
+	private String corAzul4 = "#0a3862";
+	private String corVioleta1 = "#9825fb";
+	private String corVioleta2 = "#8e7ec1";
+	private String corVioleta3 = "#6751a5";
+	private String corVioleta4 = "#20144c";
+	private String corRosa1 = "#fc28fc";
+	private String corRosa2 = "#c17ca0";
+	private String corRosa3 = "#a44f79";
+	private String corRosa4 = "#4b1230";
+	private static String corSelecionada = "#ffffff";
 	
 	/**
 	 * Launch the application.
@@ -133,367 +181,641 @@ public class CadastrosDeProdutos {
 		lblCadastroDeProdutos.setBounds(10, 11, 157, 17);
 		frmCadastroDeProdutos.getContentPane().add(lblCadastroDeProdutos);
 		
+		pnCalendario = new JPanel();
+		pnCalendario.setVisible(false);
+		
 		pnColorPicker = new JPanel();
+		pnColorPicker.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		pnColorPicker.setVisible(false);
 		pnColorPicker.setBounds(262, 78, 250, 165);
 		frmCadastroDeProdutos.getContentPane().add(pnColorPicker);
 		pnColorPicker.setLayout(null);
 		
-		button = new JButton("");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button.setFocusable(false);
-		button.setBackground(Color.BLACK);
-		button.setBounds(10, 10, 20, 20);
-		pnColorPicker.add(button);
-		
-		button_1 = new JButton("");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_1.setFocusable(false);
-		button_1.setBackground(new Color(51, 51, 51));
-		button_1.setBounds(40, 10, 20, 20);
-		pnColorPicker.add(button_1);
-		
-		button_2 = new JButton("");
-		button_2.setForeground(Color.WHITE);
-		button_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_2.setFocusable(false);
-		button_2.setBackground(new Color(102, 102, 102));
-		button_2.setBounds(70, 10, 20, 20);
-		pnColorPicker.add(button_2);
-		
-		button_3 = new JButton("");
-		button_3.setForeground(Color.WHITE);
-		button_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_3.setFocusable(false);
-		button_3.setBackground(new Color(153, 153, 153));
-		button_3.setBounds(100, 10, 20, 20);
-		pnColorPicker.add(button_3);
-		
-		button_4 = new JButton("");
-		button_4.setForeground(Color.WHITE);
-		button_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_4.setFocusable(false);
-		button_4.setBackground(new Color(204, 204, 204));
-		button_4.setBounds(130, 10, 20, 20);
-		pnColorPicker.add(button_4);
-		
-		button_5 = new JButton("");
-		button_5.setForeground(Color.WHITE);
-		button_5.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_5.setFocusable(false);
-		button_5.setBackground(new Color(221, 221, 221));
-		button_5.setBounds(160, 10, 20, 20);
-		pnColorPicker.add(button_5);
-		
-		button_6 = new JButton("");
-		button_6.setForeground(Color.WHITE);
-		button_6.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_6.setFocusable(false);
-		button_6.setBackground(new Color(238, 238, 238));
-		button_6.setBounds(190, 10, 20, 20);
-		pnColorPicker.add(button_6);
-		
-		button_7 = new JButton("");
-		button_7.setForeground(Color.WHITE);
-		button_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_7.setFocusable(false);
-		button_7.setBackground(Color.WHITE);
-		button_7.setBounds(220, 10, 20, 20);
-		pnColorPicker.add(button_7);
-		
-		button_8 = new JButton("");
-		button_8.setForeground(Color.WHITE);
-		button_8.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_8.setFocusable(false);
-		button_8.setBackground(new Color(202, 8, 8));
-		button_8.setBounds(10, 41, 20, 20);
-		pnColorPicker.add(button_8);
-		
-		button_9 = new JButton("");
-		button_9.setForeground(Color.WHITE);
-		button_9.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_9.setFocusable(false);
-		button_9.setBackground(new Color(253, 152, 40));
-		button_9.setBounds(40, 41, 20, 20);
-		pnColorPicker.add(button_9);
-		
-		button_10 = new JButton("");
-		button_10.setForeground(Color.WHITE);
-		button_10.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_10.setFocusable(false);
-		button_10.setBackground(new Color(255, 253, 56));
-		button_10.setBounds(70, 41, 20, 20);
-		pnColorPicker.add(button_10);
-		
-		button_11 = new JButton("");
-		button_11.setForeground(Color.WHITE);
-		button_11.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_11.setFocusable(false);
-		button_11.setBackground(new Color(21, 156, 31));
-		button_11.setBounds(100, 41, 20, 20);
-		pnColorPicker.add(button_11);
-		
-		button_12 = new JButton("");
-		button_12.setForeground(Color.WHITE);
-		button_12.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_12.setFocusable(false);
-		button_12.setBackground(new Color(45, 255, 254));
-		button_12.setBounds(130, 41, 20, 20);
-		pnColorPicker.add(button_12);
-		
-		button_13 = new JButton("");
-		button_13.setForeground(Color.WHITE);
-		button_13.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_13.setFocusable(false);
-		button_13.setBackground(new Color(48, 123, 225));
-		button_13.setBounds(160, 41, 20, 20);
-		pnColorPicker.add(button_13);
-		
-		button_14 = new JButton("");
-		button_14.setForeground(Color.WHITE);
-		button_14.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_14.setFocusable(false);
-		button_14.setBackground(new Color(152, 37, 251));
-		button_14.setBounds(190, 41, 20, 20);
-		pnColorPicker.add(button_14);
-		
-		button_15 = new JButton("");
-		button_15.setForeground(Color.WHITE);
-		button_15.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_15.setFocusable(false);
-		button_15.setBackground(new Color(252, 40, 252));
-		button_15.setBounds(220, 41, 20, 20);
-		pnColorPicker.add(button_15);
-		
-		button_16 = new JButton("");
-		button_16.setForeground(Color.WHITE);
-		button_16.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_16.setFocusable(false);
-		button_16.setBackground(new Color(222, 104, 104));
-		button_16.setBounds(10, 72, 20, 20);
-		pnColorPicker.add(button_16);
-		
-		button_17 = new JButton("");
-		button_17.setForeground(Color.WHITE);
-		button_17.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_17.setFocusable(false);
-		button_17.setBackground(new Color(244, 177, 113));
-		button_17.setBounds(40, 72, 20, 20);
-		pnColorPicker.add(button_17);
-		
-		button_18 = new JButton("");
-		button_18.setForeground(Color.WHITE);
-		button_18.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_18.setFocusable(false);
-		button_18.setBackground(new Color(254, 216, 111));
-		button_18.setBounds(70, 72, 20, 20);
-		pnColorPicker.add(button_18);
-		
-		button_19 = new JButton("");
-		button_19.setForeground(Color.WHITE);
-		button_19.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_19.setFocusable(false);
-		button_19.setBackground(new Color(148, 195, 128));
-		button_19.setBounds(100, 72, 20, 20);
-		pnColorPicker.add(button_19);
-		
-		button_20 = new JButton("");
-		button_20.setForeground(Color.WHITE);
-		button_20.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_20.setFocusable(false);
-		button_20.setBackground(new Color(120, 165, 174));
-		button_20.setBounds(130, 72, 20, 20);
-		pnColorPicker.add(button_20);
-		
-		button_21 = new JButton("");
-		button_21.setForeground(Color.WHITE);
-		button_21.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_21.setFocusable(false);
-		button_21.setBackground(new Color(113, 169, 218));
-		button_21.setBounds(160, 72, 20, 20);
-		pnColorPicker.add(button_21);
-		
-		button_22 = new JButton("");
-		button_22.setForeground(Color.WHITE);
-		button_22.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_22.setFocusable(false);
-		button_22.setBackground(new Color(142, 126, 193));
-		button_22.setBounds(190, 72, 20, 20);
-		pnColorPicker.add(button_22);
-		
-		button_23 = new JButton("");
-		button_23.setForeground(Color.WHITE);
-		button_23.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_23.setFocusable(false);
-		button_23.setBackground(new Color(193, 124, 160));
-		button_23.setBounds(220, 72, 20, 20);
-		pnColorPicker.add(button_23);
-		
-		button_24 = new JButton("");
-		button_24.setForeground(Color.WHITE);
-		button_24.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_24.setFocusable(false);
-		button_24.setBackground(new Color(205, 31, 31));
-		button_24.setBounds(10, 103, 20, 20);
-		pnColorPicker.add(button_24);
-		
-		button_25 = new JButton("");
-		button_25.setForeground(Color.WHITE);
-		button_25.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_25.setFocusable(false);
-		button_25.setBackground(new Color(228, 144, 66));
-		button_25.setBounds(40, 103, 20, 20);
-		pnColorPicker.add(button_25);
-		
-		button_26 = new JButton("");
-		button_26.setForeground(Color.WHITE);
-		button_26.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_26.setFocusable(false);
-		button_26.setBackground(new Color(240, 193, 66));
-		button_26.setBounds(70, 103, 20, 20);
-		pnColorPicker.add(button_26);
-		
-		button_27 = new JButton("");
-		button_27.setForeground(Color.WHITE);
-		button_27.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_27.setFocusable(false);
-		button_27.setBackground(new Color(108, 167, 84));
-		button_27.setBounds(100, 103, 20, 20);
-		pnColorPicker.add(button_27);
-		
-		button_28 = new JButton("");
-		button_28.setForeground(Color.WHITE);
-		button_28.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_28.setFocusable(false);
-		button_28.setBackground(new Color(71, 129, 141));
-		button_28.setBounds(130, 103, 20, 20);
-		pnColorPicker.add(button_28);
-		
-		button_29 = new JButton("");
-		button_29.setForeground(Color.WHITE);
-		button_29.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_29.setFocusable(false);
-		button_29.setBackground(new Color(90, 127, 168));
-		button_29.setBounds(160, 103, 20, 20);
-		pnColorPicker.add(button_29);
-		
-		button_30 = new JButton("");
-		button_30.setForeground(Color.WHITE);
-		button_30.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_30.setFocusable(false);
-		button_30.setBackground(new Color(103, 81, 165));
-		button_30.setBounds(190, 103, 20, 20);
-		pnColorPicker.add(button_30);
-		
-		button_31 = new JButton("");
-		button_31.setForeground(Color.WHITE);
-		button_31.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_31.setFocusable(false);
-		button_31.setBackground(new Color(164, 79, 121));
-		button_31.setBounds(220, 103, 20, 20);
-		pnColorPicker.add(button_31);
-		
-		button_32 = new JButton("");
-		button_32.setForeground(Color.WHITE);
-		button_32.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_32.setFocusable(false);
-		button_32.setBackground(new Color(101, 2, 2));
-		button_32.setBounds(10, 134, 20, 20);
-		pnColorPicker.add(button_32);
-		
-		button_33 = new JButton("");
-		button_33.setForeground(Color.WHITE);
-		button_33.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_33.setFocusable(false);
-		button_33.setBackground(new Color(119, 63, 14));
-		button_33.setBounds(40, 134, 20, 20);
-		pnColorPicker.add(button_33);
-		
-		button_34 = new JButton("");
-		button_34.setForeground(Color.WHITE);
-		button_34.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_34.setFocusable(false);
-		button_34.setBackground(new Color(126, 95, 17));
-		button_34.setBounds(70, 134, 20, 20);
-		pnColorPicker.add(button_34);
-		
-		button_35 = new JButton("");
-		button_35.setForeground(Color.WHITE);
-		button_35.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_35.setFocusable(false);
-		button_35.setBackground(new Color(40, 77, 23));
-		button_35.setBounds(100, 134, 20, 20);
-		pnColorPicker.add(button_35);
-		
-		button_36 = new JButton("");
-		button_36.setForeground(Color.WHITE);
-		button_36.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_36.setFocusable(false);
-		button_36.setBackground(new Color(14, 52, 60));
-		button_36.setBounds(130, 134, 20, 20);
-		pnColorPicker.add(button_36);
-		
-		button_37 = new JButton("");
-		button_37.setForeground(Color.WHITE);
-		button_37.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_37.setFocusable(false);
-		button_37.setBackground(new Color(10, 56, 98));
-		button_37.setBounds(160, 134, 20, 20);
-		pnColorPicker.add(button_37);
-		
-		button_38 = new JButton("");
-		button_38.setForeground(Color.WHITE);
-		button_38.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_38.setFocusable(false);
-		button_38.setBackground(new Color(32, 20, 76));
-		button_38.setBounds(190, 134, 20, 20);
-		pnColorPicker.add(button_38);
-		
-		button_39 = new JButton("");
-		button_39.setForeground(Color.WHITE);
-		button_39.setFont(new Font("Tahoma", Font.BOLD, 12));
-		button_39.setFocusable(false);
-		button_39.setBackground(new Color(75, 18, 48));
-		button_39.setBounds(220, 134, 20, 20);
-		pnColorPicker.add(button_39);
-		
-		btnVoltar = new JButton("Voltar");
-		btnVoltar.setForeground(Color.WHITE);
-		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnVoltar.setFocusable(false);
-		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 220, 89, 23);
-		frmCadastroDeProdutos.getContentPane().add(btnVoltar);
-		
-		btnSalvar = new JButton("Salvar");
-		btnSalvar.setForeground(Color.WHITE);
-		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setFocusable(false);
-		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(433, 220, 89, 23);
-		frmCadastroDeProdutos.getContentPane().add(btnSalvar);
-		
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date dataDeHoje = new Date();
-				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				String data = formatoBR.format(dataDeHoje);
-				ftfDataDeEmissao.setText(data);
-				
-				tfFornecedor.setText(null);
-				ftfCodigo.setValue(null);
-				tfDescricao.setText(null);
-				
+		btnPreto = new JButton("");
+		btnPreto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corPreto;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
 			}
 		});
-		btnLimpar.setForeground(Color.WHITE);
-		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnLimpar.setFocusable(false);
-		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(334, 220, 89, 23);
-		frmCadastroDeProdutos.getContentPane().add(btnLimpar);
+		btnPreto.setForeground(Color.WHITE);
+		btnPreto.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnPreto.setFocusable(false);
+		btnPreto.setBackground(Color.decode(corPreto));
+		btnPreto.setBounds(10, 10, 20, 20);
+		pnColorPicker.add(btnPreto);
+		
+		btnCinza1 = new JButton("");
+		btnCinza1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza1.setForeground(Color.WHITE);
+		btnCinza1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza1.setFocusable(false);
+		btnCinza1.setBackground(Color.decode(corCinza1));
+		btnCinza1.setBounds(40, 10, 20, 20);
+		pnColorPicker.add(btnCinza1);
+		
+		btnCinza2 = new JButton("");
+		btnCinza2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza2.setForeground(Color.WHITE);
+		btnCinza2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza2.setFocusable(false);
+		btnCinza2.setBackground(Color.decode(corCinza2));
+		btnCinza2.setBounds(70, 10, 20, 20);
+		pnColorPicker.add(btnCinza2);
+		
+		btnCinza3 = new JButton("");
+		btnCinza3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza3.setForeground(Color.WHITE);
+		btnCinza3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza3.setFocusable(false);
+		btnCinza3.setBackground(Color.decode(corCinza3));
+		btnCinza3.setBounds(100, 10, 20, 20);
+		pnColorPicker.add(btnCinza3);
+		
+		btnCinza4 = new JButton("");
+		btnCinza4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza4.setForeground(Color.WHITE);
+		btnCinza4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza4.setFocusable(false);
+		btnCinza4.setBackground(Color.decode(corCinza4));
+		btnCinza4.setBounds(130, 10, 20, 20);
+		pnColorPicker.add(btnCinza4);
+		
+		btnCinza5 = new JButton("");
+		btnCinza5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza5;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza5.setForeground(Color.WHITE);
+		btnCinza5.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza5.setFocusable(false);
+		btnCinza5.setBackground(Color.decode(corCinza5));
+		btnCinza5.setBounds(160, 10, 20, 20);
+		pnColorPicker.add(btnCinza5);
+		
+		btnCinza6 = new JButton("");
+		btnCinza6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCinza6;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCinza6.setForeground(Color.WHITE);
+		btnCinza6.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCinza6.setFocusable(false);
+		btnCinza6.setBackground(Color.decode(corCinza6));
+		btnCinza6.setBounds(190, 10, 20, 20);
+		pnColorPicker.add(btnCinza6);
+		
+		btnBranco = new JButton("");
+		btnBranco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corBranco;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnBranco.setForeground(Color.WHITE);
+		btnBranco.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnBranco.setFocusable(false);
+		btnBranco.setBackground(Color.decode(corBranco));
+		btnBranco.setBounds(220, 10, 20, 20);
+		pnColorPicker.add(btnBranco);
+		
+		btnVermelho1 = new JButton("");
+		btnVermelho1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVermelho1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVermelho1.setForeground(Color.WHITE);
+		btnVermelho1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVermelho1.setFocusable(false);
+		btnVermelho1.setBackground(Color.decode(corVermelho1));
+		btnVermelho1.setBounds(10, 41, 20, 20);
+		pnColorPicker.add(btnVermelho1);
+		
+		btnLaranja1 = new JButton("");
+		btnLaranja1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corLaranja1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnLaranja1.setForeground(Color.WHITE);
+		btnLaranja1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLaranja1.setFocusable(false);
+		btnLaranja1.setBackground(Color.decode(corLaranja1));
+		btnLaranja1.setBounds(40, 41, 20, 20);
+		pnColorPicker.add(btnLaranja1);
+		
+		btnAmarelo1 = new JButton("");
+		btnAmarelo1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAmarelo1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAmarelo1.setForeground(Color.WHITE);
+		btnAmarelo1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAmarelo1.setFocusable(false);
+		btnAmarelo1.setBackground(Color.decode(corAmarelo1));
+		btnAmarelo1.setBounds(70, 41, 20, 20);
+		pnColorPicker.add(btnAmarelo1);
+		
+		btnVerde1 = new JButton("");
+		btnVerde1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVerde1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVerde1.setForeground(Color.WHITE);
+		btnVerde1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerde1.setFocusable(false);
+		btnVerde1.setBackground(Color.decode(corVerde1));
+		btnVerde1.setBounds(100, 41, 20, 20);
+		pnColorPicker.add(btnVerde1);
+		
+		btnCiano1 = new JButton("");
+		btnCiano1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCiano1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCiano1.setForeground(Color.WHITE);
+		btnCiano1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCiano1.setFocusable(false);
+		btnCiano1.setBackground(Color.decode(corCiano1));
+		btnCiano1.setBounds(130, 41, 20, 20);
+		pnColorPicker.add(btnCiano1);
+		
+		btnAzul1 = new JButton("");
+		btnAzul1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAzul1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAzul1.setForeground(Color.WHITE);
+		btnAzul1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAzul1.setFocusable(false);
+		btnAzul1.setBackground(Color.decode(corAzul1));
+		btnAzul1.setBounds(160, 41, 20, 20);
+		pnColorPicker.add(btnAzul1);
+		
+		btnVioleta1 = new JButton("");
+		btnVioleta1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVioleta1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVioleta1.setForeground(Color.WHITE);
+		btnVioleta1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVioleta1.setFocusable(false);
+		btnVioleta1.setBackground(Color.decode(corVioleta1));
+		btnVioleta1.setBounds(190, 41, 20, 20);
+		pnColorPicker.add(btnVioleta1);
+		
+		btnRosa1 = new JButton("");
+		btnRosa1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corRosa1;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnRosa1.setForeground(Color.WHITE);
+		btnRosa1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRosa1.setFocusable(false);
+		btnRosa1.setBackground(Color.decode(corRosa1));
+		btnRosa1.setBounds(220, 41, 20, 20);
+		pnColorPicker.add(btnRosa1);
+		
+		btnVermelho2 = new JButton("");
+		btnVermelho2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVermelho2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVermelho2.setForeground(Color.WHITE);
+		btnVermelho2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVermelho2.setFocusable(false);
+		btnVermelho2.setBackground(Color.decode(corVermelho2));
+		btnVermelho2.setBounds(10, 72, 20, 20);
+		pnColorPicker.add(btnVermelho2);
+		
+		btnLaranja2 = new JButton("");
+		btnLaranja2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corLaranja2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnLaranja2.setForeground(Color.WHITE);
+		btnLaranja2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLaranja2.setFocusable(false);
+		btnLaranja2.setBackground(Color.decode(corLaranja2));
+		btnLaranja2.setBounds(40, 72, 20, 20);
+		pnColorPicker.add(btnLaranja2);
+		
+		btnAmarelo2 = new JButton("");
+		btnAmarelo2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAmarelo2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAmarelo2.setForeground(Color.WHITE);
+		btnAmarelo2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAmarelo2.setFocusable(false);
+		btnAmarelo2.setBackground(Color.decode(corAmarelo2));
+		btnAmarelo2.setBounds(70, 72, 20, 20);
+		pnColorPicker.add(btnAmarelo2);
+		
+		btnVerde2 = new JButton("");
+		btnVerde2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVerde2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVerde2.setForeground(Color.WHITE);
+		btnVerde2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerde2.setFocusable(false);
+		btnVerde2.setBackground(Color.decode(corVerde2));
+		btnVerde2.setBounds(100, 72, 20, 20);
+		pnColorPicker.add(btnVerde2);
+		
+		btnCiano2 = new JButton("");
+		btnCiano2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCiano2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCiano2.setForeground(Color.WHITE);
+		btnCiano2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCiano2.setFocusable(false);
+		btnCiano2.setBackground(Color.decode(corCiano2));
+		btnCiano2.setBounds(130, 72, 20, 20);
+		pnColorPicker.add(btnCiano2);
+		
+		btnAzul2 = new JButton("");
+		btnAzul2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAzul2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAzul2.setForeground(Color.WHITE);
+		btnAzul2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAzul2.setFocusable(false);
+		btnAzul2.setBackground(Color.decode(corAzul2));
+		btnAzul2.setBounds(160, 72, 20, 20);
+		pnColorPicker.add(btnAzul2);
+		
+		btnVioleta2 = new JButton("");
+		btnVioleta2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVioleta2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVioleta2.setForeground(Color.WHITE);
+		btnVioleta2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVioleta2.setFocusable(false);
+		btnVioleta2.setBackground(Color.decode(corVioleta2));
+		btnVioleta2.setBounds(190, 72, 20, 20);
+		pnColorPicker.add(btnVioleta2);
+		
+		btnRosa2 = new JButton("");
+		btnRosa2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corRosa2;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnRosa2.setForeground(Color.WHITE);
+		btnRosa2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRosa2.setFocusable(false);
+		btnRosa2.setBackground(Color.decode(corRosa2));
+		btnRosa2.setBounds(220, 72, 20, 20);
+		pnColorPicker.add(btnRosa2);
+		
+		btnVermelho3 = new JButton("");
+		btnVermelho3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVermelho3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVermelho3.setForeground(Color.WHITE);
+		btnVermelho3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVermelho3.setFocusable(false);
+		btnVermelho3.setBackground(Color.decode(corVermelho3));
+		btnVermelho3.setBounds(10, 103, 20, 20);
+		pnColorPicker.add(btnVermelho3);
+		
+		btnLaranja3 = new JButton("");
+		btnLaranja3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corLaranja3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnLaranja3.setForeground(Color.WHITE);
+		btnLaranja3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLaranja3.setFocusable(false);
+		btnLaranja3.setBackground(Color.decode(corLaranja3));
+		btnLaranja3.setBounds(40, 103, 20, 20);
+		pnColorPicker.add(btnLaranja3);
+		
+		btnAmarelo3 = new JButton("");
+		btnAmarelo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAmarelo3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAmarelo3.setForeground(Color.WHITE);
+		btnAmarelo3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAmarelo3.setFocusable(false);
+		btnAmarelo3.setBackground(Color.decode(corAmarelo3));
+		btnAmarelo3.setBounds(70, 103, 20, 20);
+		pnColorPicker.add(btnAmarelo3);
+		
+		btnVerde3 = new JButton("");
+		btnVerde3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVerde3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVerde3.setForeground(Color.WHITE);
+		btnVerde3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerde3.setFocusable(false);
+		btnVerde3.setBackground(Color.decode(corVerde3));
+		btnVerde3.setBounds(100, 103, 20, 20);
+		pnColorPicker.add(btnVerde3);
+		
+		btnCiano3 = new JButton("");
+		btnCiano3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCiano3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCiano3.setForeground(Color.WHITE);
+		btnCiano3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCiano3.setFocusable(false);
+		btnCiano3.setBackground(Color.decode(corCiano3));
+		btnCiano3.setBounds(130, 103, 20, 20);
+		pnColorPicker.add(btnCiano3);
+		
+		btnAzul3 = new JButton("");
+		btnAzul3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAzul3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAzul3.setForeground(Color.WHITE);
+		btnAzul3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAzul3.setFocusable(false);
+		btnAzul3.setBackground(Color.decode(corAzul3));
+		btnAzul3.setBounds(160, 103, 20, 20);
+		pnColorPicker.add(btnAzul3);
+		
+		btnVioleta3 = new JButton("");
+		btnVioleta3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVioleta3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVioleta3.setForeground(Color.WHITE);
+		btnVioleta3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVioleta3.setFocusable(false);
+		btnVioleta3.setBackground(Color.decode(corVioleta3));
+		btnVioleta3.setBounds(190, 103, 20, 20);
+		pnColorPicker.add(btnVioleta3);
+		
+		btnRosa3 = new JButton("");
+		btnRosa3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corRosa3;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnRosa3.setForeground(Color.WHITE);
+		btnRosa3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRosa3.setFocusable(false);
+		btnRosa3.setBackground(Color.decode(corRosa3));
+		btnRosa3.setBounds(220, 103, 20, 20);
+		pnColorPicker.add(btnRosa3);
+		
+		btnVermelho4 = new JButton("");
+		btnVermelho4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVermelho4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVermelho4.setForeground(Color.WHITE);
+		btnVermelho4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVermelho4.setFocusable(false);
+		btnVermelho4.setBackground(Color.decode(corVermelho4));
+		btnVermelho4.setBounds(10, 134, 20, 20);
+		pnColorPicker.add(btnVermelho4);
+		
+		btnLaranja4 = new JButton("");
+		btnLaranja4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corLaranja4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnLaranja4.setForeground(Color.WHITE);
+		btnLaranja4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLaranja4.setFocusable(false);
+		btnLaranja4.setBackground(Color.decode(corLaranja4));
+		btnLaranja4.setBounds(40, 134, 20, 20);
+		pnColorPicker.add(btnLaranja4);
+		
+		btnAmarelo4 = new JButton("");
+		btnAmarelo4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAmarelo4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAmarelo4.setForeground(Color.WHITE);
+		btnAmarelo4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAmarelo4.setFocusable(false);
+		btnAmarelo4.setBackground(Color.decode(corAmarelo4));
+		btnAmarelo4.setBounds(70, 134, 20, 20);
+		pnColorPicker.add(btnAmarelo4);
+		
+		btnVerde4 = new JButton("");
+		btnVerde4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVerde4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVerde4.setForeground(Color.WHITE);
+		btnVerde4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVerde4.setFocusable(false);
+		btnVerde4.setBackground(Color.decode(corVerde4));
+		btnVerde4.setBounds(100, 134, 20, 20);
+		pnColorPicker.add(btnVerde4);
+		
+		btnCiano4 = new JButton("");
+		btnCiano4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corCiano4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnCiano4.setForeground(Color.WHITE);
+		btnCiano4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCiano4.setFocusable(false);
+		btnCiano4.setBackground(Color.decode(corCiano4));
+		btnCiano4.setBounds(130, 134, 20, 20);
+		pnColorPicker.add(btnCiano4);
+		
+		btnAzul4 = new JButton("");
+		btnAzul4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corAzul4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnAzul4.setForeground(Color.WHITE);
+		btnAzul4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAzul4.setFocusable(false);
+		btnAzul4.setBackground(Color.decode(corAzul4));
+		btnAzul4.setBounds(160, 134, 20, 20);
+		pnColorPicker.add(btnAzul4);
+		
+		btnVioleta4 = new JButton("");
+		btnVioleta4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corVioleta4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnVioleta4.setForeground(Color.WHITE);
+		btnVioleta4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnVioleta4.setFocusable(false);
+		btnVioleta4.setBackground(Color.decode(corVioleta4));
+		btnVioleta4.setBounds(190, 134, 20, 20);
+		pnColorPicker.add(btnVioleta4);
+		
+		btnRosa4 = new JButton("");
+		btnRosa4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				corSelecionada = corRosa4;
+				pnColorPicker.setVisible(false);
+				pnCor.setBackground(Color.decode(corSelecionada));
+			}
+		});
+		btnRosa4.setForeground(Color.WHITE);
+		btnRosa4.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRosa4.setFocusable(false);
+		btnRosa4.setBackground(Color.decode(corRosa4));
+		btnRosa4.setBounds(220, 134, 20, 20);
+		pnColorPicker.add(btnRosa4);
+		
+		pnCalendario.setBounds(262, 11, 250, 122);
+		frmCadastroDeProdutos.getContentPane().add(pnCalendario);
+		pnCalendario.setLayout(null);
+		
+		JCalendar calendario = new JCalendar();
+		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		calendario.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				Date dataInformada = new Date();
+				dataInformada = calendario.getDate();
+				
+				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+					String data = formatoBR.format(calendario.getDate());
+					ftfDataDeEmissao.setText(data);
+				} else {
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					String data = formatoBR.format(dataDeHoje);
+					ftfDataDeEmissao.setText(data);
+				}
+			}
+		});
+		calendario.setBounds(0, 0, 250, 122);
+		pnCalendario.add(calendario);
 		
 		panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -538,6 +860,19 @@ public class CadastrosDeProdutos {
 		ftfDataDeEmissao.setFocusable(false);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (pnCalendario.isVisible()) {
+					pnCalendario.setVisible(false);
+				} else {
+					if (pnColorPicker.isVisible()) {
+						return;
+					} else {
+						pnCalendario.setVisible(true);
+					}
+				}
+			}
+		});
 		btnCalendario.setBounds(215, 73, 27, 23);
 		panel.add(btnCalendario);
 		btnCalendario.setForeground(Color.WHITE);
@@ -566,7 +901,7 @@ public class CadastrosDeProdutos {
 		pnCor.setBounds(92, 137, 113, 20);
 		panel.add(pnCor);
 		pnCor.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		pnCor.setBackground(Color.WHITE);
+		pnCor.setBackground(Color.decode(corSelecionada));
 		
 		btnSelecionarCor = new JButton("...");
 		btnSelecionarCor.setBounds(215, 136, 27, 23);
@@ -594,6 +929,58 @@ public class CadastrosDeProdutos {
 		panel.add(lblCor);
 		lblCor.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 220, 89, 23);
+		frmCadastroDeProdutos.getContentPane().add(btnVoltar);
+		
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String fornecedor = tfFornecedor.getText().toString();
+				String lojaEmitente = comboLojaEmitente.getSelectedItem().toString();
+				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
+				String codigo = ftfCodigo.getText().toString().trim();
+				String descricao = tfDescricao.getText().toString();
+				
+				if (fornecedor.isEmpty() || codigo.isEmpty() || descricao.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+				} else {
+					
+				}
+			}
+		});
+		btnSalvar.setForeground(Color.WHITE);
+		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnSalvar.setFocusable(false);
+		btnSalvar.setBackground(new Color(0, 73, 170));
+		btnSalvar.setBounds(433, 220, 89, 23);
+		frmCadastroDeProdutos.getContentPane().add(btnSalvar);
+		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formatoBR.format(dataDeHoje);
+				ftfDataDeEmissao.setText(data);
+				
+				tfFornecedor.setText(null);
+				ftfCodigo.setValue(null);
+				tfDescricao.setText(null);
+				
+			}
+		});
+		btnLimpar.setForeground(Color.WHITE);
+		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnLimpar.setFocusable(false);
+		btnLimpar.setBackground(new Color(0, 73, 170));
+		btnLimpar.setBounds(334, 220, 89, 23);
+		frmCadastroDeProdutos.getContentPane().add(btnLimpar);
 		
 		preencherComboLojas();
 	}
