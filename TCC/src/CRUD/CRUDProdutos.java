@@ -9,7 +9,7 @@ import Banco.Conexao;
 public class CRUDProdutos {
 
 	Conexao con = new Conexao();
-	ResultSet dados = null;
+	public ResultSet dados = null;
 	
 	public boolean insertProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada) {
 		String sql = "INSERT INTO produtos(fornecedor,loja_emitente,data_entrada,codigo,descricao,cor) VALUES (?,?,?,?,?,?)";
@@ -30,4 +30,36 @@ public class CRUDProdutos {
 			return false;
 		}
 	}
+	
+	public ResultSet selectProdutos() {
+		String sql = "SELECT * FROM produtos";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

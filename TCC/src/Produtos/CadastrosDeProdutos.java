@@ -134,6 +134,7 @@ public class CadastrosDeProdutos {
 	private String corRosa4 = "#4b1230";
 	private static String corSelecionada = "#ffffff";
 	private JButton btnLimpar;
+	private JButton btnConsultarProdutos;
 	
 	/**
 	 * Launch the application.
@@ -986,6 +987,20 @@ public class CadastrosDeProdutos {
 		btnLimpar.setBackground(new Color(0, 73, 170));
 		btnLimpar.setBounds(334, 220, 89, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnLimpar);
+		
+		btnConsultarProdutos = new JButton("Consultar Produtos");
+		btnConsultarProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmCadastroDeProdutos.dispose();
+				ConsultarProdutos.main(null);
+			}
+		});
+		btnConsultarProdutos.setForeground(Color.WHITE);
+		btnConsultarProdutos.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnConsultarProdutos.setFocusable(false);
+		btnConsultarProdutos.setBackground(new Color(0, 73, 170));
+		btnConsultarProdutos.setBounds(371, 8, 151, 23);
+		frmCadastroDeProdutos.getContentPane().add(btnConsultarProdutos);
 		
 		preencherComboLojas();
 	}

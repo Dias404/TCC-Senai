@@ -44,7 +44,6 @@ public class ConsultarClientes {
 	private JLabel lblBG;
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
-	private JButton btnRefresh;
 	
 	public static String cliSelecionado;
 	
@@ -78,7 +77,7 @@ public class ConsultarClientes {
 		frmConsultaDeClientes = new JFrame();
 		frmConsultaDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeClientes.setTitle("SIG - Consulta de Clientes");
-		frmConsultaDeClientes.setBounds(100, 100, 626, 497);
+		frmConsultaDeClientes.setBounds(100, 100, 626, 463);
 		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmConsultaDeClientes.setResizable(false);
 		frmConsultaDeClientes.setLocationRelativeTo(null);
@@ -92,7 +91,7 @@ public class ConsultarClientes {
 		JScrollPane scrollPane = new JScrollPane();
 		//scrollPane.setOpaque(false);					// SCROLL PANE
 		//scrollPane.getViewport().setOpaque(false);	// TRANSPARENTE
-		scrollPane.setBounds(10, 39, 600, 385);
+		scrollPane.setBounds(10, 39, 600, 350);
 		frmConsultaDeClientes.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
@@ -117,6 +116,7 @@ public class ConsultarClientes {
 		
 		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabela.getTableHeader().setReorderingAllowed(false); // Bloqueia movimento do header
 		scrollPane.setViewportView(tabela);
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -168,7 +168,7 @@ public class ConsultarClientes {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 435, 89, 23);
+		btnVoltar.setBounds(10, 400, 89, 23);
 		frmConsultaDeClientes.getContentPane().add(btnVoltar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
@@ -176,7 +176,7 @@ public class ConsultarClientes {
 		BG = new ImageIcon(BG2);
 		
 		comboPesquisa = new JComboBox();
-		comboPesquisa.setBounds(339, 435, 163, 23);
+		comboPesquisa.setBounds(339, 400, 163, 23);
 		frmConsultaDeClientes.getContentPane().add(comboPesquisa);
 		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Nome/Razão Social", "Tipo de Pessoa", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "Número", "CPF/CNPJ", "RG/IE", "Mãe", "Pai", "Estado Civil"}));
 		
@@ -299,30 +299,15 @@ public class ConsultarClientes {
 				}
 			}
 		});
-		btnPesquisar.setBounds(512, 435, 98, 23);
+		btnPesquisar.setBounds(512, 400, 98, 23);
 		frmConsultaDeClientes.getContentPane().add(btnPesquisar);
 		btnPesquisar.setForeground(Color.WHITE);
 		btnPesquisar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnPesquisar.setFocusable(false);
 		btnPesquisar.setBackground(new Color(0, 73, 170));
 		
-		btnRefresh = new JButton("");
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				preencherTabela();
-				btnRefresh.setVisible(false);
-				new Thread(sleep).start();
-			}
-		});
-		btnRefresh.setForeground(Color.WHITE);
-		btnRefresh.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnRefresh.setFocusable(false);
-		btnRefresh.setBackground(new Color(0, 73, 170));
-		btnRefresh.setBounds(587, 8, 23, 23);
-		frmConsultaDeClientes.getContentPane().add(btnRefresh);
-		
 		JLabel lblPesquisarPor = new JLabel("Pesquisar por:");
-		lblPesquisarPor.setBounds(242, 440, 87, 15);
+		lblPesquisarPor.setBounds(242, 405, 87, 15);
 		frmConsultaDeClientes.getContentPane().add(lblPesquisarPor);
 		lblPesquisarPor.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
@@ -330,7 +315,6 @@ public class ConsultarClientes {
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 620, 469);
 		frmConsultaDeClientes.getContentPane().add(lblBG);
-		tabela.getTableHeader().setReorderingAllowed(false);
 		
 		preencherTabela();
 	}
@@ -388,18 +372,4 @@ public class ConsultarClientes {
 			return false;
 		}
 	}
-
-
-	Runnable sleep = new Runnable() {	
-		@Override
-		public void run() {
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			btnRefresh.setVisible(true);
-		}
-	};
 }
