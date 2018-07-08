@@ -45,21 +45,20 @@ public class CRUDProdutos {
 			return dados = null;
 		}
 	}
+	
+	public ResultSet selectComWhere(String variavelSelect, String valorSelect) {
+		String sql = "SELECT * FROM produtos WHERE"+variavelSelect+"LIKE ? ORDER BY fornecedor";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, valorSelect+"%");
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

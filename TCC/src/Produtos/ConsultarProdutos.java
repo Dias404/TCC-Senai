@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.sql.SQLException;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -17,12 +19,21 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDProdutos;
+import Clientes.AtualizarClientes;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ConsultarProdutos {
 
 	private JFrame frmConsultaDeProdutos;
 	private JTable tabela;
+	private JComboBox comboPesquisa;
 
+	private static int produtoSelecionado;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -69,6 +80,21 @@ public class ConsultarProdutos {
 		frmConsultaDeProdutos.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					int indexLinha = tabela.getSelectedRow();
+					produtoSelecionado = Integer.parseInt(tabela.getValueAt(indexLinha, 0).toString());
+					System.out.println(produtoSelecionado);
+					frmConsultaDeProdutos.dispose();
+					AtualizarProdutos.main(null);
+				} else {
+					return;
+				}
+			}
+		});
 		tabela.getTableHeader().setReorderingAllowed(false); // Bloqueia movimento do header
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -94,6 +120,12 @@ public class ConsultarProdutos {
 		scrollPane.setViewportView(tabela);
 		
 		JButton button = new JButton("Voltar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmConsultaDeProdutos.dispose();
+				CadastrosDeProdutos.main(null);
+			}
+		});
 		button.setForeground(Color.WHITE);
 		button.setFont(new Font("Impact", Font.PLAIN, 13));
 		button.setFocusable(false);
@@ -101,18 +133,55 @@ public class ConsultarProdutos {
 		button.setBounds(10, 400, 89, 23);
 		frmConsultaDeProdutos.getContentPane().add(button);
 		
-		JButton button_1 = new JButton("Pesquisar");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Impact", Font.PLAIN, 13));
-		button_1.setFocusable(false);
-		button_1.setBackground(new Color(0, 73, 170));
-		button_1.setBounds(424, 400, 98, 23);
-		frmConsultaDeProdutos.getContentPane().add(button_1);
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String variavelSelect = null;
+				String valorSelect = null;
+				
+				if (comboPesquisa.getSelectedItem().toString().equals("Fornecedor")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome do fornecedor que deseja procurar:");
+					variavelSelect = "fornecedor";
+				}
+				
+				if (comboPesquisa.getSelectedItem().toString().equals("Loja")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome da loja emitente que deseja procurar:");
+					variavelSelect = "loja_emitente";
+				}
+				
+				if (comboPesquisa.getSelectedItem().toString().equals("Código")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
+					variavelSelect = "codigo";
+				}
+				
+				if (comboPesquisa.getSelectedItem().toString().equals("Descrição")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome ou a razão social que deseja procurar:");
+					variavelSelect = "descricao";
+				}
+				
+				if(valorSelect == null) {
+					preencherTabela();
+				}else{
+					if(valorSelect.trim().equals("")){
+						preencherTabela();
+					}else {
+						valorSelect = valorSelect.trim();
+						preencherTabelaWhere(variavelSelect, valorSelect);
+					}
+				}
+			}
+		});
+		btnPesquisar.setForeground(Color.WHITE);
+		btnPesquisar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnPesquisar.setFocusable(false);
+		btnPesquisar.setBackground(new Color(0, 73, 170));
+		btnPesquisar.setBounds(424, 400, 98, 23);
+		frmConsultaDeProdutos.getContentPane().add(btnPesquisar);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Fornecedor", "Loja", "Data", "Código", "Descrição", "Cor"}));
-		comboBox.setBounds(310, 400, 104, 23);
-		frmConsultaDeProdutos.getContentPane().add(comboBox);
+		comboPesquisa = new JComboBox();
+		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Fornecedor", "Loja", "Código", "Descrição"}));
+		comboPesquisa.setBounds(310, 400, 104, 23);
+		frmConsultaDeProdutos.getContentPane().add(comboPesquisa);
 		
 		JLabel label = new JLabel("Pesquisar por:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -129,6 +198,23 @@ public class ConsultarProdutos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
+				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"), select.dados.getString("cor")});
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+		CRUDProdutos select = new CRUDProdutos();
+		select.selectComWhere(variavelSelect, valorSelect);
+		try {
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while(select.dados.next()) {
 				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"), select.dados.getString("cor")});
 			}
 			return true;

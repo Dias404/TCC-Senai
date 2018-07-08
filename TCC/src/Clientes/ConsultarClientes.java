@@ -287,6 +287,7 @@ public class ConsultarClientes {
 					}
 			        variavelSelect = "estado_civil";
 				}
+				
 				if(valorSelect == null) {
 					preencherTabela();
 				}else{
