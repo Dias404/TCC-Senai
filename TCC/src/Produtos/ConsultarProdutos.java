@@ -197,7 +197,10 @@ public class ConsultarProdutos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"), select.dados.getString("cor")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"),
+						select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"),
+						select.dados.getString("codigo"), select.dados.getString("descricao"),
+						select.dados.getString("cor")});
 			}
 			return true;
 		} catch (SQLException e) {
