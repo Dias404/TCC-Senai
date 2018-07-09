@@ -78,11 +78,11 @@ public class CRUDProdutos {
 		}
 	}
 	
-	public boolean deleteProduto(String codigoProduto) {
-		String sql = "DELETE FROM produtos WHERE codigo=?";
+	public boolean deleteProduto(int idProduto) {
+		String sql = "DELETE FROM produtos WHERE id_produto=?";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
-			stmt.setString(1, codigoProduto);
+			stmt.setInt(1, idProduto);
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -93,8 +93,25 @@ public class CRUDProdutos {
 		}
 	}
 	
-	public boolean updateProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada) {
+	public boolean updateProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada, int idProduto) {
 		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=? WHERE id_produto=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, fornecedor);
+			stmt.setString(2, lojaEmitente);
+			stmt.setString(3, dataDeEmissao);
+			stmt.setString(4, codigo);
+			stmt.setString(5, descricao);
+			stmt.setString(6, corSelecionada);
+			stmt.setInt(7, idProduto);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	

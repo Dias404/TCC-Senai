@@ -973,7 +973,7 @@ public class AtualizarProdutos {
 				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja romover o produto?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 				if (respostaJOP == JOptionPane.YES_OPTION) {
 					CRUDProdutos delete = new CRUDProdutos();
-					delete.deleteProduto(ftfCodigo.getText().toString());
+					delete.deleteProduto(ConsultarProdutos.produtoSelecionado);
 					
 					JOptionPane.showMessageDialog(null, "O produto foi removido com sucesso!");
 					ConsultarProdutos.main(null);
@@ -1018,7 +1018,16 @@ public class AtualizarProdutos {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CRUDProdutos update = new CRUDProdutos();
+				String fornecedor = tfFornecedor.getText().toString();
+				String lojaEmitente = comboLojaEmitente.getSelectedItem().toString();
+				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
+				String codigo = ftfCodigo.getText().toString();
+				String descricao = tfDescricao.getText().toString();
 				
+				update.updateProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada, ConsultarProdutos.produtoSelecionado);
+				JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
+				btnCancelar.doClick();
 			}
 		});
 		btnSalvar.setVisible(false);
@@ -1067,7 +1076,7 @@ public class AtualizarProdutos {
 	
 	private boolean preencherCampos() {
 		CRUDProdutos select = new CRUDProdutos();
-		select.selectDadosProdutoEspecifico(ConsultarProdutos.produtoSelecionado);
+		dadosSelecionados = select.selectDadosProdutoEspecifico(ConsultarProdutos.produtoSelecionado);
 		try {
 			if (select.dados.first()) {
 				tfFornecedor.setText(select.dados.getString("fornecedor").toString());
