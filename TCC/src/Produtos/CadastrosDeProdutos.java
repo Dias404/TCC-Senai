@@ -36,9 +36,6 @@ public class CadastrosDeProdutos {
 
 	private JFrame frmCadastroDeProdutos;
 	private JTextField tfFornecedor;
-	
-	private MaskFormatter mascara;
-	private JFormattedTextField ftfCodigo;
 	private JFormattedTextField ftfDataDeEmissao;
 	private JButton btnCalendario;
 	private JTextField tfDescricao;
@@ -91,6 +88,10 @@ public class CadastrosDeProdutos {
 	private JButton btnVioleta4;
 	private JButton btnRosa4;
 	private JPanel pnCalendario;
+	private JButton btnLimpar;
+	private JButton btnConsultarProdutos;
+	private JFormattedTextField ftfCodigo;
+	private MaskFormatter mascara;
 	
 	private String corPreto = "#000000";
 	private String corBranco = "#ffffff";
@@ -132,9 +133,7 @@ public class CadastrosDeProdutos {
 	private String corRosa2 = "#c17ca0";
 	private String corRosa3 = "#a44f79";
 	private String corRosa4 = "#4b1230";
-	private static String corSelecionada = "#ffffff";
-	private JButton btnLimpar;
-	private JButton btnConsultarProdutos;
+	static String corSelecionada = "#ffffff";
 	
 	/**
 	 * Launch the application.
@@ -162,9 +161,9 @@ public class CadastrosDeProdutos {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() {	
 		try {
-			mascara = new MaskFormatter("# ###### ######");
+			mascara = new MaskFormatter("#############");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,6 +184,7 @@ public class CadastrosDeProdutos {
 		frmCadastroDeProdutos.getContentPane().add(lblCadastroDeProdutos);
 		
 		pnCalendario = new JPanel();
+		pnCalendario.setVerifyInputWhenFocusTarget(false);
 		pnCalendario.setVisible(false);
 		
 		pnColorPicker = new JPanel();
@@ -847,10 +847,6 @@ public class CadastrosDeProdutos {
 		lblEmitente.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEmitente.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		ftfCodigo = new JFormattedTextField(mascara);
-		ftfCodigo.setBounds(331, 74, 171, 20);
-		panel.add(ftfCodigo);
-		
 		JLabel lblCdigo = new JLabel("Código:");
 		lblCdigo.setBounds(267, 76, 54, 14);
 		panel.add(lblCdigo);
@@ -932,6 +928,10 @@ public class CadastrosDeProdutos {
 		panel.add(lblCor);
 		lblCor.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCor.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		ftfCodigo = new JFormattedTextField(mascara);
+		ftfCodigo.setBounds(331, 74, 171, 20);
+		panel.add(ftfCodigo);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setForeground(Color.WHITE);

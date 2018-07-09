@@ -31,7 +31,7 @@ public class CRUDProdutos {
 		}
 	}
 	
-	public ResultSet selectProdutos() {
+	public ResultSet selectProduto() {
 		String sql = "SELECT * FROM produtos";
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
@@ -61,4 +61,46 @@ public class CRUDProdutos {
 			return dados = null;
 		}
 	}
+	
+	public ResultSet selectDadosProdutoEspecifico(int idProduto) {
+		String sql = "SELECT * FROM produtos WHERE id_produto=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idProduto);
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+	}
+	
+	public boolean deleteProduto(String codigoProduto) {
+		String sql = "DELETE FROM produtos WHERE codigo=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, codigoProduto);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada) {
+		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=? WHERE id_produto=?";
+	}
+	
+	
+	
+	
+	
+	
+	
 }

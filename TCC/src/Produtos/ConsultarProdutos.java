@@ -32,7 +32,7 @@ public class ConsultarProdutos {
 	private JTable tabela;
 	private JComboBox comboPesquisa;
 
-	private static int produtoSelecionado;
+	static int produtoSelecionado;
 	
 	/**
 	 * Launch the application.
@@ -87,7 +87,6 @@ public class ConsultarProdutos {
 				if (respostaJOP == JOptionPane.YES_OPTION) {
 					int indexLinha = tabela.getSelectedRow();
 					produtoSelecionado = Integer.parseInt(tabela.getValueAt(indexLinha, 0).toString());
-					System.out.println(produtoSelecionado);
 					frmConsultaDeProdutos.dispose();
 					AtualizarProdutos.main(null);
 				} else {
@@ -193,7 +192,7 @@ public class ConsultarProdutos {
 	
 	private boolean preencherTabela() {
 		CRUDProdutos select = new CRUDProdutos();
-		select.selectProdutos();
+		select.selectProduto();
 		try {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);

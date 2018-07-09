@@ -45,7 +45,7 @@ public class ConsultarClientes {
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
 	
-	public static String cliSelecionado;
+	static String cliSelecionado;
 	
 	/**
 	 * Launch the application.

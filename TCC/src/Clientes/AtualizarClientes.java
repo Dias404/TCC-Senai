@@ -724,9 +724,6 @@ public class AtualizarClientes {
 					tfCel2F.setEnabled(true);
 					tfCel2J.setEnabled(true);
 				}
-				if (respostaJOP == JOptionPane.NO_OPTION) {
-					return;
-				}
 			}
 		});
 		btnAlterar.setForeground(Color.WHITE);
@@ -965,12 +962,12 @@ public class AtualizarClientes {
 				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja romover o cliente?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 				if (respostaJOP == JOptionPane.YES_OPTION) {
 					int idSelecionado = 0;
-					CRUDClientes id = new CRUDClientes();
-					id.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
+					CRUDClientes delete = new CRUDClientes();
+					delete.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
 					try {
-						if (id.dadosEspecificos.first()) {
-							idSelecionado = id.dadosEspecificos.getInt("id_cliente");
-							id.deleteCliente(idSelecionado);
+						if (delete.dadosEspecificos.first()) {
+							idSelecionado = delete.dadosEspecificos.getInt("id_cliente");
+							delete.deleteCliente(idSelecionado);
 							
 							JOptionPane.showMessageDialog(null, "O cliente foi removido com sucesso!");
 							ConsultarClientes.main(null);
@@ -979,9 +976,6 @@ public class AtualizarClientes {
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
-				}
-				if (respostaJOP == JOptionPane.NO_OPTION) {
-					return;
 				}
 			}
 		});
