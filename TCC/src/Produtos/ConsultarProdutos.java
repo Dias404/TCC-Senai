@@ -1,6 +1,8 @@
 package Produtos;
 
 import java.awt.EventQueue;
+import java.awt.Component;
+import javax.swing.table.TableCellRenderer;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import java.awt.Font;
 import javax.swing.JScrollPane;
@@ -16,6 +19,7 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDProdutos;
@@ -97,16 +101,17 @@ public class ConsultarProdutos {
 		tabela.getTableHeader().setReorderingAllowed(false); // Bloqueia movimento do header
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"ID", "Fornecedor", "Loja", "Data", "C\u00F3digo", "Descri\u00E7\u00E3o", "Cor"
 			}
 		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
+			Class[] columnTypes = new Class[] {
+				Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Color.class
 			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
 			}
 		});
 		tabela.getColumnModel().getColumn(0).setResizable(false);
@@ -116,7 +121,9 @@ public class ConsultarProdutos {
 		tabela.getColumnModel().getColumn(4).setResizable(false);
 		tabela.getColumnModel().getColumn(5).setResizable(false);
 		tabela.getColumnModel().getColumn(6).setResizable(false);
+
 		scrollPane.setViewportView(tabela);
+		//
 		
 		JButton button = new JButton("Voltar");
 		button.addActionListener(new ActionListener() {
@@ -191,6 +198,8 @@ public class ConsultarProdutos {
 	}
 	
 	private boolean preencherTabela() {
+		//tabela.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
+
 		CRUDProdutos select = new CRUDProdutos();
 		select.selectProduto();
 		try {
@@ -200,17 +209,20 @@ public class ConsultarProdutos {
 				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"),
 						select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"),
 						select.dados.getString("codigo"), select.dados.getString("descricao"),
-						select.dados.getString("cor")});
+						Color.decode(select.dados.getString("cor"))});
 			}
+			tabela.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+		
 	}
 	
 	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+		
 		CRUDProdutos select = new CRUDProdutos();
 		select.selectComWhere(variavelSelect, valorSelect);
 		try {
@@ -225,5 +237,18 @@ public class ConsultarProdutos {
 			e.printStackTrace();
 			return false;
 		}
+		
 	}
+}
+
+class ColorTableCellRenderer extends JPanel implements TableCellRenderer
+{
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+         boolean hasFocus, int row, int column)
+   {
+      setBackground((Color) value);
+      if (hasFocus) setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+      else setBorder(null);
+      return this;
+   }
 }

@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
+import Telas.TelaPrincipal;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
@@ -934,6 +935,12 @@ public class CadastrosDeProdutos {
 		panel.add(ftfCodigo);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmCadastroDeProdutos.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);

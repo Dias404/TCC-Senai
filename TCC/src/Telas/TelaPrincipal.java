@@ -24,6 +24,7 @@ import CRUD.CRUDUsuarios;
 import Clientes.CadastroDeClientes;
 import Clientes.ConsultarClientes;
 import Lancamento.LancamentoDeGastos;
+import Produtos.CadastrosDeProdutos;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 import javax.swing.ImageIcon;
@@ -546,6 +547,12 @@ public class TelaPrincipal {
 		pnEstoque.add(btnConsulta);
 		
 		btnEntrada = new JButton("");
+		btnEntrada.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastrosDeProdutos.main(null);
+				frmPrincipal.setVisible(false);
+			}
+		});
 		btnEntrada.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/entrada.png")));
 		btnEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEntrada.setFocusable(false);
