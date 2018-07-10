@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="Drivers/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="lib" path="Drivers/mail.jar"/>
 	<classpathentry kind="lib" path="Drivers/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="Img/login.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

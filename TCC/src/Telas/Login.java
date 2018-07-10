@@ -76,27 +76,44 @@ public class Login {
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/Img/SIG 16x16.png")));
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("SIG - Login");
-		frmLogin.setBounds(100, 100, 596, 525);
+		frmLogin.setBounds(100, 100, 518, 488);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setLocationRelativeTo(frmLogin);
 		frmLogin.getContentPane().setLayout(null);
 		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Login.class.getResource("/SIG 129.png")));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(10, 72, 492, 129);
+		frmLogin.getContentPane().add(label);
+		
+		ImageIcon User = new ImageIcon(CadastrarUsuario.class.getResource("/Img/loginUsuario.png"));
+		Image User2 = User.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+		User = new ImageIcon(User2);
+		
 		JLabel lblUser = new JLabel("");
-		lblUser.setBounds(140, 150, 30, 30);
+		lblUser.setIcon(User);
+		lblUser.setBounds(112, 245, 30, 30);
 		frmLogin.getContentPane().add(lblUser);
 		
+		ImageIcon Senha = new ImageIcon(CadastrarUsuario.class.getResource("/Img/loginSenha.png"));
+		Image Senha2 = Senha.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+		Senha = new ImageIcon(Senha2);
+		
 		JLabel lblSenha = new JLabel("");
-		lblSenha.setBounds(140, 179, 30, 30);
+		lblSenha.setIcon(Senha);
+		lblSenha.setBounds(112, 278, 30, 30);
 		frmLogin.getContentPane().add(lblSenha);
 		
 		tfUsuario = new JTextField();
+		tfUsuario.setForeground(Color.LIGHT_GRAY);
+		tfUsuario.setText("Usuário");
 		tfUsuario.setBorder(new LineBorder(new Color(0, 73, 170)));
-		tfUsuario.setText("ASDFASDF");
-		/*
+		
 		tfUsuario.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if (tfUsuario.getText().toString().equals("Ou E-mail")) {
+				if (tfUsuario.getText().toString().equals("Usuário")) {
 					tfUsuario.setText(null);
 					tfUsuario.setForeground(Color.BLACK);
 				}
@@ -104,13 +121,13 @@ public class Login {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (tfUsuario.getText().toString().isEmpty()) {
-					tfUsuario.setText("Ou E-mail");
+					tfUsuario.setText("Usuário");
 					tfUsuario.setForeground(Color.LIGHT_GRAY);
 				}
 			}
 		});
-		*/
-		tfUsuario.setBounds(170, 150, 270, 30);
+		
+		tfUsuario.setBounds(142, 245, 260, 30);
 		frmLogin.getContentPane().add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
@@ -124,21 +141,8 @@ public class Login {
 				}
 			}
 		});
-		pfSenha.setBounds(170, 179, 270, 30);
+		pfSenha.setBounds(142, 278, 260, 30);
 		frmLogin.getContentPane().add(pfSenha);
-		
-		JButton btnFechar = new JButton("Fechar");
-		btnFechar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmLogin.dispose();
-			}
-		});
-		btnFechar.setForeground(Color.WHITE);
-		btnFechar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnFechar.setFocusable(false);
-		btnFechar.setBackground(new Color(0, 73, 170));
-		btnFechar.setBounds(10, 368, 79, 23);
-		frmLogin.getContentPane().add(btnFechar);
 		
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
@@ -149,7 +153,7 @@ public class Login {
 				ResultSet verifica = CRUDUsuarios.selectUsuarios();
 				try {
 					while(verifica.next()) {
-						if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Ou E-mail")) {
+						if (tfUsuario.getText().toString().isEmpty() || tfUsuario.getText().toString().equals("Usuário")) {
 							JOptionPane.showMessageDialog(null, "Campo usuário vazio!");
 							pfSenha.setText(null);
 							x=1;
@@ -185,7 +189,7 @@ public class Login {
 		btnEntrar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnEntrar.setFocusable(false);
 		btnEntrar.setBackground(new Color(0, 73, 170));
-		btnEntrar.setBounds(140, 220, 300, 30);
+		btnEntrar.setBounds(112, 319, 290, 30);
 		frmLogin.getContentPane().add(btnEntrar);
 		
 		JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
@@ -222,16 +226,16 @@ public class Login {
 			}
 		});
 		lblRecuperarSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRecuperarSenha.setBounds(336, 261, 104, 15);
+		lblRecuperarSenha.setBounds(298, 360, 104, 15);
 		frmLogin.getContentPane().add(lblRecuperarSenha);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(702, 506, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(512, 460, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 590, 497);
+		lblBG.setBounds(0, 0, 512, 460);
 		frmLogin.getContentPane().add(lblBG);
 	}
 }

@@ -15,13 +15,14 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 
-public class Splash {
+public class Splash implements Runnable{
 
 	private JFrame frmSistemaIntegradoDe;
-	private JProgressBar progressBar;
+	private JProgressBar barraDeCarregamento;
 	
 	private int ponteiroBarra = 0;
-
+	private Thread tarefa;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -63,11 +64,11 @@ public class Splash {
 		lblNewLabel.setBounds(10, 264, 515, 14);
 		frmSistemaIntegradoDe.getContentPane().add(lblNewLabel);
 		
-		progressBar = new JProgressBar();
-		progressBar.setValue(ponteiroBarra);
-		progressBar.setForeground(new Color(0, 73, 170));
-		progressBar.setBounds(10, 239, 515, 14);
-		frmSistemaIntegradoDe.getContentPane().add(progressBar);
+		barraDeCarregamento = new JProgressBar();
+		barraDeCarregamento.setValue(ponteiroBarra);
+		barraDeCarregamento.setForeground(new Color(0, 73, 170));
+		barraDeCarregamento.setBounds(10, 239, 515, 14);
+		frmSistemaIntegradoDe.getContentPane().add(barraDeCarregamento);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Splash.class.getResource("/SIG 129.png")));
@@ -90,7 +91,22 @@ public class Splash {
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 535, 289);
 		frmSistemaIntegradoDe.getContentPane().add(lblBG);
+		
+		tarefa = new Thread(Splash.this);
+		tarefa.start();
 	}
-	
-	
+
+	public void run() {
+		try {
+			for(int x=0;x<=100;x=x+4) {
+				Thread.sleep(300);
+				barraDeCarregamento.setValue(x);
+			}
+			frmSistemaIntegradoDe.dispose();
+			Login.main(null);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
 }
