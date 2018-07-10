@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Image;
 
 import javax.swing.JTextField;
 
@@ -25,10 +26,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
+
+import Administrador.CadastrarUsuario;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.LineBorder;
 
 public class Login {
 
@@ -71,22 +76,22 @@ public class Login {
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/Img/SIG 16x16.png")));
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("SIG - Login");
-		frmLogin.setBounds(100, 100, 396, 159);
+		frmLogin.setBounds(100, 100, 596, 525);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.setLocationRelativeTo(frmLogin);
 		frmLogin.getContentPane().setLayout(null);
 		
-		JLabel lblLogin = new JLabel("Login");
-		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblLogin.setBounds(10, 11, 38, 17);
-		frmLogin.getContentPane().add(lblLogin);
+		JLabel lblUser = new JLabel("");
+		lblUser.setBounds(140, 150, 30, 30);
+		frmLogin.getContentPane().add(lblUser);
 		
-		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setBounds(10, 39, 49, 14);
-		frmLogin.getContentPane().add(lblUsuario);
+		JLabel lblSenha = new JLabel("");
+		lblSenha.setBounds(140, 179, 30, 30);
+		frmLogin.getContentPane().add(lblSenha);
 		
 		tfUsuario = new JTextField();
+		tfUsuario.setBorder(new LineBorder(new Color(0, 73, 170)));
+		tfUsuario.setText("ASDFASDF");
 		/*
 		tfUsuario.addFocusListener(new FocusAdapter() {
 			@Override
@@ -105,17 +110,12 @@ public class Login {
 			}
 		});
 		*/
-		tfUsuario.setBounds(69, 37, 308, 20);
+		tfUsuario.setBounds(170, 150, 270, 30);
 		frmLogin.getContentPane().add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
-		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSenha.setBounds(10, 70, 49, 14);
-		frmLogin.getContentPane().add(lblSenha);
-		
 		pfSenha = new JPasswordField();
+		pfSenha.setBorder(new LineBorder(new Color(0, 73, 170)));
 		pfSenha.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -124,7 +124,7 @@ public class Login {
 				}
 			}
 		});
-		pfSenha.setBounds(69, 68, 148, 20);
+		pfSenha.setBounds(170, 179, 270, 30);
 		frmLogin.getContentPane().add(pfSenha);
 		
 		JButton btnFechar = new JButton("Fechar");
@@ -137,7 +137,7 @@ public class Login {
 		btnFechar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnFechar.setFocusable(false);
 		btnFechar.setBackground(new Color(0, 73, 170));
-		btnFechar.setBounds(10, 95, 79, 23);
+		btnFechar.setBounds(10, 368, 79, 23);
 		frmLogin.getContentPane().add(btnFechar);
 		
 		btnEntrar = new JButton("Entrar");
@@ -185,7 +185,7 @@ public class Login {
 		btnEntrar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnEntrar.setFocusable(false);
 		btnEntrar.setBackground(new Color(0, 73, 170));
-		btnEntrar.setBounds(298, 95, 79, 23);
+		btnEntrar.setBounds(140, 220, 300, 30);
 		frmLogin.getContentPane().add(btnEntrar);
 		
 		JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
@@ -222,12 +222,16 @@ public class Login {
 			}
 		});
 		lblRecuperarSenha.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRecuperarSenha.setBounds(227, 68, 104, 15);
+		lblRecuperarSenha.setBounds(336, 261, 104, 15);
 		frmLogin.getContentPane().add(lblRecuperarSenha);
 		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(702, 506, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
 		JLabel lblBG = new JLabel("");
-		lblBG.setIcon(new ImageIcon(Login.class.getResource("/backgroundPrincipal.jpg")));
-		lblBG.setBounds(0, 0, 390, 130);
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 590, 497);
 		frmLogin.getContentPane().add(lblBG);
 	}
 }

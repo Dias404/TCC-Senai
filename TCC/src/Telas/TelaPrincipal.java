@@ -118,7 +118,7 @@ public class TelaPrincipal {
 			}
 		});
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
-		frmPrincipal.setTitle("SIG");
+		frmPrincipal.setTitle("SIG - Menu Principal");
 		frmPrincipal.setBounds(100, 100, 492, 346);
 		frmPrincipal.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmPrincipal.setResizable(false);
