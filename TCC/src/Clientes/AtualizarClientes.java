@@ -210,7 +210,7 @@ public class AtualizarClientes {
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				datateste = calendario.getDate();
-				System.out.println(datateste);
+				//System.out.println(datateste);
 				//SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
 				//String data = formatoBR.format(calendario.getDate());
 				//ftfDataDeNascimento.setText(data);

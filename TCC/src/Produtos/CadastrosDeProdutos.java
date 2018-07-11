@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
@@ -21,6 +23,7 @@ import Telas.TelaPrincipal;
 
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -30,6 +33,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JCalendar;
+
+import Administrador.CadastrarUsuario;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
@@ -822,7 +828,8 @@ public class CadastrosDeProdutos {
 		pnCalendario.add(calendario);
 		
 		panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setOpaque(false);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		panel.setBounds(10, 39, 512, 170);
 		frmCadastroDeProdutos.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -1008,6 +1015,15 @@ public class CadastrosDeProdutos {
 		btnConsultarProdutos.setBackground(new Color(0, 73, 170));
 		btnConsultarProdutos.setBounds(371, 8, 151, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnConsultarProdutos);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 254, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("New label");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 254);
+		frmCadastroDeProdutos.getContentPane().add(lblBG);
 		
 		preencherComboLojas();
 	}

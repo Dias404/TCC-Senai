@@ -6,16 +6,17 @@ import java.sql.SQLException;
 
 public class Conexao {
 
-	private String ip = "189.91.101.54";
-	private String porta = "3306";
-	private String usuario = "senai";
-	private String senha = "senai";
-	private String nomeBanco = "tcc-sig";
+	public static Connection conexao = null;
 	
-	public Connection getConexao() {
-		 Connection conexao = null;
-		 String url = "jdbc:mysql://"+ip+":"+porta+"/"+nomeBanco;
-		 try {
+	public static Connection getConexao() {
+		String ip = "189.91.101.54";
+		String porta = "3306";
+		String usuario = "senai";
+		String senha = "senai";
+		String nomeBanco = "tcc-sig";
+		
+		String url = "jdbc:mysql://"+ip+":"+porta+"/"+nomeBanco;
+		try {
 			conexao = DriverManager.getConnection(url,usuario,senha);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

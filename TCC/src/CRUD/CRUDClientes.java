@@ -21,7 +21,7 @@ public class CRUDClientes {
 	public boolean insertCliente(Clientes cliente) {
 		String sql = "INSERT INTO clientes (tipo_de_pessoa,nome_razao,sexo,email,uf,cidade,bairro,rua,numero,cpf_cnpj,rg_ie,mae,pai,data_de_nascimento,estado_civil,tel1,tel2,cel1,cel2) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, cliente.getTipoDePessoa());
 			stmt.setString(2, cliente.getNomeRazao());
 			stmt.setString(3, cliente.getSexo());
@@ -54,7 +54,7 @@ public class CRUDClientes {
 	public ResultSet selectClientes() {
 		String sql = "SELECT * FROM clientes ORDER BY nome_razao";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -69,7 +69,7 @@ public class CRUDClientes {
 	public ResultSet selectClientesByEmail() {
 		String sql = "SELECT * FROM clientes ORDER BY nome";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -84,7 +84,7 @@ public class CRUDClientes {
 	public ResultSet selectDadosClienteEspecifico(String ClienteSelecionado) {
 		String sql = "SELECT * FROM clientes WHERE cpf_cnpj=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, ClienteSelecionado);
 			dadosEspecificos = stmt.executeQuery();
 			stmt.execute();
@@ -100,7 +100,7 @@ public class CRUDClientes {
 	public ResultSet selectCidadeId(String nomeCidade) {
 		String sql = "SELECT (id_cidade) FROM cidades WHERE nome_cidade=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeCidade);
 			idCidadeSelecionado = stmt.executeQuery();
 			stmt.execute();
@@ -116,7 +116,7 @@ public class CRUDClientes {
 	public ResultSet selectBairro(int idCidade) { 
 		String sql = "SELECT (nome_bairro) FROM bairros WHERE id_cidade=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idCidade);
 			dadosBairros = stmt.executeQuery();
 			stmt.execute();
@@ -132,7 +132,7 @@ public class CRUDClientes {
 	public boolean insertCidade(String nomeCidade, int idEstado) {
 		String sql = "INSERT INTO cidades (nome_cidade,id_estado) VALUES (?,?)";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeCidade);
 			stmt.setInt(2, idEstado);
 			stmt.execute();
@@ -148,7 +148,7 @@ public class CRUDClientes {
 	public boolean insertBairro(String nomeBairro, int idCidade) {
 		String sql = "INSERT INTO bairros (nome_bairro,id_cidade) VALUES (?,?)";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeBairro);
 			stmt.setInt(2, idCidade);
 			stmt.execute();
@@ -164,7 +164,7 @@ public class CRUDClientes {
 	public boolean deleteCliente(int idCliente) {
 		String sql = "DELETE FROM clientes WHERE id_cliente=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idCliente);
 			stmt.execute();
 			stmt.close();
@@ -180,7 +180,7 @@ public class CRUDClientes {
 	public boolean updateCliente(Clientes cliente, int idCliente) {
 		String sql = "UPDATE clientes SET tipo_de_pessoa=?,nome_razao=?,sexo=?,email=?,uf=?,cidade=?,bairro=?,rua=?,numero=?,cpf_cnpj=?,rg_ie=?,mae=?,pai=?,data_de_nascimento=?,estado_civil=?,tel1=?,tel2=?,cel1=?,cel2=? WHERE id_cliente=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, cliente.getTipoDePessoa());
 			stmt.setString(2, cliente.getNomeRazao());
 			stmt.setString(3, cliente.getSexo());
@@ -213,7 +213,7 @@ public class CRUDClientes {
 	public boolean selectComWhere(String variavelSelect, String valorSelect) {
 		String sql = "SELECT * FROM clientes WHERE "+variavelSelect+" LIKE ? ORDER BY nome_razao";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, valorSelect+"%");
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();

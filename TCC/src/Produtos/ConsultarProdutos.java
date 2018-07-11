@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Component;
 import javax.swing.table.TableCellRenderer;
 
+import Administrador.CadastrarUsuario;
+
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import java.sql.SQLException;
@@ -13,11 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -193,6 +198,15 @@ public class ConsultarProdutos {
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label.setBounds(213, 405, 87, 15);
 		frmConsultaDeProdutos.getContentPane().add(label);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 435, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("New label");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 435);
+		frmConsultaDeProdutos.getContentPane().add(lblBG);
 		
 		preencherTabela();
 	}

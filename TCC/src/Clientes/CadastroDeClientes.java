@@ -956,7 +956,7 @@ public class CadastroDeClientes {
 		ResultSet dadosUF;
 		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
 		try {
-			PreparedStatement stmt = new Conexao().getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, UF);
 			dadosUF = stmt.executeQuery();
 			stmt.execute();

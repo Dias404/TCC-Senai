@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
@@ -20,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -30,6 +33,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JCalendar;
+
+import Administrador.CadastrarUsuario;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
@@ -178,6 +184,8 @@ public class AtualizarProdutos {
 		frmAtualizarProdutos.setBounds(100, 100, 538, 282);
 		frmAtualizarProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAtualizarProdutos.getContentPane().setLayout(null);
+		frmAtualizarProdutos.setResizable(false);
+		frmAtualizarProdutos.setLocationRelativeTo(null);
 		
 		JLabel label = new JLabel("Cadastro de Produtos");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -820,8 +828,9 @@ public class AtualizarProdutos {
 		pnCalendario.add(calendario);
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		panel.setLayout(null);
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		panel.setBounds(10, 39, 512, 170);
 		frmAtualizarProdutos.getContentPane().add(panel);
 		
@@ -1051,8 +1060,15 @@ public class AtualizarProdutos {
 		btnVoltar.setBackground(new Color(0, 73, 170));
 		btnVoltar.setBounds(10, 220, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnVoltar);
-		frmAtualizarProdutos.setResizable(false);
-		frmAtualizarProdutos.setLocationRelativeTo(null);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 254, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("New label");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 254);
+		frmAtualizarProdutos.getContentPane().add(lblBG);
 		
 		preencherComboLojas();
 		preencherCampos();

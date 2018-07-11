@@ -17,7 +17,7 @@ public class CRUDUsuarios {
 	public boolean insertUsuario(Usuarios usuario) {
 		try {
 			String sql = "INSERT INTO usuarios (nome, senha, email, fone, cel, nivel) VALUES (?, ?, ?, ?, ?, ?)";
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt =Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getSenha());
 			stmt.setString(3, usuario.getEmail());
@@ -52,7 +52,7 @@ public class CRUDUsuarios {
 	public static ResultSet selectUsuarioLogado() {
 		String sql = "SELECT * FROM usuarios WHERE logged = 1";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -86,7 +86,7 @@ public class CRUDUsuarios {
 		String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ?";
 		ResultSet rs = null;
 		try {
-			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			java.sql.PreparedStatement s = Conexao.conexao.prepareStatement(sql);
 			s.setString(1, user);
 			s.setString(2, senha);
 			rs = s.executeQuery();
@@ -102,7 +102,7 @@ public class CRUDUsuarios {
 		String sql = "SELECT * FROM usuarios WHERE nome = ? AND email = ?";
 		ResultSet rs = null;
 		try {
-			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			java.sql.PreparedStatement s = Conexao.conexao.prepareStatement(sql);
 			s.setString(1, nome);
 			s.setString(2, email);
 			rs = s.executeQuery();
@@ -117,7 +117,7 @@ public class CRUDUsuarios {
 	public static boolean login(String user, String senha) {
 		String sql = "UPDATE usuarios SET logged = 1 WHERE nome = ? AND senha = ?";
 		try {
-			java.sql.PreparedStatement s = con.getConexao().prepareStatement(sql);
+			java.sql.PreparedStatement s = Conexao.conexao.prepareStatement(sql);
 			s.setString(1, user);
 			s.setString(2, senha);
 			s.execute();
@@ -131,9 +131,8 @@ public class CRUDUsuarios {
 	
 	public static boolean logoff(String user, String senha) {
 		String sql = "UPDATE usuarios SET logged = 0 WHERE nome = ? AND senha = ?";
-		java.sql.PreparedStatement stmt;
 		try {
-			stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, user);
 			stmt.setString(2, senha);
 			stmt.execute();
@@ -147,7 +146,7 @@ public class CRUDUsuarios {
 	public static boolean updateNome(String nome, String email) {
 		String sql = "UPDATE usuarios SET nome = ? WHERE email = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql); 
 			stmt.setString(1, nome);
 			stmt.setString(2, email);
 			stmt.execute();
@@ -164,7 +163,7 @@ public class CRUDUsuarios {
 	public static boolean updateSenha(String senha, String email) {
 		String sql = "UPDATE usuarios SET senha = ? WHERE email = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql); 
 			stmt.setString(1, senha);
 			stmt.setString(2, email);
 			stmt.execute();
@@ -181,7 +180,7 @@ public class CRUDUsuarios {
 	public static boolean updateEmail(String email, String senha, String nome) {
 		String sql = "UPDATE usuarios SET email = ? WHERE senha = ? AND nome = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql); 
 			stmt.setString(1, email);
 			stmt.setString(2, senha);
 			stmt.setString(3, nome);
@@ -199,7 +198,7 @@ public class CRUDUsuarios {
 	public static boolean updateFone(String fone, String email) {
 		String sql = "UPDATE usuarios SET fone = ? WHERE email = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql); 
 			stmt.setString(1, fone);
 			stmt.setString(2, email);
 			stmt.execute();
@@ -216,7 +215,7 @@ public class CRUDUsuarios {
 	public static boolean updateCel(String cel, String email) {
 		String sql = "UPDATE usuarios SET cel = ? WHERE email = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql); 
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql); 
 			stmt.setString(1, cel);
 			stmt.setString(2, email);
 			stmt.execute();
@@ -233,7 +232,7 @@ public class CRUDUsuarios {
 	public boolean selectComWhere(String variavelSelect, String like) {
 		String sql = "SELECT * FROM usuarios WHERE "+variavelSelect+" LIKE ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, "%"+like+"%");
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();

@@ -39,7 +39,7 @@ public class CadastrarUsuario {
 	private JTextField tfFone;
 	private JTextField tfCel;
 	private JPasswordField pfConfirmar;
-	private JRadioButton rbAut;
+	private JRadioButton rbAutorizado;
 	private JRadioButton rbBasico;
 
 	/**
@@ -159,28 +159,31 @@ public class CadastrarUsuario {
 		tfCel.setBounds(84, 164, 254, 20);
 		pnlInfo.add(tfCel);
 		
-		rbAut = new JRadioButton("Autorizado");
-		rbAut.setFont(new Font("Tahoma", Font.BOLD, 10));
-		rbAut.setOpaque(false);
-		rbAut.setBounds(80, 197, 87, 14);
-		pnlInfo.add(rbAut);
-		
-		rbBasico = new JRadioButton("Básico");
-		rbBasico.setFont(new Font("Tahoma", Font.BOLD, 10));
-		rbBasico.setSelected(true);
-		rbBasico.setOpaque(false);
-		rbBasico.setBounds(169, 197, 77, 14);
-		pnlInfo.add(rbBasico);
-		
 		ButtonGroup btnG = new ButtonGroup();
-		btnG.add(rbAut);
-		btnG.add(rbBasico);
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblNivel.setBounds(23, 197, 51, 14);
 		pnlInfo.add(lblNivel);
+		
+		rbAutorizado = new JRadioButton("Autorizado");
+		rbAutorizado.setSelected(true);
+		rbAutorizado.setOpaque(false);
+		rbAutorizado.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbAutorizado.setFocusable(false);
+		rbAutorizado.setBackground(new Color(119, 136, 153));
+		rbAutorizado.setBounds(84, 197, 83, 14);
+		pnlInfo.add(rbAutorizado);
+		
+		rbBasico = new JRadioButton("Básico");
+		rbBasico.setSelected(true);
+		rbBasico.setOpaque(false);
+		rbBasico.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbBasico.setFocusable(false);
+		rbBasico.setBackground(new Color(119, 136, 153));
+		rbBasico.setBounds(169, 197, 64, 14);
+		pnlInfo.add(rbBasico);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -230,7 +233,7 @@ public class CadastrarUsuario {
 					u.setEmail(tfEmail.getText().toString());
 					u.setFone(tfFone.getText().toString());
 					u.setCel(tfCel.getText().toString());
-					if(rbAut.isSelected()) {
+					if(rbAutorizado.isSelected()) {
 						u.setNivel("Autorizado");
 					}else {
 						u.setNivel("Básico");

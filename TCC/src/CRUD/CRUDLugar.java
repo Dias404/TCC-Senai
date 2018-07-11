@@ -26,7 +26,7 @@ public class CRUDLugar {
 	public static ResultSet selectEstados() {
 		String sql = "SELECT * FROM estados";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -40,7 +40,7 @@ public class CRUDLugar {
 	public ResultSet selectUFId(String nomeEstado) {
 		String sql = "SELECT (id_estado) FROM estados WHERE nome_estado=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeEstado);
 			idEstadoSelecionado = stmt.executeQuery();
 			stmt.execute();
@@ -56,7 +56,7 @@ public class CRUDLugar {
 	public static boolean insertCidade(Lugar cidade, int idEstado) {
 		try {
 			String sql = "INSERT INTO cidades (nome_cidade, id_estado) VALUES (?,?)";
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, cidade.getNomeCidade());
 			stmt.setInt(2, idEstado);
 			stmt.execute();
@@ -75,7 +75,7 @@ public class CRUDLugar {
 	public static ResultSet selectCidade() {
 		String sql = "SELECT * FROM cidades";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -89,7 +89,7 @@ public class CRUDLugar {
 	public static ResultSet selectCidadeCondicao1(String nomeCidade, int idEstado) {
 		String sql = "SELECT * FROM cidades WHERE nome_cidade = ? AND id_estado = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeCidade);
 			stmt.setInt(2, idEstado);
 			dadosSelect = stmt.executeQuery();
@@ -105,7 +105,7 @@ public class CRUDLugar {
 	public static ResultSet selectCidadeCondicao2(int idEstado) {
 		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idEstado);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
@@ -123,7 +123,7 @@ public class CRUDLugar {
 		String sql = "SELECT * FROM estados WHERE nome_estado = ?";
 		PreparedStatement stmt;
 		try {
-			stmt = con.getConexao().prepareStatement(sql);
+			stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeEstado);
 			estados = stmt.executeQuery();
 			stmt.execute();
@@ -143,7 +143,7 @@ public class CRUDLugar {
 	public static boolean insertBairro(String bairro, int idCidade) {
 		try {
 			String sql = "INSERT INTO bairros (nome_bairro, id_cidade) VALUES (?,?)";
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, bairro);
 			stmt.setInt(2, idCidade);
 			stmt.execute();
@@ -164,7 +164,7 @@ public class CRUDLugar {
 	public static ResultSet selectBairro() {
 		String sql = "SELECT * FROM bairros";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -178,7 +178,7 @@ public class CRUDLugar {
 	public static ResultSet selectBairroCondicao1(String nomeBairro, int idCidade) {
 		String sql = "SELECT * FROM bairros WHERE nome_bairro = ? AND id_cidade = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, nomeBairro);
 			stmt.setInt(2, idCidade);
 			dadosSelect = stmt.executeQuery();
@@ -194,7 +194,7 @@ public class CRUDLugar {
 	public static ResultSet selectBairroCondicao2(int idCidade) {
 		String sql = "SELECT * FROM bairros WHERE id_cidade = ?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idCidade);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
@@ -209,7 +209,7 @@ public class CRUDLugar {
 	public static ResultSet selectIdCidade() {
 		String sql = "SELECT * FROM bairros";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -225,7 +225,7 @@ public class CRUDLugar {
 	public static ResultSet selectRua() {
 		String sql = "SELECT * FROM ruas";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

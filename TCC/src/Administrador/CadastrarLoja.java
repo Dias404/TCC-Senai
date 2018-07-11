@@ -374,10 +374,10 @@ public class CadastrarLoja {
 		lblBG.setBounds(0, 0, 542, 315);
 		frmCadastrarLoja.getContentPane().add(lblBG);
 		
-		preencherComboUF();
+		/*preencherComboUF();
 		preencherComboCidade();
 		preencherComboBairro();
-		preencherComboRua();
+		preencherComboRua();*/
 	}
 	
 	private static boolean preencherComboUF() {

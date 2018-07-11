@@ -14,7 +14,7 @@ public class CRUDProdutos {
 	public boolean insertProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada) {
 		String sql = "INSERT INTO produtos(fornecedor,loja_emitente,data_entrada,codigo,descricao,cor) VALUES (?,?,?,?,?,?)";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, fornecedor);
 			stmt.setString(2, lojaEmitente);
 			stmt.setString(3, dataDeEmissao);
@@ -34,7 +34,7 @@ public class CRUDProdutos {
 	public ResultSet selectProduto() {
 		String sql = "SELECT * FROM produtos";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -49,7 +49,7 @@ public class CRUDProdutos {
 	public ResultSet selectComWhere(String variavelSelect, String valorSelect) {
 		String sql = "SELECT * FROM produtos WHERE"+variavelSelect+"LIKE ? ORDER BY fornecedor";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, valorSelect+"%");
 			dados = stmt.executeQuery();
 			stmt.execute();
@@ -65,7 +65,7 @@ public class CRUDProdutos {
 	public ResultSet selectDadosProdutoEspecifico(int idProduto) {
 		String sql = "SELECT * FROM produtos WHERE id_produto=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idProduto);
 			dados = stmt.executeQuery();
 			stmt.execute();
@@ -81,7 +81,7 @@ public class CRUDProdutos {
 	public boolean deleteProduto(int idProduto) {
 		String sql = "DELETE FROM produtos WHERE id_produto=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idProduto);
 			stmt.execute();
 			stmt.close();
@@ -96,7 +96,7 @@ public class CRUDProdutos {
 	public boolean updateProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada, int idProduto) {
 		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=? WHERE id_produto=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, fornecedor);
 			stmt.setString(2, lojaEmitente);
 			stmt.setString(3, dataDeEmissao);

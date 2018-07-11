@@ -13,14 +13,14 @@ import DAO.Usuarios;
 
 public class CRUDLojas {
 
-	static Conexao con = new Conexao();
+	//static Conexao con = new Conexao();
 	public static ResultSet dadosSelect = null;
 	
 	public boolean insertLoja(Lojas loja, JButton btn) {
 		try {
 			String sql = "INSERT INTO lojas (razao, estado, cidade, bairro, rua, numero, cnpj, ie, tel1, tel2, cel1, cel2) "
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, loja.getRazao());
 			stmt.setString(2, loja.getEstado());
 			stmt.setString(3, loja.getCidade());
@@ -48,7 +48,7 @@ public class CRUDLojas {
 	public ResultSet selectLoja() {
 		String sql = "SELECT * FROM lojas ORDER BY razao";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
