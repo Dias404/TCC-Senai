@@ -59,7 +59,15 @@ public class Splash implements Runnable{
 		frmSistemaIntegradoDe.setResizable(false);
 		frmSistemaIntegradoDe.setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel = new JLabel("© All rights reserved");
+		JLabel lblVol = new JLabel("Versão 1.0");
+		lblVol.setVerticalAlignment(SwingConstants.TOP);
+		lblVol.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblVol.setForeground(new Color(0, 73, 170));
+		lblVol.setFont(new Font("Impact", Font.PLAIN, 12));
+		lblVol.setBounds(110, 214, 315, 14);
+		frmSistemaIntegradoDe.getContentPane().add(lblVol);
+		
+		JLabel lblNewLabel = new JLabel("© 2018 Senai. All rights reserved.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 264, 515, 14);
 		frmSistemaIntegradoDe.getContentPane().add(lblNewLabel);
@@ -98,7 +106,7 @@ public class Splash implements Runnable{
 
 	public void run() {
 		try {
-			for(int x=0;x<=100;x=x+4) {
+			for(int x=0;x<=104;x=x+4) {
 				Thread.sleep(300);
 				barraDeCarregamento.setValue(x);
 			}
