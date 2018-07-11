@@ -149,8 +149,25 @@ public class AlterarDados {
 					
 					if(escolha==0) {
 						String input = JOptionPane.showInputDialog("Insira uma nova senha para este usuário.");
-						CRUDUsuarios.updateSenha(input, email);
-						tabela.setValueAt(input, indexLinha, indexColuna);
+						if ((input == null) || (input.trim().isEmpty())) {
+							return;
+						}
+						
+						String confirmarSenha = JOptionPane.showInputDialog("Corfimar a nova senha.");
+						if (confirmarSenha == null) {
+							return;
+						} else {
+							if (confirmarSenha.trim().isEmpty()) {
+								JOptionPane.showMessageDialog(null, "As senhas informadas não são iguais!", null, JOptionPane.WARNING_MESSAGE);
+							} else {
+								if (input.equals(confirmarSenha)) {
+									CRUDUsuarios.updateSenha(input, email);
+									tabela.setValueAt(input, indexLinha, indexColuna);
+								} else {
+									JOptionPane.showMessageDialog(null, "As senhas informadas não são iguais!", null, JOptionPane.WARNING_MESSAGE);
+								}
+							}
+						}
 					}
 				}
 				if(nomeColuna.equals("Email")) {

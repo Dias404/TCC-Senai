@@ -204,14 +204,23 @@ public class Login {
 			public void mouseReleased(MouseEvent e) {
 				JLabel lblRecuperarSenha = new JLabel("Recuperar Senha");
 				lblRecuperarSenha.setForeground(new Color(0, 73, 170));
+				
 				String nome = JOptionPane.showInputDialog("Entre com o nome do usuário cadastrado.");
+				if ((nome == null) || (nome.trim().isEmpty())) {
+					return;
+				}
+				
 				String email = JOptionPane.showInputDialog("Entre com o email cadastrado neste usuário.");
-				if(nome.isEmpty() || email.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Usuário e(ou) Email inválido(s)");
-				}else {
-					Email.enviarEmailRecuperarSenha(nome, email);
-					nome = null;
-					email = null;
+				if (email == null) {
+					return;
+				} else {
+					if (email.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Usuário e(ou) Email inválido(s)");
+					} else {
+						Email.enviarEmailRecuperarSenha(nome.trim(), email);
+						nome = null;
+						email = null;
+					}
 				}
 			}
 			@Override
