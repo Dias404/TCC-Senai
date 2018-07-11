@@ -276,11 +276,12 @@ public class CadastrarBairros {
 	}
 	
 	public static void preencherEstados() {
-		ResultSet dados = CRUDLugar.selectEstados();
+		CRUDLugar select = new CRUDLugar();
+		select.selectEstados();
+		cbEstado.removeAllItems();
 		try {
-			cbEstado.removeAllItems();
-			while(dados.next()) {
-				cbEstado.addItem(dados.getString("nome_estado"));
+			while(select.dados.next()) {
+				cbEstado.addItem(select.dados.getString("nome_estado"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

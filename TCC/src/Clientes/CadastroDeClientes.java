@@ -28,11 +28,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import javax.swing.JTextPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -44,8 +39,6 @@ import CadastrarLugar.CadastrarBairros;
 import CadastrarLugar.CadastrarCidades;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
-import sun.awt.image.VolatileSurfaceManager;
-
 import javax.swing.JFormattedTextField;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
@@ -941,9 +934,9 @@ public class CadastroDeClientes {
 		comboUFF.removeAllItems();
 		comboUFJ.removeAllItems();
 		try {
-			while (selecionar.dadosSelect.next()) {
-				comboUFF.addItem(selecionar.dadosSelect.getString("nome_estado"));
-				comboUFJ.addItem(selecionar.dadosSelect.getString("nome_estado"));
+			while (selecionar.dados.next()) {
+				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
+				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
 			}
 			UF = selecionar.dadosSelect;
 			return true;	

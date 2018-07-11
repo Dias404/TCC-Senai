@@ -220,10 +220,11 @@ public class CadastrarCidades {
 	}
 	
 	public static void preencherEstados(JComboBox cb) {
-		ResultSet dados = CRUDLugar.selectEstados();
+		CRUDLugar select = new CRUDLugar();
+		select.selectEstados();
 		try {
-			while(dados.next()) {
-				cb.addItem(dados.getString("nome_estado"));
+			while(select.dados.next()) {
+				cb.addItem(select.dados.getString("nome_estado"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

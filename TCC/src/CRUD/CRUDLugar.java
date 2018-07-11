@@ -17,23 +17,23 @@ public class CRUDLugar {
 
 	static Conexao con = new Conexao();
 	public static ResultSet dadosSelect = null;
-	
+	public ResultSet dados = null;
 	public ResultSet idEstadoSelecionado = null;
 	
 	/*   CRUD Lugar Ordem (Insert, Select, Update, Delete)   */
 	
 	// CRUD Estado
-	public static ResultSet selectEstados() {
+	public ResultSet selectEstados() {
 		String sql = "SELECT * FROM estados";
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			dadosSelect = stmt.executeQuery();
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
-			return dadosSelect;
+			return dados;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return dadosSelect = null;
+			return dados = null;
 		}
 	}
 	

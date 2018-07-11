@@ -22,13 +22,14 @@ import DAO.Lugar;
 import DAO.Usuarios;
 import Telas.TelaPrincipal;
 
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -58,7 +59,7 @@ public class CadastrarLoja {
 	private JTextField tfIE;
 	private JTextField tfNum;
 	private JTextField tfTel1;
-	private static JComboBox cbUF;
+	private static JComboBox comboUF;
 	private static JComboBox cbCidade;
 	private JLabel lblBG;
 	private static JComboBox cbRua;
@@ -158,15 +159,10 @@ public class CadastrarLoja {
 		lblUf.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		cbUF = new JComboBox();
-		cbUF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				preencherComboUF();
-			}
-		});
-		cbUF.setBounds(58, 42, 163, 20);
-		panel.add(cbUF);
-		cbUF.setSelectedItem("São Paulo");
+		comboUF = new JComboBox();
+		comboUF.setBounds(58, 42, 163, 20);
+		panel.add(comboUF);
+		comboUF.setSelectedItem("São Paulo");
 		
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setBounds(10, 74, 40, 14);
@@ -225,6 +221,10 @@ public class CadastrarLoja {
 		panel.add(cbRua);
 		
 		btnAddRua = new JButton("...");
+		btnAddRua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAddRua.setBounds(300, 100, 27, 23);
 		panel.add(btnAddRua);
 		btnAddRua.setForeground(Color.WHITE);
@@ -321,7 +321,7 @@ public class CadastrarLoja {
 				tfTel2.setText(null);
 				tfCel1.setText(null);
 				tfCel2.setText(null);
-				cbUF.setSelectedIndex(0);
+				comboUF.setSelectedIndex(0);
 				cbCidade.setSelectedIndex(0);
 				cbBairro.setSelectedIndex(0);
 				cbRua.setSelectedIndex(0);
@@ -343,7 +343,7 @@ public class CadastrarLoja {
 					CRUDLojas insert = new CRUDLojas();
 					Lojas l = new Lojas();
 					l.setRazao(tfNome.getText().toString());
-					l.setEstado(cbUF.getSelectedItem().toString());
+					l.setEstado(comboUF.getSelectedItem().toString());
 					l.setCidade(cbCidade.getSelectedItem().toString());
 					l.setBairro(cbBairro.getSelectedItem().toString());
 					l.setRua(cbRua.getSelectedItem().toString());
@@ -374,20 +374,22 @@ public class CadastrarLoja {
 		lblBG.setBounds(0, 0, 542, 315);
 		frmCadastrarLoja.getContentPane().add(lblBG);
 		
-		/*preencherComboUF();
-		preencherComboCidade();
+		preencherComboUF();
+		/*preencherComboCidade();
 		preencherComboBairro();
 		preencherComboRua();*/
 	}
 	
-	private static boolean preencherComboUF() {
-		ResultSet selecionar = new CRUDLugar().selectEstados();
+	private boolean preencherComboUF() {
+		CRUDLugar selecionar = new CRUDLugar();
+		selecionar.selectEstados();
+		comboUF.removeAllItems();
 		try {
-			cbUF.removeAllItems();
-			while (selecionar.next()) {
-				cbUF.addItem(selecionar.getString("nome_estado"));
+			while (selecionar.dados.next()) {
+				comboUF.addItem(selecionar.dados.getString("nome_estado"));
 			}
-			return true;
+			//UF = selecionar.dadosSelect;
+			return true;	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -395,7 +397,7 @@ public class CadastrarLoja {
 	}
 	
 	public static boolean preencherComboCidade() {
-		int idEstado = cbUF.getSelectedIndex()+1;
+		int idEstado = comboUF.getSelectedIndex()+1;
 		ResultSet dados = CRUDLugar.selectCidadeCondicao2(idEstado);
 		try {
 			cbCidade.removeAllItems();
@@ -412,7 +414,7 @@ public class CadastrarLoja {
 	}
 	
 	public static boolean preencherComboBairro() {
-		ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(cbCidade.getSelectedItem().toString(), cbUF.getSelectedIndex()+1);
+		ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(cbCidade.getSelectedItem().toString(), comboUF.getSelectedIndex()+1);
 		try {
 			ResultSet dados = CRUDLugar.selectBairroCondicao2(idCidade.getInt("id_cidade"));
 			cbBairro.removeAllItems();
