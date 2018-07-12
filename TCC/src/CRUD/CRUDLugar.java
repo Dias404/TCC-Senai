@@ -16,11 +16,11 @@ import DAO.Lugar;
 public class CRUDLugar {
 
 	static Conexao con = new Conexao();
-	public static ResultSet dadosSelect = null;
+	public ResultSet dadosSelect = null;
 	public ResultSet dados = null;
 	public ResultSet idEstadoSelecionado = null;
 	
-	/*   CRUD Lugar Ordem (Insert, Select, Update, Delete)   */
+	/*   CRUD Lugar Ordem (Insert, Select, Upate, Delete)   */
 	
 	// CRUD Estado
 	public ResultSet selectEstados() {
@@ -72,7 +72,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectCidade() {
+	public ResultSet selectCidade() {
 		String sql = "SELECT * FROM cidades";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -86,7 +86,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectCidadeCondicao1(String nomeCidade, int idEstado) {
+	public ResultSet selectCidadeCondicao1(String nomeCidade, int idEstado) {
 		String sql = "SELECT * FROM cidades WHERE nome_cidade = ? AND id_estado = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -102,7 +102,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectCidadeCondicao2(int idEstado) {
+	public ResultSet selectCidadeCondicao2(int idEstado) {
 		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -161,7 +161,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectBairro() {
+	public ResultSet selectBairro() {
 		String sql = "SELECT * FROM bairros";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -175,7 +175,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectBairroCondicao1(String nomeBairro, int idCidade) {
+	public ResultSet selectBairroCondicao1(String nomeBairro, int idCidade) {
 		String sql = "SELECT * FROM bairros WHERE nome_bairro = ? AND id_cidade = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -191,11 +191,12 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectBairroCondicao2(int idCidade) {
-		String sql = "SELECT * FROM bairros WHERE id_cidade = ?";
+	public ResultSet selectBairroCondicao2(int idCidade, int idEstado) {
+		String sql = "SELECT * FROM bairros WHERE id_cidade = ? AND id_estado = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idCidade);
+			stmt.setInt(2, idEstado);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -206,7 +207,7 @@ public class CRUDLugar {
 		}
 	}
 	
-	public static ResultSet selectIdCidade() {
+	public ResultSet selectIdCidade() {
 		String sql = "SELECT * FROM bairros";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
@@ -222,7 +223,7 @@ public class CRUDLugar {
 	
 	
 	//CRUD Rua
-	public static ResultSet selectRua() {
+	public ResultSet selectRua() {
 		String sql = "SELECT * FROM ruas";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);

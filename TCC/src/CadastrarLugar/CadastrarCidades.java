@@ -185,9 +185,10 @@ public class CadastrarCidades {
 					cidade.setNomeCidade(tfNome.getText().toString());
 					int idEstado = cbEstado.getSelectedIndex()+1;
 					String nomeCidade = tfNome.getText().toString();
-					ResultSet dados = CRUDLugar.selectCidadeCondicao1(nomeCidade, idEstado);
+					CRUDLugar select = new CRUDLugar();
+					select.selectCidadeCondicao1(nomeCidade, idEstado);
 					try {
-						if(dados.next()) {
+						if(select.dadosSelect.next()) {
 							x = true;
 							JOptionPane.showMessageDialog(frmCadCidade, "Esta cidade já foi cadastrada!");
 							x = false;
