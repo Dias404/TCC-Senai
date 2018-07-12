@@ -12,6 +12,7 @@ import DAO.Usuarios;
 public class CRUDUsuarios {
 
 	static Conexao con = new Conexao();
+	public static ResultSet dadosLogin = null;
 	public static ResultSet dadosSelect = null;
 	
 	public boolean insertUsuario(Usuarios usuario) {
@@ -84,18 +85,18 @@ public class CRUDUsuarios {
 	
 	public static ResultSet selectCondicao1(String user, String senha) {
 		String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ?";
-		ResultSet rs = null;
 		try {
-			java.sql.PreparedStatement s = Conexao.conexao.prepareStatement(sql);
-			s.setString(1, user);
-			s.setString(2, senha);
-			rs = s.executeQuery();
-			s.execute();
-			s.close();
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			stmt.setString(1, user);
+			stmt.setString(2, senha);
+			dadosLogin = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dadosLogin;
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			return dadosLogin = null;
 		}
-		return rs;
 	}
 	
 	public static ResultSet selectCondicao2(String nome, String email) {

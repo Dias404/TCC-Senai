@@ -290,11 +290,12 @@ public class CadastrarBairros {
 	
 	public static void preencherCidades() {
 		int idEstado = cbEstado.getSelectedIndex()+1;
-		ResultSet dados = CRUDLugar.selectCidadeCondicao2(idEstado);
+		CRUDLugar select = new CRUDLugar();
+		select.selectCidadeCondicao2(idEstado);
 		try {
 			cbCidade.removeAllItems();
-			while(dados.next()) {
-				cbCidade.addItem(dados.getString("nome_cidade"));
+			while(select.dadosSelect.next()) {
+				cbCidade.addItem(select.dadosSelect.getString("nome_cidade"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

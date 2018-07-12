@@ -111,7 +111,6 @@ public class Login {
 		tfUsuario.setForeground(Color.LIGHT_GRAY);
 		tfUsuario.setText("Usuário");
 		tfUsuario.setBorder(new LineBorder(new Color(0, 73, 170)));
-		
 		tfUsuario.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {

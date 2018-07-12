@@ -51,12 +51,12 @@ public class TelaPrincipal {
 	private JButton btnRecebimento;
 	private JButton btnCorrecaoParcela;
 	private JButton btnLancamento;
-	private JButton btnConferencia_1;
-	private JButton btnContas_1;
 	private JButton btnConsulta;
 	private JButton btnEntrada;
-	private JButton btnCorrecaoProduto_1;
 	private JButton btnTransferencia;
+	private JLabel lblUsuario;
+	private JLabel lblNivel;
+	private JLabel lbOpcoeslAdmin;
 
 	/**
 	 * Launch the application.
@@ -85,15 +85,6 @@ public class TelaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ResultSet rs = CRUDUsuarios.selectCondicao1(usuario, senha);
-		try {
-			if(rs.first()) {
-				nivel = rs.getString("nivel");
-				usuario = rs.getString("nome");
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
 		
 		frmPrincipal = new JFrame();
 		frmPrincipal.addWindowListener(new WindowAdapter() {
@@ -151,94 +142,33 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(pnEstoque);
 		pnEstoque.setLayout(null);
 		
-		if(nivel.equalsIgnoreCase("Admin")) {
-			JLabel lblAdmin = new JLabel("Op\u00E7\u00F5es do");
-			lblAdmin.setBounds(192, 11, 113, 16);
-			frmPrincipal.getContentPane().add(lblAdmin);
-			lblAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblAdmin.setBorder(null);
-		
-			JLabel lblAdmin2 = new JLabel("Administrador->");
-			lblAdmin2.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblAdmin2.setBorder(null);
-			lblAdmin2.setBounds(192, 29, 113, 16);
-			frmPrincipal.getContentPane().add(lblAdmin2);
+			lbOpcoeslAdmin = new JLabel("<html>Opções do<br/>Administrador -></html>");
+			lbOpcoeslAdmin.setBounds(192, 11, 113, 34);
+			frmPrincipal.getContentPane().add(lbOpcoeslAdmin);
+			lbOpcoeslAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lbOpcoeslAdmin.setBorder(null);
 			
-			JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
-			btnCadastrarUsuario.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					CadastrarUsuario.main(null);
-					frmPrincipal.setEnabled(false);
-				}
-			});
-			btnCadastrarUsuario.setBounds(307, 11, 151, 23);
-			frmPrincipal.getContentPane().add(btnCadastrarUsuario);
-			btnCadastrarUsuario.setForeground(Color.WHITE);
-			btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
-			btnCadastrarUsuario.setBackground(Color.decode("#0049aa"));
-			btnCadastrarUsuario.setFocusable(false);
+			JLabel lblNewLabel = new JLabel("Usu\u00E1rio:");
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblNewLabel.setBounds(192, 56, 57, 14);
+			frmPrincipal.getContentPane().add(lblNewLabel);
 			
-			JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
-			btnCadastrarLoja.setBounds(307, 45, 151, 23);
-			frmPrincipal.getContentPane().add(btnCadastrarLoja);
-			btnCadastrarLoja.setForeground(Color.WHITE);
-			btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
-			btnCadastrarLoja.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					CadastrarLoja.main(null);
-					frmPrincipal.setEnabled(false);
-				}
-			});
-			btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
-			btnCadastrarLoja.setFocusable(false);
-			
-			JButton btnMandarEmail = new JButton("Mandar Email");
-			btnMandarEmail.setBounds(307, 79, 151, 23);
-			frmPrincipal.getContentPane().add(btnMandarEmail);
-			btnMandarEmail.setForeground(Color.WHITE);
-			btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
-			btnMandarEmail.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					MandarEmail.main(null);
-					frmPrincipal.setEnabled(false);
-				}
-			});
-			btnMandarEmail.setFocusable(false);
-			btnMandarEmail.setBackground(Color.decode("#0049aa"));
-			
-			JButton btnAlterarDados = new JButton("Alterar Dados");
-			btnAlterarDados.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					AlterarDados.main(null);
-					frmPrincipal.setEnabled(false);
-				}
-			});
-			btnAlterarDados.setForeground(Color.WHITE);
-			btnAlterarDados.setFont(new Font("Impact", Font.PLAIN, 13));
-			btnAlterarDados.setFocusable(false);
-			btnAlterarDados.setBackground(Color.decode("#0049aa"));
-			btnAlterarDados.setBounds(307, 113, 151, 23);
-			frmPrincipal.getContentPane().add(btnAlterarDados);
-			
-			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
-			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblUsuario.setBounds(192, 56, 57, 14);
+			JLabel lblNomeUsuario;
+			lblUsuario = new JLabel(usuario);
+			lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblUsuario.setBounds(192, 79, 105, 14);
 			frmPrincipal.getContentPane().add(lblUsuario);
 			
-			JLabel lblNomeUsuario = new JLabel(usuario);
-			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNomeUsuario.setBounds(192, 79, 105, 14);
-			frmPrincipal.getContentPane().add(lblNomeUsuario);
+			JLabel lblNewLabel_2 = new JLabel("N\u00EDvel:");
+			lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+			lblNewLabel_2.setBounds(192, 104, 57, 14);
+			frmPrincipal.getContentPane().add(lblNewLabel_2);
 			
-			JLabel lblNivel = new JLabel("N\u00EDvel:");
-			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblNivel.setBounds(192, 104, 57, 14);
+			JLabel lblNivelUsuario;
+			lblNivel = new JLabel(nivel);
+			lblNivel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblNivel.setBounds(192, 127, 105, 14);
 			frmPrincipal.getContentPane().add(lblNivel);
-			
-			JLabel lblNivelUsuario = new JLabel(nivel);
-			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNivelUsuario.setBounds(192, 127, 105, 14);
-			frmPrincipal.getContentPane().add(lblNivelUsuario);
 			
 			JButton btnConferencia = new JButton("");
 			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
@@ -255,119 +185,18 @@ public class TelaPrincipal {
 			btnContas.setBackground(Color.decode("#0049aa"));
 			btnContas.setBounds(218, 81, 94, 59);
 			pnCaixa.add(btnContas);
-			
-			JButton btnCorrecaoProduto = new JButton("");
-			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
-			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnCorrecaoProduto.setFocusable(false);
-			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
-			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
-			pnEstoque.add(btnCorrecaoProduto);
 			
 			btnContas.setEnabled(true);
 			btnConferencia.setEnabled(true);
-			btnCorrecaoProduto.setEnabled(true);
 			
-		}if(nivel.equalsIgnoreCase("Autorizado")) {
-			
-			JButton btnConferencia = new JButton("");
-			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
-			btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnConferencia.setFocusable(false);
-			btnConferencia.setBackground(Color.decode("#0049aa"));
-			btnConferencia.setBounds(114, 81, 94, 59);
-			pnCaixa.add(btnConferencia);
-			
-			JButton btnContas = new JButton("");
-			btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
-			btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnContas.setFocusable(false);
-			btnContas.setBackground(Color.decode("#0049aa"));
-			btnContas.setBounds(218, 81, 94, 59);
-			pnCaixa.add(btnContas);
-			
-			JButton btnCorrecaoProduto = new JButton("");
+			 btnCorrecaoProduto = new JButton("");
 			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
 			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
 			btnCorrecaoProduto.setFocusable(false);
 			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
 			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
 			pnEstoque.add(btnCorrecaoProduto);
-			
-			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
-			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblUsuario.setBounds(215, 29, 57, 14);
-			frmPrincipal.getContentPane().add(lblUsuario);
-			
-			JLabel lblNomeUsuario = new JLabel(usuario);
-			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNomeUsuario.setBounds(215, 52, 105, 14);
-			frmPrincipal.getContentPane().add(lblNomeUsuario);
-			
-			JLabel lblNivel = new JLabel("N\u00EDvel:");
-			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblNivel.setBounds(215, 77, 57, 14);
-			frmPrincipal.getContentPane().add(lblNivel);
-			
-			JLabel lblNivelUsuario = new JLabel(nivel);
-			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNivelUsuario.setBounds(215, 100, 105, 14);
-			frmPrincipal.getContentPane().add(lblNivelUsuario);
-			
-			btnContas.setEnabled(false);
-			btnConferencia.setEnabled(true);
-			btnCorrecaoProduto.setEnabled(true);
-			
-		}else if(nivel.equalsIgnoreCase("Básico")){
-			
-			JButton btnConferencia = new JButton("");
-			btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
-			btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnConferencia.setFocusable(false);
-			btnConferencia.setBackground(Color.decode("#0049aa"));
-			btnConferencia.setBounds(114, 81, 94, 59);
-			pnCaixa.add(btnConferencia);
-			
-			JButton btnContas = new JButton("");
-			btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
-			btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnContas.setFocusable(false);
-			btnContas.setBackground(Color.decode("#0049aa"));
-			btnContas.setBounds(218, 81, 94, 59);
-			pnCaixa.add(btnContas);
-			
-			JButton btnCorrecaoProduto = new JButton("");
-			btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
-			btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnCorrecaoProduto.setFocusable(false);
-			btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
-			btnCorrecaoProduto.setBounds(63, 81, 94, 59);
-			pnEstoque.add(btnCorrecaoProduto);
-			
-			JLabel lblUsuario = new JLabel("Usu\u00E1rio:");
-			lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblUsuario.setBounds(215, 29, 57, 14);
-			frmPrincipal.getContentPane().add(lblUsuario);
-			
-			JLabel lblNomeUsuario = new JLabel(usuario);
-			lblNomeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNomeUsuario.setBounds(215, 52, 105, 14);
-			frmPrincipal.getContentPane().add(lblNomeUsuario);
-			
-			JLabel lblNivel = new JLabel("N\u00EDvel:");
-			lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblNivel.setBounds(215, 77, 57, 14);
-			frmPrincipal.getContentPane().add(lblNivel);
-			
-			JLabel lblNivelUsuario = new JLabel(nivel);
-			lblNivelUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNivelUsuario.setBounds(215, 100, 105, 14);
-			frmPrincipal.getContentPane().add(lblNivelUsuario);
-			
-			btnContas.setEnabled(false);
-			btnConferencia.setEnabled(false);
 			btnCorrecaoProduto.setEnabled(false);
-		}
 		
 		JButton btnCliente = new JButton("Cliente");
 		btnCliente.setForeground(Color.WHITE);
@@ -381,6 +210,62 @@ public class TelaPrincipal {
 				pnEstoque.setVisible(false);
 			}
 		});
+		
+		JButton btnCadastrarUsuario = new JButton("Cadastrar Usu\u00E1rio");
+		btnCadastrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastrarUsuario.main(null);
+				frmPrincipal.setEnabled(false);
+			}
+		});
+		btnCadastrarUsuario.setBounds(307, 11, 151, 23);
+		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
+		btnCadastrarUsuario.setForeground(Color.WHITE);
+		btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnCadastrarUsuario.setBackground(Color.decode("#0049aa"));
+		btnCadastrarUsuario.setFocusable(false);
+		
+		JButton btnCadastrarLoja = new JButton("Cadastrar Loja");
+		btnCadastrarLoja.setBounds(307, 45, 151, 23);
+		frmPrincipal.getContentPane().add(btnCadastrarLoja);
+		btnCadastrarLoja.setForeground(Color.WHITE);
+		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnCadastrarLoja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastrarLoja.main(null);
+				frmPrincipal.setEnabled(false);
+			}
+		});
+		btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
+		btnCadastrarLoja.setFocusable(false);
+		
+		JButton btnMandarEmail = new JButton("Mandar Email");
+		btnMandarEmail.setBounds(307, 79, 151, 23);
+		frmPrincipal.getContentPane().add(btnMandarEmail);
+		btnMandarEmail.setForeground(Color.WHITE);
+		btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnMandarEmail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MandarEmail.main(null);
+				frmPrincipal.setEnabled(false);
+			}
+		});
+		btnMandarEmail.setFocusable(false);
+		btnMandarEmail.setBackground(Color.decode("#0049aa"));
+		
+		JButton btnAlterarDados = new JButton("Alterar Dados");
+		btnAlterarDados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AlterarDados.main(null);
+				frmPrincipal.setEnabled(false);
+			}
+		});
+		btnAlterarDados.setForeground(Color.WHITE);
+		btnAlterarDados.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnAlterarDados.setFocusable(false);
+		btnAlterarDados.setBackground(Color.decode("#0049aa"));
+		btnAlterarDados.setBounds(307, 113, 151, 23);
+		frmPrincipal.getContentPane().add(btnAlterarDados);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 151, 466, 2);
@@ -522,22 +407,6 @@ public class TelaPrincipal {
 		btnLancamento.setBounds(10, 81, 94, 59);
 		pnCaixa.add(btnLancamento);
 		
-		btnConferencia_1 = new JButton("");
-		btnConferencia_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
-		btnConferencia_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnConferencia_1.setFocusable(false);
-		btnConferencia_1.setBackground(Color.decode("#0049aa"));
-		btnConferencia_1.setBounds(114, 81, 94, 59);
-		pnCaixa.add(btnConferencia_1);
-		
-		btnContas_1 = new JButton("");
-		btnContas_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
-		btnContas_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnContas_1.setFocusable(false);
-		btnContas_1.setBackground(Color.decode("#0049aa"));
-		btnContas_1.setBounds(218, 81, 94, 59);
-		pnCaixa.add(btnContas_1);
-		
 		btnConsulta = new JButton("");
 		btnConsulta.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/consulta.png")));
 		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -560,14 +429,6 @@ public class TelaPrincipal {
 		btnEntrada.setBounds(167, 11, 94, 59);
 		pnEstoque.add(btnEntrada);
 		
-		btnCorrecaoProduto_1 = new JButton("");
-		btnCorrecaoProduto_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
-		btnCorrecaoProduto_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCorrecaoProduto_1.setFocusable(false);
-		btnCorrecaoProduto_1.setBackground(Color.decode("#0049aa"));
-		btnCorrecaoProduto_1.setBounds(63, 81, 94, 59);
-		pnEstoque.add(btnCorrecaoProduto_1);
-		
 		btnTransferencia = new JButton("");
 		btnTransferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/transferencia.png")));
 		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -586,5 +447,38 @@ public class TelaPrincipal {
 				frmPrincipal.setVisible(false);
 			}
 		});
+		
+		verificarNivelUsuario();
+	}
+	
+	private boolean verificarNivelUsuario() {
+		CRUDUsuarios select = new CRUDUsuarios();
+		select.selectCondicao1(usuario, senha);
+		try {
+			if (select.dadosLogin.first()) {
+				usuario = select.dadosLogin.getString("nome");
+				nivel = select.dadosLogin.getString("nivel");
+				
+				if (nivel.equals("Admin")) {
+					
+				}
+				
+				if (nivel.equals("Autorizado")) {
+					
+				}
+				
+				if (nivel.equals("Básico")) {
+					
+				}
+				
+				lblNivel.setText(nivel);
+				lblUsuario.setText(usuario);
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
