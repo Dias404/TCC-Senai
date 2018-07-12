@@ -12,7 +12,7 @@ import DAO.Usuarios;
 public class CRUDUsuarios {
 
 	static Conexao con = new Conexao();
-	public static ResultSet dadosLogin = null;
+	public ResultSet dadosLogin = null;
 	public static ResultSet dadosSelect = null;
 	
 	public boolean insertUsuario(Usuarios usuario) {
@@ -83,7 +83,7 @@ public class CRUDUsuarios {
 	}
 	*/
 	
-	public static ResultSet selectCondicao1(String user, String senha) {
+	public ResultSet selectCondicao1(String user, String senha) {
 		String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);

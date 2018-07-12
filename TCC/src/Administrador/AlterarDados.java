@@ -131,6 +131,7 @@ public class AlterarDados {
 				String nome = (String) tabela.getValueAt(indexLinha, 0);
 				String fone = (String) tabela.getValueAt(indexLinha, 3);
 				String cel = (String) tabela.getValueAt(indexLinha, 4);
+				
 				if(nomeColuna.equals("Nome")) {
 					int escolha = JOptionPane.showConfirmDialog(frmAlterarDados, 
 					"Você deseja alterar o "+nomeColuna.toLowerCase()+" deste usuário?", null, JOptionPane.YES_NO_OPTION, 
@@ -140,6 +141,8 @@ public class AlterarDados {
 						String input = JOptionPane.showInputDialog("Insira um novo nome para este usuário.");
 						CRUDUsuarios.updateNome(input, email);
 						tabela.setValueAt(input, indexLinha, indexColuna);
+						
+						TelaPrincipal.usuario = input;
 					}
 				}
 				if(nomeColuna.equals("Senha")) {
@@ -163,6 +166,8 @@ public class AlterarDados {
 								if (input.equals(confirmarSenha)) {
 									CRUDUsuarios.updateSenha(input, email);
 									tabela.setValueAt(input, indexLinha, indexColuna);
+									
+									TelaPrincipal.senha = input;
 								} else {
 									JOptionPane.showMessageDialog(null, "As senhas informadas não são iguais!", null, JOptionPane.WARNING_MESSAGE);
 								}
@@ -215,6 +220,9 @@ public class AlterarDados {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmAlterarDados.dispose();
+				
+				TelaPrincipal usarMetodo = new TelaPrincipal();
+				usarMetodo.verificarNivelUsuario();
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);

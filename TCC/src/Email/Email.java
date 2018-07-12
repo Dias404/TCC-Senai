@@ -18,11 +18,12 @@ import Telas.TelaPrincipal;
 public class Email {
 	
 	public static String enviarEmailAdmin(JComboBox cbEmail, JEditorPane epMsg, String senha) {
-		ResultSet dados = CRUDUsuarios.selectCondicao1(TelaPrincipal.usuario, TelaPrincipal.senha);
+		CRUDUsuarios select = new CRUDUsuarios();
+		select.selectCondicao1(TelaPrincipal.usuario, TelaPrincipal.senha);
 		try {
-			if(dados.next()) {
+			if(select.dadosLogin.next()) {
 				String para = cbEmail.getSelectedItem().toString();
-				String emailLogado = dados.getString("email");
+				String emailLogado = select.dadosLogin.getString("email");
 				String usuarioEmailLogado = TelaPrincipal.usuario;
 				String msg = epMsg.getText();
 				

@@ -36,6 +36,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
+import java.awt.Window.Type;
 
 public class Login {
 
@@ -75,6 +76,7 @@ public class Login {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setType(Type.UTILITY);
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/Img/SIG 16x16.png")));
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("SIG - Login");
@@ -160,8 +162,9 @@ public class Login {
 							x=1;
 							break;
 						}else {
-							ResultSet rs = CRUDUsuarios.selectCondicao1(user, senha);
-							if(rs.next() && x ==0) {
+							CRUDUsuarios select = new CRUDUsuarios();
+							select.selectCondicao1(user, senha);
+							if(select.dadosLogin.next() && x ==0) {
 								JOptionPane.showMessageDialog(frmLogin, "Bem-vindo "+user);
 								TelaPrincipal.usuario = user;
 								TelaPrincipal.senha = senha;
@@ -240,12 +243,12 @@ public class Login {
 		frmLogin.getContentPane().add(lblRecuperarSenha);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(512, 460, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(512, 464, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 512, 460);
+		lblBG.setBounds(0, 0, 512, 464);
 		frmLogin.getContentPane().add(lblBG);
 	}
 }
