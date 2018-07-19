@@ -263,73 +263,113 @@ public class CadastroDeClientes {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (rbFisica.isSelected()) {
-					Clientes cliFi = new Clientes();
-					cliFi.setTipoDePessoa("Física");
-					cliFi.setNomeRazao(tfNome.getText().toString());
-					if (rbMasculino.isSelected()) {
-						cliFi.setSexo("m");
-					}else {
-						cliFi.setSexo("f");
+					String nome = tfNome.getText().toString();
+					String email = tfEmailF.getText().toString();
+					String numero = tfNumeroF.getText().toString();
+					String cpf = tfCPF.getText().toString();
+					String rg = ftfRG.getText().toString();
+					String mae = tfMae.getText().toString();
+					String pai = tfPai.getText().toString();
+					String dataDeNascimento = ftfDataDeNascimento.getText().toString();
+					String tel1 = tfTel1F.getText().toString();
+					String tel2 = tfTel2F.getText().toString();
+					String cel1 = tfCel1F.getText().toString();
+					String cel2 = tfCel2F.getText().toString();
+					
+					if (nome.trim().isEmpty() || email.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+					} else {
+						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+						} else {
+							Clientes cliFi = new Clientes();
+							cliFi.setTipoDePessoa("Física");
+							cliFi.setNomeRazao(nome);
+							if (rbMasculino.isSelected()) {
+								cliFi.setSexo("m");
+							}else {
+								cliFi.setSexo("f");
+							}
+							cliFi.setEmail(email);
+							cliFi.setUF(comboUFF.getSelectedItem().toString());
+							/*
+							cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
+							cliFi.setBairro(comboBairroF.getSelectedItem().toString());
+							cliFi.setRua(comboRuaF.getSelectedItem().toString());
+							*/
+							cliFi.setCidade("testeCidade1");
+							cliFi.setBairro("testeBairro1");
+							cliFi.setRua("testeRua1");
+							
+							cliFi.setNumero(numero);
+							cliFi.setCPF_CNPJ(cpf);
+							cliFi.setRG_IE(rg);
+							cliFi.setMae(mae);
+							cliFi.setPai(pai);
+							cliFi.setDataDeNascimento(dataDeNascimento);
+							cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
+							cliFi.setTel1(tel1);
+							cliFi.setTel2(tel2);
+							cliFi.setCel1(cel1);
+							cliFi.setCel2(cel2);
+							
+							CRUDClientes insert = new CRUDClientes();
+							insert.insertCliente(cliFi);
+							JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
+							btnLimpar.doClick();
+						}
 					}
-					cliFi.setEmail(tfEmailF.getText().toString());
-					cliFi.setUF(comboUFF.getSelectedItem().toString());
-					/*
-					cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
-					cliFi.setBairro(comboBairroF.getSelectedItem().toString());
-					cliFi.setRua(comboRuaF.getSelectedItem().toString());
-					*/
-					cliFi.setCidade("testeCidade1");
-					cliFi.setBairro("testeBairro1");
-					cliFi.setRua("testeRua1");
-					
-					cliFi.setNumero(tfNumeroF.getText().toString());
-					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
-					cliFi.setRG_IE(ftfRG.getText().toString());
-					cliFi.setMae(tfMae.getText().toString());
-					cliFi.setPai(tfPai.getText().toString());
-					cliFi.setDataDeNascimento(ftfDataDeNascimento.getText().toString());
-					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
-					cliFi.setTel1(tfTel1F.getText().toString());
-					cliFi.setTel2(tfTel2F.getText().toString());
-					cliFi.setCel1(tfCel1F.getText().toString());
-					cliFi.setCel2(tfCel2F.getText().toString());
-					
-					CRUDClientes insert = new CRUDClientes();
-					insert.insertCliente(cliFi);
-					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
-					btnLimpar.doClick();
 				}else {
-					Clientes cliJu = new Clientes();
-					cliJu.setTipoDePessoa("Jurídica");
-					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
-					cliJu.setSexo("-");
-					cliJu.setEmail(tfEmailJ.getText().toString());
-					cliJu.setUF(comboUFJ.getSelectedItem().toString());
-					/*
-					cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
-					cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
-					cliJu.setRua(comboRuaJ.getSelectedItem().toString());
-					*/
-					cliJu.setCidade("testeCidade2");
-					cliJu.setBairro("testeBairro2");
-					cliJu.setRua("testeRua2");
+					String razaoSocial = tfRazaoSocial.getText().toString();
+					String email = tfEmailJ.getText().toString();
+					String numero = tfNumeroJ.getText().toString();
+					String cnpj = ftfCNPJ.getText().toString();
+					String ie = ftfIE.getText().toString();
+					String tel1 = tfTel1J.getText().toString();
+					String tel2 = tfTel2J.getText().toString();
+					String cel1 = tfCel1J.getText().toString();
+					String cel2 = tfCel2J.getText().toString();
 					
-					cliJu.setNumero(tfNumeroJ.getText().toString());
-					cliJu.setCPF_CNPJ(ftfCNPJ.getText().toString());
-					cliJu.setRG_IE(ftfIE.getText().toString());
-					cliJu.setMae("----------");
-					cliJu.setPai("----------");
-					cliJu.setDataDeNascimento("----------");
-					cliJu.setEstadoCivil("----------");
-					cliJu.setTel1(tfTel1J.getText().toString());
-					cliJu.setTel2(tfTel2J.getText().toString());
-					cliJu.setCel1(tfCel1J.getText().toString());
-					cliJu.setCel2(tfCel2J.getText().toString());
-					
-					CRUDClientes insert = new CRUDClientes();
-					insert.insertCliente(cliJu);
-					JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
-					btnLimpar.doClick();
+
+					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+					} else {
+						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+						} else {
+							Clientes cliJu = new Clientes();
+							cliJu.setTipoDePessoa("Jurídica");
+							cliJu.setNomeRazao(razaoSocial);
+							cliJu.setSexo("-");
+							cliJu.setEmail(email);
+							cliJu.setUF(comboUFJ.getSelectedItem().toString());
+							/*
+							cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
+							cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
+							cliJu.setRua(comboRuaJ.getSelectedItem().toString());
+							*/
+							cliJu.setCidade("testeCidade2");
+							cliJu.setBairro("testeBairro2");
+							cliJu.setRua("testeRua2");
+							
+							cliJu.setNumero(numero);
+							cliJu.setCPF_CNPJ(cnpj);
+							cliJu.setRG_IE(ie);
+							cliJu.setMae("----------");
+							cliJu.setPai("----------");
+							cliJu.setDataDeNascimento("----------");
+							cliJu.setEstadoCivil("----------");
+							cliJu.setTel1(tel1);
+							cliJu.setTel2(tel2);
+							cliJu.setCel1(cel1);
+							cliJu.setCel2(cel2);
+							
+							CRUDClientes insert = new CRUDClientes();
+							insert.insertCliente(cliJu);
+							JOptionPane.showMessageDialog(null, "Novo cliente cadastrado com sucesso!");
+							btnLimpar.doClick();
+						}
+					}
 				}
 			}
 		});
@@ -882,10 +922,6 @@ public class CadastroDeClientes {
 		comboEstadoCivil.setBounds(407, 229, 103, 20);
 		pnFisica.add(comboEstadoCivil);
 		
-		preencherComboUF();
-		//preencherComboCidade();
-		comboUFF.setSelectedItem("São Paulo");
-		
 		btnCalendario = new JButton("...");
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -926,6 +962,11 @@ public class CadastroDeClientes {
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 542, 525);
 		frmCadastroDeClientes.getContentPane().add(lblBG);
+		
+		preencherComboUF();
+		//preencherComboCidade();
+		comboUFF.setSelectedItem("São Paulo");
+		comboUFJ.setSelectedItem("São Paulo");
 	}
 	
 	private boolean preencherComboUF() {
