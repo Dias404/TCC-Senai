@@ -38,6 +38,8 @@ import Administrador.CadastrarUsuario;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CadastrosDeProdutos {
 
@@ -950,6 +952,18 @@ public class CadastrosDeProdutos {
 		panel.add(lblPreo);
 		
 		tfPreco = new JTextField();
+		tfPreco.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if ((e.getKeyChar() == e.VK_0)|| (e.getKeyChar() == e.VK_1)|| (e.getKeyChar() == e.VK_2) 
+			            || (e.getKeyChar() == e.VK_3)|| (e.getKeyChar() == e.VK_4)|| (e.getKeyChar() == e.VK_5)|| (e.getKeyChar() == e.VK_6)|| (e.getKeyChar() == e.VK_7)
+			            || (e.getKeyChar() == e.VK_8)|| (e.getKeyChar() == e.VK_9)|| (e.getKeyChar() == e.VK_PERIOD)|| (e.getKeyChar() == e.VK_BACK_SPACE)) {
+					tfPreco.setEditable(true);
+				} else {
+					tfPreco.setEditable(false);
+				}
+			}
+		});
 		tfPreco.setColumns(10);
 		tfPreco.setBounds(331, 137, 171, 20);
 		panel.add(tfPreco);

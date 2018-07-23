@@ -11,8 +11,8 @@ public class CRUDProdutos {
 	Conexao con = new Conexao();
 	public ResultSet dados = null;
 	
-	public boolean insertProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada) {
-		String sql = "INSERT INTO produtos(fornecedor,loja_emitente,data_entrada,codigo,descricao,cor) VALUES (?,?,?,?,?,?)";
+	public boolean insertProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada, String preco) {
+		String sql = "INSERT INTO produtos(fornecedor,loja_emitente,data_entrada,codigo,descricao,cor,preco) VALUES (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, fornecedor);
@@ -21,6 +21,7 @@ public class CRUDProdutos {
 			stmt.setString(4, codigo);
 			stmt.setString(5, descricao);
 			stmt.setString(6, corSelecionada);
+			stmt.setString(7, preco);
 			stmt.execute();
 			stmt.close();
 			return true;
