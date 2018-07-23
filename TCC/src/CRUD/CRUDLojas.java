@@ -13,7 +13,7 @@ import DAO.Usuarios;
 
 public class CRUDLojas {
 
-	//static Conexao con = new Conexao();
+	static Conexao con = new Conexao();
 	public static ResultSet dadosSelect = null;
 	
 	public boolean insertLoja(Lojas loja, JButton btn) {
@@ -48,7 +48,7 @@ public class CRUDLojas {
 	public ResultSet selectLoja() {
 		String sql = "SELECT * FROM lojas ORDER BY razao";
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

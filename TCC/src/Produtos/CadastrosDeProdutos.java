@@ -199,7 +199,7 @@ public class CadastrosDeProdutos {
 		pnColorPicker = new JPanel();
 		pnColorPicker.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnColorPicker.setVisible(false);
-		pnColorPicker.setBounds(0, 78, 250, 165);
+		pnColorPicker.setBounds(262, 78, 250, 165);
 		frmCadastroDeProdutos.getContentPane().add(pnColorPicker);
 		pnColorPicker.setLayout(null);
 		
@@ -803,7 +803,7 @@ public class CadastrosDeProdutos {
 		btnRosa4.setBounds(220, 134, 20, 20);
 		pnColorPicker.add(btnRosa4);
 		
-		pnCalendario.setBounds(0, 11, 250, 122);
+		pnCalendario.setBounds(262, 11, 250, 122);
 		frmCadastroDeProdutos.getContentPane().add(pnCalendario);
 		pnCalendario.setLayout(null);
 		
