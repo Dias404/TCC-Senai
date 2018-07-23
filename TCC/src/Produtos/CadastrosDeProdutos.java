@@ -141,6 +141,8 @@ public class CadastrosDeProdutos {
 	private String corRosa3 = "#a44f79";
 	private String corRosa4 = "#4b1230";
 	static String corSelecionada = "#ffffff";
+	private JLabel lblPreo;
+	private JTextField tfPreco;
 	
 	/**
 	 * Launch the application.
@@ -197,7 +199,7 @@ public class CadastrosDeProdutos {
 		pnColorPicker = new JPanel();
 		pnColorPicker.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnColorPicker.setVisible(false);
-		pnColorPicker.setBounds(262, 78, 250, 165);
+		pnColorPicker.setBounds(0, 78, 250, 165);
 		frmCadastroDeProdutos.getContentPane().add(pnColorPicker);
 		pnColorPicker.setLayout(null);
 		
@@ -801,7 +803,7 @@ public class CadastrosDeProdutos {
 		btnRosa4.setBounds(220, 134, 20, 20);
 		pnColorPicker.add(btnRosa4);
 		
-		pnCalendario.setBounds(262, 11, 250, 122);
+		pnCalendario.setBounds(0, 11, 250, 122);
 		frmCadastroDeProdutos.getContentPane().add(pnCalendario);
 		pnCalendario.setLayout(null);
 		
@@ -941,6 +943,17 @@ public class CadastrosDeProdutos {
 		ftfCodigo.setBounds(331, 74, 171, 20);
 		panel.add(ftfCodigo);
 		
+		lblPreo = new JLabel("Preço:");
+		lblPreo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPreo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPreo.setBounds(267, 138, 54, 14);
+		panel.add(lblPreo);
+		
+		tfPreco = new JTextField();
+		tfPreco.setColumns(10);
+		tfPreco.setBounds(331, 137, 171, 20);
+		panel.add(tfPreco);
+		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -963,12 +976,13 @@ public class CadastrosDeProdutos {
 				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
 				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().toString();
+				String preco = tfDescricao.getText().toString();
 				
-				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()) {
+				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()  || preco.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				} else {
 					CRUDProdutos insert = new CRUDProdutos();
-					insert.insertProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada);
+					insert.insertProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada, preco);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					btnLimpar.doClick();
 				}
@@ -992,7 +1006,7 @@ public class CadastrosDeProdutos {
 				tfFornecedor.setText(null);
 				ftfCodigo.setValue(null);
 				tfDescricao.setText(null);
-				
+				tfPreco.setText(null);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
