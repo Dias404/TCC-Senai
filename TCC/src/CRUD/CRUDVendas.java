@@ -62,4 +62,19 @@ public class CRUDVendas {
 			return dados = null;
 		}
 	}
+	
+	public boolean deleteVenda(int idVenda) {
+		String sql = "DELETE FROM vendas WHERE id_venda=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idVenda);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

@@ -9,6 +9,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import CRUD.CRUDVendas;
+import Produtos.ConsultarProdutos;
 
 import java.awt.Toolkit;
 import java.text.ParseException;
@@ -237,6 +238,11 @@ public class AtualizarVendas {
 		frmAtualizarVendas.getContentPane().add(btnAlterar);
 		
 		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnSalvar.setVisible(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -271,6 +277,15 @@ public class AtualizarVendas {
 		btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja romover os dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+				if (respostaJOP == JOptionPane.YES_OPTION) {
+					CRUDVendas delete = new CRUDVendas();
+					delete.deleteVenda(ConsultarVendas.vendaSelecionada);
+					
+					JOptionPane.showMessageDialog(null, "Os dados foram removidos com sucesso!");
+					ConsultarVendas.main(null);
+					frmAtualizarVendas.dispose();
+				}
 			}
 		});
 		btnRemover.setVisible(false);
