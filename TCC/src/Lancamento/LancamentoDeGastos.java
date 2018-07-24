@@ -104,7 +104,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos = new JFrame();
 		frmLancamentoDeGastos.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
 		frmLancamentoDeGastos.setTitle("SIG - Lançamento de Gastos");
-		frmLancamentoDeGastos.setBounds(100, 100, 497, 607);
+		frmLancamentoDeGastos.setBounds(100, 100, 497, 603);
 		frmLancamentoDeGastos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmLancamentoDeGastos.setResizable(false);
 		frmLancamentoDeGastos.setLocationRelativeTo(null);

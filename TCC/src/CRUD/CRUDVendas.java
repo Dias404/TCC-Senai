@@ -14,7 +14,7 @@ public class CRUDVendas {
 	public boolean insertVenda(String cliente, String loja, String produto, int quantidade, String preco, String desconto, String data) {
 		String sql = "INSERT INTO vendas(cliente,loja_emitente,produto,quantidade,preco_total,desconto,data_venda) VALUES (?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, cliente);
 			stmt.setString(2, loja);
 			stmt.setString(3, produto);

@@ -50,7 +50,7 @@ public class CRUDProdutos {
 	public ResultSet selectComWhere(String variavelSelect, String valorSelect) {
 		String sql = "SELECT * FROM produtos WHERE "+variavelSelect+" LIKE ? ORDER BY fornecedor";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, valorSelect+"%");
 			dados = stmt.executeQuery();
 			stmt.execute();

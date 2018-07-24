@@ -25,6 +25,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import CRUD.CRUDVendas;
+import Telas.TelaPrincipal;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -193,6 +194,12 @@ public class CadastroDeVendas {
 		panel.add(ftfDesconto);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaPrincipal.frmPrincipal.setVisible(true);
+				frmCadastroDeVendas.dispose();
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
@@ -251,6 +258,19 @@ public class CadastroDeVendas {
 		btnLimpar.setBackground(new Color(0, 73, 170));
 		btnLimpar.setBounds(334, 216, 89, 23);
 		frmCadastroDeVendas.getContentPane().add(btnLimpar);
+		
+		JButton btnConsultarVendas = new JButton("Consultar Vendas");
+		btnConsultarVendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnConsultarVendas.setForeground(Color.WHITE);
+		btnConsultarVendas.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnConsultarVendas.setFocusable(false);
+		btnConsultarVendas.setBackground(new Color(0, 73, 170));
+		btnConsultarVendas.setBounds(371, 10, 151, 23);
+		frmCadastroDeVendas.getContentPane().add(btnConsultarVendas);
 		frmCadastroDeVendas.setResizable(false);
 		frmCadastroDeVendas.setLocationRelativeTo(null);
 		

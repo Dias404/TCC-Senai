@@ -48,7 +48,7 @@ public class CRUDLojas {
 	public ResultSet selectLoja() {
 		String sql = "SELECT * FROM lojas ORDER BY razao";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

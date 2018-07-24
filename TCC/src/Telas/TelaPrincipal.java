@@ -26,6 +26,7 @@ import Clientes.CadastroDeClientes;
 import Clientes.ConsultarClientes;
 import Lancamento.LancamentoDeGastos;
 import Produtos.CadastrosDeProdutos;
+import Vendas.CadastroDeVendas;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 import javax.swing.ImageIcon;
@@ -385,6 +386,12 @@ public class TelaPrincipal {
 		pnCliente.add(btnDemonstracao);
 		
 		btnVenda = new JButton("");
+		btnVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroDeVendas.main(null);
+				frmPrincipal.setVisible(false);
+			}
+		});
 		btnVenda.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/vendas.png")));
 		btnVenda.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVenda.setFocusable(false);
