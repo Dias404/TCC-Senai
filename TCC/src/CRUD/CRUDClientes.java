@@ -54,7 +54,7 @@ public class CRUDClientes {
 	public ResultSet selectClientes() {
 		String sql = "SELECT * FROM clientes ORDER BY nome_razao";
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -81,11 +81,11 @@ public class CRUDClientes {
 		}
 	}
 	
-	public ResultSet selectDadosClienteEspecifico(String ClienteSelecionado) {
-		String sql = "SELECT * FROM clientes WHERE cpf_cnpj=?";
+	public ResultSet selectDadosClienteEspecifico(int ClienteSelecionado) {
+		String sql = "SELECT * FROM clientes WHERE id_cliente=?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setString(1, ClienteSelecionado);
+			stmt.setInt(1, ClienteSelecionado);
 			dadosEspecificos = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

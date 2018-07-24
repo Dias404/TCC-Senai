@@ -138,6 +138,7 @@ public class CadastroDeVendas {
 		comboProduto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				spinnerQuantidade.setValue(1);
+				ftfDesconto.setValue(null);
 				preencherCampoPreco();
 			}
 		});

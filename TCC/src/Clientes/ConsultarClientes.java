@@ -45,7 +45,7 @@ public class ConsultarClientes {
 	private JButton btnPesquisar;
 	private JComboBox comboPesquisa;
 	
-	static String cliSelecionado;
+	static int cliSelecionado;
 	
 	/**
 	 * Launch the application.
@@ -105,7 +105,7 @@ public class ConsultarClientes {
 				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 				if (respostaJOP == JOptionPane.YES_OPTION) {
 					int indexLinha = tabela.getSelectedRow();
-					cliSelecionado = (String) tabela.getValueAt(indexLinha, 9);
+					cliSelecionado = Integer.parseInt(tabela.getValueAt(indexLinha, 0).toString());
 					frmConsultaDeClientes.dispose();
 					AtualizarClientes.main(null);
 				} else {
@@ -122,24 +122,23 @@ public class ConsultarClientes {
 			new Object[][] {
 			},
 			new String[] {
-				"Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
+				"ID", "Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+				true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		tabela.getColumnModel().getColumn(0).setResizable(false);
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(200);
-		tabela.getColumnModel().getColumn(0).setMinWidth(200);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(200);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(60);
-		tabela.getColumnModel().getColumn(1).setMinWidth(60);
-		tabela.getColumnModel().getColumn(1).setMaxWidth(60);
-		tabela.getColumnModel().getColumn(2).setResizable(false);
+		tabela.getColumnModel().getColumn(1).setResizable(false);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tabela.getColumnModel().getColumn(1).setMinWidth(200);
+		tabela.getColumnModel().getColumn(1).setMaxWidth(200);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(60);
+		tabela.getColumnModel().getColumn(2).setMinWidth(60);
+		tabela.getColumnModel().getColumn(2).setMaxWidth(60);
 		tabela.getColumnModel().getColumn(3).setResizable(false);
 		tabela.getColumnModel().getColumn(4).setResizable(false);
 		tabela.getColumnModel().getColumn(5).setResizable(false);
@@ -156,6 +155,7 @@ public class ConsultarClientes {
 		tabela.getColumnModel().getColumn(16).setResizable(false);
 		tabela.getColumnModel().getColumn(17).setResizable(false);
 		tabela.getColumnModel().getColumn(18).setResizable(false);
+		tabela.getColumnModel().getColumn(19).setResizable(false);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -337,7 +337,7 @@ public class ConsultarClientes {
 				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("-")) {
 					sexo = "----------";
 				}
-				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getInt("id_cliente"), selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
 			}
 			return true;
 		} catch (SQLException e) {
@@ -364,7 +364,7 @@ public class ConsultarClientes {
 				if (selecionar.dadosSelect.getString("sexo").equalsIgnoreCase("-")) {
 					sexo = "----------";
 				}
-				modelo.addRow(new Object[]{selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
+				modelo.addRow(new Object[]{selecionar.dadosSelect.getInt("id_cliente"), selecionar.dadosSelect.getString("nome_razao"), selecionar.dadosSelect.getString("tipo_de_pessoa"), sexo, selecionar.dadosSelect.getString("email"), selecionar.dadosSelect.getString("uf"), selecionar.dadosSelect.getString("cidade"), selecionar.dadosSelect.getString("bairro"), selecionar.dadosSelect.getString("rua"), selecionar.dadosSelect.getString("numero"), selecionar.dadosSelect.getString("cpf_cnpj"), selecionar.dadosSelect.getString("rg_ie"), selecionar.dadosSelect.getString("mae"), selecionar.dadosSelect.getString("pai"), selecionar.dadosSelect.getString("data_de_nascimento"), selecionar.dadosSelect.getString("estado_civil"), selecionar.dadosSelect.getString("tel1"), selecionar.dadosSelect.getString("tel2"), selecionar.dadosSelect.getString("cel1"), selecionar.dadosSelect.getString("cel2")});
 			}
 			return true;
 		} catch (SQLException e) {

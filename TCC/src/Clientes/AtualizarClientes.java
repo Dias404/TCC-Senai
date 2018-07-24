@@ -961,21 +961,12 @@ public class AtualizarClientes {
 			public void actionPerformed(ActionEvent e) {
 				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja romover o cliente?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 				if (respostaJOP == JOptionPane.YES_OPTION) {
-					int idSelecionado = 0;
 					CRUDClientes delete = new CRUDClientes();
-					delete.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
-					try {
-						if (delete.dadosEspecificos.first()) {
-							idSelecionado = delete.dadosEspecificos.getInt("id_cliente");
-							delete.deleteCliente(idSelecionado);
+					delete.deleteCliente(ConsultarClientes.cliSelecionado);
 							
-							JOptionPane.showMessageDialog(null, "O cliente foi removido com sucesso!");
-							ConsultarClientes.main(null);
-							frmAtualizarClientes.dispose();
-						}
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+					JOptionPane.showMessageDialog(null, "O cliente foi removido com sucesso!");
+					ConsultarClientes.main(null);
+					frmAtualizarClientes.dispose();
 				}
 			}
 		});

@@ -29,6 +29,12 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AtualizarVendas {
 
@@ -118,16 +124,33 @@ public class AtualizarVendas {
 		panel.add(label_3);
 		
 		comboLojaEmitente = new JComboBox();
+		comboLojaEmitente.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				preencherComboProdutos();
+			}
+		});
 		comboLojaEmitente.setEnabled(false);
 		comboLojaEmitente.setBounds(95, 40, 407, 20);
 		panel.add(comboLojaEmitente);
 		
 		comboProduto = new JComboBox();
+		comboProduto.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				spinnerQuantidade.setValue(1);
+				ftfDesconto.setValue(null);
+				preencherCampoPreco();
+			}
+		});
 		comboProduto.setEnabled(false);
 		comboProduto.setBounds(95, 73, 407, 20);
 		panel.add(comboProduto);
 		
 		spinnerQuantidade = new JSpinner();
+		spinnerQuantidade.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				preencherCampoPreco();
+			}
+		});
 		spinnerQuantidade.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinnerQuantidade.setEnabled(false);
 		spinnerQuantidade.setBounds(95, 104, 100, 20);
@@ -163,12 +186,24 @@ public class AtualizarVendas {
 		panel.add(label_6);
 		
 		ftfDesconto = new JFormattedTextField(mascara);
+		ftfDesconto.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				preencherCampoPreco();
+			}
+		});
 		ftfDesconto.setEnabled(false);
 		ftfDesconto.setToolTipText("Em porcentagem");
 		ftfDesconto.setBounds(95, 135, 100, 20);
 		panel.add(ftfDesconto);
 		
 		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmAtualizarVendas.dispose();
+				ConsultarVendas.main(null);
+			}
+		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
@@ -234,6 +269,10 @@ public class AtualizarVendas {
 		frmAtualizarVendas.getContentPane().add(btnCancelar);
 		
 		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnRemover.setVisible(false);
 		btnRemover.setForeground(Color.WHITE);
 		btnRemover.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -247,6 +286,7 @@ public class AtualizarVendas {
 		preencherComboClientes();
 		preencherComboLojas();
 		preencherComboProdutos();
+		preencherCampos();
 	}
 	
 	private boolean preencherComboClientes() {
@@ -315,5 +355,36 @@ public class AtualizarVendas {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	private boolean preencherCampoPreco() {
+		int quantidade = Integer.parseInt(spinnerQuantidade.getValue().toString());
+		float desconto = 0;
+		
+		if ((comboProduto.getItemCount() == 0)) {
+			tfPrecoTotal.setText("00.0");
+		} else {
+			String produto = comboProduto.getSelectedItem().toString();
+			CRUDProdutos select = new CRUDProdutos();
+			select.selectComWhere("descricao", produto);
+			try {
+				if (select.dados.first()) {
+					if (ftfDesconto.getText().trim().toString().equals("")) {
+						desconto = 0;
+					} else {
+						desconto = Integer.parseInt(ftfDesconto.getText().trim().toString());
+						desconto = desconto / 100;
+					}
+					float preco = Integer.parseInt(select.dados.getString("preco"));
+					float precoTotal = preco * quantidade;
+					precoTotal = precoTotal - (precoTotal * desconto);
+					tfPrecoTotal.setText(String.valueOf(precoTotal));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return true;
 	}
 }
