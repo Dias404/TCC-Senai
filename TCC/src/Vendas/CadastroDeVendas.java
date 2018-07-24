@@ -262,7 +262,8 @@ public class CadastroDeVendas {
 		JButton btnConsultarVendas = new JButton("Consultar Vendas");
 		btnConsultarVendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				frmCadastroDeVendas.dispose();
+				ConsultarVendas.main(null);
 			}
 		});
 		btnConsultarVendas.setForeground(Color.WHITE);

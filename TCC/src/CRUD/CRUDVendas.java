@@ -31,4 +31,35 @@ public class CRUDVendas {
 			return false;
 		}
 	}
+	
+	public boolean selectVenda() {
+		String sql = "SELECT * FROM vendas";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public ResultSet selectVendaEspecifica(int idVenda) {
+		String sql = "SELECT * FROM vendas WHERE id_venda=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setInt(1, idVenda);
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+	}
 }
