@@ -216,7 +216,7 @@ public class CadastroDeVendas {
 				String desconto = null;
 				
 				if (ftfDesconto.getText().trim().toString().equals("")) {
-					desconto = String.valueOf(0);
+					desconto = "0";
 				} else {
 					desconto = ftfDesconto.getText().trim().toString();
 				}

@@ -13,6 +13,9 @@ import Produtos.ConsultarProdutos;
 
 import java.awt.Toolkit;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -240,7 +243,32 @@ public class AtualizarVendas {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int quantidade = Integer.parseInt(spinnerQuantidade.getValue().toString());
+				String preco = tfPrecoTotal.getText().toString();
+				String desconto = null;
 				
+				if (ftfDesconto.getText().trim().toString().equals("")) {
+					desconto = "0";
+				} else {
+					desconto = ftfDesconto.getText().trim().toString();
+				}
+				
+				Date dataDeHoje = new Date();
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formatoBR.format(dataDeHoje);
+				
+				if (comboCliente.getItemCount() == 0 || comboProduto.getItemCount() == 0) {
+					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+				} else {
+					String cliente = comboCliente.getSelectedItem().toString();
+					String loja = comboLojaEmitente.getSelectedItem().toString();
+					String produto = comboProduto.getSelectedItem().toString();
+					
+					CRUDVendas update = new CRUDVendas();
+					update.updateVenda(cliente, loja, produto, quantidade, preco, desconto, data, ConsultarVendas.vendaSelecionada);
+					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
+					btnCancelar.doClick();
+				}
 			}
 		});
 		btnSalvar.setVisible(false);

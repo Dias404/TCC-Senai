@@ -169,10 +169,10 @@ public class ConsultarProdutos {
 				
 				if(valorSelect == null) {
 					preencherTabela();
-				}else{
-					if(valorSelect.trim().equals("")){
+				} else {
+					if (valorSelect.trim().equals("")){
 						preencherTabela();
-					}else {
+					} else {
 						valorSelect = valorSelect.trim();
 						preencherTabelaWhere(variavelSelect, valorSelect);
 					}
@@ -249,8 +249,8 @@ public class ConsultarProdutos {
 	}
 }
 
-class ColorTableCellRenderer extends JPanel implements TableCellRenderer
-{
+class ColorTableCellRenderer extends JPanel implements TableCellRenderer {
+	
    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
          boolean hasFocus, int row, int column)
    {

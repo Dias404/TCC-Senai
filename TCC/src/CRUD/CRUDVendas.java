@@ -47,6 +47,22 @@ public class CRUDVendas {
 		}
 	}
 	
+	public ResultSet selectComWhere(String variavelSelect, String valorSelect) {
+		String sql = "SELECT * FROM vendas WHERE "+variavelSelect+" LIKE ? ORDER BY cliente";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, valorSelect+"%");
+			dados = stmt.executeQuery();
+			stmt.execute();
+			stmt.close();
+			return dados;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return dados = null;
+		}
+	}
+	
 	public ResultSet selectVendaEspecifica(int idVenda) {
 		String sql = "SELECT * FROM vendas WHERE id_venda=?";
 		try {
@@ -68,6 +84,28 @@ public class CRUDVendas {
 		try {
 			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			stmt.setInt(1, idVenda);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateVenda(String cliente, String loja, String produto, int quantidade, String preco, String desconto, String data, int idVenda) {
+		String sql = "UPDATE vendas SET cliente=?,loja_emitente=?,produto=?,quantidade=?,preco_total=?,desconto=?,data_venda=? WHERE id_venda=?";
+		try {
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			stmt.setString(1, cliente);
+			stmt.setString(2, loja);
+			stmt.setString(3, produto);
+			stmt.setInt(4, quantidade);
+			stmt.setString(5, preco);
+			stmt.setString(6, desconto);
+			stmt.setString(7, data);
+			stmt.setInt(8, idVenda);
 			stmt.execute();
 			stmt.close();
 			return true;

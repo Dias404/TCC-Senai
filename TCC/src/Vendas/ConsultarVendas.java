@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class ConsultarVendas {
 
@@ -31,6 +32,7 @@ public class ConsultarVendas {
 	private JTable tabela;
 
 	static int vendaSelecionada;
+	private JComboBox comboPesquisa;
 	
 	/**
 	 * Launch the application.
@@ -112,6 +114,22 @@ public class ConsultarVendas {
 		frmConsultaDeVendas.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("Pesquisar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String variavelSelect = null;
+				String valorSelect = null;
+				
+				if (comboPesquisa.getSelectedItem().toString().equals("")) {
+					
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("")) {
+									
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("")) {
+					
+				}
+			}
+		});
 		button_1.setForeground(Color.WHITE);
 		button_1.setFont(new Font("Impact", Font.PLAIN, 13));
 		button_1.setFocusable(false);
@@ -119,9 +137,10 @@ public class ConsultarVendas {
 		button_1.setBounds(424, 400, 98, 23);
 		frmConsultaDeVendas.getContentPane().add(button_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(310, 400, 104, 23);
-		frmConsultaDeVendas.getContentPane().add(comboBox);
+		comboPesquisa = new JComboBox();
+		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Loja", "Quantidade", "Desconto"}));
+		comboPesquisa.setBounds(310, 400, 104, 23);
+		frmConsultaDeVendas.getContentPane().add(comboPesquisa);
 		
 		JLabel label = new JLabel("Pesquisar por:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -140,7 +159,7 @@ public class ConsultarVendas {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), select.dados.getString("preco_total"), select.dados.getString("desconto"), select.dados.getString("data_venda")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
 			}
 			return true;
 		} catch (SQLException e) {
@@ -150,7 +169,20 @@ public class ConsultarVendas {
 		}
 	}
 	
-	/*private boolean preencherTabelaWhere() {
-		
-	}*/
+	private boolean preencherTabelaWhere(String variavelSelect, String valorSelect) {
+		CRUDVendas select = new CRUDVendas();
+		select.selectComWhere(variavelSelect, valorSelect);
+		try {
+			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+			modelo.setNumRows(0);
+			while (select.dados.next()) {
+				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
