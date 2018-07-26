@@ -25,6 +25,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import CRUD.CRUDVendas;
+import DAO.Vendas;
 import Telas.TelaPrincipal;
 
 import javax.swing.JButton;
@@ -232,8 +233,17 @@ public class CadastroDeVendas {
 					String loja = comboLojaEmitente.getSelectedItem().toString();
 					String produto = comboProduto.getSelectedItem().toString();
 					
+					Vendas venda = new Vendas();
+					venda.setCliente(cliente);
+					venda.setLoja(loja);
+					venda.setProduto(produto);
+					venda.setQuantidade(quantidade);
+					venda.setPreco(preco);
+					venda.setDesconto(desconto);
+					venda.setData(data);
+					
 					CRUDVendas insert = new CRUDVendas();
-					insert.insertVenda(cliente, loja, produto, quantidade, preco, desconto, data);
+					insert.insertVenda(venda);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					btnLimpar.doClick();
 				}

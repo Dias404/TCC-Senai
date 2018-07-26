@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import Clientes.ConsultarClientes;
+import DAO.Produtos;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -143,6 +144,7 @@ public class AtualizarProdutos {
 	
 	private ResultSet dadosSelecionados = null;
 	Date dataSelect = new Date();
+	private JTextField tfPreco;
 	
 	/**
 	 * Launch the application.
@@ -948,6 +950,17 @@ public class AtualizarProdutos {
 		ftfCodigo.setBounds(331, 74, 171, 20);
 		panel.add(ftfCodigo);
 		
+		tfPreco = new JTextField();
+		tfPreco.setColumns(10);
+		tfPreco.setBounds(331, 137, 171, 20);
+		panel.add(tfPreco);
+		
+		JLabel label_7 = new JLabel("Preço:");
+		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_7.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_7.setBounds(267, 138, 54, 14);
+		panel.add(label_7);
+		
 		btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1034,7 +1047,16 @@ public class AtualizarProdutos {
 				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				
-				update.updateProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada, ConsultarProdutos.produtoSelecionado);
+				Produtos produto = new Produtos();
+				produto.setFornecedor(fornecedor);
+				produto.setLojaEmitente(lojaEmitente);
+				produto.setDataDeEmissao(dataDeEmissao);
+				produto.setCodigo(codigo);
+				produto.setDescricao(descricao);
+				produto.setCorSelecionada(corSelecionada);
+				produto.setPreco(preco);
+				
+				update.updateProduto(produto, ConsultarProdutos.produtoSelecionado);
 				JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
 				btnCancelar.doClick();
 			}

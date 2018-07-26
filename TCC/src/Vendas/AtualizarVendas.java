@@ -9,6 +9,7 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import CRUD.CRUDVendas;
+import DAO.Vendas;
 import Produtos.ConsultarProdutos;
 
 import java.awt.Toolkit;
@@ -264,8 +265,17 @@ public class AtualizarVendas {
 					String loja = comboLojaEmitente.getSelectedItem().toString();
 					String produto = comboProduto.getSelectedItem().toString();
 					
+					Vendas venda = new Vendas();
+					venda.setCliente(cliente);
+					venda.setLoja(loja);
+					venda.setProduto(produto);
+					venda.setQuantidade(quantidade);
+					venda.setPreco(preco);
+					venda.setDesconto(desconto);
+					venda.setData(data);
+					
 					CRUDVendas update = new CRUDVendas();
-					update.updateVenda(cliente, loja, produto, quantidade, preco, desconto, data, ConsultarVendas.vendaSelecionada);
+					update.updateVenda(venda, ConsultarVendas.vendaSelecionada);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					btnCancelar.doClick();
 				}

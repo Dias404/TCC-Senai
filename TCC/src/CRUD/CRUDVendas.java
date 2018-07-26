@@ -5,23 +5,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Banco.Conexao;
+import DAO.Vendas;
 
 public class CRUDVendas {
 
 	Conexao con = new Conexao();
 	public ResultSet dados = null;
 	
-	public boolean insertVenda(String cliente, String loja, String produto, int quantidade, String preco, String desconto, String data) {
+	public boolean insertVenda(Vendas venda) {
 		String sql = "INSERT INTO vendas(cliente,loja_emitente,produto,quantidade,preco_total,desconto,data_venda) VALUES (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setString(1, cliente);
-			stmt.setString(2, loja);
-			stmt.setString(3, produto);
-			stmt.setInt(4, quantidade);
-			stmt.setString(5, preco);
-			stmt.setString(6, desconto);
-			stmt.setString(7, data);
+			stmt.setString(1, venda.getCliente());
+			stmt.setString(2, venda.getLoja());
+			stmt.setString(3, venda.getProduto());
+			stmt.setInt(4, venda.getQuantidade());
+			stmt.setString(5, venda.getPreco());
+			stmt.setString(6, venda.getDesconto());
+			stmt.setString(7, venda.getData());
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -94,17 +95,17 @@ public class CRUDVendas {
 		}
 	}
 	
-	public boolean updateVenda(String cliente, String loja, String produto, int quantidade, String preco, String desconto, String data, int idVenda) {
+	public boolean updateVenda(Vendas venda, int idVenda) {
 		String sql = "UPDATE vendas SET cliente=?,loja_emitente=?,produto=?,quantidade=?,preco_total=?,desconto=?,data_venda=? WHERE id_venda=?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setString(1, cliente);
-			stmt.setString(2, loja);
-			stmt.setString(3, produto);
-			stmt.setInt(4, quantidade);
-			stmt.setString(5, preco);
-			stmt.setString(6, desconto);
-			stmt.setString(7, data);
+			stmt.setString(1, venda.getCliente());
+			stmt.setString(2, venda.getLoja());
+			stmt.setString(3, venda.getProduto());
+			stmt.setInt(4, venda.getQuantidade());
+			stmt.setString(5, venda.getPreco());
+			stmt.setString(6, venda.getDesconto());
+			stmt.setString(7, venda.getData());
 			stmt.setInt(8, idVenda);
 			stmt.execute();
 			stmt.close();

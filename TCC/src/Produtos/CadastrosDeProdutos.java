@@ -19,6 +19,7 @@ import javax.swing.text.MaskFormatter;
 
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
+import DAO.Produtos;
 import Telas.TelaPrincipal;
 
 import javax.swing.JTextField;
@@ -952,18 +953,6 @@ public class CadastrosDeProdutos {
 		panel.add(lblPreo);
 		
 		tfPreco = new JTextField();
-		tfPreco.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if ((e.getKeyChar() == e.VK_0)|| (e.getKeyChar() == e.VK_1)|| (e.getKeyChar() == e.VK_2) 
-			            || (e.getKeyChar() == e.VK_3)|| (e.getKeyChar() == e.VK_4)|| (e.getKeyChar() == e.VK_5)|| (e.getKeyChar() == e.VK_6)|| (e.getKeyChar() == e.VK_7)
-			            || (e.getKeyChar() == e.VK_8)|| (e.getKeyChar() == e.VK_9)|| (e.getKeyChar() == e.VK_PERIOD)|| (e.getKeyChar() == e.VK_BACK_SPACE)) {
-					tfPreco.setEditable(true);
-				} else {
-					tfPreco.setEditable(false);
-				}
-			}
-		});
 		tfPreco.setColumns(10);
 		tfPreco.setBounds(331, 137, 171, 20);
 		panel.add(tfPreco);
@@ -995,8 +984,17 @@ public class CadastrosDeProdutos {
 				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()  || preco.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				} else {
+					Produtos produto = new Produtos();
+					produto.setFornecedor(fornecedor);
+					produto.setLojaEmitente(lojaEmitente);
+					produto.setDataDeEmissao(dataDeEmissao);
+					produto.setCodigo(codigo);
+					produto.setDescricao(descricao);
+					produto.setCorSelecionada(corSelecionada);
+					produto.setPreco(preco);
+					
 					CRUDProdutos insert = new CRUDProdutos();
-					insert.insertProduto(fornecedor, lojaEmitente, dataDeEmissao, codigo, descricao, corSelecionada, preco);
+					insert.insertProduto(produto);
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					btnLimpar.doClick();
 				}

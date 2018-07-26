@@ -5,23 +5,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Banco.Conexao;
+import DAO.Produtos;
 
 public class CRUDProdutos {
 
 	Conexao con = new Conexao();
 	public ResultSet dados = null;
 	
-	public boolean insertProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada, String preco) {
+	public boolean insertProduto(Produtos produto) {
 		String sql = "INSERT INTO produtos(fornecedor,loja_emitente,data_entrada,codigo,descricao,cor,preco) VALUES (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setString(1, fornecedor);
-			stmt.setString(2, lojaEmitente);
-			stmt.setString(3, dataDeEmissao);
-			stmt.setString(4, codigo);
-			stmt.setString(5, descricao);
-			stmt.setString(6, corSelecionada);
-			stmt.setString(7, preco);
+			stmt.setString(1, produto.getFornecedor());
+			stmt.setString(2, produto.getLojaEmitente());
+			stmt.setString(3, produto.getDataDeEmissao());
+			stmt.setString(4, produto.getCodigo());
+			stmt.setString(5, produto.getDescricao());
+			stmt.setString(6, produto.getCorSelecionada());
+			stmt.setString(7, produto.getPreco());
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -94,16 +95,16 @@ public class CRUDProdutos {
 		}
 	}
 	
-	public boolean updateProduto(String fornecedor, String lojaEmitente, String dataDeEmissao, String codigo, String descricao, String corSelecionada, int idProduto) {
+	public boolean updateProduto(Produtos produto, int idProduto) {
 		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=? WHERE id_produto=?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setString(1, fornecedor);
-			stmt.setString(2, lojaEmitente);
-			stmt.setString(3, dataDeEmissao);
-			stmt.setString(4, codigo);
-			stmt.setString(5, descricao);
-			stmt.setString(6, corSelecionada);
+			stmt.setString(1, produto.getFornecedor());
+			stmt.setString(2, produto.getLojaEmitente());
+			stmt.setString(3, produto.getDataDeEmissao());
+			stmt.setString(4, produto.getCodigo());
+			stmt.setString(5, produto.getDescricao());
+			stmt.setString(6, produto.getCorSelecionada());
 			stmt.setInt(7, idProduto);
 			stmt.execute();
 			stmt.close();
@@ -114,11 +115,4 @@ public class CRUDProdutos {
 			return false;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 }
