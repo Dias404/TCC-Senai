@@ -119,14 +119,36 @@ public class ConsultarVendas {
 				String variavelSelect = null;
 				String valorSelect = null;
 				
-				if (comboPesquisa.getSelectedItem().toString().equals("")) {
-					
+				if (comboPesquisa.getSelectedItem().toString().equals("Cliente")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o nome do cliente que deseja procurar:");
+					variavelSelect = "cliente";
 				}
-				if (comboPesquisa.getSelectedItem().toString().equals("")) {
-									
+				if (comboPesquisa.getSelectedItem().toString().equals("Loja")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com a loja que deseja procurar:");
+					variavelSelect = "loja_emitente";
 				}
-				if (comboPesquisa.getSelectedItem().toString().equals("")) {
-					
+				if (comboPesquisa.getSelectedItem().toString().equals("Produto")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o produto que deseja procurar:");
+					variavelSelect = "produto";
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Quantidade")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com a quantidade de produtos que deseja procurar:");
+					variavelSelect = "quantidade";
+				}
+				if (comboPesquisa.getSelectedItem().toString().equals("Desconto")) {
+					valorSelect = JOptionPane.showInputDialog("Entre com o desconto que deseja procurar:");
+					variavelSelect = "desconto";
+				}
+				
+				if(valorSelect == null) {
+					preencherTabela();
+				} else {
+					if (valorSelect.trim().equals("")){
+						preencherTabela();
+					} else {
+						valorSelect = valorSelect.trim();
+						preencherTabelaWhere(variavelSelect, valorSelect);
+					}
 				}
 			}
 		});
@@ -138,7 +160,7 @@ public class ConsultarVendas {
 		frmConsultaDeVendas.getContentPane().add(button_1);
 		
 		comboPesquisa = new JComboBox();
-		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Loja", "Quantidade", "Desconto"}));
+		comboPesquisa.setModel(new DefaultComboBoxModel(new String[] {"Cliente", "Loja", "Produto", "Quantidade", "Desconto"}));
 		comboPesquisa.setBounds(310, 400, 104, 23);
 		frmConsultaDeVendas.getContentPane().add(comboPesquisa);
 		

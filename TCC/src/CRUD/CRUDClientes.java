@@ -54,7 +54,7 @@ public class CRUDClientes {
 	public ResultSet selectClientes() {
 		String sql = "SELECT * FROM clientes ORDER BY nome_razao";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

@@ -35,7 +35,7 @@ public class CRUDVendas {
 	public boolean selectVenda() {
 		String sql = "SELECT * FROM vendas";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
@@ -50,7 +50,7 @@ public class CRUDVendas {
 	public ResultSet selectComWhere(String variavelSelect, String valorSelect) {
 		String sql = "SELECT * FROM vendas WHERE "+variavelSelect+" LIKE ? ORDER BY cliente";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, valorSelect+"%");
 			dados = stmt.executeQuery();
 			stmt.execute();
@@ -66,7 +66,7 @@ public class CRUDVendas {
 	public ResultSet selectVendaEspecifica(int idVenda) {
 		String sql = "SELECT * FROM vendas WHERE id_venda=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idVenda);
 			dados = stmt.executeQuery();
 			stmt.execute();
@@ -82,7 +82,7 @@ public class CRUDVendas {
 	public boolean deleteVenda(int idVenda) {
 		String sql = "DELETE FROM vendas WHERE id_venda=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setInt(1, idVenda);
 			stmt.execute();
 			stmt.close();
@@ -97,7 +97,7 @@ public class CRUDVendas {
 	public boolean updateVenda(String cliente, String loja, String produto, int quantidade, String preco, String desconto, String data, int idVenda) {
 		String sql = "UPDATE vendas SET cliente=?,loja_emitente=?,produto=?,quantidade=?,preco_total=?,desconto=?,data_venda=? WHERE id_venda=?";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, cliente);
 			stmt.setString(2, loja);
 			stmt.setString(3, produto);
