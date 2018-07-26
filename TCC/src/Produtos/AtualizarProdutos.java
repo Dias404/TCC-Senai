@@ -1041,11 +1041,12 @@ public class AtualizarProdutos {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CRUDProdutos update = new CRUDProdutos();
-				String fornecedor = tfFornecedor.getText().toString();
+				String fornecedor = tfFornecedor.getText().trim().toString();
 				String lojaEmitente = comboLojaEmitente.getSelectedItem().toString();
 				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
 				String codigo = ftfCodigo.getText().toString();
-				String descricao = tfDescricao.getText().toString();
+				String descricao = tfDescricao.getText().trim().toString();
+				String preco = tfPreco.getText().trim().toString();
 				
 				Produtos produto = new Produtos();
 				produto.setFornecedor(fornecedor);
@@ -1131,6 +1132,7 @@ public class AtualizarProdutos {
 				ftfCodigo.setText(select.dados.getString("codigo").toString());
 				tfDescricao.setText(select.dados.getString("descricao").toString());
 				pnCor.setBackground(Color.decode(select.dados.getString("cor").toString()));
+				tfPreco.setText(select.dados.getString("preco"));
 			}
 			return true;
 		} catch (SQLException e) {
