@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="Drivers/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="Img/login.jar"/>
 	<classpathentry kind="lib" path="Img/botoes.jar"/>
+	<classpathentry kind="lib" path="Img/botoesV2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

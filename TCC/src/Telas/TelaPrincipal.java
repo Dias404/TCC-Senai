@@ -183,7 +183,7 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(lblNivel);
 			
 		btnConferencia = new JButton("");
-		btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/conferencia.png")));
+		btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/conferencia.jpg")));
 		btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConferencia.setFocusable(false);
 		btnConferencia.setBackground(Color.decode("#0049aa"));
@@ -191,7 +191,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnConferencia);
 			
 		btnContas = new JButton("");
-		btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/contasAPagar.png")));
+		btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/contasAPagar.jpg")));
 		btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnContas.setFocusable(false);
 		btnContas.setBackground(Color.decode("#0049aa"));
@@ -199,7 +199,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnContas);
 			
 		btnCorrecaoProduto = new JButton("");
-		btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
+		btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/correcao.png")));
 		btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCorrecaoProduto.setFocusable(false);
 		btnCorrecaoProduto.setBackground(Color.decode("#0049aa"));
@@ -342,7 +342,7 @@ public class TelaPrincipal {
 				frmPrincipal.setVisible(false);
 			}
 		});
-		btnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/clientes.png")));
+		btnClientes.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/clientes.jpg")));
 		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnClientes.setFocusable(false);
 		btnClientes.setBackground(Color.decode("#0049aa"));
@@ -350,7 +350,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnClientes);
 		
 		btnTroca = new JButton("");
-		btnTroca.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/troca.png")));
+		btnTroca.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/troca.jpg")));
 		btnTroca.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTroca.setFocusable(false);
 		btnTroca.addActionListener(new ActionListener() {
@@ -362,7 +362,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnTroca);
 		
 		btnBaixaDemonstracao = new JButton("");
-		btnBaixaDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/baixaDemonstracao.png")));
+		btnBaixaDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/baixaDemonstracao.jpg")));
 		btnBaixaDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBaixaDemonstracao.setFocusable(false);
 		btnBaixaDemonstracao.addActionListener(new ActionListener() {
@@ -374,7 +374,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnBaixaDemonstracao);
 		
 		btnDemonstracao = new JButton("");
-		btnDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/demonstracao.png")));
+		btnDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/demonstracao.jpg")));
 		btnDemonstracao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -392,7 +392,7 @@ public class TelaPrincipal {
 				frmPrincipal.setVisible(false);
 			}
 		});
-		btnVenda.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/vendas.png")));
+		btnVenda.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/vendas.jpg")));
 		btnVenda.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVenda.setFocusable(false);
 		btnVenda.setBackground(Color.decode("#0049aa"));
@@ -400,7 +400,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnVenda);
 		
 		btnRecebimento = new JButton("");
-		btnRecebimento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/recebimento.png")));
+		btnRecebimento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/recebimento.jpg")));
 		btnRecebimento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRecebimento.setFocusable(false);
 		btnRecebimento.setBackground(Color.decode("#0049aa"));
@@ -408,7 +408,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnRecebimento);
 		
 		btnCorrecaoParcela = new JButton("");
-		btnCorrecaoParcela.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/correcao.png")));
+		btnCorrecaoParcela.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/correcao.png")));
 		btnCorrecaoParcela.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCorrecaoParcela.setFocusable(false);
 		btnCorrecaoParcela.setBackground(Color.decode("#0049aa"));
@@ -422,7 +422,7 @@ public class TelaPrincipal {
 				frmPrincipal.setVisible(false);
 			}
 		});
-		btnLancamento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/lancamento.png")));
+		btnLancamento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/lancamento.jpg")));
 		btnLancamento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLancamento.setFocusable(false);
 		btnLancamento.setBackground(Color.decode("#0049aa"));
@@ -430,7 +430,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnLancamento);
 		
 		btnConsulta = new JButton("");
-		btnConsulta.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/consulta.png")));
+		btnConsulta.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/consulta.jpg")));
 		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConsulta.setFocusable(false);
 		btnConsulta.setBackground(Color.decode("#0049aa"));
@@ -444,7 +444,7 @@ public class TelaPrincipal {
 				frmPrincipal.setVisible(false);
 			}
 		});
-		btnEntrada.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/entrada.png")));
+		btnEntrada.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/entrada.jpg")));
 		btnEntrada.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEntrada.setFocusable(false);
 		btnEntrada.setBackground(Color.decode("#0049aa"));
@@ -452,7 +452,7 @@ public class TelaPrincipal {
 		pnEstoque.add(btnEntrada);
 		
 		btnTransferencia = new JButton("");
-		btnTransferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/transferencia.png")));
+		btnTransferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/transferencia.jpg")));
 		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTransferencia.setFocusable(false);
 		btnTransferencia.setBackground(Color.decode("#0049aa"));
