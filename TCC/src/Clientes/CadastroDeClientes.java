@@ -668,24 +668,24 @@ public class CadastroDeClientes {
 		comboCidadeF = new JComboBox();
 		comboCidadeF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				System.out.println("Entrei");
-				/*try {
-					if(backupCidade.next()) {
+				//System.out.println("Entrei");
+				try {
+					if(backupCidade.first()) {
 						backupCidade.first();
 
 						backupCidade.absolute(comboCidadeF.getSelectedIndex()+1);
 						idCidade = backupCidade.getInt("id_cidade");
-						System.out.println(idCidade);
+						//System.out.println(idCidade);
 						//preencherComboBairros();
 					}else {
-						System.out.println("999");
+						//System.out.println("999");
 						return;
 					}
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 			}
 		});
 		comboCidadeF.setBounds(310, 74, 163, 20);
@@ -943,8 +943,8 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(lblBG);
 		
 		preencherComboUF();
-		//comboUFF.setSelectedItem("São Paulo");
-		//comboUFJ.setSelectedItem("São Paulo");
+		comboUFF.setSelectedItem("São Paulo");
+		comboUFJ.setSelectedItem("São Paulo");
 	}
 	
 	private boolean preencherComboUF() {

@@ -103,10 +103,6 @@ public class TelaPrincipal {
 		frmPrincipal = new JFrame();
 		frmPrincipal.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent arg0) {
-				
-			}
-			@Override
 			public void windowClosing(WindowEvent arg0) {
 				int escolha = JOptionPane.showConfirmDialog(frmPrincipal,
 						"Você deseja desconectar desta conta?", "Aviso", 
@@ -124,21 +120,25 @@ public class TelaPrincipal {
 		});
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
 		frmPrincipal.setTitle("SIG - Menu Principal");
-		frmPrincipal.setBounds(100, 100, 492, 397);
+		frmPrincipal.setBounds(100, 100, 687, 446);
 		frmPrincipal.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setLocationRelativeTo(null);
 		frmPrincipal.getContentPane().setLayout(null);
 		
+		ImageIcon logo = new ImageIcon(CadastrarUsuario.class.getResource("/Img/logoHD.png"));
+		Image logo2 = logo.getImage().getScaledInstance(170, 170, Image.SCALE_DEFAULT);
+		logo = new ImageIcon(logo2);
+		
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogo.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/SIG 129.png")));
-		lblLogo.setBounds(10, 40, 172, 129);
+		lblLogo.setIcon(logo);
+		lblLogo.setBounds(10, 11, 199, 176);
 		frmPrincipal.getContentPane().add(lblLogo);
 		
 		JPanel pnCliente = new JPanel();
 		pnCliente.setOpaque(false);
-		pnCliente.setBounds(152, 203, 324, 155);
+		pnCliente.setBounds(176, 245, 433, 160);
 		frmPrincipal.getContentPane().add(pnCliente);
 		pnCliente.setLayout(null);
 		
@@ -146,40 +146,43 @@ public class TelaPrincipal {
 		pnCaixa.setVisible(false);
 		pnCaixa.setOpaque(false);
 		pnCaixa.setLayout(null);
-		pnCaixa.setBounds(152, 203, 324, 148);
+		pnCaixa.setBounds(176, 245, 433, 160);
 		frmPrincipal.getContentPane().add(pnCaixa);
 		
 		JPanel pnEstoque = new JPanel();
 		pnEstoque.setVisible(false);
 		pnEstoque.setOpaque(false);
-		pnEstoque.setBounds(152, 203, 324, 148);
+		pnEstoque.setBounds(176, 245, 433, 160);
 		frmPrincipal.getContentPane().add(pnEstoque);
 		pnEstoque.setLayout(null);
 		
-		lblOpcoeslAdmin = new JLabel("<html>Opções do<br/>Administrador</html>");
-		lblOpcoeslAdmin.setBounds(325, 11, 113, 34);
+		lblOpcoeslAdmin = new JLabel("<html>&nbsp;&nbsp;&nbsp;Opções do<br/>Administrador</html>");
+		lblOpcoeslAdmin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOpcoeslAdmin.setBounds(409, 11, 200, 34);
 		frmPrincipal.getContentPane().add(lblOpcoeslAdmin);
-		lblOpcoeslAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblOpcoeslAdmin.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblOpcoeslAdmin.setBorder(null);
 			
 		lblNewLabel = new JLabel("Usu\u00E1rio:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel.setBounds(192, 56, 57, 14);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setBounds(219, 11, 60, 20);
 		frmPrincipal.getContentPane().add(lblNewLabel);
 			
-		lblUsuario = new JLabel(usuario);
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblUsuario.setBounds(192, 79, 105, 14);
+		lblUsuario = new JLabel("");
+		lblUsuario.setForeground(Color.decode("#0049aa"));
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUsuario.setBounds(237, 40, 224, 10);
 		frmPrincipal.getContentPane().add(lblUsuario);
 			
 		lblNewLabel_1 = new JLabel("N\u00EDvel:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(192, 104, 57, 14);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(219, 61, 60, 25);
 		frmPrincipal.getContentPane().add(lblNewLabel_1);
 			
-		lblNivel = new JLabel(nivel);
-		lblNivel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNivel.setBounds(192, 127, 105, 14);
+		lblNivel = new JLabel("");
+		lblNivel.setForeground(Color.decode("#0049aa"));
+		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNivel.setBounds(237, 90, 224, 10);
 		frmPrincipal.getContentPane().add(lblNivel);
 			
 		btnConferencia = new JButton("");
@@ -226,7 +229,7 @@ public class TelaPrincipal {
 				frmPrincipal.setEnabled(false);
 			}
 		});
-		btnCadastrarUsuario.setBounds(325, 56, 151, 23);
+		btnCadastrarUsuario.setBounds(409, 56, 200, 25);
 		frmPrincipal.getContentPane().add(btnCadastrarUsuario);
 		btnCadastrarUsuario.setForeground(Color.WHITE);
 		btnCadastrarUsuario.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -234,7 +237,7 @@ public class TelaPrincipal {
 		btnCadastrarUsuario.setFocusable(false);
 		
 		btnCadastrarLoja = new JButton("Cadastrar Loja");
-		btnCadastrarLoja.setBounds(325, 90, 151, 23);
+		btnCadastrarLoja.setBounds(409, 90, 200, 25);
 		frmPrincipal.getContentPane().add(btnCadastrarLoja);
 		btnCadastrarLoja.setForeground(Color.WHITE);
 		btnCadastrarLoja.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -248,7 +251,7 @@ public class TelaPrincipal {
 		btnCadastrarLoja.setFocusable(false);
 		
 		btnMandarEmail = new JButton("Mandar Email");
-		btnMandarEmail.setBounds(325, 121, 151, 23);
+		btnMandarEmail.setBounds(409, 126, 200, 25);
 		frmPrincipal.getContentPane().add(btnMandarEmail);
 		btnMandarEmail.setForeground(Color.WHITE);
 		btnMandarEmail.setFont(new Font("Impact", Font.PLAIN, 13));
@@ -272,15 +275,15 @@ public class TelaPrincipal {
 		btnAlterarDados.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnAlterarDados.setFocusable(false);
 		btnAlterarDados.setBackground(Color.decode("#0049aa"));
-		btnAlterarDados.setBounds(325, 155, 151, 23);
+		btnAlterarDados.setBounds(409, 162, 200, 25);
 		frmPrincipal.getContentPane().add(btnAlterarDados);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.DARK_GRAY);
 		separator.setBackground(Color.LIGHT_GRAY);
-		separator.setBounds(20, 189, 466, 2);
+		separator.setBounds(10, 232, 661, 2);
 		frmPrincipal.getContentPane().add(separator);
-		btnCliente.setBounds(10, 214, 89, 23);
+		btnCliente.setBounds(10, 245, 156, 25);
 		frmPrincipal.getContentPane().add(btnCliente);
 		
 		JButton btnCaixa = new JButton("Caixa");
@@ -295,7 +298,7 @@ public class TelaPrincipal {
 		});
 		btnCaixa.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnCaixa.setFocusable(false);
-		btnCaixa.setBounds(10, 248, 89, 23);
+		btnCaixa.setBounds(10, 281, 156, 25);
 		frmPrincipal.getContentPane().add(btnCaixa);
 		
 		JButton btnEstoque = new JButton("Estoque");
@@ -310,7 +313,7 @@ public class TelaPrincipal {
 		});
 		btnEstoque.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnEstoque.setFocusable(false);
-		btnEstoque.setBounds(10, 282, 89, 23);
+		btnEstoque.setBounds(10, 317, 156, 25);
 		frmPrincipal.getContentPane().add(btnEstoque);
 		
 		JButton btnSair = new JButton("Sair");
@@ -332,7 +335,7 @@ public class TelaPrincipal {
 		btnSair.setBackground(Color.decode("#0049aa"));
 		btnSair.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSair.setFocusable(false);
-		btnSair.setBounds(10, 316, 89, 23);
+		btnSair.setBounds(10, 380, 156, 25);
 		frmPrincipal.getContentPane().add(btnSair);
 		
 		btnClientes = new JButton("");
@@ -460,12 +463,13 @@ public class TelaPrincipal {
 		pnEstoque.add(btnTransferencia);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(486, 369, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(681, 418, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
-		JLabel lblBG = new JLabel("");
+		JLabel lblBG = new JLabel("asdfasdf");
+		lblBG.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 486, 369);
+		lblBG.setBounds(0, 0, 681, 418);
 		frmPrincipal.getContentPane().add(lblBG);
 		
 		verificarNivelUsuario();
