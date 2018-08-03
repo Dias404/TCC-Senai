@@ -948,7 +948,7 @@ public class CadastroDeClientes {
 		}
 	}
 	
-	private boolean preencherComboCidade() {
+	public boolean preencherComboCidade() {
 		if (rbFisica.isSelected()) {
 			idUF = comboUFF.getSelectedIndex()+1;
 		} else {

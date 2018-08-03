@@ -223,8 +223,9 @@ public class CadastrarBairros {
 							if(janela.equals("Cadastro de Cliente")) {
 								if(CadastroDeClientes.UF != null) {
 									try {
+										CadastroDeClientes preencher = new CadastroDeClientes();
 										CadastroDeClientes.UF.absolute(CadastroDeClientes.comboUFF.getSelectedIndex());
-										CadastroDeClientes.preencherCidade(CadastroDeClientes.UF.getInt("id_estado")+1);
+										preencher.preencherComboCidade();
 									} catch (SQLException e2) {
 										e2.printStackTrace();
 									}
@@ -235,6 +236,7 @@ public class CadastrarBairros {
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
+					
 					/*int idEstado = cbEstado.getSelectedIndex()+1;
 					String nomeCidade = cbCidade.getSelectedItem().toString();
 					String nomeBairro = tfNome.getText().toString();
