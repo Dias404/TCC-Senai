@@ -136,11 +136,13 @@ public class CadastroDeClientes {
 	private MaskFormatter mascaraCNPJ;
 	private MaskFormatter mascaraRG;
 	private MaskFormatter mascaraIE;
+	private JButton btnCalendario;
+	private JPanel pnCalendario;
 	
 	static String x;
 	static String janela;
-	private JButton btnCalendario;
-	private JPanel pnCalendario;
+	private static int idUF;
+	private static ResultSet backupCidade = null;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -198,21 +200,6 @@ public class CadastroDeClientes {
 		
 		rbFisica = new JRadioButton("Física");
 		rbFisica.setBackground(new Color(119, 136, 153));
-		rbFisica.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				pnFisica.setVisible(true);
-				pnJuridica.setVisible(false);
-				comboCidadeF.setEnabled(true);
-				if(UF != null) {
-					try {
-						UF.absolute(comboUFF.getSelectedIndex());
-						preencherCidade(UF.getInt("id_estado")+1);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
 		rbFisica.setOpaque(false);
 		rbFisica.setFocusable(false);
 		rbFisica.setSelected(true);
@@ -226,15 +213,6 @@ public class CadastroDeClientes {
 			public void actionPerformed(ActionEvent arg0) {
 				pnJuridica.setVisible(true);
 				pnFisica.setVisible(false);
-				comboCidadeJ.setEnabled(true);
-				if(UF != null) {
-					try {
-						UF.absolute(comboUFJ.getSelectedIndex());
-						preencherCidade(UF.getInt("id_estado")+1);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
 			}
 		});
 		rbJuridica.setOpaque(false);
@@ -640,15 +618,7 @@ public class CadastroDeClientes {
 		comboUFF = new JComboBox();
 		comboUFF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				comboCidadeF.setEnabled(true);
-				if(UF != null) {
-					try {
-						UF.absolute(comboUFF.getSelectedIndex());
-						preencherCidade(UF.getInt("id_estado")+1);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
+				preencherComboCidade();
 			}
 		});
 		comboUFF.setBounds(58, 74, 163, 20);
@@ -695,7 +665,6 @@ public class CadastroDeClientes {
 		pnFisica.add(btnAdicionarRuaF);
 		
 		comboCidadeF = new JComboBox();
-		comboCidadeF.setEnabled(false);
 		comboCidadeF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 			
@@ -844,15 +813,7 @@ public class CadastroDeClientes {
 		comboUFJ = new JComboBox();
 		comboUFJ.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				comboCidadeJ.setEnabled(true);
-				if(UF != null) {
-					try {
-						UF.absolute(comboUFJ.getSelectedIndex());
-						preencherCidade(UF.getInt("id_estado")+1);
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				}
+				preencherComboCidade();
 			}
 		});
 		comboUFJ.setBounds(58, 74, 163, 20);
@@ -964,7 +925,7 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(lblBG);
 		
 		preencherComboUF();
-		//preencherComboCidade();
+		preencherComboCidade();
 		comboUFF.setSelectedItem("São Paulo");
 		comboUFJ.setSelectedItem("São Paulo");
 	}
@@ -986,23 +947,32 @@ public class CadastroDeClientes {
 			return false;
 		}
 	}
-	public static void preencherCidade(int UF) {
-		ResultSet dadosUF;
-		String sql = "SELECT * FROM cidades WHERE id_estado = ?";
+	
+	private boolean preencherComboCidade() {
+		if (rbFisica.isSelected()) {
+			idUF = comboUFF.getSelectedIndex()+1;
+		} else {
+			idUF = comboUFJ.getSelectedIndex()+1;
+		}
+		
+		CRUDLugar select = new CRUDLugar();
+		select.selectCidadeCondicao2(idUF);
+		comboCidadeF.removeAllItems();
+		comboCidadeJ.removeAllItems();
+		backupCidade = select.dadosSelect;
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
-			stmt.setInt(1, UF);
-			dadosUF = stmt.executeQuery();
-			stmt.execute();
-			stmt.close();
-			comboCidadeF.removeAllItems();
-			comboCidadeJ.removeAllItems();
-			while(dadosUF.next()) {
-				comboCidadeF.addItem(dadosUF.getString("nome_cidade"));
-				comboCidadeJ.addItem(dadosUF.getString("nome_cidade"));
+			while (select.dadosSelect.next()) {
+				if (rbFisica.isSelected()) {
+					comboCidadeF.addItem(select.dadosSelect.getString("nome_cidade"));
+				} else {
+					comboCidadeJ.addItem(select.dadosSelect.getString("nome_cidade"));
+				}
 			}
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

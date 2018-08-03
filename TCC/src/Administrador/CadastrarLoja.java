@@ -205,7 +205,7 @@ public class CadastrarLoja {
 		comboCidade = new JComboBox();
 		comboCidade.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				preencherComboBairro();
+				//preencherComboBairro();
 			}
 		});
 		comboCidade.setBounds(310, 42, 163, 19);

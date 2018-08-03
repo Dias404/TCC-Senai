@@ -26,7 +26,7 @@ public class CRUDLugar {
 	public ResultSet selectEstados() {
 		String sql = "SELECT * FROM estados";
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
