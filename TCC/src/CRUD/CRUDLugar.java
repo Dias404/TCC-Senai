@@ -161,10 +161,11 @@ public class CRUDLugar {
 		}
 	}
 	
-	public ResultSet selectBairro() {
-		String sql = "SELECT * FROM bairros";
+	public ResultSet selectBairro(int id_cidade) {
+		String sql = "SELECT * FROM bairros WHERE id_cidade = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			stmt.setInt(1, id_cidade);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

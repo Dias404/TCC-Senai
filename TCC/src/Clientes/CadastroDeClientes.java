@@ -143,6 +143,7 @@ public class CadastroDeClientes {
 	static String janela;
 	private static int idUF;
 	private static ResultSet backupCidade = null;
+	private static int idCidade;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -667,7 +668,24 @@ public class CadastroDeClientes {
 		comboCidadeF = new JComboBox();
 		comboCidadeF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-			
+				System.out.println("Entrei");
+				/*try {
+					if(backupCidade.next()) {
+						backupCidade.first();
+
+						backupCidade.absolute(comboCidadeF.getSelectedIndex()+1);
+						idCidade = backupCidade.getInt("id_cidade");
+						System.out.println(idCidade);
+						//preencherComboBairros();
+					}else {
+						System.out.println("999");
+						return;
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
 			}
 		});
 		comboCidadeF.setBounds(310, 74, 163, 20);
@@ -813,7 +831,7 @@ public class CadastroDeClientes {
 		comboUFJ = new JComboBox();
 		comboUFJ.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				preencherComboCidade();
+				//preencherComboCidade();
 			}
 		});
 		comboUFJ.setBounds(58, 74, 163, 20);
@@ -925,14 +943,31 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(lblBG);
 		
 		preencherComboUF();
-		preencherComboCidade();
-		comboUFF.setSelectedItem("São Paulo");
-		comboUFJ.setSelectedItem("São Paulo");
+		//comboUFF.setSelectedItem("São Paulo");
+		//comboUFJ.setSelectedItem("São Paulo");
 	}
 	
 	private boolean preencherComboUF() {
 		CRUDLugar selecionar = new CRUDLugar();
 		selecionar.selectEstados();
+		comboUFF.removeAllItems();
+		comboUFJ.removeAllItems();
+		try {
+			while (selecionar.dados.next()) {
+				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
+				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
+			}
+			UF = selecionar.dadosSelect;
+			return true;	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboBairros() {
+		CRUDLugar selecionar = new CRUDLugar();
+		selecionar.selectBairro(idCidade);
 		comboUFF.removeAllItems();
 		comboUFJ.removeAllItems();
 		try {
