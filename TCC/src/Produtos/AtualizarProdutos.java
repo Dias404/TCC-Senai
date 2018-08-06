@@ -951,6 +951,7 @@ public class AtualizarProdutos {
 		panel.add(ftfCodigo);
 		
 		tfPreco = new JTextField();
+		tfPreco.setEnabled(false);
 		tfPreco.setColumns(10);
 		tfPreco.setBounds(331, 137, 171, 20);
 		panel.add(tfPreco);
@@ -979,6 +980,7 @@ public class AtualizarProdutos {
 					tfDescricao.setEnabled(true);
 					pnCor.setEnabled(true);
 					btnSelecionarCor.setEnabled(true);
+					tfPreco.setEnabled(true);
 				}
 			}
 		});
@@ -1027,6 +1029,7 @@ public class AtualizarProdutos {
 				tfDescricao.setEnabled(false);
 				pnCor.setEnabled(false);
 				btnSelecionarCor.setEnabled(false);
+				tfPreco.setEnabled(false);
 			}
 		});
 		btnCancelar.setVisible(false);

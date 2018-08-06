@@ -96,7 +96,7 @@ public class CRUDProdutos {
 	}
 	
 	public boolean updateProduto(Produtos produto, int idProduto) {
-		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=? WHERE id_produto=?";
+		String sql = "UPDATE produtos SET fornecedor=?,loja_emitente=?,data_entrada=?,codigo=?,descricao=?,cor=?,preco=? WHERE id_produto=?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			stmt.setString(1, produto.getFornecedor());
@@ -105,7 +105,8 @@ public class CRUDProdutos {
 			stmt.setString(4, produto.getCodigo());
 			stmt.setString(5, produto.getDescricao());
 			stmt.setString(6, produto.getCorSelecionada());
-			stmt.setInt(7, idProduto);
+			stmt.setString(7, produto.getPreco());
+			stmt.setInt(8, idProduto);
 			stmt.execute();
 			stmt.close();
 			return true;

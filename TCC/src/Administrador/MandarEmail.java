@@ -107,6 +107,7 @@ public class MandarEmail {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TelaPrincipal.frmPrincipal.setVisible(true);
 				frmMandarEmail.dispose();
 			}
 		});

@@ -116,12 +116,6 @@ public class ConsultarProdutos {
 				return columnTypes[columnIndex];
 			}
 		});
-		tabela.getColumnModel().getColumn(0).setResizable(false);
-		tabela.getColumnModel().getColumn(1).setResizable(false);
-		tabela.getColumnModel().getColumn(2).setResizable(false);
-		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(4).setResizable(false);
-		tabela.getColumnModel().getColumn(5).setResizable(false);
 		tabela.getColumnModel().getColumn(6).setResizable(false);
 
 		scrollPane.setViewportView(tabela);
@@ -217,7 +211,7 @@ public class ConsultarProdutos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"),	Color.decode(select.dados.getString("cor"))});
+				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"),	Color.decode(select.dados.getString("cor")), "R$ "+select.dados.getString("preco")});
 			}
 			tabela.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
 			return true;

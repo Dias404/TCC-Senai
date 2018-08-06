@@ -226,7 +226,7 @@ public class TelaPrincipal {
 		btnCadastrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CadastrarUsuario.main(null);
-				frmPrincipal.setEnabled(false);
+				frmPrincipal.setVisible(false);
 			}
 		});
 		btnCadastrarUsuario.setBounds(409, 56, 200, 25);
@@ -244,7 +244,7 @@ public class TelaPrincipal {
 		btnCadastrarLoja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastrarLoja.main(null);
-				frmPrincipal.setEnabled(false);
+				frmPrincipal.setVisible(false);
 			}
 		});
 		btnCadastrarLoja.setBackground(Color.decode("#0049aa"));
@@ -258,7 +258,7 @@ public class TelaPrincipal {
 		btnMandarEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MandarEmail.main(null);
-				frmPrincipal.setEnabled(false);
+				frmPrincipal.setVisible(false);
 			}
 		});
 		btnMandarEmail.setFocusable(false);
@@ -268,7 +268,7 @@ public class TelaPrincipal {
 		btnAlterarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AlterarDados.main(null);
-				frmPrincipal.setEnabled(false);
+				frmPrincipal.setVisible(false);
 			}
 		});
 		btnAlterarDados.setForeground(Color.WHITE);

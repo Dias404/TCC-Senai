@@ -159,8 +159,6 @@ public class CadastrarUsuario {
 		tfCel.setBounds(84, 164, 254, 20);
 		pnlInfo.add(tfCel);
 		
-		ButtonGroup btnG = new ButtonGroup();
-		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -168,12 +166,11 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblNivel);
 		
 		rbAutorizado = new JRadioButton("Autorizado");
-		rbAutorizado.setSelected(true);
 		rbAutorizado.setOpaque(false);
 		rbAutorizado.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbAutorizado.setFocusable(false);
 		rbAutorizado.setBackground(new Color(119, 136, 153));
-		rbAutorizado.setBounds(84, 197, 83, 14);
+		rbAutorizado.setBounds(150, 197, 83, 14);
 		pnlInfo.add(rbAutorizado);
 		
 		rbBasico = new JRadioButton("Básico");
@@ -182,12 +179,13 @@ public class CadastrarUsuario {
 		rbBasico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbBasico.setFocusable(false);
 		rbBasico.setBackground(new Color(119, 136, 153));
-		rbBasico.setBounds(169, 197, 64, 14);
+		rbBasico.setBounds(84, 197, 64, 14);
 		pnlInfo.add(rbBasico);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				TelaPrincipal.frmPrincipal.setVisible(true);
 				frmCadastroUsu.dispose();
 			}
 		});
@@ -257,5 +255,9 @@ public class CadastrarUsuario {
 		lblBG.setIcon(BG);
 		lblBG.setBounds(0, 0, 368, 301);
 		frmCadastroUsu.getContentPane().add(lblBG);
+		
+		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(rbAutorizado);
+		grupo.add(rbBasico);
 	}
 }

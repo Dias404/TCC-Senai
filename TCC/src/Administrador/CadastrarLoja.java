@@ -314,6 +314,7 @@ public class CadastrarLoja {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TelaPrincipal.frmPrincipal.setVisible(true);
 				frmCadastrarLoja.dispose();
 			}
 		});
@@ -451,7 +452,7 @@ public class CadastrarLoja {
 	}
 	
 	private static boolean preencherComboRua() {
-		ResultSet selecionar = new CRUDLugar().selectRua();
+		ResultSet selecionar = new CRUDLugar().selectRua(idCidade);
 		try {
 			comboRua.removeAllItems();
 			if(selecionar.first()) {
