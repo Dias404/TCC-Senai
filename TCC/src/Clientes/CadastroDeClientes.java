@@ -143,7 +143,11 @@ public class CadastroDeClientes {
 	static String janela;
 	private static int idUF;
 	private static ResultSet backupCidade = null;
+	private static ResultSet backupBairro = null;
+	private static ResultSet backupRua = null;
+
 	private static int idCidade;
+	private static int idBairro;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -200,6 +204,12 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(lblCadastrosDeClientes);
 		
 		rbFisica = new JRadioButton("Física");
+		rbFisica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pnJuridica.setVisible(false);
+				pnFisica.setVisible(true);
+			}
+		});
 		rbFisica.setBackground(new Color(119, 136, 153));
 		rbFisica.setOpaque(false);
 		rbFisica.setFocusable(false);
@@ -618,7 +628,7 @@ public class CadastroDeClientes {
 		
 		comboUFF = new JComboBox();
 		comboUFF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
+			public void itemStateChanged(ItemEvent arg0) { 
 				preencherComboCidade();
 			}
 		});
@@ -668,30 +678,18 @@ public class CadastroDeClientes {
 		comboCidadeF = new JComboBox();
 		comboCidadeF.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				//System.out.println("Entrei");
-				try {
-					if(backupCidade.first()) {
-						backupCidade.first();
-
-						backupCidade.absolute(comboCidadeF.getSelectedIndex()+1);
-						idCidade = backupCidade.getInt("id_cidade");
-						//System.out.println(idCidade);
-						//preencherComboBairros();
-					}else {
-						//System.out.println("999");
-						return;
-					}
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				preencherComboBairros();
 			}
 		});
 		comboCidadeF.setBounds(310, 74, 163, 20);
 		pnFisica.add(comboCidadeF);
 		
 		comboBairroF = new JComboBox();
+		comboBairroF.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				preencherComboRuas();
+			}
+		});
 		comboBairroF.setBounds(58, 104, 232, 19);
 		pnFisica.add(comboBairroF);
 		
@@ -831,7 +829,7 @@ public class CadastroDeClientes {
 		comboUFJ = new JComboBox();
 		comboUFJ.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				//preencherComboCidade();
+				preencherComboCidade();
 			}
 		});
 		comboUFJ.setBounds(58, 74, 163, 20);
@@ -877,10 +875,20 @@ public class CadastroDeClientes {
 		pnJuridica.add(btnAdicionarRuaJ);
 		
 		comboCidadeJ = new JComboBox();
+		comboCidadeJ.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				preencherComboBairros();
+			}
+		});
 		comboCidadeJ.setBounds(310, 74, 163, 19);
 		pnJuridica.add(comboCidadeJ);
 		
 		comboBairroJ = new JComboBox();
+		comboBairroJ.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				preencherComboRuas();
+			}
+		});
 		comboBairroJ.setBounds(58, 104, 232, 19);
 		pnJuridica.add(comboBairroJ);
 		
@@ -948,6 +956,16 @@ public class CadastroDeClientes {
 	}
 	
 	private boolean preencherComboUF() {
+		UF = null;
+		backupCidade = null;
+		backupBairro = null;
+		comboCidadeF.removeAllItems();
+		comboCidadeJ.removeAllItems();
+		comboBairroF.removeAllItems();
+		comboBairroJ.removeAllItems();
+		comboRuaF.removeAllItems();
+		comboRuaJ.removeAllItems();
+		
 		CRUDLugar selecionar = new CRUDLugar();
 		selecionar.selectEstados();
 		comboUFF.removeAllItems();
@@ -957,25 +975,7 @@ public class CadastroDeClientes {
 				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
 			}
-			UF = selecionar.dadosSelect;
-			return true;	
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	private boolean preencherComboBairros() {
-		CRUDLugar selecionar = new CRUDLugar();
-		selecionar.selectBairro(idCidade);
-		comboUFF.removeAllItems();
-		comboUFJ.removeAllItems();
-		try {
-			while (selecionar.dados.next()) {
-				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
-				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
-			}
-			UF = selecionar.dadosSelect;
+			UF = selecionar.dados;
 			return true;	
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -984,10 +984,27 @@ public class CadastroDeClientes {
 	}
 	
 	public boolean preencherComboCidade() {
-		if (rbFisica.isSelected()) {
-			idUF = comboUFF.getSelectedIndex()+1;
-		} else {
-			idUF = comboUFJ.getSelectedIndex()+1;
+		backupCidade = null;
+		backupBairro = null;
+		comboBairroF.removeAllItems();
+		comboBairroJ.removeAllItems();
+		comboRuaF.removeAllItems();
+		comboRuaJ.removeAllItems();
+		try {
+			if (rbFisica.isSelected()) {
+				if(UF != null) {
+					UF.absolute(comboUFF.getSelectedIndex()+1);
+					idUF = UF.getInt("id_estado");
+				}				
+			} else {
+				if(UF != null) {
+					UF.absolute(comboUFJ.getSelectedIndex()+1);
+					idUF = UF.getInt("id_estado");
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		CRUDLugar select = new CRUDLugar();
@@ -1006,6 +1023,95 @@ public class CadastroDeClientes {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboBairros() {
+		backupBairro = null;
+		backupRua = null;
+		comboRuaF.removeAllItems();
+		comboRuaJ.removeAllItems();
+		try {
+			if (rbFisica.isSelected()) {
+				if(backupCidade != null) {
+					backupCidade.absolute(comboCidadeF.getSelectedIndex()+1);
+					idCidade = backupCidade.getInt("id_cidade");
+				}else {
+					return false;
+				}
+			} else {
+				if(backupCidade != null) {
+					backupCidade.absolute(comboCidadeJ.getSelectedIndex()+1);
+					idCidade = backupCidade.getInt("id_cidade");
+				}else {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		CRUDLugar select = new CRUDLugar();
+		select.selectBairro(idCidade);
+		comboBairroF.removeAllItems();
+		comboBairroJ.removeAllItems();
+		try {
+			while (select.dadosSelect.next()) {
+				if (rbFisica.isSelected()) {
+					comboBairroF.addItem(select.dadosSelect.getString("nome_bairro"));
+				}else {
+					comboBairroJ.addItem(select.dadosSelect.getString("nome_bairro"));
+				}
+			}
+			backupBairro = select.dadosSelect;
+			preencherComboRuas();
+			return true;	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private boolean preencherComboRuas() {
+		backupRua = null;
+		
+		try {
+			if (rbFisica.isSelected()) {
+				if(backupBairro != null) {
+					backupBairro.absolute(comboBairroF.getSelectedIndex()+1);
+					idBairro = backupBairro.getInt("id_bairro");
+				}else {
+					return false;
+				}
+			} else {
+				if(backupBairro != null) {
+					backupBairro.absolute(comboBairroJ.getSelectedIndex()+1);
+					idBairro = backupBairro.getInt("id_bairro");
+				}else {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		CRUDLugar select = new CRUDLugar();
+		select.selectRua(idBairro);
+		comboRuaF.removeAllItems();
+		comboRuaJ.removeAllItems();
+		try {
+			while (select.dadosSelect.next()) {
+				if (rbFisica.isSelected()) {
+					comboRuaF.addItem(select.dadosSelect.getString("nome_rua"));
+				}else {
+					comboRuaJ.addItem(select.dadosSelect.getString("nome_rua"));
+				}
+			}
+			backupRua = select.dadosSelect;
+			return true;	
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}

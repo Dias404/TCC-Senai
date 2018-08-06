@@ -224,10 +224,11 @@ public class CRUDLugar {
 	
 	
 	//CRUD Rua
-	public ResultSet selectRua() {
-		String sql = "SELECT * FROM ruas";
+	public ResultSet selectRua(int id_bairro) {
+		String sql = "SELECT * FROM ruas WHERE id_bairro = ?";
 		try {
 			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			stmt.setInt(1, id_bairro);
 			dadosSelect = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();
