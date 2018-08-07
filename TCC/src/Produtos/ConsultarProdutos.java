@@ -89,6 +89,7 @@ public class ConsultarProdutos {
 		frmConsultaDeProdutos.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -104,19 +105,28 @@ public class ConsultarProdutos {
 		tabela.getTableHeader().setReorderingAllowed(false); // Bloqueia movimento do header
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID", "Fornecedor", "Loja", "Data", "C\u00F3digo", "Descri\u00E7\u00E3o", "Cor", "Pre\u00E7o"
+				"ID", "Fornecedor", "Loja", "Data", "C\u00F3digo", "Descri\u00E7\u00E3o", "Cor", "Quantidade", "Pre\u00E7o"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Color.class, Object.class
+				Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Color.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});
-		tabela.getColumnModel().getColumn(6).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
+		tabela.getColumnModel().getColumn(0).setMinWidth(40);
+		tabela.getColumnModel().getColumn(0).setMaxWidth(40);
+		tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(5).setMinWidth(150);
+		tabela.getColumnModel().getColumn(5).setMaxWidth(150);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(40);
+		tabela.getColumnModel().getColumn(6).setMinWidth(40);
+		tabela.getColumnModel().getColumn(6).setMaxWidth(40);
 
 		scrollPane.setViewportView(tabela);
 		//
@@ -211,7 +221,7 @@ public class ConsultarProdutos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"),	Color.decode(select.dados.getString("cor")), "R$ "+select.dados.getString("preco")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"),	Color.decode(select.dados.getString("cor")), "R$ "+select.dados.getString("preco"), select.dados.getInt("quantidade")});
 			}
 			tabela.setDefaultRenderer(Color.class, new ColorTableCellRenderer());
 			return true;
@@ -231,7 +241,7 @@ public class ConsultarProdutos {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while(select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"), select.dados.getString("cor")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_produto"), select.dados.getString("fornecedor"), select.dados.getString("loja_emitente"), select.dados.getString("data_entrada"), select.dados.getString("codigo"), select.dados.getString("descricao"), Color.decode(select.dados.getString("cor")), "R$ "+select.dados.getString("preco"), select.dados.getInt("quantidade")});
 			}
 			return true;
 		} catch (SQLException e) {

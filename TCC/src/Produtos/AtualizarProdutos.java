@@ -39,6 +39,9 @@ import Administrador.CadastrarUsuario;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JSpinner;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AtualizarProdutos {
 
@@ -145,6 +148,8 @@ public class AtualizarProdutos {
 	private ResultSet dadosSelecionados = null;
 	Date dataSelect = new Date();
 	private JTextField tfPreco;
+	private JSpinner spinnerQuantidade;
+	private JLabel label_8;
 	
 	/**
 	 * Launch the application.
@@ -183,7 +188,7 @@ public class AtualizarProdutos {
 		frmAtualizarProdutos = new JFrame();
 		frmAtualizarProdutos.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarProdutos.class.getResource("/Img/SIG 16x16.png")));
 		frmAtualizarProdutos.setTitle("SIG - Atualizar Produtos");
-		frmAtualizarProdutos.setBounds(100, 100, 538, 282);
+		frmAtualizarProdutos.setBounds(100, 100, 538, 311);
 		frmAtualizarProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAtualizarProdutos.getContentPane().setLayout(null);
 		frmAtualizarProdutos.setResizable(false);
@@ -833,7 +838,7 @@ public class AtualizarProdutos {
 		panel.setOpaque(false);
 		panel.setLayout(null);
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
-		panel.setBounds(10, 39, 512, 170);
+		panel.setBounds(10, 39, 512, 199);
 		frmAtualizarProdutos.getContentPane().add(panel);
 		
 		JLabel label_1 = new JLabel("Fornecedor:");
@@ -872,6 +877,12 @@ public class AtualizarProdutos {
 		panel.add(ftfDataDeEmissao);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnCalendario.setVisible(false);
+			}
+		});
 		btnCalendario.setEnabled(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -888,7 +899,6 @@ public class AtualizarProdutos {
 		});
 		btnCalendario.setForeground(Color.WHITE);
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setFocusable(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		btnCalendario.setBounds(215, 73, 27, 23);
 		panel.add(btnCalendario);
@@ -918,6 +928,12 @@ public class AtualizarProdutos {
 		panel.add(pnCor);
 		
 		btnSelecionarCor = new JButton("...");
+		btnSelecionarCor.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnColorPicker.setVisible(false);
+			}
+		});
 		btnSelecionarCor.setEnabled(false);
 		btnSelecionarCor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -934,7 +950,6 @@ public class AtualizarProdutos {
 		});
 		btnSelecionarCor.setForeground(Color.WHITE);
 		btnSelecionarCor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnSelecionarCor.setFocusable(false);
 		btnSelecionarCor.setBackground(new Color(0, 73, 170));
 		btnSelecionarCor.setBounds(215, 136, 27, 23);
 		panel.add(btnSelecionarCor);
@@ -962,6 +977,17 @@ public class AtualizarProdutos {
 		label_7.setBounds(267, 138, 54, 14);
 		panel.add(label_7);
 		
+		spinnerQuantidade = new JSpinner();
+		spinnerQuantidade.setEnabled(false);
+		spinnerQuantidade.setBounds(92, 168, 113, 20);
+		panel.add(spinnerQuantidade);
+		
+		label_8 = new JLabel("Quantidade:");
+		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_8.setFont(new Font("Tahoma", Font.BOLD, 12));
+		label_8.setBounds(0, 171, 82, 14);
+		panel.add(label_8);
+		
 		btnAlterar = new JButton("Alterar");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -981,6 +1007,7 @@ public class AtualizarProdutos {
 					pnCor.setEnabled(true);
 					btnSelecionarCor.setEnabled(true);
 					tfPreco.setEnabled(true);
+					spinnerQuantidade.setEnabled(true);
 				}
 			}
 		});
@@ -988,7 +1015,7 @@ public class AtualizarProdutos {
 		btnAlterar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnAlterar.setFocusable(false);
 		btnAlterar.setBackground(new Color(0, 73, 170));
-		btnAlterar.setBounds(433, 220, 89, 23);
+		btnAlterar.setBounds(433, 249, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnAlterar);
 		
 		btnRemover = new JButton("Remover");
@@ -1010,7 +1037,7 @@ public class AtualizarProdutos {
 		btnRemover.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnRemover.setFocusable(false);
 		btnRemover.setBackground(new Color(0, 73, 170));
-		btnRemover.setBounds(235, 220, 89, 23);
+		btnRemover.setBounds(235, 249, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnRemover);
 		
 		btnCancelar = new JButton("Cancelar");
@@ -1030,6 +1057,7 @@ public class AtualizarProdutos {
 				pnCor.setEnabled(false);
 				btnSelecionarCor.setEnabled(false);
 				tfPreco.setEnabled(false);
+				spinnerQuantidade.setEnabled(false);
 			}
 		});
 		btnCancelar.setVisible(false);
@@ -1037,7 +1065,7 @@ public class AtualizarProdutos {
 		btnCancelar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnCancelar.setFocusable(false);
 		btnCancelar.setBackground(new Color(0, 73, 170));
-		btnCancelar.setBounds(334, 220, 89, 23);
+		btnCancelar.setBounds(334, 249, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnCancelar);
 		
 		btnSalvar = new JButton("Salvar");
@@ -1050,6 +1078,7 @@ public class AtualizarProdutos {
 				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().trim().toString();
 				String preco = tfPreco.getText().trim().toString();
+				int quantidade = Integer.parseInt(spinnerQuantidade.getValue().toString());
 				
 				Produtos produto = new Produtos();
 				produto.setFornecedor(fornecedor);
@@ -1059,6 +1088,7 @@ public class AtualizarProdutos {
 				produto.setDescricao(descricao);
 				produto.setCorSelecionada(corSelecionada);
 				produto.setPreco(preco);
+				produto.setQuantidade(quantidade);
 				
 				update.updateProduto(produto, ConsultarProdutos.produtoSelecionado);
 				JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
@@ -1070,7 +1100,7 @@ public class AtualizarProdutos {
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(433, 220, 89, 23);
+		btnSalvar.setBounds(433, 249, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnSalvar);
 		
 		btnVoltar = new JButton("Voltar");
@@ -1084,16 +1114,16 @@ public class AtualizarProdutos {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 220, 89, 23);
+		btnVoltar.setBounds(10, 249, 89, 23);
 		frmAtualizarProdutos.getContentPane().add(btnVoltar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(532, 254, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(532, 283, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("New label");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 532, 254);
+		lblBG.setBounds(0, 0, 532, 283);
 		frmAtualizarProdutos.getContentPane().add(lblBG);
 		
 		preencherComboLojas();
@@ -1136,6 +1166,7 @@ public class AtualizarProdutos {
 				tfDescricao.setText(select.dados.getString("descricao").toString());
 				pnCor.setBackground(Color.decode(select.dados.getString("cor").toString()));
 				tfPreco.setText(select.dados.getString("preco"));
+				spinnerQuantidade.setValue(select.dados.getInt("quantidade"));
 			}
 			return true;
 		} catch (SQLException e) {

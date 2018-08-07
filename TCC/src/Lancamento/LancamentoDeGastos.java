@@ -40,6 +40,8 @@ import com.toedter.calendar.JCalendar;
 import javax.swing.border.EtchedBorder;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class LancamentoDeGastos {
 
@@ -463,6 +465,12 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(btnCancelar);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnCalendario.setVisible(false);
+			}
+		});
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
@@ -474,7 +482,6 @@ public class LancamentoDeGastos {
 		});
 		btnCalendario.setForeground(Color.WHITE);
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setFocusable(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		btnCalendario.setBounds(213, 66, 27, 23);
 		frmLancamentoDeGastos.getContentPane().add(btnCalendario);

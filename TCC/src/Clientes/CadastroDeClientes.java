@@ -47,6 +47,8 @@ import java.awt.event.ItemEvent;
 import com.toedter.calendar.JCalendar;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class CadastroDeClientes {
 
@@ -910,6 +912,12 @@ public class CadastroDeClientes {
 		pnFisica.add(comboEstadoCivil);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnCalendario.setVisible(false);
+			}
+		});
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
@@ -921,7 +929,6 @@ public class CadastroDeClientes {
 		});
 		btnCalendario.setForeground(Color.WHITE);
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setFocusable(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		btnCalendario.setBounds(283, 227, 27, 23);
 		pnFisica.add(btnCalendario);

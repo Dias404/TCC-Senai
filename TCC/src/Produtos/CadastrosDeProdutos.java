@@ -41,6 +41,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class CadastrosDeProdutos {
 
@@ -146,6 +150,7 @@ public class CadastrosDeProdutos {
 	static String corSelecionada = "#ffffff";
 	private JLabel lblPreo;
 	private JTextField tfPreco;
+	private JSpinner spinnerQuantidade;
 	
 	/**
 	 * Launch the application.
@@ -184,7 +189,7 @@ public class CadastrosDeProdutos {
 		frmCadastroDeProdutos = new JFrame();
 		frmCadastroDeProdutos.setTitle("SIG - Cadastro de Produtos");
 		frmCadastroDeProdutos.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrosDeProdutos.class.getResource("/Img/SIG 16x16.png")));
-		frmCadastroDeProdutos.setBounds(100, 100, 538, 282);
+		frmCadastroDeProdutos.setBounds(100, 100, 538, 311);
 		frmCadastroDeProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastroDeProdutos.setResizable(false);
 		frmCadastroDeProdutos.setLocationRelativeTo(null);
@@ -835,7 +840,7 @@ public class CadastrosDeProdutos {
 		panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
-		panel.setBounds(10, 39, 512, 170);
+		panel.setBounds(10, 39, 512, 199);
 		frmCadastroDeProdutos.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -872,6 +877,12 @@ public class CadastrosDeProdutos {
 		ftfDataDeEmissao.setFocusable(false);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnCalendario.setVisible(false);
+			}
+		});
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
@@ -889,7 +900,6 @@ public class CadastrosDeProdutos {
 		panel.add(btnCalendario);
 		btnCalendario.setForeground(Color.WHITE);
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setFocusable(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		
 		JLabel label = new JLabel("Data:");
@@ -916,6 +926,12 @@ public class CadastrosDeProdutos {
 		pnCor.setBackground(Color.decode(corSelecionada));
 		
 		btnSelecionarCor = new JButton("...");
+		btnSelecionarCor.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnColorPicker.setVisible(false);
+			}
+		});
 		btnSelecionarCor.setBounds(215, 136, 27, 23);
 		panel.add(btnSelecionarCor);
 		btnSelecionarCor.addActionListener(new ActionListener() {
@@ -933,7 +949,6 @@ public class CadastrosDeProdutos {
 		});
 		btnSelecionarCor.setForeground(Color.WHITE);
 		btnSelecionarCor.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnSelecionarCor.setFocusable(false);
 		btnSelecionarCor.setBackground(new Color(0, 73, 170));
 		
 		lblCor = new JLabel("Cor:");
@@ -953,9 +968,21 @@ public class CadastrosDeProdutos {
 		panel.add(lblPreo);
 		
 		tfPreco = new JTextField();
+		tfPreco.setToolTipText("Por unidade");
 		tfPreco.setColumns(10);
 		tfPreco.setBounds(331, 137, 171, 20);
 		panel.add(tfPreco);
+		
+		spinnerQuantidade = new JSpinner();
+		spinnerQuantidade.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinnerQuantidade.setBounds(92, 168, 113, 20);
+		panel.add(spinnerQuantidade);
+		
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblQuantidade.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblQuantidade.setBounds(0, 171, 82, 14);
+		panel.add(lblQuantidade);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -968,7 +995,7 @@ public class CadastrosDeProdutos {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 220, 89, 23);
+		btnVoltar.setBounds(10, 249, 89, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnVoltar);
 		
 		btnSalvar = new JButton("Salvar");
@@ -980,6 +1007,7 @@ public class CadastrosDeProdutos {
 				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				String preco = tfDescricao.getText().toString();
+				int quantidade = Integer.parseInt(spinnerQuantidade.getValue().toString());
 				
 				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()  || preco.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
@@ -992,6 +1020,7 @@ public class CadastrosDeProdutos {
 					produto.setDescricao(descricao);
 					produto.setCorSelecionada(corSelecionada);
 					produto.setPreco(preco);
+					produto.setQuantidade(quantidade);
 					
 					CRUDProdutos insert = new CRUDProdutos();
 					insert.insertProduto(produto);
@@ -1004,7 +1033,7 @@ public class CadastrosDeProdutos {
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBackground(new Color(0, 73, 170));
-		btnSalvar.setBounds(433, 220, 89, 23);
+		btnSalvar.setBounds(433, 249, 89, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
@@ -1019,13 +1048,14 @@ public class CadastrosDeProdutos {
 				ftfCodigo.setValue(null);
 				tfDescricao.setText(null);
 				tfPreco.setText(null);
+				spinnerQuantidade.setValue(1);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(334, 220, 89, 23);
+		btnLimpar.setBounds(334, 249, 89, 23);
 		frmCadastroDeProdutos.getContentPane().add(btnLimpar);
 		
 		btnConsultarProdutos = new JButton("Consultar Produtos");
@@ -1043,12 +1073,12 @@ public class CadastrosDeProdutos {
 		frmCadastroDeProdutos.getContentPane().add(btnConsultarProdutos);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(532, 254, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(532, 283, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("New label");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 532, 254);
+		lblBG.setBounds(0, 0, 532, 283);
 		frmCadastroDeProdutos.getContentPane().add(lblBG);
 		
 		preencherComboLojas();

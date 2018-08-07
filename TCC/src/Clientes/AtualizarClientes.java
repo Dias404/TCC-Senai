@@ -40,6 +40,8 @@ import com.toedter.calendar.JCalendar;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JFormattedTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AtualizarClientes {
 
@@ -932,6 +934,12 @@ public class AtualizarClientes {
 		grupoSexo.add(rbFeminino);
 		
 		btnCalendario = new JButton("...");
+		btnCalendario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				pnCalendario.setVisible(false);
+			}
+		});
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (pnCalendario.isVisible()) {
@@ -943,7 +951,6 @@ public class AtualizarClientes {
 		});
 		btnCalendario.setForeground(Color.WHITE);
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setFocusable(false);
 		btnCalendario.setEnabled(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		btnCalendario.setBounds(283, 228, 27, 23);

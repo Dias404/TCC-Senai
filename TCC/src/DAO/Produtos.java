@@ -10,6 +10,7 @@ public class Produtos {
 	public String descricao;
 	public String corSelecionada;
 	public String preco;
+	public int quantidade;
 	
 	public int getIdProdutos() {
 		return idProduto;
@@ -58,5 +59,11 @@ public class Produtos {
 	}
 	public void setPreco(String preco) {
 		this.preco = preco;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 }
