@@ -70,9 +70,9 @@ public class CadastroDeClientes {
 	private JLabel label_4;
 	private JLabel label_5;
 	private JLabel label_6;
-	private JLabel label_7;
+	private JLabel lblN;
 	private JTextField tfNumeroF;
-	private JTextField tfCPF;
+	private JFormattedTextField tfCPF;
 	private JLabel label_8;
 	private JLabel label_9;
 	private JTextField tfMae;
@@ -90,12 +90,6 @@ public class CadastroDeClientes {
 	private JTextField tfCel2F;
 	private JLabel lblCel;
 	public static JComboBox comboUFF;
-	private JButton btnAdicionarCidadeF;
-	private JButton btnAdicionarBairroF;
-	private JButton btnAdicionarRuaF;
-	private static JComboBox comboCidadeF;
-	private JComboBox comboBairroF;
-	private JComboBox comboRuaF;
 	private JPanel pnJuridica;
 	private JLabel label_17;
 	private JTextField tfRazaoSocial;
@@ -105,7 +99,7 @@ public class CadastroDeClientes {
 	private JLabel label_21;
 	private JLabel label_22;
 	private JLabel label_23;
-	private JLabel label_24;
+	private JLabel lblN_1;
 	private JTextField tfNumeroJ;
 	private JLabel label_25;
 	private JLabel label_26;
@@ -118,16 +112,9 @@ public class CadastroDeClientes {
 	private JTextField tfCel2J;
 	private JLabel label_30;
 	private JComboBox comboUFJ;
-	private JButton btnAdicionarCidadeJ;
-	private JButton btnAdicionarBairroJ;
-	private JButton btnAdicionarRuaJ;
-	private static JComboBox comboCidadeJ;
-	private JComboBox comboBairroJ;
-	private JComboBox comboRuaJ;
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
 	private JFormattedTextField ftfDataDeNascimento;
-	private JFormattedTextField ftfCPF;
 	private JFormattedTextField ftfCNPJ;
 	private JFormattedTextField ftfRG;
 	private JFormattedTextField ftfIE;
@@ -150,6 +137,12 @@ public class CadastroDeClientes {
 
 	private static int idCidade;
 	private static int idBairro;
+	private JTextField tfBairroF;
+	private JTextField tfRuaF;
+	private JTextField tfCidadeF;
+	private JTextField tfBairroJ;
+	private JTextField tfRuaJ;
+	private JTextField tfCidadeJ;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -256,7 +249,11 @@ public class CadastroDeClientes {
 				if (rbFisica.isSelected()) {
 					String nome = tfNome.getText().toString();
 					String email = tfEmailF.getText().toString();
-					String numero = tfNumeroF.getText().toString();
+					String estado = comboUFF.getSelectedItem().toString();
+					String cidade = tfCidadeF.getText().toString();
+					String bairro = tfBairroF.getText().toString();
+					String rua = tfRuaF.getText().toString();
+					String numero = tfNumeroF.getText().trim().toString();
 					String cpf = tfCPF.getText().toString();
 					String rg = ftfRG.getText().toString();
 					String mae = tfMae.getText().toString();
@@ -267,7 +264,7 @@ public class CadastroDeClientes {
 					String cel1 = tfCel1F.getText().toString();
 					String cel2 = tfCel2F.getText().toString();
 					
-					if (nome.trim().isEmpty() || email.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
+					if (nome.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
 						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
@@ -282,16 +279,10 @@ public class CadastroDeClientes {
 								cliFi.setSexo("f");
 							}
 							cliFi.setEmail(email);
-							cliFi.setUF(comboUFF.getSelectedItem().toString());
-							/*
-							cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
-							cliFi.setBairro(comboBairroF.getSelectedItem().toString());
-							cliFi.setRua(comboRuaF.getSelectedItem().toString());
-							*/
-							cliFi.setCidade("testeCidade1");
-							cliFi.setBairro("testeBairro1");
-							cliFi.setRua("testeRua1");
-							
+							cliFi.setUF(estado);
+							cliFi.setCidade(cidade);
+							cliFi.setBairro(bairro);
+							cliFi.setRua(rua);
 							cliFi.setNumero(numero);
 							cliFi.setCPF_CNPJ(cpf);
 							cliFi.setRG_IE(rg);
@@ -313,7 +304,11 @@ public class CadastroDeClientes {
 				}else {
 					String razaoSocial = tfRazaoSocial.getText().toString();
 					String email = tfEmailJ.getText().toString();
-					String numero = tfNumeroJ.getText().toString();
+					String estado = comboUFJ.getSelectedItem().toString();
+					String cidade = tfCidadeJ.getText().toString();
+					String bairro = tfBairroJ.getText().toString();
+					String rua = tfRuaJ.getText().toString();
+					String numero = tfNumeroJ.getText().trim().toString();
 					String cnpj = ftfCNPJ.getText().toString();
 					String ie = ftfIE.getText().toString();
 					String tel1 = tfTel1J.getText().toString();
@@ -322,7 +317,7 @@ public class CadastroDeClientes {
 					String cel2 = tfCel2J.getText().toString();
 					
 
-					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
+					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
 						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
@@ -333,23 +328,17 @@ public class CadastroDeClientes {
 							cliJu.setNomeRazao(razaoSocial);
 							cliJu.setSexo("-");
 							cliJu.setEmail(email);
-							cliJu.setUF(comboUFJ.getSelectedItem().toString());
-							/*
-							cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
-							cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
-							cliJu.setRua(comboRuaJ.getSelectedItem().toString());
-							*/
-							cliJu.setCidade("testeCidade2");
-							cliJu.setBairro("testeBairro2");
-							cliJu.setRua("testeRua2");
-							
+							cliJu.setUF(estado);
+							cliJu.setCidade(cidade);
+							cliJu.setBairro(bairro);
+							cliJu.setRua(rua);
 							cliJu.setNumero(numero);
 							cliJu.setCPF_CNPJ(cnpj);
 							cliJu.setRG_IE(ie);
-							cliJu.setMae("----------");
-							cliJu.setPai("----------");
-							cliJu.setDataDeNascimento("----------");
-							cliJu.setEstadoCivil("----------");
+							cliJu.setMae("-");
+							cliJu.setPai("-");
+							cliJu.setDataDeNascimento("-");
+							cliJu.setEstadoCivil("-");
 							cliJu.setTel1(tel1);
 							cliJu.setTel2(tel2);
 							cliJu.setCel1(cel1);
@@ -511,18 +500,18 @@ public class CadastroDeClientes {
 		label_6.setBounds(18, 138, 32, 14);
 		pnFisica.add(label_6);
 		
-		label_7 = new JLabel("Número:");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_7.setBounds(346, 137, 51, 14);
-		pnFisica.add(label_7);
+		lblN = new JLabel("N°:");
+		lblN.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblN.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblN.setBounds(268, 138, 32, 14);
+		pnFisica.add(lblN);
 		
 		tfNumeroF = new JTextField();
 		tfNumeroF.setColumns(10);
-		tfNumeroF.setBounds(407, 135, 103, 20);
+		tfNumeroF.setBounds(310, 136, 200, 20);
 		pnFisica.add(tfNumeroF);
 		
-		tfCPF = new JTextField();
+		tfCPF = new JFormattedTextField(mascaraCPF);
 		tfCPF.setColumns(10);
 		tfCPF.setBounds(58, 166, 200, 20);
 		pnFisica.add(tfCPF);
@@ -629,75 +618,9 @@ public class CadastroDeClientes {
 		pnFisica.add(lblCel);
 		
 		comboUFF = new JComboBox();
-		comboUFF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) { 
-				preencherComboCidade();
-			}
-		});
 		comboUFF.setBounds(58, 74, 163, 20);
 		comboUFF.setSelectedItem("São Paulo");
 		pnFisica.add(comboUFF);
-		
-		btnAdicionarCidadeF = new JButton("...");
-		btnAdicionarCidadeF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});
-			}
-		});
-		btnAdicionarCidadeF.setForeground(Color.WHITE);
-		btnAdicionarCidadeF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarCidadeF.setFocusable(false);
-		btnAdicionarCidadeF.setBackground(new Color(0, 73, 170));
-		btnAdicionarCidadeF.setBounds(483, 73, 27, 23);
-		pnFisica.add(btnAdicionarCidadeF);
-		
-		btnAdicionarBairroF = new JButton("...");
-		btnAdicionarBairroF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarBairros.main(new String[] {"Cadastro de Cliente"});
-			}
-		});
-		btnAdicionarBairroF.setForeground(Color.WHITE);
-		btnAdicionarBairroF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroF.setFocusable(false);
-		btnAdicionarBairroF.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairroF.setBounds(297, 102, 27, 23);
-		pnFisica.add(btnAdicionarBairroF);
-		
-		btnAdicionarRuaF = new JButton("...");
-		btnAdicionarRuaF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showInputDialog("Entre com o nome da nova rua:");
-			}
-		});
-		btnAdicionarRuaF.setForeground(Color.WHITE);
-		btnAdicionarRuaF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarRuaF.setFocusable(false);
-		btnAdicionarRuaF.setBackground(new Color(0, 73, 170));
-		btnAdicionarRuaF.setBounds(297, 134, 27, 23);
-		pnFisica.add(btnAdicionarRuaF);
-		
-		comboCidadeF = new JComboBox();
-		comboCidadeF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				preencherComboBairros();
-			}
-		});
-		comboCidadeF.setBounds(310, 74, 163, 20);
-		pnFisica.add(comboCidadeF);
-		
-		comboBairroF = new JComboBox();
-		comboBairroF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				preencherComboRuas();
-			}
-		});
-		comboBairroF.setBounds(58, 104, 232, 19);
-		pnFisica.add(comboBairroF);
-		
-		comboRuaF = new JComboBox();
-		comboRuaF.setBounds(58, 136, 232, 19);
-		pnFisica.add(comboRuaF);
 		
 		pnJuridica = new JPanel();
 		pnJuridica.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
@@ -750,17 +673,6 @@ public class CadastroDeClientes {
 		label_23.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label_23.setBounds(18, 138, 32, 14);
 		pnJuridica.add(label_23);
-		
-		label_24 = new JLabel("Número:");
-		label_24.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_24.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_24.setBounds(346, 137, 51, 14);
-		pnJuridica.add(label_24);
-		
-		tfNumeroJ = new JTextField();
-		tfNumeroJ.setColumns(10);
-		tfNumeroJ.setBounds(407, 135, 103, 20);
-		pnJuridica.add(tfNumeroJ);
 		
 		ftfCNPJ = new JFormattedTextField(mascaraCNPJ);
 		ftfCNPJ.setColumns(10);
@@ -829,74 +741,9 @@ public class CadastroDeClientes {
 		pnJuridica.add(label_30);
 		
 		comboUFJ = new JComboBox();
-		comboUFJ.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				preencherComboCidade();
-			}
-		});
 		comboUFJ.setBounds(58, 74, 163, 20);
 		comboUFJ.setSelectedItem("São Paulo");
 		pnJuridica.add(comboUFJ);
-		
-		btnAdicionarCidadeJ = new JButton("...");
-		btnAdicionarCidadeJ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});
-			}
-		});
-		btnAdicionarCidadeJ.setForeground(Color.WHITE);
-		btnAdicionarCidadeJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarCidadeJ.setFocusable(false);
-		btnAdicionarCidadeJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarCidadeJ.setBounds(483, 73, 27, 23);
-		pnJuridica.add(btnAdicionarCidadeJ);
-		
-		btnAdicionarRuaJ = new JButton("...");
-		btnAdicionarRuaJ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(new String[] {"Cadastro de Cliente"});			}
-		});
-		
-		btnAdicionarBairroJ = new JButton("...");
-		btnAdicionarBairroJ.setBounds(297, 102, 27, 23);
-		pnJuridica.add(btnAdicionarBairroJ);
-		btnAdicionarBairroJ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarBairros.main(new String[] {"Cadastro de Cliente"});
-			}
-		});
-		btnAdicionarBairroJ.setForeground(Color.WHITE);
-		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroJ.setFocusable(false);
-		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarRuaJ.setForeground(Color.WHITE);
-		btnAdicionarRuaJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarRuaJ.setFocusable(false);
-		btnAdicionarRuaJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarRuaJ.setBounds(297, 134, 27, 23);
-		pnJuridica.add(btnAdicionarRuaJ);
-		
-		comboCidadeJ = new JComboBox();
-		comboCidadeJ.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				preencherComboBairros();
-			}
-		});
-		comboCidadeJ.setBounds(310, 74, 163, 19);
-		pnJuridica.add(comboCidadeJ);
-		
-		comboBairroJ = new JComboBox();
-		comboBairroJ.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				preencherComboRuas();
-			}
-		});
-		comboBairroJ.setBounds(58, 104, 232, 19);
-		pnJuridica.add(comboBairroJ);
-		
-		comboRuaJ = new JComboBox();
-		comboRuaJ.setBounds(58, 136, 232, 19);
-		pnJuridica.add(comboRuaJ);
 		
 		ButtonGroup grupoTipoDePessoa = new ButtonGroup();
 		grupoTipoDePessoa.add(rbFisica);
@@ -949,29 +796,64 @@ public class CadastroDeClientes {
 		frmCadastroDeClientes.getContentPane().add(btnConsultarClientes);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(542, 525, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(542, 436, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 542, 525);
+		lblBG.setBounds(0, 0, 542, 436);
 		frmCadastroDeClientes.getContentPane().add(lblBG);
 		
 		preencherComboUF();
 		comboUFF.setSelectedItem("São Paulo");
+		
+		tfBairroF = new JTextField();
+		tfBairroF.setColumns(10);
+		tfBairroF.setBounds(58, 104, 201, 20);
+		pnFisica.add(tfBairroF);
+		
+		tfRuaF = new JTextField();
+		tfRuaF.setColumns(10);
+		tfRuaF.setBounds(58, 136, 201, 20);
+		pnFisica.add(tfRuaF);
+		
+		tfCidadeF = new JTextField();
+		tfCidadeF.setColumns(10);
+		tfCidadeF.setBounds(310, 74, 201, 20);
+		pnFisica.add(tfCidadeF);
+		
+		tfNumeroJ = new JTextField();
+		tfNumeroJ.setBounds(310, 136, 200, 20);
+		pnFisica.add(tfNumeroJ);
+		tfNumeroJ.setColumns(10);
 		comboUFJ.setSelectedItem("São Paulo");
+		
+		tfBairroJ = new JTextField();
+		tfBairroJ.setColumns(10);
+		tfBairroJ.setBounds(58, 104, 201, 20);
+		pnJuridica.add(tfBairroJ);
+		
+		tfRuaJ = new JTextField();
+		tfRuaJ.setColumns(10);
+		tfRuaJ.setBounds(58, 136, 201, 20);
+		pnJuridica.add(tfRuaJ);
+		
+		tfCidadeJ = new JTextField();
+		tfCidadeJ.setColumns(10);
+		tfCidadeJ.setBounds(310, 74, 201, 20);
+		pnJuridica.add(tfCidadeJ);
+		
+		lblN_1 = new JLabel("N°:");
+		lblN_1.setBounds(268, 138, 32, 14);
+		pnJuridica.add(lblN_1);
+		lblN_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblN_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 	}
 	
 	private boolean preencherComboUF() {
 		UF = null;
 		backupCidade = null;
 		backupBairro = null;
-		comboCidadeF.removeAllItems();
-		comboCidadeJ.removeAllItems();
-		comboBairroF.removeAllItems();
-		comboBairroJ.removeAllItems();
-		comboRuaF.removeAllItems();
-		comboRuaJ.removeAllItems();
 		
 		CRUDLugar selecionar = new CRUDLugar();
 		selecionar.selectEstados();
@@ -983,140 +865,6 @@ public class CadastroDeClientes {
 				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
 			}
 			UF = selecionar.dados;
-			return true;	
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	public boolean preencherComboCidade() {
-		backupCidade = null;
-		backupBairro = null;
-		comboBairroF.removeAllItems();
-		comboBairroJ.removeAllItems();
-		comboRuaF.removeAllItems();
-		comboRuaJ.removeAllItems();
-		try {
-			if (rbFisica.isSelected()) {
-				if(UF != null) {
-					UF.absolute(comboUFF.getSelectedIndex()+1);
-					idUF = UF.getInt("id_estado");
-				}				
-			} else {
-				if(UF != null) {
-					UF.absolute(comboUFJ.getSelectedIndex()+1);
-					idUF = UF.getInt("id_estado");
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		CRUDLugar select = new CRUDLugar();
-		select.selectCidadeCondicao2(idUF);
-		comboCidadeF.removeAllItems();
-		comboCidadeJ.removeAllItems();
-		backupCidade = select.dadosSelect;
-		try {
-			while (select.dadosSelect.next()) {
-				if (rbFisica.isSelected()) {
-					comboCidadeF.addItem(select.dadosSelect.getString("nome_cidade"));
-				} else {
-					comboCidadeJ.addItem(select.dadosSelect.getString("nome_cidade"));
-				}
-			}
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	private boolean preencherComboBairros() {
-		backupBairro = null;
-		backupRua = null;
-		comboRuaF.removeAllItems();
-		comboRuaJ.removeAllItems();
-		try {
-			if (rbFisica.isSelected()) {
-				if(backupCidade != null) {
-					backupCidade.absolute(comboCidadeF.getSelectedIndex()+1);
-					idCidade = backupCidade.getInt("id_cidade");
-				}else {
-					return false;
-				}
-			} else {
-				if(backupCidade != null) {
-					backupCidade.absolute(comboCidadeJ.getSelectedIndex()+1);
-					idCidade = backupCidade.getInt("id_cidade");
-				}else {
-					return false;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		CRUDLugar select = new CRUDLugar();
-		select.selectBairro(idCidade);
-		comboBairroF.removeAllItems();
-		comboBairroJ.removeAllItems();
-		try {
-			while (select.dadosSelect.next()) {
-				if (rbFisica.isSelected()) {
-					comboBairroF.addItem(select.dadosSelect.getString("nome_bairro"));
-				}else {
-					comboBairroJ.addItem(select.dadosSelect.getString("nome_bairro"));
-				}
-			}
-			backupBairro = select.dadosSelect;
-			preencherComboRuas();
-			return true;	
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	private boolean preencherComboRuas() {
-		backupRua = null;
-		
-		try {
-			if (rbFisica.isSelected()) {
-				if(backupBairro != null) {
-					backupBairro.absolute(comboBairroF.getSelectedIndex()+1);
-					idBairro = backupBairro.getInt("id_bairro");
-				}else {
-					return false;
-				}
-			} else {
-				if(backupBairro != null) {
-					backupBairro.absolute(comboBairroJ.getSelectedIndex()+1);
-					idBairro = backupBairro.getInt("id_bairro");
-				}else {
-					return false;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		CRUDLugar select = new CRUDLugar();
-		select.selectRua(idBairro);
-		comboRuaF.removeAllItems();
-		comboRuaJ.removeAllItems();
-		try {
-			while (select.dadosSelect.next()) {
-				if (rbFisica.isSelected()) {
-					comboRuaF.addItem(select.dadosSelect.getString("nome_rua"));
-				}else {
-					comboRuaJ.addItem(select.dadosSelect.getString("nome_rua"));
-				}
-			}
-			backupRua = select.dadosSelect;
 			return true;	
 		} catch (SQLException e) {
 			e.printStackTrace();

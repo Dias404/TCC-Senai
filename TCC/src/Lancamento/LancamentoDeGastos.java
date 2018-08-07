@@ -201,7 +201,7 @@ public class LancamentoDeGastos {
 				String valorTotal = tfValorTotal.getText().toString();
 				String notaFiscal = tfNotaFiscal.getText().toString();
 				
-				if (loja.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty()) {
+				if (loja.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty() || comboLojas.getItemCount() == 0) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				}else {
 					CRUDGastos insert = new CRUDGastos();
@@ -487,7 +487,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(btnCalendario);
 		
 		preencherTabela();
-		preencherComboLojas();
+		//preencherComboLojas();
 	}
 	
 	public boolean preencherComboLojas() {

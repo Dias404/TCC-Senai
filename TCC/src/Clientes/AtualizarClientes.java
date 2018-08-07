@@ -13,6 +13,7 @@ import java.awt.Image;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.MaskFormatter;
 
 import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
@@ -49,8 +50,8 @@ public class AtualizarClientes {
 	private JTextField tfRazaoSocial;
 	private JTextField tfEmailJ;
 	private JTextField tfNumeroJ;
-	private JTextField tfCNPJ;
-	private JTextField tfIE;
+	private JFormattedTextField ftfCNPJ;
+	private JFormattedTextField ftfIE;
 	private JTextField tfTel1J;
 	private JTextField tfTel2J;
 	private JTextField tfCel1J;
@@ -60,18 +61,13 @@ public class AtualizarClientes {
 	private JButton btnAlterar;
 	private JButton btnSalvar;
 	private JComboBox comboUFJ;
-	private JComboBox comboCidadeJ;
-	private JComboBox comboBairroJ;
-	private JButton btnAdicionarBairroJ;
-	private JComboBox comboRuaJ;
-	private JButton btnAdicionarRuaJ;
 	private JRadioButton rbFisica;
 	private JRadioButton rbJuridica;
 	private JTextField tfNome;
 	private JTextField tfEmailF;
 	private JTextField tfNumeroF;
-	private JTextField tfCPF;
-	private JTextField tfRG;
+	private JFormattedTextField ftfCPF;
+	private JFormattedTextField ftfRG;
 	private JTextField tfMae;
 	private JTextField tfPai;
 	private JTextField tfTel1F;
@@ -83,26 +79,31 @@ public class AtualizarClientes {
 	private JRadioButton rbMasculino;
 	private JRadioButton rbFeminino;
 	private JComboBox comboUFF;
-	private JButton btnAdicionarCidadeF;
-	private JComboBox comboCidadeF;
-	private JComboBox comboBairroF;
-	private JComboBox comboRuaF;
 	private JComboBox comboEstadoCivil;
-	private JButton btnAdicionarBairroF;
-	private JButton btnAdicionarRuaF;
-	private JButton btnAdicionarCidadeJ;
 	private JButton btnRemover;
 	private JLabel lblBG;
 	private JFormattedTextField ftfDataDeNascimento;
+	private JTextField tfBairroF;
+	private JTextField tfRuaF;
+	private JTextField tfCidadeF;
+	private JTextField tfBairroJ;
+	private JTextField tfRuaJ;
+	private JTextField tfCidadeJ;
 	
 	private int idCliente = 0;
 	private JButton btnCalendario;
 	private JPanel pnCalendario;
 	
-	//Date dataDeHoje = new Date();
 	Date dataSelect = new Date();
 	Date dataInformada = new Date();
 	Date datateste = new Date();
+	
+	private MaskFormatter mascaraData;
+	private MaskFormatter mascaraCPF;
+	private MaskFormatter mascaraCNPJ;
+	private MaskFormatter mascaraRG;
+	private MaskFormatter mascaraIE;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -130,6 +131,17 @@ public class AtualizarClientes {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			mascaraData = new MaskFormatter("##/##/####");
+			mascaraCPF = new MaskFormatter("###.###.###-##");
+			mascaraCNPJ = new MaskFormatter("##.###.###/####-##");
+			mascaraRG = new MaskFormatter("##.###.###-#");
+			mascaraIE = new MaskFormatter("###.###.###.###");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		frmAtualizarClientes = new JFrame();
 		frmAtualizarClientes.setTitle("SIG - Atualizar Clientes");
 		frmAtualizarClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarClientes.class.getResource("/Img/SIG 16x16.png")));
@@ -302,23 +314,23 @@ public class AtualizarClientes {
 		label_12.setBounds(18, 138, 32, 14);
 		pnFisica.add(label_12);
 		
-		JLabel label_13 = new JLabel("Número:");
-		label_13.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_13.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_13.setBounds(346, 137, 51, 14);
-		pnFisica.add(label_13);
+		JLabel lblN = new JLabel("N°:");
+		lblN.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblN.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblN.setBounds(262, 138, 38, 14);
+		pnFisica.add(lblN);
 		
 		tfNumeroF = new JTextField();
 		tfNumeroF.setEnabled(false);
 		tfNumeroF.setColumns(10);
-		tfNumeroF.setBounds(407, 135, 103, 20);
+		tfNumeroF.setBounds(310, 135, 200, 20);
 		pnFisica.add(tfNumeroF);
 		
-		tfCPF = new JTextField();
-		tfCPF.setEnabled(false);
-		tfCPF.setColumns(10);
-		tfCPF.setBounds(58, 166, 200, 20);
-		pnFisica.add(tfCPF);
+		ftfCPF = new JFormattedTextField(mascaraCPF);
+		ftfCPF.setEnabled(false);
+		ftfCPF.setColumns(10);
+		ftfCPF.setBounds(58, 166, 200, 20);
+		pnFisica.add(ftfCPF);
 		
 		JLabel label_19 = new JLabel("CPF:");
 		label_19.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -326,11 +338,11 @@ public class AtualizarClientes {
 		label_19.setBounds(21, 168, 27, 14);
 		pnFisica.add(label_19);
 		
-		tfRG = new JTextField();
-		tfRG.setEnabled(false);
-		tfRG.setColumns(10);
-		tfRG.setBounds(58, 197, 200, 20);
-		pnFisica.add(tfRG);
+		ftfRG = new JFormattedTextField(mascaraRG);
+		ftfRG.setEnabled(false);
+		ftfRG.setColumns(10);
+		ftfRG.setBounds(58, 197, 200, 20);
+		pnFisica.add(ftfRG);
 		
 		JLabel label_20 = new JLabel("RG:");
 		label_20.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -427,48 +439,6 @@ public class AtualizarClientes {
 		comboUFF.setBounds(58, 74, 163, 20);
 		pnFisica.add(comboUFF);
 		
-		btnAdicionarCidadeF = new JButton("...");
-		btnAdicionarCidadeF.setEnabled(false);
-		btnAdicionarCidadeF.setForeground(Color.WHITE);
-		btnAdicionarCidadeF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarCidadeF.setFocusable(false);
-		btnAdicionarCidadeF.setBackground(new Color(0, 73, 170));
-		btnAdicionarCidadeF.setBounds(483, 73, 27, 23);
-		pnFisica.add(btnAdicionarCidadeF);
-		
-		btnAdicionarBairroF = new JButton("...");
-		btnAdicionarBairroF.setEnabled(false);
-		btnAdicionarBairroF.setForeground(Color.WHITE);
-		btnAdicionarBairroF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroF.setFocusable(false);
-		btnAdicionarBairroF.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairroF.setBounds(297, 102, 27, 23);
-		pnFisica.add(btnAdicionarBairroF);
-		
-		btnAdicionarRuaF = new JButton("...");
-		btnAdicionarRuaF.setEnabled(false);
-		btnAdicionarRuaF.setForeground(Color.WHITE);
-		btnAdicionarRuaF.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarRuaF.setFocusable(false);
-		btnAdicionarRuaF.setBackground(new Color(0, 73, 170));
-		btnAdicionarRuaF.setBounds(297, 134, 27, 23);
-		pnFisica.add(btnAdicionarRuaF);
-		
-		comboCidadeF = new JComboBox();
-		comboCidadeF.setEnabled(false);
-		comboCidadeF.setBounds(310, 74, 163, 19);
-		pnFisica.add(comboCidadeF);
-		
-		comboBairroF = new JComboBox();
-		comboBairroF.setEnabled(false);
-		comboBairroF.setBounds(58, 104, 232, 19);
-		pnFisica.add(comboBairroF);
-		
-		comboRuaF = new JComboBox();
-		comboRuaF.setEnabled(false);
-		comboRuaF.setBounds(58, 136, 232, 19);
-		pnFisica.add(comboRuaF);
-		
 		comboEstadoCivil = new JComboBox();
 		comboEstadoCivil.setModel(new DefaultComboBoxModel(new String[] {"Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"}));
 		comboEstadoCivil.setEnabled(false);
@@ -529,23 +499,23 @@ public class AtualizarClientes {
 		label_6.setBounds(18, 138, 32, 14);
 		pnJuridica.add(label_6);
 		
-		JLabel label_7 = new JLabel("Número:");
-		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label_7.setBounds(346, 137, 51, 14);
-		pnJuridica.add(label_7);
+		JLabel lblN_1 = new JLabel("N°:");
+		lblN_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblN_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblN_1.setBounds(249, 137, 51, 14);
+		pnJuridica.add(lblN_1);
 		
 		tfNumeroJ = new JTextField();
 		tfNumeroJ.setEnabled(false);
 		tfNumeroJ.setColumns(10);
-		tfNumeroJ.setBounds(407, 135, 103, 20);
+		tfNumeroJ.setBounds(310, 135, 200, 20);
 		pnJuridica.add(tfNumeroJ);
 		
-		tfCNPJ = new JTextField();
-		tfCNPJ.setEnabled(false);
-		tfCNPJ.setColumns(10);
-		tfCNPJ.setBounds(58, 166, 200, 20);
-		pnJuridica.add(tfCNPJ);
+		ftfCNPJ = new JFormattedTextField(mascaraCNPJ);
+		ftfCNPJ.setEnabled(false);
+		ftfCNPJ.setColumns(10);
+		ftfCNPJ.setBounds(58, 166, 200, 20);
+		pnJuridica.add(ftfCNPJ);
 		
 		JLabel lblCnpj = new JLabel("CNPJ:");
 		lblCnpj.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -553,11 +523,11 @@ public class AtualizarClientes {
 		lblCnpj.setBounds(10, 168, 38, 14);
 		pnJuridica.add(lblCnpj);
 		
-		tfIE = new JTextField();
-		tfIE.setEnabled(false);
-		tfIE.setColumns(10);
-		tfIE.setBounds(310, 168, 200, 20);
-		pnJuridica.add(tfIE);
+		ftfIE = new JFormattedTextField(mascaraIE);
+		ftfIE.setEnabled(false);
+		ftfIE.setColumns(10);
+		ftfIE.setBounds(310, 168, 200, 20);
+		pnJuridica.add(ftfIE);
 		
 		JLabel lblIe = new JLabel("IE:");
 		lblIe.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -598,7 +568,7 @@ public class AtualizarClientes {
 		tfCel1J = new JTextField();
 		tfCel1J.setEnabled(false);
 		tfCel1J.setColumns(10);
-		tfCel1J.setBounds(310, 199, 200, 20);
+		tfCel1J.setBounds(310, 197, 200, 20);
 		pnJuridica.add(tfCel1J);
 		
 		tfCel2J = new JTextField();
@@ -618,47 +588,23 @@ public class AtualizarClientes {
 		comboUFJ.setBounds(58, 74, 163, 20);
 		pnJuridica.add(comboUFJ);
 		
-		btnAdicionarCidadeJ = new JButton("...");
-		btnAdicionarCidadeJ.setEnabled(false);
-		btnAdicionarCidadeJ.setForeground(Color.WHITE);
-		btnAdicionarCidadeJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarCidadeJ.setFocusable(false);
-		btnAdicionarCidadeJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarCidadeJ.setBounds(483, 73, 27, 23);
-		pnJuridica.add(btnAdicionarCidadeJ);
+		tfBairroJ = new JTextField();
+		tfBairroJ.setEnabled(false);
+		tfBairroJ.setColumns(10);
+		tfBairroJ.setBounds(58, 104, 200, 20);
+		pnJuridica.add(tfBairroJ);
 		
-		btnAdicionarBairroJ = new JButton("...");
-		btnAdicionarBairroJ.setEnabled(false);
-		btnAdicionarBairroJ.setForeground(Color.WHITE);
-		btnAdicionarBairroJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarBairroJ.setFocusable(false);
-		btnAdicionarBairroJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarBairroJ.setBounds(297, 102, 27, 23);
-		pnJuridica.add(btnAdicionarBairroJ);
+		tfRuaJ = new JTextField();
+		tfRuaJ.setEnabled(false);
+		tfRuaJ.setColumns(10);
+		tfRuaJ.setBounds(58, 136, 200, 20);
+		pnJuridica.add(tfRuaJ);
 		
-		btnAdicionarRuaJ = new JButton("...");
-		btnAdicionarRuaJ.setEnabled(false);
-		btnAdicionarRuaJ.setForeground(Color.WHITE);
-		btnAdicionarRuaJ.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarRuaJ.setFocusable(false);
-		btnAdicionarRuaJ.setBackground(new Color(0, 73, 170));
-		btnAdicionarRuaJ.setBounds(297, 134, 27, 23);
-		pnJuridica.add(btnAdicionarRuaJ);
-		
-		comboCidadeJ = new JComboBox();
-		comboCidadeJ.setEnabled(false);
-		comboCidadeJ.setBounds(310, 74, 163, 19);
-		pnJuridica.add(comboCidadeJ);
-		
-		comboBairroJ = new JComboBox();
-		comboBairroJ.setEnabled(false);
-		comboBairroJ.setBounds(58, 104, 232, 19);
-		pnJuridica.add(comboBairroJ);
-		
-		comboRuaJ = new JComboBox();
-		comboRuaJ.setEnabled(false);
-		comboRuaJ.setBounds(58, 136, 232, 19);
-		pnJuridica.add(comboRuaJ);
+		tfCidadeJ = new JTextField();
+		tfCidadeJ.setEnabled(false);
+		tfCidadeJ.setColumns(10);
+		tfCidadeJ.setBounds(313, 74, 200, 20);
+		pnJuridica.add(tfCidadeJ);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
@@ -694,24 +640,18 @@ public class AtualizarClientes {
 					rbFeminino.setEnabled(true);
 					comboUFF.setEnabled(true);
 					comboUFJ.setEnabled(true);
-					comboCidadeF.setEnabled(true);
-					comboCidadeJ.setEnabled(true);
-					btnAdicionarCidadeF.setEnabled(true);
-					btnAdicionarCidadeJ.setEnabled(true);
-					comboBairroF.setEnabled(true);
-					comboBairroJ.setEnabled(true);
-					btnAdicionarBairroF.setEnabled(true);
-					btnAdicionarBairroJ.setEnabled(true);
-					comboRuaF.setEnabled(true);
-					comboRuaJ.setEnabled(true);
-					btnAdicionarRuaF.setEnabled(true);
-					btnAdicionarRuaJ.setEnabled(true);
+					tfCidadeF.setEnabled(true);
+					tfCidadeJ.setEnabled(true);
+					tfBairroF.setEnabled(true);
+					tfBairroJ.setEnabled(true);
+					tfRuaF.setEnabled(true);
+					tfRuaJ.setEnabled(true);
 					tfNumeroF.setEnabled(true);
 					tfNumeroJ.setEnabled(true);
-					tfCPF.setEnabled(true);
-					tfCNPJ.setEnabled(true);
-					tfRG.setEnabled(true);
-					tfIE.setEnabled(true);
+					ftfCPF.setEnabled(true);
+					ftfCNPJ.setEnabled(true);
+					ftfRG.setEnabled(true);
+					ftfIE.setEnabled(true);
 					tfMae.setEnabled(true);
 					tfPai.setEnabled(true);
 					ftfDataDeNascimento.setEnabled(true);
@@ -755,24 +695,18 @@ public class AtualizarClientes {
 				rbFeminino.setEnabled(false);
 				comboUFF.setEnabled(false);
 				comboUFJ.setEnabled(false);
-				comboCidadeF.setEnabled(false);
-				comboCidadeJ.setEnabled(false);
-				btnAdicionarCidadeF.setEnabled(false);
-				btnAdicionarCidadeJ.setEnabled(false);
-				comboBairroF.setEnabled(false);
-				comboBairroJ.setEnabled(false);
-				btnAdicionarBairroF.setEnabled(false);
-				btnAdicionarBairroJ.setEnabled(false);
-				comboRuaF.setEnabled(false);
-				comboRuaJ.setEnabled(false);
-				btnAdicionarRuaF.setEnabled(false);
-				btnAdicionarRuaJ.setEnabled(false);
+				tfCidadeF.setEnabled(false);
+				tfCidadeJ.setEnabled(false);
+				tfBairroF.setEnabled(false);
+				tfBairroJ.setEnabled(false);
+				tfRuaF.setEnabled(false);
+				tfRuaJ.setEnabled(false);
 				tfNumeroF.setEnabled(false);
 				tfNumeroJ.setEnabled(false);
-				tfCPF.setEnabled(false);
-				tfCNPJ.setEnabled(false);
-				tfRG.setEnabled(false);
-				tfIE.setEnabled(false);
+				ftfCPF.setEnabled(false);
+				ftfCNPJ.setEnabled(false);
+				ftfRG.setEnabled(false);
+				ftfIE.setEnabled(false);
 				tfMae.setEnabled(false);
 				tfPai.setEnabled(false);
 				ftfDataDeNascimento.setEnabled(false);
@@ -800,120 +734,107 @@ public class AtualizarClientes {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (rbFisica.isSelected()) {
-					Clientes cliFi = new Clientes();
-					cliFi.setTipoDePessoa("Física");
-					cliFi.setNomeRazao(tfNome.getText().toString());
-					if (rbMasculino.isSelected()) {
-						cliFi.setSexo("M");
-					}else {
-						cliFi.setSexo("F");
+					String nome = tfNome.getText().toString();
+					String email = tfEmailF.getText().toString();
+					String estado = comboUFF.getSelectedItem().toString();
+					String cidade = tfCidadeF.getText().toString();
+					String bairro = tfBairroF.getText().toString();
+					String rua = tfRuaF.getText().toString();
+					String numero = tfNumeroF.getText().trim().toString();
+					String cpf = ftfCPF.getText().toString();
+					String rg = ftfRG.getText().toString();
+					String mae = tfMae.getText().toString();
+					String pai = tfPai.getText().toString();
+					String dataDeNascimento = ftfDataDeNascimento.getText().toString();
+					String tel1 = tfTel1F.getText().toString();
+					String tel2 = tfTel2F.getText().toString();
+					String cel1 = tfCel1F.getText().toString();
+					String cel2 = tfCel2F.getText().toString();
+					
+					if (nome.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+					} else {
+						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+						} else {
+							Clientes cliFi = new Clientes();
+							cliFi.setTipoDePessoa("Física");
+							cliFi.setNomeRazao(nome);
+							if (rbMasculino.isSelected()) {
+								cliFi.setSexo("M");
+							}else {
+								cliFi.setSexo("F");
+							}
+							cliFi.setEmail(email);
+							cliFi.setUF(estado);
+							cliFi.setCidade(cidade);
+							cliFi.setBairro(bairro);
+							cliFi.setRua(rua);
+							cliFi.setNumero(numero);
+							cliFi.setCPF_CNPJ(cpf);
+							cliFi.setRG_IE(rg);
+							cliFi.setMae(mae);
+							cliFi.setPai(pai);
+							cliFi.setDataDeNascimento(dataDeNascimento);
+							cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
+							cliFi.setTel1(tel1);
+							cliFi.setTel2(tel2);
+							cliFi.setCel1(cel1);
+							cliFi.setCel2(cel2);
+							
+							CRUDClientes update = new CRUDClientes();
+							update.updateCliente(cliFi, idCliente);
+							JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+							btnCancelar.doClick();
+						}
 					}
-					cliFi.setEmail(tfEmailF.getText().toString());
-					/*
-					cliFi.setUF(comboUFF.getSelectedItem().toString());
-					cliFi.setCidade(comboCidadeF.getSelectedItem().toString());
-					cliFi.setBairro(comboBairroF.getSelectedItem().toString());
-					cliFi.setRua(comboRuaF.getSelectedItem().toString());
-					*/
-					cliFi.setUF("testeUF1");
-					cliFi.setCidade("testeCidade1");
-					cliFi.setBairro("testeBairro1");
-					cliFi.setRua("testeRua1");
-					
-					cliFi.setNumero(tfNumeroF.getText().toString());
-					cliFi.setCPF_CNPJ(tfCPF.getText().toString());
-					cliFi.setRG_IE(tfRG.getText().toString());
-					cliFi.setMae(tfMae.getText().toString());
-					cliFi.setPai(tfPai.getText().toString());
-					cliFi.setDataDeNascimento(ftfDataDeNascimento.getText().toString());
-					cliFi.setEstadoCivil(comboEstadoCivil.getSelectedItem().toString());
-					cliFi.setTel1(tfTel1F.getText().toString());
-					cliFi.setTel2(tfTel2F.getText().toString());
-					cliFi.setCel1(tfCel1F.getText().toString());
-					cliFi.setCel2(tfCel2F.getText().toString());
-					
-					CRUDClientes update = new CRUDClientes();
-					update.updateCliente(cliFi, idCliente);
-					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
-					
-					btnAlterar.setVisible(true);
-					btnRemover.setVisible(false);
-					btnCancelar.setVisible(false);
-					btnSalvar.setVisible(false);
-					
-					rbFisica.setEnabled(false);
-					rbJuridica.setEnabled(false);
-					tfNome.setEnabled(false);
-					tfRazaoSocial.setEnabled(false);
-					tfEmailF.setEnabled(false);
-					tfEmailJ.setEnabled(false);
-					rbMasculino.setEnabled(false);
-					rbFeminino.setEnabled(false);
-					comboUFF.setEnabled(false);
-					comboUFJ.setEnabled(false);
-					comboCidadeF.setEnabled(false);
-					comboCidadeJ.setEnabled(false);
-					btnAdicionarCidadeF.setEnabled(false);
-					btnAdicionarCidadeJ.setEnabled(false);
-					comboBairroF.setEnabled(false);
-					comboBairroJ.setEnabled(false);
-					btnAdicionarBairroF.setEnabled(false);
-					btnAdicionarBairroJ.setEnabled(false);
-					comboRuaF.setEnabled(false);
-					comboRuaJ.setEnabled(false);
-					btnAdicionarRuaF.setEnabled(false);
-					btnAdicionarRuaJ.setEnabled(false);
-					tfNumeroF.setEnabled(false);
-					tfNumeroJ.setEnabled(false);
-					tfCPF.setEnabled(false);
-					tfCNPJ.setEnabled(false);
-					tfRG.setEnabled(false);
-					tfIE.setEnabled(false);
-					tfMae.setEnabled(false);
-					tfPai.setEnabled(false);
-					ftfDataDeNascimento.setEnabled(false);
-					comboEstadoCivil.setEnabled(false);
-					tfTel1F.setEnabled(false);
-					tfTel1J.setEnabled(false);
-					tfTel2F.setEnabled(false);
-					tfTel2J.setEnabled(false);
-					tfCel1F.setEnabled(false);
-					tfCel1J.setEnabled(false);
-					tfCel2F.setEnabled(false);
-					tfCel2J.setEnabled(false);
 				}else {
-					Clientes cliJu = new Clientes();
-					cliJu.setTipoDePessoa("Jurídica");
-					cliJu.setNomeRazao(tfRazaoSocial.getText().toString());
-					cliJu.setSexo("-");
-					cliJu.setEmail(tfEmailJ.getText().toString());
-					/*
-					cliJu.setUF(comboUFJ.getSelectedItem().toString());
-					cliJu.setCidade(comboCidadeJ.getSelectedItem().toString());
-					cliJu.setBairro(comboBairroJ.getSelectedItem().toString());
-					cliJu.setRua(comboRuaJ.getSelectedItem().toString());
-					*/
-					cliJu.setUF("testeUF2");
-					cliJu.setCidade("testeCidade2");
-					cliJu.setBairro("testeBairro2");
-					cliJu.setRua("testeRua2");
+					String razaoSocial = tfRazaoSocial.getText().toString();
+					String email = tfEmailJ.getText().toString();
+					String estado = comboUFJ.getSelectedItem().toString();
+					String cidade = tfCidadeJ.getText().toString();
+					String bairro = tfBairroJ.getText().toString();
+					String rua = tfRuaJ.getText().toString();
+					String numero = tfNumeroJ.getText().trim().toString();
+					String cnpj = ftfCNPJ.getText().toString();
+					String ie = ftfIE.getText().toString();
+					String tel1 = tfTel1J.getText().toString();
+					String tel2 = tfTel2J.getText().toString();
+					String cel1 = tfCel1J.getText().toString();
+					String cel2 = tfCel2J.getText().toString();
 					
-					cliJu.setNumero(tfNumeroJ.getText().toString());
-					cliJu.setCPF_CNPJ(tfCNPJ.getText().toString());
-					cliJu.setRG_IE(tfIE.getText().toString());
-					cliJu.setMae("----------");
-					cliJu.setPai("----------");
-					cliJu.setDataDeNascimento("----------");
-					cliJu.setEstadoCivil("----------");
-					cliJu.setTel1(tfTel1J.getText().toString());
-					cliJu.setTel2(tfTel2J.getText().toString());
-					cliJu.setCel1(tfCel1J.getText().toString());
-					cliJu.setCel2(tfCel2J.getText().toString());
-					
-					CRUDClientes update = new CRUDClientes();
-					update.updateCliente(cliJu, idCliente);
-					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
-					btnCancelar.doClick();
+					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+					} else {
+						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+						} else {
+							Clientes cliJu = new Clientes();
+							cliJu.setNomeRazao(razaoSocial);
+							cliJu.setSexo("-");
+							cliJu.setEmail(email);
+							cliJu.setUF(estado);
+							cliJu.setCidade(cidade);
+							cliJu.setBairro(bairro);
+							cliJu.setRua(rua);
+							cliJu.setNumero(numero);
+							cliJu.setCPF_CNPJ(cnpj);
+							cliJu.setRG_IE(ie);
+							cliJu.setMae("-");
+							cliJu.setPai("-");
+							cliJu.setDataDeNascimento("-");
+							cliJu.setEstadoCivil("-");
+							cliJu.setTel1(tel1);
+							cliJu.setTel2(tel2);
+							cliJu.setCel1(cel1);
+							cliJu.setCel2(cel2);
+							
+							CRUDClientes update = new CRUDClientes();
+							update.updateCliente(cliJu, idCliente);
+							JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!");
+							btnCancelar.doClick();
+						}
+					}
 				}
 			}
 		});
@@ -956,12 +877,30 @@ public class AtualizarClientes {
 		btnCalendario.setBounds(283, 228, 27, 23);
 		pnFisica.add(btnCalendario);
 		
-		ftfDataDeNascimento = new JFormattedTextField();
+		ftfDataDeNascimento = new JFormattedTextField(mascaraData);
 		ftfDataDeNascimento.setEnabled(false);
 		ftfDataDeNascimento.setFocusable(false);
 		ftfDataDeNascimento.setColumns(10);
 		ftfDataDeNascimento.setBounds(157, 228, 116, 20);
 		pnFisica.add(ftfDataDeNascimento);
+		
+		tfBairroF = new JTextField();
+		tfBairroF.setEnabled(false);
+		tfBairroF.setColumns(10);
+		tfBairroF.setBounds(58, 104, 200, 20);
+		pnFisica.add(tfBairroF);
+		
+		tfRuaF = new JTextField();
+		tfRuaF.setEnabled(false);
+		tfRuaF.setColumns(10);
+		tfRuaF.setBounds(58, 136, 200, 20);
+		pnFisica.add(tfRuaF);
+		
+		tfCidadeF = new JTextField();
+		tfCidadeF.setEnabled(false);
+		tfCidadeF.setColumns(10);
+		tfCidadeF.setBounds(310, 74, 200, 20);
+		pnFisica.add(tfCidadeF);
 		
 		btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
@@ -986,12 +925,12 @@ public class AtualizarClientes {
 		frmAtualizarClientes.getContentPane().add(btnRemover);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(553, 547, Image.SCALE_DEFAULT);
+		Image BG2 = BG.getImage().getScaledInstance(542, 436, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);
 		
 		lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 553, 547);
+		lblBG.setBounds(0, 0, 542, 436);
 		frmAtualizarClientes.getContentPane().add(lblBG);
 		
 		preencherCampos();
@@ -1018,14 +957,13 @@ public class AtualizarClientes {
 						rbFeminino.setSelected(true);
 					}
 					tfEmailF.setText(select.dadosEspecificos.getString("email").toString());
-					//comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
 					comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
-					comboCidadeF.setSelectedItem(select.dadosEspecificos.getString("cidade").toString());
-					comboBairroF.setSelectedItem(select.dadosEspecificos.getString("bairro").toString());
-					comboRuaF.setSelectedItem(select.dadosEspecificos.getString("rua").toString());
+					tfCidadeF.setText(select.dadosEspecificos.getString("cidade").toString());
+					tfBairroF.setText(select.dadosEspecificos.getString("bairro").toString());
+					tfRuaF.setText(select.dadosEspecificos.getString("rua").toString());
 					tfNumeroF.setText(select.dadosEspecificos.getString("numero").toString());
-					tfCPF.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
-					tfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
+					ftfCPF.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
+					ftfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
 					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
 					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
 					
@@ -1052,12 +990,12 @@ public class AtualizarClientes {
 					
 					tfRazaoSocial.setText(select.dadosEspecificos.getString("nome_razao").toString());
 					tfEmailJ.setText(select.dadosEspecificos.getString("email").toString());
-					comboCidadeJ.setSelectedItem(select.dadosEspecificos.getString("cidade").toString());
-					comboBairroJ.setSelectedItem(select.dadosEspecificos.getString("bairro").toString());
-					comboRuaJ.setSelectedItem(select.dadosEspecificos.getString("rua").toString());
+					tfCidadeF.setText(select.dadosEspecificos.getString("cidade").toString());
+					tfBairroF.setText(select.dadosEspecificos.getString("bairro").toString());
+					tfRuaF.setText(select.dadosEspecificos.getString("rua").toString());
 					tfNumeroJ.setText(select.dadosEspecificos.getString("numero").toString());
-					tfCNPJ.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
-					tfIE.setText(select.dadosEspecificos.getString("rg_ie").toString());
+					ftfCNPJ.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
+					ftfIE.setText(select.dadosEspecificos.getString("rg_ie").toString());
 					tfTel1J.setText(select.dadosEspecificos.getString("tel1").toString());
 					tfTel2J.setText(select.dadosEspecificos.getString("tel2").toString());
 					tfCel1J.setText(select.dadosEspecificos.getString("cel1").toString());

@@ -93,7 +93,7 @@ public class AtualizarVendas {
 		}
 		
 		frmAtualizarVendas = new JFrame();
-		frmAtualizarVendas.setTitle("SIG - Atualizar Produtos");
+		frmAtualizarVendas.setTitle("SIG - Atualizar Vendas");
 		frmAtualizarVendas.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarVendas.class.getResource("/Img/SIG 16x16.png")));
 		frmAtualizarVendas.setBounds(100, 100, 538, 279);
 		frmAtualizarVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
