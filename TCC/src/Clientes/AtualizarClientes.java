@@ -83,7 +83,7 @@ public class AtualizarClientes {
 	private JComboBox comboEstadoCivil;
 	private JButton btnRemover;
 	private JLabel lblBG;
-	private JFormattedTextField ftfDataDeNascimento;
+	private JTextField tfDataDeNascimento;
 	private JTextField tfBairroF;
 	private JTextField tfRuaF;
 	private JTextField tfCidadeF;
@@ -94,6 +94,8 @@ public class AtualizarClientes {
 	private int idCliente = 0;
 	private JButton btnCalendario;
 	private JPanel pnCalendario;
+	
+	static String dataDeNascimento = null;
 	
 	Date dataSelect = new Date();
 	Date dataInformada = new Date();
@@ -224,21 +226,9 @@ public class AtualizarClientes {
 		
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				datateste = calendario.getDate();
-				//System.out.println(datateste);
-				//SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				//String data = formatoBR.format(calendario.getDate());
-				//ftfDataDeNascimento.setText(data);
-				/*SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				
-				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
-					String data = formatoBR.format(calendario.getDate());
-					ftfDataDeNascimento.setText(data);
-				} else {
-					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
-					//String data = formatoBR.format(dataDeHoje);
-					//ftfDataDeNascimento.setText(data);
-				}*/
+				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formatoBR.format(calendario.getDate());
+				tfDataDeNascimento.setText(data);
 			}
 		});
 		
@@ -655,7 +645,7 @@ public class AtualizarClientes {
 					ftfIE.setEnabled(true);
 					tfMae.setEnabled(true);
 					tfPai.setEnabled(true);
-					ftfDataDeNascimento.setEnabled(true);
+					tfDataDeNascimento.setEnabled(true);
 					btnCalendario.setEnabled(true);
 					comboEstadoCivil.setEnabled(true);
 					tfTel1F.setEnabled(true);
@@ -710,7 +700,7 @@ public class AtualizarClientes {
 				ftfIE.setEnabled(false);
 				tfMae.setEnabled(false);
 				tfPai.setEnabled(false);
-				ftfDataDeNascimento.setEnabled(false);
+				tfDataDeNascimento.setEnabled(false);
 				btnCalendario.setEnabled(false);
 				comboEstadoCivil.setEnabled(false);
 				tfTel1F.setEnabled(false);
@@ -746,7 +736,7 @@ public class AtualizarClientes {
 					String rg = ftfRG.getText().toString();
 					String mae = tfMae.getText().toString();
 					String pai = tfPai.getText().toString();
-					String dataDeNascimento = ftfDataDeNascimento.getText().toString();
+					String dataDeNascimento = tfDataDeNascimento.getText().toString();
 					String tel1 = tfTel1F.getText().toString();
 					String tel2 = tfTel2F.getText().toString();
 					String cel1 = tfCel1F.getText().toString();
@@ -873,12 +863,12 @@ public class AtualizarClientes {
 		btnCalendario.setBounds(283, 228, 27, 23);
 		pnFisica.add(btnCalendario);
 		
-		ftfDataDeNascimento = new JFormattedTextField(mascaraData);
-		ftfDataDeNascimento.setEnabled(false);
-		ftfDataDeNascimento.setFocusable(false);
-		ftfDataDeNascimento.setColumns(10);
-		ftfDataDeNascimento.setBounds(157, 228, 116, 20);
-		pnFisica.add(ftfDataDeNascimento);
+		tfDataDeNascimento = new JTextField();
+		tfDataDeNascimento.setEnabled(false);
+		tfDataDeNascimento.setFocusable(false);
+		tfDataDeNascimento.setColumns(10);
+		tfDataDeNascimento.setBounds(157, 228, 116, 20);
+		pnFisica.add(tfDataDeNascimento);
 		
 		tfBairroF = new JTextField();
 		tfBairroF.setEnabled(false);
@@ -953,67 +943,92 @@ public class AtualizarClientes {
 	private boolean preencherCampos() {
 		CRUDClientes select = new CRUDClientes();
 		select.selectDadosClienteEspecifico(ConsultarClientes.cliSelecionado);
+		
 		try {
 			if (select.dadosEspecificos.first()) {
 				idCliente = select.dadosEspecificos.getInt("id_cliente");
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Física")) {
+					String nome = select.dadosEspecificos.getString("nome_razao").toString();
+					String sexo = select.dadosEspecificos.getString("sexo");
+					String email = select.dadosEspecificos.getString("email").toString();
+					String estado = select.dadosEspecificos.getString("uf").toString();
+					String cidade = select.dadosEspecificos.getString("cidade").toString();
+					String bairro = select.dadosEspecificos.getString("bairro").toString();
+					String rua = select.dadosEspecificos.getString("rua").toString();
+					String numero = select.dadosEspecificos.getString("numero").toString();
+					String cpf = select.dadosEspecificos.getString("cpf_cnpj").toString();
+					String rg = select.dadosEspecificos.getString("rg_ie").toString();
+					String mae = select.dadosEspecificos.getString("mae").toString();
+					String pai = select.dadosEspecificos.getString("pai").toString();
+					dataDeNascimento = select.dadosEspecificos.getString("data_de_nascimento").toString();
+					String estadoCivil = select.dadosEspecificos.getString("estado_civil").toString();
+					String tel1 = select.dadosEspecificos.getString("tel1").toString();
+					String tel2 = select.dadosEspecificos.getString("tel2").toString();
+					String cel1 = select.dadosEspecificos.getString("cel1").toString();
+					String cel2 = select.dadosEspecificos.getString("cel2").toString();
+					
 					rbFisica.setSelected(true);
 					pnFisica.setVisible(true);
 					pnJuridica.setVisible(false);
 					
-					tfNome.setText(select.dadosEspecificos.getString("nome_razao").toString());
-					if (select.dadosEspecificos.getString("sexo").equalsIgnoreCase("M")) {
+					if (sexo.equalsIgnoreCase("M")) {
 						rbMasculino.setSelected(true);
 						rbFeminino.setSelected(false);
 					}
-					if (select.dadosEspecificos.getString("sexo").equalsIgnoreCase("F")) {
+					if (sexo.equalsIgnoreCase("F")) {
 						rbMasculino.setSelected(false);
 						rbFeminino.setSelected(true);
 					}
-					tfEmailF.setText(select.dadosEspecificos.getString("email").toString());
-					comboUFF.setSelectedItem(select.dadosEspecificos.getString("uf").toString());
-					tfCidadeF.setText(select.dadosEspecificos.getString("cidade").toString());
-					tfBairroF.setText(select.dadosEspecificos.getString("bairro").toString());
-					tfRuaF.setText(select.dadosEspecificos.getString("rua").toString());
-					tfNumeroF.setText(select.dadosEspecificos.getString("numero").toString());
-					ftfCPF.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
-					ftfRG.setText(select.dadosEspecificos.getString("rg_ie").toString());
-					tfMae.setText(select.dadosEspecificos.getString("mae").toString());
-					tfPai.setText(select.dadosEspecificos.getString("pai").toString());
-					
-					
-					ftfDataDeNascimento.setText(select.dadosEspecificos.getString("data_de_nascimento").toString());
-					SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy");
-					try {
-						dataSelect = s.parse(ftfDataDeNascimento.getText().toString());
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					
-					comboEstadoCivil.setSelectedItem(select.dadosEspecificos.getString("estado_civil").toString());
-					tfTel1F.setText(select.dadosEspecificos.getString("tel1").toString());
-					tfTel2F.setText(select.dadosEspecificos.getString("tel2").toString());
-					tfCel1F.setText(select.dadosEspecificos.getString("cel1").toString());
-					tfCel2F.setText(select.dadosEspecificos.getString("cel2").toString());
-					
+					tfNome.setText(nome);
+					tfEmailF.setText(email);
+					comboUFF.setSelectedItem(estado);
+					tfCidadeF.setText(cidade);
+					tfBairroF.setText(bairro);
+					tfRuaF.setText(rua);
+					tfNumeroF.setText(numero);
+					ftfCPF.setText(cpf);
+					ftfRG.setText(rg);
+					tfMae.setText(mae);
+					tfPai.setText(pai);
+					tfDataDeNascimento.setText(dataDeNascimento);
+					comboEstadoCivil.setSelectedItem(estadoCivil);
+					tfTel1F.setText(tel1);
+					tfTel2F.setText(tel2);
+					tfCel1F.setText(cel1);
+					tfCel2F.setText(cel2);
 				}
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Jurídica")) {
+					String razaoSocial = select.dadosEspecificos.getString("nome_razao").toString();
+					String email = select.dadosEspecificos.getString("email").toString();
+					String estado = select.dadosEspecificos.getString("uf").toString();
+					String cidade = select.dadosEspecificos.getString("cidade").toString();
+					String bairro = select.dadosEspecificos.getString("bairro").toString();
+					String rua = select.dadosEspecificos.getString("rua").toString();
+					String numero = select.dadosEspecificos.getString("numero").toString();
+					String cnpj = select.dadosEspecificos.getString("cpf_cnpj").toString();
+					String ie = select.dadosEspecificos.getString("rg_ie").toString();
+					String tel1 = select.dadosEspecificos.getString("tel1").toString();
+					String tel2 = select.dadosEspecificos.getString("tel2").toString();
+					String cel1 = select.dadosEspecificos.getString("cel1").toString();
+					String cel2 = select.dadosEspecificos.getString("cel2").toString();
+					
 					rbJuridica.setSelected(true);
 					pnJuridica.setVisible(true);
 					pnFisica.setVisible(false);
 					
-					tfRazaoSocial.setText(select.dadosEspecificos.getString("nome_razao").toString());
-					tfEmailJ.setText(select.dadosEspecificos.getString("email").toString());
-					tfCidadeF.setText(select.dadosEspecificos.getString("cidade").toString());
-					tfBairroF.setText(select.dadosEspecificos.getString("bairro").toString());
-					tfRuaF.setText(select.dadosEspecificos.getString("rua").toString());
-					tfNumeroJ.setText(select.dadosEspecificos.getString("numero").toString());
-					ftfCNPJ.setText(select.dadosEspecificos.getString("cpf_cnpj").toString());
-					ftfIE.setText(select.dadosEspecificos.getString("rg_ie").toString());
-					tfTel1J.setText(select.dadosEspecificos.getString("tel1").toString());
-					tfTel2J.setText(select.dadosEspecificos.getString("tel2").toString());
-					tfCel1J.setText(select.dadosEspecificos.getString("cel1").toString());
-					tfCel2J.setText(select.dadosEspecificos.getString("cel2").toString());
+					tfRazaoSocial.setText(razaoSocial);
+					tfEmailJ.setText(email);
+					comboUFJ.setSelectedItem(estado);
+					tfCidadeF.setText(cidade);
+					tfBairroF.setText(bairro);
+					tfRuaF.setText(rua);
+					tfNumeroJ.setText(numero);
+					ftfCNPJ.setText(cnpj);
+					ftfIE.setText(ie);
+					tfTel1J.setText(tel1);
+					tfTel2J.setText(tel2);
+					tfCel1J.setText(cel1);
+					tfCel2J.setText(cel2);
 				}
 			}
 			return true;

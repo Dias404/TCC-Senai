@@ -407,9 +407,6 @@ public class CadastroDeClientes {
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				Date dataInformada = new Date();
-				dataInformada = calendario.getDate();
-				
 				String data = formatoBR.format(calendario.getDate());
 				tfDataDeNascimento.setText(data);
 			}
