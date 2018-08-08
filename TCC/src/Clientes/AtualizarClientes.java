@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 
 import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
+import CRUD.CRUDLugar;
 import DAO.Clientes;
 
 import javax.swing.JTextField;
@@ -855,12 +856,7 @@ public class AtualizarClientes {
 		grupoSexo.add(rbFeminino);
 		
 		btnCalendario = new JButton("...");
-		btnCalendario.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				pnCalendario.setVisible(false);
-			}
-		});
+		btnCalendario.setFocusable(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (pnCalendario.isVisible()) {
@@ -933,7 +929,25 @@ public class AtualizarClientes {
 		lblBG.setBounds(0, 0, 542, 436);
 		frmAtualizarClientes.getContentPane().add(lblBG);
 		
+		preencherComboUF();
 		preencherCampos();
+	}
+	
+	private boolean preencherComboUF() {
+		CRUDLugar selecionar = new CRUDLugar();
+		selecionar.selectEstados();
+		comboUFF.removeAllItems();
+		comboUFJ.removeAllItems();
+		try {
+			while (selecionar.dados.next()) {
+				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
+				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
+			}
+			return true;	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	private boolean preencherCampos() {

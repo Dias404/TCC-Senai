@@ -114,35 +114,25 @@ public class CadastroDeClientes {
 	private JComboBox comboUFJ;
 	private JComboBox comboEstadoCivil;
 	private JButton btnConsultarClientes;
-	private JFormattedTextField ftfDataDeNascimento;
+	private JTextField tfDataDeNascimento;
 	private JFormattedTextField ftfCNPJ;
 	private JFormattedTextField ftfRG;
 	private JFormattedTextField ftfIE;
-	
-	public static ResultSet UF = null;
-	private MaskFormatter mascaraData;
-	private MaskFormatter mascaraCPF;
-	private MaskFormatter mascaraCNPJ;
-	private MaskFormatter mascaraRG;
-	private MaskFormatter mascaraIE;
-	private JButton btnCalendario;
-	private JPanel pnCalendario;
-	
-	static String x;
-	static String janela;
-	private static int idUF;
-	private static ResultSet backupCidade = null;
-	private static ResultSet backupBairro = null;
-	private static ResultSet backupRua = null;
-
-	private static int idCidade;
-	private static int idBairro;
 	private JTextField tfBairroF;
 	private JTextField tfRuaF;
 	private JTextField tfCidadeF;
 	private JTextField tfBairroJ;
 	private JTextField tfRuaJ;
 	private JTextField tfCidadeJ;
+	private JButton btnCalendario;
+	private JPanel pnCalendario;
+	
+	private MaskFormatter mascaraData;
+	private MaskFormatter mascaraCPF;
+	private MaskFormatter mascaraCNPJ;
+	private MaskFormatter mascaraRG;
+	private MaskFormatter mascaraIE;
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -258,7 +248,7 @@ public class CadastroDeClientes {
 					String rg = ftfRG.getText().toString();
 					String mae = tfMae.getText().toString();
 					String pai = tfPai.getText().toString();
-					String dataDeNascimento = ftfDataDeNascimento.getText().toString();
+					String dataDeNascimento = tfDataDeNascimento.getText().toString();
 					String tel1 = tfTel1F.getText().toString();
 					String tel2 = tfTel2F.getText().toString();
 					String cel1 = tfCel1F.getText().toString();
@@ -366,7 +356,7 @@ public class CadastroDeClientes {
 				Date dataDeHoje = new Date();
 				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
 				String data = formatoBR.format(dataDeHoje);
-				ftfDataDeNascimento.setText(data);
+				tfDataDeNascimento.setText(data);
 				
 				tfNome.setText(null);
 				tfRazaoSocial.setText(null);
@@ -416,19 +406,12 @@ public class CadastroDeClientes {
 		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				Date dataDeHoje = new Date();
 				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
 				Date dataInformada = new Date();
 				dataInformada = calendario.getDate();
 				
-				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
-					String data = formatoBR.format(calendario.getDate());
-					ftfDataDeNascimento.setText(data);
-				} else {
-					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
-					String data = formatoBR.format(dataDeHoje);
-					ftfDataDeNascimento.setText(data);
-				}
+				String data = formatoBR.format(calendario.getDate());
+				tfDataDeNascimento.setText(data);
 			}
 		});
 		calendario.setBounds(0, 0, 201, 97);
@@ -567,11 +550,11 @@ public class CadastroDeClientes {
 		label_13.setBounds(320, 232, 77, 14);
 		pnFisica.add(label_13);
 		
-		ftfDataDeNascimento = new JFormattedTextField(mascaraData);
-		ftfDataDeNascimento.setFocusable(false);
-		ftfDataDeNascimento.setColumns(10);
-		ftfDataDeNascimento.setBounds(157, 229, 116, 20);
-		pnFisica.add(ftfDataDeNascimento);
+		tfDataDeNascimento = new JTextField();
+		tfDataDeNascimento.setFocusable(false);
+		tfDataDeNascimento.setColumns(10);
+		tfDataDeNascimento.setBounds(157, 229, 116, 20);
+		pnFisica.add(tfDataDeNascimento);
 		
 		tfTel1F = new JTextField();
 		tfTel1F.setColumns(10);
@@ -759,12 +742,7 @@ public class CadastroDeClientes {
 		pnFisica.add(comboEstadoCivil);
 		
 		btnCalendario = new JButton("...");
-		btnCalendario.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				pnCalendario.setVisible(false);
-			}
-		});
+		btnCalendario.setFocusable(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
@@ -851,10 +829,6 @@ public class CadastroDeClientes {
 	}
 	
 	private boolean preencherComboUF() {
-		UF = null;
-		backupCidade = null;
-		backupBairro = null;
-		
 		CRUDLugar selecionar = new CRUDLugar();
 		selecionar.selectEstados();
 		comboUFF.removeAllItems();
@@ -864,7 +838,6 @@ public class CadastroDeClientes {
 				comboUFF.addItem(selecionar.dados.getString("nome_estado"));
 				comboUFJ.addItem(selecionar.dados.getString("nome_estado"));
 			}
-			UF = selecionar.dados;
 			return true;	
 		} catch (SQLException e) {
 			e.printStackTrace();

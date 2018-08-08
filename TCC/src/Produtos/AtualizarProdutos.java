@@ -877,12 +877,7 @@ public class AtualizarProdutos {
 		panel.add(ftfDataDeEmissao);
 		
 		btnCalendario = new JButton("...");
-		btnCalendario.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				pnCalendario.setVisible(false);
-			}
-		});
+		btnCalendario.setFocusable(false);
 		btnCalendario.setEnabled(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

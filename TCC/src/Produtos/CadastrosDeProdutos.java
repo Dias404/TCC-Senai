@@ -877,12 +877,7 @@ public class CadastrosDeProdutos {
 		ftfDataDeEmissao.setFocusable(false);
 		
 		btnCalendario = new JButton("...");
-		btnCalendario.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				pnCalendario.setVisible(false);
-			}
-		});
+		btnCalendario.setFocusable(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {

@@ -55,29 +55,29 @@ import java.awt.event.ItemEvent;
 public class CadastrarLoja {
 
 	public static JFrame frmCadastrarLoja;
-	private JTextField tfCNPJ;
-	private JTextField tfIE;
-	private JTextField tfNum;
+	private JFormattedTextField ftfCNPJ;
+	private JFormattedTextField ftfIE;
+	private JTextField tfNumero;
 	private JTextField tfTel1;
 	private static JComboBox comboUF;
-	private static JComboBox comboCidade;
 	private JLabel lblBG;
-	private static JComboBox comboRua;
-	private JButton btnAddCidade;
-	private JButton btnAddBairro;
-	private JButton btnAddRua;
 	private JButton btnVoltar;
 	private JButton btnLimpar;
 	private JPanel panel;
-	private static JTextField tfNome;
+	private static JTextField tfRazao;
 	private JTextField tfTel2;
 	private JTextField tfCel1;
 	private JTextField tfCel2;
-	private static JComboBox comboBairro;
+	private JTextField tfBairro;
+	private JTextField tfRua;
+	private JTextField tfCidade;
 	
 	private static int idUF;
 	private static int idCidade;
 	private static ResultSet backupCidade = null;
+	
+	private MaskFormatter mascaraCNPJ;
+	private MaskFormatter mascaraIE;
 	
 	/**
 	 * Launch the application.
@@ -106,14 +106,15 @@ public class CadastrarLoja {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			mascaraCNPJ = new MaskFormatter("##.###.###/####-##");
+			mascaraIE = new MaskFormatter("###.###.###.###");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		frmCadastrarLoja = new JFrame();
-		frmCadastrarLoja.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				//TelaPrincipal.frmPrincipal.setEnabled(true);
-				//TelaPrincipal.frmPrincipal.setVisible(true);
-			}
-		});
 		frmCadastrarLoja.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarLoja.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastrarLoja.setTitle("SIG - Cadastrar Loja");
 		frmCadastrarLoja.setResizable(false);
@@ -135,10 +136,10 @@ public class CadastrarLoja {
 		lblIE.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblIE.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		tfIE = new JTextField();
-		tfIE.setBounds(310, 133, 200, 20);
-		panel.add(tfIE);
-		tfIE.setColumns(10);
+		ftfIE = new JFormattedTextField(mascaraIE);
+		ftfIE.setBounds(310, 133, 200, 20);
+		panel.add(ftfIE);
+		ftfIE.setColumns(10);
 		
 		JLabel lblCNPJ = new JLabel("CNPJ:");
 		lblCNPJ.setBounds(13, 135, 35, 14);
@@ -146,10 +147,10 @@ public class CadastrarLoja {
 		lblCNPJ.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCNPJ.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		tfCNPJ = new JTextField();
-		tfCNPJ.setBounds(58, 133, 200, 20);
-		panel.add(tfCNPJ);
-		tfCNPJ.setColumns(10);
+		ftfCNPJ = new JFormattedTextField(mascaraCNPJ);
+		ftfCNPJ.setBounds(58, 133, 200, 20);
+		panel.add(ftfCNPJ);
+		ftfCNPJ.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Razão Social:");
 		lblNome.setBounds(10, 13, 82, 14);
@@ -164,11 +165,6 @@ public class CadastrarLoja {
 		lblUf.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		comboUF = new JComboBox();
-		comboUF.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				preencherComboCidade();
-			}
-		});
 		comboUF.setBounds(58, 42, 163, 20);
 		panel.add(comboUF);
 		comboUF.setSelectedItem("São Paulo");
@@ -179,50 +175,11 @@ public class CadastrarLoja {
 		lblBairro.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		comboBairro = new JComboBox();
-		comboBairro.setBounds(58, 73, 232, 19);
-		panel.add(comboBairro);
-		
-		btnAddBairro = new JButton("...");
-		btnAddBairro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastrarBairros.main(new String[] {"Cadastro de Loja"});
-			}
-		});
-		btnAddBairro.setBounds(300, 70, 27, 23);
-		panel.add(btnAddBairro);
-		btnAddBairro.setForeground(Color.WHITE);
-		btnAddBairro.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddBairro.setFocusable(false);
-		btnAddBairro.setBackground(new Color(0, 73, 170));
-		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setBounds(249, 44, 51, 14);
 		panel.add(lblCidade);
 		lblCidade.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
-		comboCidade = new JComboBox();
-		comboCidade.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				//preencherComboBairro();
-			}
-		});
-		comboCidade.setBounds(310, 42, 163, 19);
-		panel.add(comboCidade);
-		
-		btnAddCidade = new JButton("...");
-		btnAddCidade.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CadastrarCidades.main(new String[] {"Cadastro de Loja"});
-			}
-		});
-		btnAddCidade.setBounds(483, 40, 27, 23);
-		panel.add(btnAddCidade);
-		btnAddCidade.setForeground(Color.WHITE);
-		btnAddCidade.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddCidade.setFocusable(false);
-		btnAddCidade.setBackground(new Color(0, 73, 170));
 		
 		JLabel lblRua = new JLabel("Rua:");
 		lblRua.setBounds(10, 104, 38, 14);
@@ -230,37 +187,21 @@ public class CadastrarLoja {
 		lblRua.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRua.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		comboRua = new JComboBox();
-		comboRua.setBounds(58, 103, 232, 19);
-		panel.add(comboRua);
-		
-		btnAddRua = new JButton("...");
-		btnAddRua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnAddRua.setBounds(300, 100, 27, 23);
-		panel.add(btnAddRua);
-		btnAddRua.setForeground(Color.WHITE);
-		btnAddRua.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAddRua.setFocusable(false);
-		btnAddRua.setBackground(new Color(0, 73, 170));
-		
-		JLabel lblNum = new JLabel("Número:");
-		lblNum.setBounds(335, 104, 62, 14);
+		JLabel lblNum = new JLabel("N°:");
+		lblNum.setBounds(238, 104, 62, 14);
 		panel.add(lblNum);
 		lblNum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNum.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		tfNum = new JTextField();
-		tfNum.setBounds(407, 102, 103, 20);
-		panel.add(tfNum);
-		tfNum.setColumns(10);
+		tfNumero = new JTextField();
+		tfNumero.setBounds(310, 102, 200, 20);
+		panel.add(tfNumero);
+		tfNumero.setColumns(10);
 		
-		tfNome = new JTextField();
-		tfNome.setColumns(10);
-		tfNome.setBounds(102, 11, 410, 20);
-		panel.add(tfNome);
+		tfRazao = new JTextField();
+		tfRazao.setColumns(10);
+		tfRazao.setBounds(102, 11, 410, 20);
+		panel.add(tfRazao);
 		
 		JLabel lblTel = new JLabel("Tel 1:");
 		lblTel.setBounds(13, 166, 35, 14);
@@ -328,18 +269,15 @@ public class CadastrarLoja {
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tfNome.setText(null);
-				tfNum.setText(null);
-				tfCNPJ.setText(null);
-				tfIE.setText(null);
+				tfRazao.setText(null);
+				tfNumero.setText(null);
+				ftfCNPJ.setValue(null);
+				ftfIE.setValue(null);
 				tfTel1.setText(null);
 				tfTel2.setText(null);
 				tfCel1.setText(null);
 				tfCel2.setText(null);
-				comboUF.setSelectedIndex(0);
-				comboCidade.setSelectedIndex(0);
-				comboBairro.setSelectedIndex(0);
-				comboRua.setSelectedIndex(0);
+				
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
@@ -352,24 +290,44 @@ public class CadastrarLoja {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tfNome.getText().isEmpty() || tfNum.getText().isEmpty() || tfCNPJ.getText().isEmpty() || tfIE.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(frmCadastrarLoja, "Não foi possível cadastrar a Loja!");
-				}else {
-					CRUDLojas insert = new CRUDLojas();
-					Lojas l = new Lojas();
-					l.setRazao(tfNome.getText().toString());
-					l.setEstado(comboUF.getSelectedItem().toString());
-					l.setCidade(comboCidade.getSelectedItem().toString());
-					l.setBairro(comboBairro.getSelectedItem().toString());
-					l.setRua(comboRua.getSelectedItem().toString());
-					l.setNumero(Integer.valueOf(tfNum.getText()));
-					l.setCnpj(tfCNPJ.getText().toString());
-					l.setIe(tfIE.getText().toString());
-					l.setTel1(tfTel1.getText().toString());
-					l.setTel2(tfTel2.getText().toString());
-					l.setCel1(tfCel1.getText().toString());
-					l.setCel2(tfCel2.getText().toString());
-					insert.insertLoja(l, btnLimpar);
+				String razaoSocial = tfRazao.getText().toString();
+				String estado = comboUF.getSelectedItem().toString();
+				String cidade = tfCidade.getText().toString();
+				String bairro = tfBairro.getText().toString();
+				String rua = tfRua.getText().toString();
+				String numero = tfNumero.getText().trim().toString();
+				String cnpj = ftfCNPJ.getText().toString();
+				String ie = ftfIE.getText().toString();
+				String tel1 = tfTel1.getText().toString();
+				String tel2 = tfTel2.getText().toString();
+				String cel1 = tfCel1.getText().toString();
+				String cel2 = tfCel2.getText().toString();
+				
+				if(razaoSocial.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(frmCadastrarLoja, "Existe um campo vazio!");
+				} else {
+					if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+					} else {
+						Lojas loja = new Lojas();
+						loja.setRazao(razaoSocial);
+						loja.setEstado(estado);
+						loja.setCidade(cidade);
+						loja.setBairro(bairro);
+						loja.setRua(rua);
+						loja.setNumero(numero);
+						loja.setCnpj(cnpj);
+						loja.setIe(ie);
+						loja.setTel1(tel1);
+						loja.setTel2(tel2);
+						loja.setCel1(cel1);
+						loja.setCel2(cel2);
+						
+						CRUDLojas insert = new CRUDLojas();
+						insert.insertLoja(loja);
+						JOptionPane.showMessageDialog(null, "A Loja foi cadastrada!");
+						btnLimpar.doClick();
+					}
 				}
 			}
 		});
@@ -391,9 +349,21 @@ public class CadastrarLoja {
 		
 		preencherComboUF();
 		comboUF.setSelectedItem("São Paulo");
-		preencherComboCidade();
-		/*preencherComboBairro();
-		preencherComboRua();*/
+		
+		tfBairro = new JTextField();
+		tfBairro.setColumns(10);
+		tfBairro.setBounds(58, 72, 200, 20);
+		panel.add(tfBairro);
+		
+		tfRua = new JTextField();
+		tfRua.setColumns(10);
+		tfRua.setBounds(58, 102, 200, 20);
+		panel.add(tfRua);
+		
+		tfCidade = new JTextField();
+		tfCidade.setColumns(10);
+		tfCidade.setBounds(310, 42, 200, 20);
+		panel.add(tfCidade);
 	}
 	
 	private boolean preencherComboUF() {
@@ -412,11 +382,10 @@ public class CadastrarLoja {
 		}
 	}
 	
-	public static boolean preencherComboCidade() {
+	/*public static boolean preencherComboCidade() {
 		idUF = comboUF.getSelectedIndex()+1;
 		CRUDLugar select = new CRUDLugar();
 		select.selectCidadeCondicao2(idUF);
-		comboCidade.removeAllItems();
 		backupCidade = select.dadosSelect;
 		try {
 			while (select.dadosSelect.next()) {
@@ -435,7 +404,7 @@ public class CadastrarLoja {
 		select.selectBairroCondicao2(idCidade, idUF);
 		
 		
-		/*ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(comboCidade.getSelectedItem().toString(), comboUF.getSelectedIndex()+1);
+		ResultSet idCidade = CRUDLugar.selectCidadeCondicao1(comboCidade.getSelectedItem().toString(), comboUF.getSelectedIndex()+1);
 		try {
 			ResultSet dados = CRUDLugar.selectBairroCondicao2(idCidade.getInt("id_cidade"));
 			comboBairro.removeAllItems();
@@ -448,7 +417,7 @@ public class CadastrarLoja {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
-		}*/
+		}
 	}
 	
 	private static boolean preencherComboRua() {
@@ -465,5 +434,5 @@ public class CadastrarLoja {
 			e.printStackTrace();
 			return false;
 		}
-	}
+	}*/
 }
