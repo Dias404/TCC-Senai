@@ -27,6 +27,7 @@ import Clientes.ConsultarClientes;
 import Lancamento.LancamentoDeGastos;
 import Produtos.CadastrosDeProdutos;
 import Produtos.ConsultarProdutos;
+import Produtos.Transferencia;
 import Vendas.CadastroDeVendas;
 import Vendas.ConsultarVendas;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
@@ -463,6 +464,12 @@ public class TelaPrincipal {
 		pnEstoque.add(btnEntrada);
 		
 		btnTransferencia = new JButton("");
+		btnTransferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPrincipal.setVisible(false);
+				Transferencia.main(null);
+			}
+		});
 		btnTransferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/transferencia.jpg")));
 		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTransferencia.setFocusable(false);

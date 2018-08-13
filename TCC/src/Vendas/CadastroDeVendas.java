@@ -92,7 +92,6 @@ public class CadastroDeVendas {
 		try {
 			mascara = new MaskFormatter("##");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
