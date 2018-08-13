@@ -279,20 +279,6 @@ public class CadastroDeVendas {
 		btnLimpar.setBounds(334, 216, 89, 23);
 		frmCadastroDeVendas.getContentPane().add(btnLimpar);
 		
-		JButton btnConsultarVendas = new JButton("Consultar Vendas");
-		btnConsultarVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frmCadastroDeVendas.dispose();
-				ConsultarVendas.main(null);
-			}
-		});
-		btnConsultarVendas.setForeground(Color.WHITE);
-		btnConsultarVendas.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnConsultarVendas.setFocusable(false);
-		btnConsultarVendas.setBackground(new Color(0, 73, 170));
-		btnConsultarVendas.setBounds(371, 10, 151, 23);
-		frmCadastroDeVendas.getContentPane().add(btnConsultarVendas);
-		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
 		Image BG2 = BG.getImage().getScaledInstance(532, 251, Image.SCALE_DEFAULT);
 		BG = new ImageIcon(BG2);

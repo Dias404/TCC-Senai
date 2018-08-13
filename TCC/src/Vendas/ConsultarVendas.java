@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import Administrador.CadastrarUsuario;
 import CRUD.CRUDVendas;
 import Produtos.AtualizarProdutos;
+import Telas.TelaPrincipal;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -105,19 +106,19 @@ public class ConsultarVendas {
 		));
 		scrollPane.setViewportView(tabela);
 		
-		JButton button = new JButton("Voltar");
-		button.addActionListener(new ActionListener() {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmConsultaDeVendas.dispose();
-				CadastroDeVendas.main(null);
+				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Impact", Font.PLAIN, 13));
-		button.setFocusable(false);
-		button.setBackground(new Color(0, 73, 170));
-		button.setBounds(10, 400, 89, 23);
-		frmConsultaDeVendas.getContentPane().add(button);
+		btnVoltar.setForeground(Color.WHITE);
+		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
+		btnVoltar.setFocusable(false);
+		btnVoltar.setBackground(new Color(0, 73, 170));
+		btnVoltar.setBounds(10, 400, 89, 23);
+		frmConsultaDeVendas.getContentPane().add(btnVoltar);
 		
 		JButton button_1 = new JButton("Pesquisar");
 		button_1.addActionListener(new ActionListener() {

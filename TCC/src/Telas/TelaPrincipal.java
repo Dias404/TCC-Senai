@@ -26,7 +26,9 @@ import Clientes.CadastroDeClientes;
 import Clientes.ConsultarClientes;
 import Lancamento.LancamentoDeGastos;
 import Produtos.CadastrosDeProdutos;
+import Produtos.ConsultarProdutos;
 import Vendas.CadastroDeVendas;
+import Vendas.ConsultarVendas;
 import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 import javax.swing.ImageIcon;
@@ -186,6 +188,12 @@ public class TelaPrincipal {
 		frmPrincipal.getContentPane().add(lblNivel);
 			
 		btnConferencia = new JButton("");
+		btnConferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConsultarVendas.main(null);
+				frmPrincipal.setVisible(false);
+			}
+		});
 		btnConferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/conferencia.jpg")));
 		btnConferencia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConferencia.setFocusable(false);
