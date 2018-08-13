@@ -247,15 +247,28 @@ public class CadastroDeClientes {
 					String mae = tfMae.getText().toString();
 					String pai = tfPai.getText().toString();
 					String dataDeNascimento = tfDataDeNascimento.getText().toString();
+					
 					String tel1 = tfTel1F.getText().toString();
+					if (tel1.trim().isEmpty()) {
+						tel1 = "-";
+					}
 					String tel2 = tfTel2F.getText().toString();
+					if (tel2.trim().isEmpty()) {
+						tel2 = "-";
+					}
 					String cel1 = tfCel1F.getText().toString();
+					if (cel1.trim().isEmpty()) {
+						cel1 = "-";
+					}
 					String cel2 = tfCel2F.getText().toString();
+					if (cel2.trim().isEmpty()) {
+						cel2 = "-";
+					}
 					
 					if (nome.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
-						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+						if (tel1.trim().equals("-") && tel2.trim().equals("-") && cel1.trim().equals("-") && cel2.trim().equals("-")) {
 							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
 						} else {
 							Clientes cliFi = new Clientes();
@@ -404,9 +417,20 @@ public class CadastroDeClientes {
 		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
+				Date dataDeHoje = new Date();
 				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				String data = formatoBR.format(calendario.getDate());
-				tfDataDeNascimento.setText(data);
+				Date dataInformada = new Date();
+				dataInformada = calendario.getDate();
+				
+				if (dataInformada.before(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+					String data = formatoBR.format(calendario.getDate());
+					tfDataDeNascimento.setText(data);
+				} else {
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					calendario.setDate(dataDeHoje);
+					String data = formatoBR.format(dataDeHoje);
+					tfDataDeNascimento.setText(data);
+				}
 			}
 		});
 		calendario.setBounds(0, 0, 201, 97);

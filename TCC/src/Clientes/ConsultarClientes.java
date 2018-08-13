@@ -122,40 +122,35 @@ public class ConsultarClientes {
 			new Object[][] {
 			},
 			new String[] {
-				"ID", "Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data de Nascimento", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
+				"ID", "Nome/Raz\u00E3o", "Tipo", "Sexo", "E-mail", "UF", "Cidade", "Bairro", "Rua", "N\u00FAmero", "CPF/CNPJ", "RG/IE", "M\u00E3e", "Pai", "Data", "Estado Civil", "Tel 1", "Tel 2", "Cel 1", "Cel 2"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+				false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		tabela.getColumnModel().getColumn(1).setResizable(false);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tabela.getColumnModel().getColumn(1).setMinWidth(200);
-		tabela.getColumnModel().getColumn(1).setMaxWidth(200);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(60);
-		tabela.getColumnModel().getColumn(2).setMinWidth(60);
-		tabela.getColumnModel().getColumn(2).setMaxWidth(60);
-		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(4).setResizable(false);
-		tabela.getColumnModel().getColumn(5).setResizable(false);
-		tabela.getColumnModel().getColumn(6).setResizable(false);
-		tabela.getColumnModel().getColumn(7).setResizable(false);
-		tabela.getColumnModel().getColumn(8).setResizable(false);
-		tabela.getColumnModel().getColumn(9).setResizable(false);
-		tabela.getColumnModel().getColumn(10).setResizable(false);
-		tabela.getColumnModel().getColumn(11).setResizable(false);
-		tabela.getColumnModel().getColumn(12).setResizable(false);
-		tabela.getColumnModel().getColumn(13).setResizable(false);
-		tabela.getColumnModel().getColumn(14).setResizable(false);
-		tabela.getColumnModel().getColumn(15).setResizable(false);
-		tabela.getColumnModel().getColumn(16).setResizable(false);
-		tabela.getColumnModel().getColumn(17).setResizable(false);
-		tabela.getColumnModel().getColumn(18).setResizable(false);
-		tabela.getColumnModel().getColumn(19).setResizable(false);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(0).setMaxWidth(63);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(175);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(60);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(5).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(7).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(8).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(9).setPreferredWidth(60);
+		tabela.getColumnModel().getColumn(10).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(11).setPreferredWidth(100);
+		tabela.getColumnModel().getColumn(12).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(13).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(16).setPreferredWidth(95);
+		tabela.getColumnModel().getColumn(17).setPreferredWidth(95);
+		tabela.getColumnModel().getColumn(18).setPreferredWidth(95);
+		tabela.getColumnModel().getColumn(19).setPreferredWidth(95);
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {

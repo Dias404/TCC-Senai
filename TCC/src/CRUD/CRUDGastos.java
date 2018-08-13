@@ -34,7 +34,7 @@ public class CRUDGastos {
 	public ResultSet selectGastos() {
 		String sql = "SELECT * FROM gastos ORDER BY loja";
 		try {
-			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
+			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

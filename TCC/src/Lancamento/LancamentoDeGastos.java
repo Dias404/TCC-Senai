@@ -55,7 +55,7 @@ public class LancamentoDeGastos {
 	private JFrame frmLancamentoDeGastos;
 	private JTextField tfDescricao;
 	private JTextField tfValorTotal;
-	private JTextField tfNotaFiscal;
+	private JFormattedTextField ftfNotaFiscal;
 	private JButton btnLimpar;
 	private JButton btnSalvarInsert;
 	private JFormattedTextField ftfData;
@@ -63,18 +63,20 @@ public class LancamentoDeGastos {
 	private JComboBox comboPesquisar;
 	private JTable tabela;
 	private JPanel pnCalendario;
-	private MaskFormatter mascara;
 	private JButton btnPesquisar;
 	private JButton btnRemover;
 	private JButton btnCancelar;
 	private JButton btnSalvarUpdate;
 	private JButton btnVoltar;
-	private JButton btnCalendario;
+	private JButton btnCalendarioInsert;
+	private JButton btnCalendarioUpdate;
 	
 	private ResultSet dadosBackup = null;
 	public int idGasto;
 	private int desabilitarTabela = 0;
 	
+	private MaskFormatter mascara;
+	private MaskFormatter mascaraNF;
 	
 	/**
 	 * Launch the application.
@@ -105,6 +107,7 @@ public class LancamentoDeGastos {
 	private void initialize() {
 		try {
 			mascara = new MaskFormatter("##/##/####");
+			mascaraNF = new MaskFormatter("#########");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,11 +139,12 @@ public class LancamentoDeGastos {
 				Date dataInformada = new Date();
 				dataInformada = calendario.getDate();
 				
-				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+				if (dataInformada.before(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
 					String data = formatoBR.format(calendario.getDate());
 					ftfData.setText(data);
 				} else {
-					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					calendario.setDate(dataDeHoje);
 					String data = formatoBR.format(dataDeHoje);
 					ftfData.setText(data);
 				}
@@ -194,10 +198,10 @@ public class LancamentoDeGastos {
 		tfValorTotal.setBounds(90, 130, 150, 20);
 		frmLancamentoDeGastos.getContentPane().add(tfValorTotal);
 		
-		tfNotaFiscal = new JTextField();
-		tfNotaFiscal.setColumns(10);
-		tfNotaFiscal.setBounds(330, 130, 150, 20);
-		frmLancamentoDeGastos.getContentPane().add(tfNotaFiscal);
+		ftfNotaFiscal = new JFormattedTextField(mascaraNF);
+		ftfNotaFiscal.setColumns(10);
+		ftfNotaFiscal.setBounds(330, 130, 150, 20);
+		frmLancamentoDeGastos.getContentPane().add(ftfNotaFiscal);
 		
 		btnSalvarInsert = new JButton("Salvar");
 		btnSalvarInsert.addActionListener(new ActionListener() {
@@ -206,7 +210,7 @@ public class LancamentoDeGastos {
 				String data = ftfData.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				String valorTotal = tfValorTotal.getText().toString();
-				String notaFiscal = tfNotaFiscal.getText().toString();
+				String notaFiscal = ftfNotaFiscal.getText().toString();
 				
 				if (loja.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty() || comboLojas.getItemCount() == 0) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
@@ -236,7 +240,7 @@ public class LancamentoDeGastos {
 				
 				tfDescricao.setText(null);
 				tfValorTotal.setText(null);
-				tfNotaFiscal.setText(null);
+				ftfNotaFiscal.setValue(null);
 			}
 		});
 		btnLimpar.setForeground(Color.WHITE);
@@ -265,6 +269,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -282,13 +287,15 @@ public class LancamentoDeGastos {
 								ftfData.setText(select.dadosEspecificos.getString("data"));
 								tfDescricao.setText(select.dadosEspecificos.getString("descricao"));
 								tfValorTotal.setText(select.dadosEspecificos.getString("valor_total"));
-								tfNotaFiscal.setText(select.dadosEspecificos.getString("nota_fiscal"));
+								ftfNotaFiscal.setText(select.dadosEspecificos.getString("nota_fiscal"));
 								
+								btnCalendarioInsert.setVisible(false);
 								btnLimpar.setVisible(false);
 								btnSalvarInsert.setVisible(false);
 								comboPesquisar.setEnabled(false);
 								btnPesquisar.setEnabled(false);
 								btnVoltar.setEnabled(false);
+								btnCalendarioUpdate.setVisible(true);
 								btnRemover.setVisible(true);
 								btnCancelar.setVisible(true);
 								btnSalvarUpdate.setVisible(true);
@@ -314,6 +321,11 @@ public class LancamentoDeGastos {
 				"ID", "Loja", "Data", "Descri\u00E7\u00E3o", "Valor Total", "Nota Fiscal"
 			}
 		));
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(85);
+		tabela.getColumnModel().getColumn(5).setPreferredWidth(80);
+		tabela.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tabela);
 		
 		btnVoltar = new JButton("Voltar");
@@ -417,6 +429,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(btnRemover);
 		
 		btnSalvarUpdate = new JButton("Salvar");
+		btnSalvarUpdate.setVisible(false);
 		btnSalvarUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int respostaJOP = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja atualizar esses dados?",null, JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
@@ -425,8 +438,8 @@ public class LancamentoDeGastos {
 					String data = ftfData.getText().toString();
 					String descricao = tfDescricao.getText().toString();
 					String valorTotal = tfValorTotal.getText().toString();
-					String notaFiscal = tfNotaFiscal.getText().toString();
-					if (loja.isEmpty() || data.equals("  /  /    ") || descricao.isEmpty() || valorTotal.isEmpty() || notaFiscal.isEmpty()) {
+					String notaFiscal = ftfNotaFiscal.getText().trim().toString();
+					if (loja.trim().isEmpty() || descricao.trim().isEmpty() || valorTotal.trim().isEmpty() || notaFiscal.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!");
 					} else {
 						CRUDGastos update = new CRUDGastos();
@@ -440,7 +453,6 @@ public class LancamentoDeGastos {
 				}
 			}
 		});
-		btnSalvarUpdate.setVisible(false);
 		btnSalvarUpdate.setForeground(Color.WHITE);
 		btnSalvarUpdate.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnSalvarUpdate.setFocusable(false);
@@ -451,9 +463,11 @@ public class LancamentoDeGastos {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnCalendarioUpdate.setVisible(false);
 				btnRemover.setVisible(false);
 				btnCancelar.setVisible(false);
 				btnSalvarUpdate.setVisible(false);
+				btnCalendarioInsert.setVisible(true);
 				btnLimpar.setVisible(true);
 				btnSalvarInsert.setVisible(true);
 				comboPesquisar.setEnabled(true);
@@ -471,9 +485,9 @@ public class LancamentoDeGastos {
 		btnCancelar.setBounds(292, 161, 89, 23);
 		frmLancamentoDeGastos.getContentPane().add(btnCancelar);
 		
-		btnCalendario = new JButton("...");
-		btnCalendario.setFocusable(false);
-		btnCalendario.addActionListener(new ActionListener() {
+		btnCalendarioInsert = new JButton("...");
+		btnCalendarioInsert.setFocusable(false);
+		btnCalendarioInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (pnCalendario.isVisible()) {
 					pnCalendario.setVisible(false);
@@ -482,11 +496,28 @@ public class LancamentoDeGastos {
 				}
 			}
 		});
-		btnCalendario.setForeground(Color.WHITE);
-		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCalendario.setBackground(new Color(0, 73, 170));
-		btnCalendario.setBounds(213, 66, 27, 23);
-		frmLancamentoDeGastos.getContentPane().add(btnCalendario);
+		
+		btnCalendarioUpdate = new JButton("...");
+		btnCalendarioUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (pnCalendario.isVisible()) {
+					pnCalendario.setVisible(false);
+				} else {
+					pnCalendario.setVisible(true);
+				}
+			}
+		});
+		btnCalendarioUpdate.setForeground(Color.WHITE);
+		btnCalendarioUpdate.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCalendarioUpdate.setFocusable(false);
+		btnCalendarioUpdate.setBackground(new Color(0, 73, 170));
+		btnCalendarioUpdate.setBounds(213, 66, 27, 23);
+		frmLancamentoDeGastos.getContentPane().add(btnCalendarioUpdate);
+		btnCalendarioInsert.setForeground(Color.WHITE);
+		btnCalendarioInsert.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCalendarioInsert.setBackground(new Color(0, 73, 170));
+		btnCalendarioInsert.setBounds(213, 66, 27, 23);
+		frmLancamentoDeGastos.getContentPane().add(btnCalendarioInsert);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
 		Image BG2 = BG.getImage().getScaledInstance(491, 575, Image.SCALE_DEFAULT);

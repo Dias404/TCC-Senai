@@ -228,9 +228,20 @@ public class AtualizarClientes {
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (ponteiroData == 1) {
+					Date dataDeHoje = new Date();
 					SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-					String data = formatoBR.format(calendario.getDate());
-					tfDataDeNascimento.setText(data);
+					Date dataInformada = new Date();
+					dataInformada = calendario.getDate();
+					
+					if (dataInformada.before(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+						String data = formatoBR.format(calendario.getDate());
+						tfDataDeNascimento.setText(data);
+					} else {
+						JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+						calendario.setDate(dataDeHoje);
+						String data = formatoBR.format(dataDeHoje);
+						tfDataDeNascimento.setText(data);
+					}
 				}
 			}
 		});
