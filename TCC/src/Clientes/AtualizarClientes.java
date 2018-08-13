@@ -96,6 +96,7 @@ public class AtualizarClientes {
 	private JPanel pnCalendario;
 	
 	static String dataDeNascimento = null;
+	static int ponteiroData = 0;
 	
 	Date dataSelect = new Date();
 	Date dataInformada = new Date();
@@ -226,9 +227,11 @@ public class AtualizarClientes {
 		
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				String data = formatoBR.format(calendario.getDate());
-				tfDataDeNascimento.setText(data);
+				if (ponteiroData == 1) {
+					SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+					String data = formatoBR.format(calendario.getDate());
+					tfDataDeNascimento.setText(data);
+				}
 			}
 		});
 		
@@ -849,6 +852,7 @@ public class AtualizarClientes {
 		btnCalendario.setFocusable(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ponteiroData = 1;
 				if (pnCalendario.isVisible()) {
 					pnCalendario.setVisible(false);
 				} else {

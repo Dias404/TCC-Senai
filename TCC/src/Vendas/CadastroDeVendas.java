@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -28,6 +30,7 @@ import CRUD.CRUDVendas;
 import DAO.Vendas;
 import Telas.TelaPrincipal;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ItemListener;
@@ -35,6 +38,9 @@ import java.awt.event.ItemEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
+
+import Administrador.CadastrarUsuario;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -96,6 +102,8 @@ public class CadastroDeVendas {
 		frmCadastroDeVendas.setBounds(100, 100, 538, 279);
 		frmCadastroDeVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCadastroDeVendas.getContentPane().setLayout(null);
+		frmCadastroDeVendas.setResizable(false);
+		frmCadastroDeVendas.setLocationRelativeTo(null);
 		
 		JLabel lblVendas = new JLabel("Vendas");
 		lblVendas.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -103,7 +111,8 @@ public class CadastroDeVendas {
 		frmCadastroDeVendas.getContentPane().add(lblVendas);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setOpaque(false);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		panel.setBounds(10, 39, 512, 166);
 		frmCadastroDeVendas.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -283,8 +292,15 @@ public class CadastroDeVendas {
 		btnConsultarVendas.setBackground(new Color(0, 73, 170));
 		btnConsultarVendas.setBounds(371, 10, 151, 23);
 		frmCadastroDeVendas.getContentPane().add(btnConsultarVendas);
-		frmCadastroDeVendas.setResizable(false);
-		frmCadastroDeVendas.setLocationRelativeTo(null);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 251, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 251);
+		frmCadastroDeVendas.getContentPane().add(lblBG);
 		
 		preencherComboClientes();
 		preencherComboLojas();

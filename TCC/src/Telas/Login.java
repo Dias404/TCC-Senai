@@ -261,10 +261,6 @@ public class Login {
 		lblRecuperarSenha_1.setBounds(298, 360, 104, 15);
 		frmLogin.getContentPane().add(lblRecuperarSenha_1);
 		
-		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(512, 464, Image.SCALE_DEFAULT);
-		BG = new ImageIcon(BG2);
-		
 		lblErro1 = new JLabel("<html>Usuário ou senha incorretos. Por favor, tente<br>novamente</html>");
 		lblErro1.setVisible(false);
 		lblErro1.setForeground(Color.decode("#dd0000"));
@@ -279,6 +275,10 @@ public class Login {
 		lblErro2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblErro2.setBounds(112, 319, 290, 15);
 		frmLogin.getContentPane().add(lblErro2);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundPrincipal.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(512, 464, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);

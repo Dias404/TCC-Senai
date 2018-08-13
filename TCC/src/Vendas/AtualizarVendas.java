@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.text.MaskFormatter;
 
+import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
@@ -21,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
@@ -28,6 +31,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -98,6 +102,8 @@ public class AtualizarVendas {
 		frmAtualizarVendas.setBounds(100, 100, 538, 279);
 		frmAtualizarVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmAtualizarVendas.getContentPane().setLayout(null);
+		frmAtualizarVendas.setResizable(false);
+		frmAtualizarVendas.setLocationRelativeTo(null);
 		
 		JLabel lblAtualizarVendas = new JLabel("Atualizar Vendas");
 		lblAtualizarVendas.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -105,8 +111,9 @@ public class AtualizarVendas {
 		frmAtualizarVendas.getContentPane().add(lblAtualizarVendas);
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		panel.setLayout(null);
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		panel.setBounds(10, 39, 512, 166);
 		frmAtualizarVendas.getContentPane().add(panel);
 		
@@ -333,8 +340,16 @@ public class AtualizarVendas {
 		btnRemover.setBackground(new Color(0, 73, 170));
 		btnRemover.setBounds(235, 216, 89, 23);
 		frmAtualizarVendas.getContentPane().add(btnRemover);
-		frmAtualizarVendas.setResizable(false);
-		frmAtualizarVendas.setLocationRelativeTo(null);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 251, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 251);
+		frmAtualizarVendas.getContentPane().add(lblBG);
+
 	
 		preencherComboClientes();
 		preencherComboLojas();

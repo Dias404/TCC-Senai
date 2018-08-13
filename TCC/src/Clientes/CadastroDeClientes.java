@@ -35,8 +35,6 @@ import Administrador.CadastrarUsuario;
 import Banco.Conexao;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
-import CadastrarLugar.CadastrarBairros;
-import CadastrarLugar.CadastrarCidades;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
 import javax.swing.JFormattedTextField;

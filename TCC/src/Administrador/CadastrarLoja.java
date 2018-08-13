@@ -15,8 +15,6 @@ import CRUD.CRUDClientes;
 import CRUD.CRUDLojas;
 import CRUD.CRUDLugar;
 import CRUD.CRUDUsuarios;
-import CadastrarLugar.CadastrarBairros;
-import CadastrarLugar.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
 import DAO.Usuarios;

@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -34,9 +36,14 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import com.toedter.calendar.JCalendar;
+
+import Administrador.CadastrarUsuario;
+
 import javax.swing.border.EtchedBorder;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -480,6 +487,15 @@ public class LancamentoDeGastos {
 		btnCalendario.setBackground(new Color(0, 73, 170));
 		btnCalendario.setBounds(213, 66, 27, 23);
 		frmLancamentoDeGastos.getContentPane().add(btnCalendario);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(491, 575, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 491, 575);
+		frmLancamentoDeGastos.getContentPane().add(lblBG);
 		
 		preencherTabela();
 		//preencherComboLojas();

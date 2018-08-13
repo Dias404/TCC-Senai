@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -17,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Administrador.CadastrarUsuario;
 import CRUD.CRUDVendas;
 import Produtos.AtualizarProdutos;
 
@@ -25,6 +28,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class ConsultarVendas {
 
@@ -67,6 +71,8 @@ public class ConsultarVendas {
 		frmConsultaDeVendas.setBounds(100, 100, 538, 463);
 		frmConsultaDeVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmConsultaDeVendas.getContentPane().setLayout(null);
+		frmConsultaDeVendas.setResizable(false);
+		frmConsultaDeVendas.setLocationRelativeTo(null);
 		
 		JLabel lblConsultaDeVendas = new JLabel("Consulta de Vendas");
 		lblConsultaDeVendas.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -168,8 +174,16 @@ public class ConsultarVendas {
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label.setBounds(213, 406, 87, 15);
 		frmConsultaDeVendas.getContentPane().add(label);
-		frmConsultaDeVendas.setResizable(false);
-		frmConsultaDeVendas.setLocationRelativeTo(null);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(532, 435, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setIcon(BG);
+		lblBG.setBounds(0, 0, 532, 435);
+		frmConsultaDeVendas.getContentPane().add(lblBG);
+
 		
 		preencherTabela();
 	}

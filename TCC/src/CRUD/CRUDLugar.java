@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import com.sun.corba.se.spi.activation.Repository;
 
 import Banco.Conexao;
-import CadastrarLugar.CadastrarCidades;
 import DAO.Lojas;
 import DAO.Lugar;
 
@@ -61,9 +60,7 @@ public class CRUDLugar {
 			stmt.setInt(2, idEstado);
 			stmt.execute();
 			stmt.close();
-			CadastrarCidades.x = true;
 			JOptionPane.showMessageDialog(null, "Cidade cadastrada com sucesso.");
-			CadastrarCidades.x = false;
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,15 +145,11 @@ public class CRUDLugar {
 			stmt.setInt(2, idCidade);
 			stmt.execute();
 			stmt.close();
-			CadastrarCidades.x = true;
 			JOptionPane.showMessageDialog(null, "Bairro cadastrado com sucesso.");
-			CadastrarCidades.x = false;
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			CadastrarCidades.x = true;
 			JOptionPane.showMessageDialog(null, "Erro ao cadastrar o bairro.");
-			CadastrarCidades.x = false;
 			return false;
 		}
 	}
