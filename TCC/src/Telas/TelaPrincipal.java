@@ -467,7 +467,7 @@ public class TelaPrincipal {
 		btnTransferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmPrincipal.setVisible(false);
-				Transferencia.main(null)
+				Transferencia.main(null);
 			}
 		});
 		btnTransferencia.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/transferencia.jpg")));

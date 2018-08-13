@@ -217,11 +217,12 @@ public class AtualizarClientes {
 		pnCalendario = new JPanel();
 		pnCalendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnCalendario.setVisible(false);
-		pnCalendario.setBounds(320, 228, 201, 97);
+		pnCalendario.setBounds(300, 228, 221, 97);
 		pnFisica.add(pnCalendario);
 		pnCalendario.setLayout(null);
 		
 		JCalendar calendario = new JCalendar();
+		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 
 		//calendario.setDate();
 		
@@ -245,7 +246,7 @@ public class AtualizarClientes {
 			}
 		});
 		
-		calendario.setBounds(0, 0, 201, 97);
+		calendario.setBounds(0, 0, 221, 97);
 		pnCalendario.add(calendario);
 		
 		JLabel label = new JLabel("Nome:");
@@ -750,10 +751,23 @@ public class AtualizarClientes {
 					String mae = tfMae.getText().toString();
 					String pai = tfPai.getText().toString();
 					String dataDeNascimento = tfDataDeNascimento.getText().toString();
-					String tel1 = tfTel1F.getText().toString();
-					String tel2 = tfTel2F.getText().toString();
-					String cel1 = tfCel1F.getText().toString();
-					String cel2 = tfCel2F.getText().toString();
+					
+					String tel1 = tfTel1F.getText().trim().toString();
+					if (tel1.isEmpty()) {
+						tel1 = "-";
+					}
+					String tel2 = tfTel2F.getText().trim().toString();
+					if (tel2.isEmpty()) {
+						tel2 = "-";
+					}
+					String cel1 = tfCel1F.getText().trim().toString();
+					if (cel1.isEmpty()) {
+						cel1 = "-";
+					}
+					String cel2 = tfCel2F.getText().trim().toString();
+					if (cel2.isEmpty()) {
+						cel2 = "-";
+					}
 					
 					if (nome.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
@@ -802,15 +816,28 @@ public class AtualizarClientes {
 					String numero = tfNumeroJ.getText().trim().toString();
 					String cnpj = ftfCNPJ.getText().toString();
 					String ie = ftfIE.getText().toString();
-					String tel1 = tfTel1J.getText().toString();
-					String tel2 = tfTel2J.getText().toString();
-					String cel1 = tfCel1J.getText().toString();
-					String cel2 = tfCel2J.getText().toString();
+					
+					String tel1 = tfTel1J.getText().trim().toString();
+					if (tel1.isEmpty()) {
+						tel1 = "-";
+					}
+					String tel2 = tfTel2J.getText().trim().toString();
+					if (tel2.isEmpty()) {
+						tel2 = "-";
+					}
+					String cel1 = tfCel1J.getText().trim().toString();
+					if (cel1.isEmpty()) {
+						cel1 = "-";
+					}
+					String cel2 = tfCel2J.getText().trim().toString();
+					if (cel2.isEmpty()) {
+						cel2 = "-";
+					}
 					
 					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
-						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+						if (tel1.equals("-") && tel2.equals("-") && cel1.equals("-") && cel2.equals("-")) {
 							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
 						} else {
 							Clientes cliJu = new Clientes();
@@ -874,14 +901,14 @@ public class AtualizarClientes {
 		btnCalendario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCalendario.setEnabled(false);
 		btnCalendario.setBackground(new Color(0, 73, 170));
-		btnCalendario.setBounds(283, 228, 27, 23);
+		btnCalendario.setBounds(263, 227, 27, 23);
 		pnFisica.add(btnCalendario);
 		
 		tfDataDeNascimento = new JTextField();
 		tfDataDeNascimento.setEnabled(false);
 		tfDataDeNascimento.setFocusable(false);
 		tfDataDeNascimento.setColumns(10);
-		tfDataDeNascimento.setBounds(157, 228, 116, 20);
+		tfDataDeNascimento.setBounds(157, 228, 101, 20);
 		pnFisica.add(tfDataDeNascimento);
 		
 		tfBairroF = new JTextField();
@@ -1006,10 +1033,19 @@ public class AtualizarClientes {
 					tfPai.setText(pai);
 					tfDataDeNascimento.setText(dataDeNascimento);
 					comboEstadoCivil.setSelectedItem(estadoCivil);
-					tfTel1F.setText(tel1);
-					tfTel2F.setText(tel2);
-					tfCel1F.setText(cel1);
-					tfCel2F.setText(cel2);
+					
+					if (!(tel1.equals("-"))) {
+						tfTel1F.setText(tel1);
+					}
+					if (!(tel2.equals("-"))) {
+						tfTel2F.setText(tel2);
+					}	
+					if (!(cel1.equals("-"))) {
+						tfCel1F.setText(cel1);
+					}	
+					if (!(cel2.equals("-"))) {
+						tfCel2F.setText(cel2);
+					}
 				}
 				if (select.dadosEspecificos.getString("tipo_de_pessoa").equals("Jurídica")) {
 					String razaoSocial = select.dadosEspecificos.getString("nome_razao").toString();
