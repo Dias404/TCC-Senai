@@ -239,8 +239,7 @@ public class AtualizarClientes {
 					} else {
 						JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
 						calendario.setDate(dataDeHoje);
-						String data = formatoBR.format(dataDeHoje);
-						tfDataDeNascimento.setText(data);
+						tfDataDeNascimento.setText(dataDeNascimento);
 					}
 				}
 			}

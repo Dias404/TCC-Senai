@@ -206,13 +206,18 @@ public class LancamentoDeGastos {
 		btnSalvarInsert = new JButton("Salvar");
 		btnSalvarInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String loja = comboLojas.getSelectedItem().toString();
+				String loja;
+				if (comboLojas.getItemCount() == 0) {
+					loja = "";
+				} else {
+					loja = comboLojas.getSelectedItem().toString();
+				}
 				String data = ftfData.getText().toString();
 				String descricao = tfDescricao.getText().toString();
 				String valorTotal = tfValorTotal.getText().toString();
 				String notaFiscal = ftfNotaFiscal.getText().toString();
 				
-				if (loja.isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty() || comboLojas.getItemCount() == 0) {
+				if (loja.trim().isEmpty() || descricao.isEmpty() ||valorTotal.isEmpty() || notaFiscal.isEmpty() || comboLojas.getItemCount() == 0) {
 					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 				}else {
 					CRUDGastos insert = new CRUDGastos();
@@ -323,6 +328,7 @@ public class LancamentoDeGastos {
 		));
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(120);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(85);
 		tabela.getColumnModel().getColumn(5).setPreferredWidth(80);
 		tabela.getTableHeader().setReorderingAllowed(false);
@@ -343,6 +349,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(btnVoltar);
 		
 		comboLojas = new JComboBox();
+		comboLojas.setModel(new DefaultComboBoxModel(new String[] {"teste"}));
 		comboLojas.setBounds(90, 39, 390, 20);
 		frmLancamentoDeGastos.getContentPane().add(comboLojas);
 		

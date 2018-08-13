@@ -85,6 +85,7 @@ public class ConsultarVendas {
 		frmConsultaDeVendas.getContentPane().add(scrollPane);
 		
 		tabela = new JTable();
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabela.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -103,7 +104,21 @@ public class ConsultarVendas {
 			new String[] {
 				"ID", "Cliente", "Loja", "Produto", "Quantidade", "Pre\u00E7o Total", "Desconto", "Data"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(5).setPreferredWidth(85);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(65);
+		tabela.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tabela);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -196,7 +211,7 @@ public class ConsultarVendas {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), "R$ " + select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
 			}
 			return true;
 		} catch (SQLException e) {
@@ -213,7 +228,7 @@ public class ConsultarVendas {
 			DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 			modelo.setNumRows(0);
 			while (select.dados.next()) {
-				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
+				modelo.addRow(new Object[]{select.dados.getInt("id_venda"), select.dados.getString("cliente"), select.dados.getString("loja_emitente"), select.dados.getString("produto"), select.dados.getInt("quantidade"), "R$ " + select.dados.getString("preco_total"), select.dados.getString("desconto")+"%", select.dados.getString("data_venda")});
 			}
 			return true;
 		} catch (SQLException e) {
