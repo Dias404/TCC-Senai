@@ -105,10 +105,9 @@ public class ConsultarProdutos {
 		tabela.getTableHeader().setReorderingAllowed(false); // Bloqueia movimento do header
 		tabela.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID", "Fornecedor", "Loja", "Data", "C\u00F3digo", "Descri\u00E7\u00E3o", "Cor", "Quantidade", "Pre\u00E7o"
+				"ID", "Fornecedor", "Loja", "Data", "C\u00F3digo", "Descri\u00E7\u00E3o", "Cor", "Pre\u00E7o", "Quantidade"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
@@ -118,15 +117,12 @@ public class ConsultarProdutos {
 				return columnTypes[columnIndex];
 			}
 		});
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(40);
-		tabela.getColumnModel().getColumn(0).setMinWidth(40);
-		tabela.getColumnModel().getColumn(0).setMaxWidth(40);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(130);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(4).setPreferredWidth(100);
 		tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
-		tabela.getColumnModel().getColumn(5).setMinWidth(150);
-		tabela.getColumnModel().getColumn(5).setMaxWidth(150);
-		tabela.getColumnModel().getColumn(6).setPreferredWidth(40);
-		tabela.getColumnModel().getColumn(6).setMinWidth(40);
-		tabela.getColumnModel().getColumn(6).setMaxWidth(40);
+		tabela.getColumnModel().getColumn(6).setPreferredWidth(50);
 
 		scrollPane.setViewportView(tabela);
 		//
