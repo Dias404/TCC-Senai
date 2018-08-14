@@ -4,12 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-
 import Banco.Conexao;
 import DAO.Lojas;
-import DAO.Usuarios;
 
 public class CRUDLojas {
 

@@ -151,6 +151,9 @@ public class AtualizarProdutos {
 	private JSpinner spinnerQuantidade;
 	private JLabel label_8;
 	
+	static String dataEmissao = null;
+	static int ponteiroData = 0;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -816,18 +819,20 @@ public class AtualizarProdutos {
 		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent arg0) {
-				Date dataDeHoje = new Date();
-				SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
-				Date dataInformada = new Date();
-				dataInformada = calendario.getDate();
-				
-				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
-					String data = formatoBR.format(calendario.getDate());
-					ftfDataDeEmissao.setText(data);
-				} else {
-					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
-					String data = formatoBR.format(dataDeHoje);
-					ftfDataDeEmissao.setText(data);
+				if (ponteiroData == 1) {
+					Date dataDeHoje = new Date();
+					SimpleDateFormat formatoBR = new SimpleDateFormat("dd/MM/yyyy");
+					Date dataInformada = new Date();
+					dataInformada = calendario.getDate();
+					
+					if (dataInformada.before(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+						String data = formatoBR.format(calendario.getDate());
+						ftfDataDeEmissao.setText(data);
+					} else {
+						JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+						calendario.setDate(dataDeHoje);
+						ftfDataDeEmissao.setText(dataEmissao);
+					}
 				}
 			}
 		});
@@ -881,6 +886,7 @@ public class AtualizarProdutos {
 		btnCalendario.setEnabled(false);
 		btnCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ponteiroData = 1;
 				if (pnCalendario.isVisible()) {
 					pnCalendario.setVisible(false);
 				} else {
@@ -1146,22 +1152,23 @@ public class AtualizarProdutos {
 		dadosSelecionados = select.selectDadosProdutoEspecifico(ConsultarProdutos.produtoSelecionado);
 		try {
 			if (select.dados.first()) {
-				tfFornecedor.setText(select.dados.getString("fornecedor").toString());
-				comboLojaEmitente.setSelectedItem(select.dados.getString("loja_emitente").toString());
+				String fornecedor = select.dados.getString("fornecedor").toString();
+				String lojaEmitente = select.dados.getString("loja_emitente").toString();
+				dataEmissao = select.dados.getString("data_entrada").toString();
+				String codigo = select.dados.getString("codigo").toString();
+				String descricao = select.dados.getString("descricao").toString();
+				String cor = select.dados.getString("cor").toString();
+				String preco = select.dados.getString("preco").toString();
+				int quantidade = select.dados.getInt("quantidade");
 				
-				ftfDataDeEmissao.setText(select.dados.getString("data_entrada").toString());
-				SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy");
-				try {
-					dataSelect = s.parse(ftfDataDeEmissao.getText().toString());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				
-				ftfCodigo.setText(select.dados.getString("codigo").toString());
-				tfDescricao.setText(select.dados.getString("descricao").toString());
-				pnCor.setBackground(Color.decode(select.dados.getString("cor").toString()));
-				tfPreco.setText(select.dados.getString("preco"));
-				spinnerQuantidade.setValue(select.dados.getInt("quantidade"));
+				tfFornecedor.setText(fornecedor);
+				comboLojaEmitente.setSelectedItem(lojaEmitente);
+				ftfDataDeEmissao.setText(dataEmissao);
+				ftfCodigo.setText(codigo);
+				tfDescricao.setText(descricao);
+				pnCor.setBackground(Color.decode(cor));
+				tfPreco.setText(preco);
+				spinnerQuantidade.setValue(quantidade);
 			}
 			return true;
 		} catch (SQLException e) {

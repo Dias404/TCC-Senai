@@ -37,7 +37,7 @@ public class CRUDProdutos {
 	public ResultSet selectProduto() {
 		String sql = "SELECT * FROM produtos";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

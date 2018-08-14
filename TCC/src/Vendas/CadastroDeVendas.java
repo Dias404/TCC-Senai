@@ -359,7 +359,7 @@ public class CadastroDeVendas {
 						desconto = Integer.parseInt(ftfDesconto.getText().trim().toString());
 						desconto = desconto / 100;
 					}
-					float preco = Integer.parseInt(select.dados.getString("preco"));
+					float preco = Float.parseFloat(select.dados.getString("preco"));
 					float precoTotal = preco * quantidade;
 					precoTotal = precoTotal - (precoTotal * desconto);
 					tfPrecoTotal.setText(String.valueOf(precoTotal));

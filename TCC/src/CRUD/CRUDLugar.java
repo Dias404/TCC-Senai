@@ -6,10 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import com.sun.corba.se.spi.activation.Repository;
-
 import Banco.Conexao;
-import DAO.Lojas;
 import DAO.Lugar;
 
 public class CRUDLugar {

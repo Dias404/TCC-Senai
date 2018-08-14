@@ -824,11 +824,12 @@ public class CadastrosDeProdutos {
 				Date dataInformada = new Date();
 				dataInformada = calendario.getDate();
 				
-				if (dataInformada.after(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
+				if (dataInformada.before(dataDeHoje) || dataInformada.getDate() == dataDeHoje.getDate()) { // Testa se a data informada é válida
 					String data = formatoBR.format(calendario.getDate());
 					ftfDataDeEmissao.setText(data);
 				} else {
-					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou superior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "A data informada precisa ser igual ou posterior à data de hoje!", "Data Inválida", JOptionPane.ERROR_MESSAGE);
+					calendario.setDate(dataDeHoje);
 					String data = formatoBR.format(dataDeHoje);
 					ftfDataDeEmissao.setText(data);
 				}

@@ -36,7 +36,7 @@ public class CRUDVendas {
 	public boolean selectVenda() {
 		String sql = "SELECT * FROM vendas";
 		try {
-			PreparedStatement stmt = con.getConexao().prepareStatement(sql);
+			PreparedStatement stmt = Conexao.conexao.prepareStatement(sql);
 			dados = stmt.executeQuery();
 			stmt.execute();
 			stmt.close();

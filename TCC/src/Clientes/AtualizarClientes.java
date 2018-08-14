@@ -223,8 +223,6 @@ public class AtualizarClientes {
 		
 		JCalendar calendario = new JCalendar();
 		calendario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
-
-		//calendario.setDate();
 		
 		calendario.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
