@@ -770,7 +770,7 @@ public class AtualizarClientes {
 					if (nome.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cpf.trim().isEmpty() || rg.trim().isEmpty() || mae.trim().isEmpty() || pai.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
-						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+						if (tel1.equals("-") && tel2.equals("-") && cel1.equals("-") && cel2.equals("-")) {
 							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
 						} else {
 							Clientes cliFi = new Clientes();
@@ -839,6 +839,7 @@ public class AtualizarClientes {
 							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
 						} else {
 							Clientes cliJu = new Clientes();
+							cliJu.setTipoDePessoa("Jurídica");
 							cliJu.setNomeRazao(razaoSocial);
 							cliJu.setSexo("-");
 							cliJu.setEmail(email);
@@ -1073,10 +1074,19 @@ public class AtualizarClientes {
 					tfNumeroJ.setText(numero);
 					ftfCNPJ.setText(cnpj);
 					ftfIE.setText(ie);
-					tfTel1J.setText(tel1);
-					tfTel2J.setText(tel2);
-					tfCel1J.setText(cel1);
-					tfCel2J.setText(cel2);
+					
+					if (!(tel1.equals("-"))) {
+						tfTel1J.setText(tel1);
+					}
+					if (!(tel2.equals("-"))) {
+						tfTel2J.setText(tel2);
+					}	
+					if (!(cel1.equals("-"))) {
+						tfCel1J.setText(cel1);
+					}	
+					if (!(cel2.equals("-"))) {
+						tfCel2J.setText(cel2);
+					}
 				}
 			}
 			return true;

@@ -13,35 +13,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.SystemColor;
-import java.awt.Panel;
-import javax.swing.border.LineBorder;
-
 import Administrador.AlterarDados;
 import Administrador.CadastrarLoja;
 import Administrador.CadastrarUsuario;
 import Administrador.MandarEmail;
 import CRUD.CRUDUsuarios;
 import Clientes.CadastroDeClientes;
-import Clientes.ConsultarClientes;
 import Lancamento.LancamentoDeGastos;
 import Produtos.CadastrosDeProdutos;
-import Produtos.ConsultarProdutos;
 import Produtos.Transferencia;
 import Vendas.CadastroDeVendas;
 import Vendas.ConsultarVendas;
-import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
-
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class TelaPrincipal {
 
@@ -71,7 +59,7 @@ public class TelaPrincipal {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	
-	String nivel = null;
+	static String nivel = null;
 	public static String usuario;
 	public static String senha;
 
@@ -107,18 +95,14 @@ public class TelaPrincipal {
 		frmPrincipal.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				int escolha = JOptionPane.showConfirmDialog(frmPrincipal,
-						"Você deseja desconectar desta conta?", "Aviso", 
-						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(escolha==0) {
-							usuario = null;
-							senha = null;
-							CRUDUsuarios.logoff(usuario, senha);
-							frmPrincipal.dispose();
-							Login.main(null);
-						}else {
-							
-						}
+				int escolha = JOptionPane.showConfirmDialog(frmPrincipal, "Você deseja desconectar desta conta?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if(escolha == JOptionPane.YES_OPTION) {
+						usuario = null;
+						senha = null;
+						CRUDUsuarios.logoff(usuario, senha);
+						frmPrincipal.dispose();
+						Login.main(null);
+					}
 			}
 		});
 		frmPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/Img/SIG 16x16.png")));
@@ -203,6 +187,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnConferencia);
 			
 		btnContas = new JButton("");
+		btnContas.setEnabled(false);
 		btnContas.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/contasAPagar.jpg")));
 		btnContas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnContas.setFocusable(false);
@@ -362,6 +347,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnClientes);
 		
 		btnTroca = new JButton("");
+		btnTroca.setEnabled(false);
 		btnTroca.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/troca.jpg")));
 		btnTroca.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTroca.setFocusable(false);
@@ -374,6 +360,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnTroca);
 		
 		btnBaixaDemonstracao = new JButton("");
+		btnBaixaDemonstracao.setEnabled(false);
 		btnBaixaDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/baixaDemonstracao.jpg")));
 		btnBaixaDemonstracao.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBaixaDemonstracao.setFocusable(false);
@@ -386,6 +373,7 @@ public class TelaPrincipal {
 		pnCliente.add(btnBaixaDemonstracao);
 		
 		btnDemonstracao = new JButton("");
+		btnDemonstracao.setEnabled(false);
 		btnDemonstracao.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/demonstracao.jpg")));
 		btnDemonstracao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -412,6 +400,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnVenda);
 		
 		btnRecebimento = new JButton("");
+		btnRecebimento.setEnabled(false);
 		btnRecebimento.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/recebimento.jpg")));
 		btnRecebimento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRecebimento.setFocusable(false);
@@ -420,6 +409,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnRecebimento);
 		
 		btnCorrecaoParcela = new JButton("");
+		btnCorrecaoParcela.setEnabled(false);
 		btnCorrecaoParcela.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/correcao.png")));
 		btnCorrecaoParcela.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCorrecaoParcela.setFocusable(false);
@@ -442,6 +432,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnLancamento);
 		
 		btnConsulta = new JButton("");
+		btnConsulta.setEnabled(false);
 		btnConsulta.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/consulta.jpg")));
 		btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConsulta.setFocusable(false);
@@ -504,7 +495,7 @@ public class TelaPrincipal {
 					btnMandarEmail.setVisible(false);
 					btnAlterarDados.setVisible(false);
 					
-					btnContas.setEnabled(false);
+					btnContas.setVisible(false);
 					lblOpcoeslAdmin.setVisible(false);
 				}
 				
@@ -514,9 +505,9 @@ public class TelaPrincipal {
 					btnMandarEmail.setVisible(false);
 					btnAlterarDados.setVisible(false);
 					
-					btnConferencia.setEnabled(false);
-					btnContas.setEnabled(false);
-					btnCorrecaoProduto.setEnabled(false);
+					btnConferencia.setVisible(false);
+					btnContas.setVisible(false);
+					btnCorrecaoProduto.setVisible(false);
 					lblOpcoeslAdmin.setVisible(false);
 				}
 				

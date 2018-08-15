@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowFocusListener;
+import java.sql.SQLException;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 import javax.swing.border.EtchedBorder;
@@ -41,6 +42,7 @@ public class CadastrarUsuario {
 	private JPasswordField pfConfirmar;
 	private JRadioButton rbAutorizado;
 	private JRadioButton rbBasico;
+	private JRadioButton rbAdmin;
 
 	/**
 	 * Launch the application.
@@ -222,25 +224,49 @@ public class CadastrarUsuario {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if((!tfUsuario.getText().isEmpty()) && (!pfSenha.getText().isEmpty()) && (!tfEmail.getText().isEmpty())
-				&& (pfSenha.getText().equals(pfConfirmar.getText()))) {
-					CRUDUsuarios insert = new CRUDUsuarios();
-					Usuarios u = new Usuarios();
-					u.setNome(tfUsuario.getText().toString());
-					u.setSenha(pfSenha.getText().toString());
-					u.setEmail(tfEmail.getText().toString());
-					u.setFone(tfFone.getText().toString());
-					u.setCel(tfCel.getText().toString());
-					if(rbAutorizado.isSelected()) {
-						u.setNivel("Autorizado");
-					}else {
-						u.setNivel("Básico");
+				String usuario = tfUsuario.getText().toString();
+				String senha = pfSenha.getText().toString();
+				String email = tfEmail.getText().toString();
+				
+				String telefone = tfFone.getText().trim().toString();
+				if (telefone.isEmpty()) {
+					telefone = "-";
+				}
+				String celular = tfCel.getText().trim().toString();
+				if (celular.isEmpty()) {
+					celular = "-";
+				}
+				
+				String nivel;
+				if (rbBasico.isSelected()) {
+					nivel = "Básico";
+				} else {
+					if (rbAutorizado.isSelected()) {
+						nivel = "Autorizado";
+					} else {
+						nivel = "Admin";
 					}
-					insert.insertUsuario(u);
-					JOptionPane.showMessageDialog(null, "O Usuário foi cadastrado!");
-					btnLimpar.doClick();
-				}else {
-					JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Usuário!");
+				}
+				
+				if(usuario.trim().isEmpty() || senha.trim().isEmpty() || email.trim().isEmpty() || telefone.trim().isEmpty() || celular.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
+				} else {
+					if (telefone.isEmpty() && celular.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
+						} else {
+							Usuarios u = new Usuarios();
+							u.setNome(usuario);
+							u.setSenha(senha);
+							u.setEmail(email);
+							u.setFone(telefone);
+							u.setCel(celular);
+							u.setNivel(nivel);
+							
+							CRUDUsuarios insert = new CRUDUsuarios();
+							insert.insertUsuario(u);
+							JOptionPane.showMessageDialog(null, "Novo usuário cadastrado com sucesso!");
+							btnLimpar.doClick();
+						}
 				}
 			}
 		});
@@ -259,5 +285,14 @@ public class CadastrarUsuario {
 		ButtonGroup grupo = new ButtonGroup();
 		grupo.add(rbAutorizado);
 		grupo.add(rbBasico);
+		grupo.add(rbAdmin);
+		
+		rbAdmin = new JRadioButton("Autorizado");
+		rbAdmin.setOpaque(false);
+		rbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rbAdmin.setFocusable(false);
+		rbAdmin.setBackground(new Color(119, 136, 153));
+		rbAdmin.setBounds(235, 197, 103, 14);
+		pnlInfo.add(rbAdmin);
 	}
 }

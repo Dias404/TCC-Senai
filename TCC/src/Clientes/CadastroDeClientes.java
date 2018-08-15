@@ -21,8 +21,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,21 +30,16 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 
 import Administrador.CadastrarUsuario;
-import Banco.Conexao;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
 import DAO.Clientes;
 import Telas.TelaPrincipal;
 import javax.swing.JFormattedTextField;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.event.ItemEvent;
 import com.toedter.calendar.JCalendar;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class CadastroDeClientes {
 
@@ -70,7 +63,7 @@ public class CadastroDeClientes {
 	private JLabel label_6;
 	private JLabel lblN;
 	private JTextField tfNumeroF;
-	private JFormattedTextField tfCPF;
+	private JFormattedTextField ftfCPF;
 	private JLabel label_8;
 	private JLabel label_9;
 	private JTextField tfMae;
@@ -242,7 +235,7 @@ public class CadastroDeClientes {
 					String bairro = tfBairroF.getText().toString();
 					String rua = tfRuaF.getText().toString();
 					String numero = tfNumeroF.getText().trim().toString();
-					String cpf = tfCPF.getText().toString();
+					String cpf = ftfCPF.getText().toString();
 					String rg = ftfRG.getText().toString();
 					String mae = tfMae.getText().toString();
 					String pai = tfPai.getText().toString();
@@ -312,16 +305,28 @@ public class CadastroDeClientes {
 					String numero = tfNumeroJ.getText().trim().toString();
 					String cnpj = ftfCNPJ.getText().toString();
 					String ie = ftfIE.getText().toString();
-					String tel1 = tfTel1J.getText().toString();
-					String tel2 = tfTel2J.getText().toString();
-					String cel1 = tfCel1J.getText().toString();
-					String cel2 = tfCel2J.getText().toString();
 					
+					String tel1 = tfTel1J.getText().trim().toString();
+					if (tel1.isEmpty()) {
+						tel1 = "-";
+					}
+					String tel2 = tfTel2J.getText().trim().toString();
+					if (tel2.isEmpty()) {
+						tel2 = "-";
+					}
+					String cel1 = tfCel1J.getText().trim().toString();
+					if (cel1.isEmpty()) {
+						cel1 = "-";
+					}
+					String cel2 = tfCel2J.getText().trim().toString();
+					if (cel2.isEmpty()) {
+						cel2 = "-";
+					}
 
 					if (razaoSocial.trim().isEmpty() || email.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Existe um campo vazio!",null, JOptionPane.WARNING_MESSAGE);
 					} else {
-						if (tel1.trim().isEmpty() && tel2.trim().isEmpty() && cel1.trim().isEmpty() && cel2.trim().isEmpty()) {
+						if (tel1.equals("-") && tel2.equals("-") && cel1.equals("-") && cel2.equals("-")) {
 							JOptionPane.showMessageDialog(null, "É necessário preencher no mínimo um campo de contato!",null, JOptionPane.WARNING_MESSAGE);
 						} else {
 							Clientes cliJu = new Clientes();
@@ -373,12 +378,18 @@ public class CadastroDeClientes {
 				tfRazaoSocial.setText(null);
 				tfEmailF.setText(null);
 				tfEmailJ.setText(null);
+				tfCidadeF.setText(null);
+				tfCidadeJ.setText(null);
+				tfBairroF.setText(null);
+				tfBairroJ.setText(null);
+				tfRuaF.setText(null);
+				tfRuaJ.setText(null);
 				tfNumeroF.setText(null);
 				tfNumeroJ.setText(null);
-				tfCPF.setText(null);
-				ftfCNPJ.setText(null);
-				ftfRG.setText(null);
-				ftfIE.setText(null);
+				ftfCPF.setValue(null);
+				ftfCNPJ.setValue(null);
+				ftfRG.setValue(null);
+				ftfIE.setValue(null);
 				tfMae.setText(null);
 				tfPai.setText(null);
 				tfTel1F.setText(null);
@@ -513,10 +524,10 @@ public class CadastroDeClientes {
 		tfNumeroF.setBounds(310, 136, 200, 20);
 		pnFisica.add(tfNumeroF);
 		
-		tfCPF = new JFormattedTextField(mascaraCPF);
-		tfCPF.setColumns(10);
-		tfCPF.setBounds(58, 166, 200, 20);
-		pnFisica.add(tfCPF);
+		ftfCPF = new JFormattedTextField(mascaraCPF);
+		ftfCPF.setColumns(10);
+		ftfCPF.setBounds(58, 166, 200, 20);
+		pnFisica.add(ftfCPF);
 		
 		label_8 = new JLabel("CPF:");
 		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -636,6 +647,11 @@ public class CadastroDeClientes {
 		label_17.setFont(new Font("Tahoma", Font.BOLD, 12));
 		label_17.setBounds(10, 13, 80, 14);
 		pnJuridica.add(label_17);
+		
+		tfNumeroJ = new JTextField();
+		tfNumeroJ.setBounds(310, 136, 200, 20);
+		pnJuridica.add(tfNumeroJ);
+		tfNumeroJ.setColumns(10);
 		
 		tfRazaoSocial = new JTextField();
 		tfRazaoSocial.setColumns(10);
@@ -818,11 +834,6 @@ public class CadastroDeClientes {
 		tfCidadeF.setColumns(10);
 		tfCidadeF.setBounds(310, 74, 201, 20);
 		pnFisica.add(tfCidadeF);
-		
-		tfNumeroJ = new JTextField();
-		tfNumeroJ.setBounds(310, 136, 200, 20);
-		pnFisica.add(tfNumeroJ);
-		tfNumeroJ.setColumns(10);
 		comboUFJ.setSelectedItem("São Paulo");
 		
 		tfBairroJ = new JTextField();
