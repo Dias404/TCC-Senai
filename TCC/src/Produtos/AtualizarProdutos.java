@@ -45,6 +45,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class AtualizarProdutos {
 
@@ -989,6 +990,7 @@ public class AtualizarProdutos {
 		panel.add(label_7);
 		
 		spinnerQuantidade = new JSpinner();
+		spinnerQuantidade.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spinnerQuantidade.setEnabled(false);
 		spinnerQuantidade.setBounds(92, 168, 113, 20);
 		panel.add(spinnerQuantidade);

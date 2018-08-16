@@ -196,6 +196,7 @@ public class TelaPrincipal {
 		pnCaixa.add(btnContas);
 			
 		btnCorrecaoProduto = new JButton("");
+		btnCorrecaoProduto.setEnabled(false);
 		btnCorrecaoProduto.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/Img/correcao.png")));
 		btnCorrecaoProduto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCorrecaoProduto.setFocusable(false);

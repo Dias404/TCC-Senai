@@ -108,15 +108,10 @@ public class AlterarDados {
 				return columnEditables[column];
 			}
 		});
-		tabela.getColumnModel().getColumn(0).setResizable(false);
 		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
-		tabela.getColumnModel().getColumn(1).setResizable(false);
-		tabela.getColumnModel().getColumn(1).setPreferredWidth(140);
-		tabela.getColumnModel().getColumn(2).setResizable(false);
-		tabela.getColumnModel().getColumn(2).setPreferredWidth(220);
-		tabela.getColumnModel().getColumn(3).setResizable(false);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(120);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(150);
 		tabela.getColumnModel().getColumn(3).setPreferredWidth(120);
-		tabela.getColumnModel().getColumn(4).setResizable(false);
 		tabela.getColumnModel().getColumn(4).setPreferredWidth(120);
 		tabela.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tabela);

@@ -282,17 +282,17 @@ public class CadastrarUsuario {
 		lblBG.setBounds(0, 0, 368, 301);
 		frmCadastroUsu.getContentPane().add(lblBG);
 		
-		ButtonGroup grupo = new ButtonGroup();
-		grupo.add(rbAutorizado);
-		grupo.add(rbBasico);
-		grupo.add(rbAdmin);
-		
-		rbAdmin = new JRadioButton("Autorizado");
+		rbAdmin = new JRadioButton("Admin");
 		rbAdmin.setOpaque(false);
 		rbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbAdmin.setFocusable(false);
 		rbAdmin.setBackground(new Color(119, 136, 153));
 		rbAdmin.setBounds(235, 197, 103, 14);
 		pnlInfo.add(rbAdmin);
+		
+		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(rbAutorizado);
+		grupo.add(rbBasico);
+		grupo.add(rbAdmin);
 	}
 }
