@@ -215,9 +215,7 @@ public class AlterarDados {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmAlterarDados.dispose();
-				
-				TelaPrincipal usarMetodo = new TelaPrincipal();
-				usarMetodo.verificarNivelUsuario();
+				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
 		btnVoltar.setForeground(Color.WHITE);
