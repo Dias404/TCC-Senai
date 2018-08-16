@@ -64,22 +64,19 @@ public class MandarEmail {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
-		Image BG2 = BG.getImage().getScaledInstance(550, 397, Image.SCALE_DEFAULT);
-		BG = new ImageIcon(BG2);
 		
 		frmMandarEmail = new JFrame();
 		frmMandarEmail.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent arg0) {
-				TelaPrincipal.frmPrincipal.setEnabled(true);
+			public void windowClosing(WindowEvent e) {
+				frmMandarEmail.dispose();
 				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
 		frmMandarEmail.setIconImage(Toolkit.getDefaultToolkit().getImage(MandarEmail.class.getResource("/Img/SIG 16x16.png")));
 		frmMandarEmail.setTitle("SIG - Mandar E-mail");
 		frmMandarEmail.setBounds(100, 100, 550, 425);
-		frmMandarEmail.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmMandarEmail.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmMandarEmail.setResizable(false);
 		frmMandarEmail.setLocationRelativeTo(null);
 		frmMandarEmail.getContentPane().setLayout(null);
@@ -137,6 +134,10 @@ public class MandarEmail {
 		epMsg.setBorder(new LineBorder(Color.decode("#0049aa"), 2));
 		epMsg.setBounds(10, 36, 504, 272);
 		pnEmail.add(epMsg);
+		
+		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
+		Image BG2 = BG.getImage().getScaledInstance(550, 397, Image.SCALE_DEFAULT);
+		BG = new ImageIcon(BG2);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);

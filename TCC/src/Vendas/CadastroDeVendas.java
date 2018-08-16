@@ -46,6 +46,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CadastroDeVendas {
 
@@ -96,10 +98,17 @@ public class CadastroDeVendas {
 		}
 		
 		frmCadastroDeVendas = new JFrame();
+		frmCadastroDeVendas.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmCadastroDeVendas.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmCadastroDeVendas.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeVendas.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeVendas.setTitle("SIG - Vendas");
 		frmCadastroDeVendas.setBounds(100, 100, 538, 279);
-		frmCadastroDeVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastroDeVendas.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastroDeVendas.getContentPane().setLayout(null);
 		frmCadastroDeVendas.setResizable(false);
 		frmCadastroDeVendas.setLocationRelativeTo(null);

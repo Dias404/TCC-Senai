@@ -29,11 +29,14 @@ import javax.swing.table.DefaultTableModel;
 
 import CRUD.CRUDProdutos;
 import Clientes.AtualizarClientes;
+import Telas.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ConsultarProdutos {
 
@@ -71,10 +74,17 @@ public class ConsultarProdutos {
 	 */
 	private void initialize() {
 		frmConsultaDeProdutos = new JFrame();
+		frmConsultaDeProdutos.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmConsultaDeProdutos.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmConsultaDeProdutos.setTitle("SIG - Consulta de Produtos");
 		frmConsultaDeProdutos.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarProdutos.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeProdutos.setBounds(100, 100, 538, 463);
-		frmConsultaDeProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmConsultaDeProdutos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmConsultaDeProdutos.setResizable(false);
 		frmConsultaDeProdutos.setLocationRelativeTo(null);
 		frmConsultaDeProdutos.getContentPane().setLayout(null);

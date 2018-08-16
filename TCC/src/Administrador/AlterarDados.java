@@ -74,8 +74,8 @@ public class AlterarDados {
 		frmAlterarDados = new JFrame();
 		frmAlterarDados.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent arg0) {
-				TelaPrincipal.frmPrincipal.setEnabled(true);
+			public void windowClosing(WindowEvent e) {
+				frmAlterarDados.dispose();
 				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
@@ -83,7 +83,7 @@ public class AlterarDados {
 		frmAlterarDados.setIconImage(Toolkit.getDefaultToolkit().getImage(AlterarDados.class.getResource("/Img/SIG 16x16.png")));
 		frmAlterarDados.setResizable(false);
 		frmAlterarDados.setBounds(100, 100, 626, 379);
-		frmAlterarDados.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAlterarDados.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmAlterarDados.getContentPane().setLayout(null);
 		frmAlterarDados.setLocationRelativeTo(null);
 		

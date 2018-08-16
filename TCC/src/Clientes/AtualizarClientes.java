@@ -19,6 +19,8 @@ import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
 import DAO.Clientes;
+import Telas.Login;
+import Telas.TelaPrincipal;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -44,6 +46,8 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JFormattedTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AtualizarClientes {
 
@@ -147,10 +151,17 @@ public class AtualizarClientes {
 		}
 		
 		frmAtualizarClientes = new JFrame();
+		frmAtualizarClientes.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmAtualizarClientes.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmAtualizarClientes.setTitle("SIG - Atualizar Clientes");
 		frmAtualizarClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmAtualizarClientes.setBounds(100, 100, 548, 464);
-		frmAtualizarClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmAtualizarClientes.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmAtualizarClientes.setResizable(false);
 		frmAtualizarClientes.setLocationRelativeTo(null);
 		frmAtualizarClientes.getContentPane().setLayout(null);

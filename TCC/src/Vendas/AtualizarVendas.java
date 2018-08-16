@@ -12,6 +12,7 @@ import CRUD.CRUDProdutos;
 import CRUD.CRUDVendas;
 import DAO.Vendas;
 import Produtos.ConsultarProdutos;
+import Telas.TelaPrincipal;
 
 import java.awt.Toolkit;
 import java.text.ParseException;
@@ -44,6 +45,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AtualizarVendas {
 
@@ -97,10 +100,17 @@ public class AtualizarVendas {
 		}
 		
 		frmAtualizarVendas = new JFrame();
+		frmAtualizarVendas.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmAtualizarVendas.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmAtualizarVendas.setTitle("SIG - Atualizar Vendas");
 		frmAtualizarVendas.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarVendas.class.getResource("/Img/SIG 16x16.png")));
 		frmAtualizarVendas.setBounds(100, 100, 538, 279);
-		frmAtualizarVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmAtualizarVendas.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmAtualizarVendas.getContentPane().setLayout(null);
 		frmAtualizarVendas.setResizable(false);
 		frmAtualizarVendas.setLocationRelativeTo(null);

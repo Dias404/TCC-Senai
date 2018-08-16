@@ -113,11 +113,18 @@ public class CadastrarLoja {
 		}
 		
 		frmCadastrarLoja = new JFrame();
+		frmCadastrarLoja.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmCadastrarLoja.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmCadastrarLoja.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarLoja.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastrarLoja.setTitle("SIG - Cadastrar Loja");
 		frmCadastrarLoja.setResizable(false);
 		frmCadastrarLoja.setBounds(100, 100, 548, 343);
-		frmCadastrarLoja.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastrarLoja.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastrarLoja.getContentPane().setLayout(null);
 		frmCadastrarLoja.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		

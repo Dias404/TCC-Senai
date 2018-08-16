@@ -74,8 +74,8 @@ public class CadastrarUsuario {
 		frmCadastroUsu = new JFrame();
 		frmCadastroUsu.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent arg0) {
-				TelaPrincipal.frmPrincipal.setEnabled(true);
+			public void windowClosing(WindowEvent e) {
+				frmCadastroUsu.dispose();
 				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
@@ -83,7 +83,7 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setTitle("SIG - Cadastro de Usuários");
 		frmCadastroUsu.setResizable(false);
 		frmCadastroUsu.setBounds(100, 100, 374, 329);
-		frmCadastroUsu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastroUsu.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		frmCadastroUsu.getContentPane().setLayout(null);
 		int frmWidth = frmCadastroUsu.getWidth();

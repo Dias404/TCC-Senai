@@ -58,16 +58,16 @@ public class Transferencia {
 		frmTransferencia = new JFrame();
 		frmTransferencia.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent arg0) {
-				TelaPrincipal.frmPrincipal.setVisible(true);
+			public void windowClosing(WindowEvent e) {
 				frmTransferencia.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
 			}
 		});
 		frmTransferencia.setTitle("SIG - Transferência de Produtos");
 		frmTransferencia.setIconImage(Toolkit.getDefaultToolkit().getImage(Transferencia.class.getResource("/Img/SIG 16x16.png")));
 		frmTransferencia.setResizable(false);
 		frmTransferencia.setBounds(100, 100, 450, 243);
-		frmTransferencia.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmTransferencia.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmTransferencia.getContentPane().setLayout(null);
 		
 		int frmWidth = frmTransferencia.getWidth();

@@ -30,6 +30,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ConsultarVendas {
 
@@ -67,10 +69,17 @@ public class ConsultarVendas {
 	 */
 	private void initialize() {
 		frmConsultaDeVendas = new JFrame();
+		frmConsultaDeVendas.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmConsultaDeVendas.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmConsultaDeVendas.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarVendas.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeVendas.setTitle("SIG - Consulta de Vendas");
 		frmConsultaDeVendas.setBounds(100, 100, 538, 463);
-		frmConsultaDeVendas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmConsultaDeVendas.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmConsultaDeVendas.getContentPane().setLayout(null);
 		frmConsultaDeVendas.setResizable(false);
 		frmConsultaDeVendas.setLocationRelativeTo(null);

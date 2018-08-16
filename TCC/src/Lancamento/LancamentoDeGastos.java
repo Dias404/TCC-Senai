@@ -49,6 +49,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LancamentoDeGastos {
 
@@ -114,10 +116,17 @@ public class LancamentoDeGastos {
 		}
 		
 		frmLancamentoDeGastos = new JFrame();
+		frmLancamentoDeGastos.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmLancamentoDeGastos.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmLancamentoDeGastos.setIconImage(Toolkit.getDefaultToolkit().getImage(LancamentoDeGastos.class.getResource("/Img/SIG 16x16.png")));
 		frmLancamentoDeGastos.setTitle("SIG - Lançamento de Gastos");
 		frmLancamentoDeGastos.setBounds(100, 100, 497, 603);
-		frmLancamentoDeGastos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmLancamentoDeGastos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmLancamentoDeGastos.setResizable(false);
 		frmLancamentoDeGastos.setLocationRelativeTo(null);
 		frmLancamentoDeGastos.getContentPane().setLayout(null);

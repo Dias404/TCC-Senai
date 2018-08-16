@@ -45,6 +45,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CadastrosDeProdutos {
 
@@ -187,10 +189,17 @@ public class CadastrosDeProdutos {
 		}
 		
 		frmCadastroDeProdutos = new JFrame();
+		frmCadastroDeProdutos.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmCadastroDeProdutos.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmCadastroDeProdutos.setTitle("SIG - Cadastro de Produtos");
 		frmCadastroDeProdutos.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrosDeProdutos.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeProdutos.setBounds(100, 100, 538, 311);
-		frmCadastroDeProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastroDeProdutos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastroDeProdutos.setResizable(false);
 		frmCadastroDeProdutos.setLocationRelativeTo(null);
 		frmCadastroDeProdutos.getContentPane().setLayout(null);

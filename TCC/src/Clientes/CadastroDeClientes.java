@@ -33,6 +33,7 @@ import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
 import CRUD.CRUDLugar;
 import DAO.Clientes;
+import Telas.Login;
 import Telas.TelaPrincipal;
 import javax.swing.JFormattedTextField;
 import java.awt.event.WindowEvent;
@@ -40,6 +41,7 @@ import java.awt.event.WindowFocusListener;
 import com.toedter.calendar.JCalendar;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.WindowAdapter;
 
 public class CadastroDeClientes {
 
@@ -161,18 +163,18 @@ public class CadastroDeClientes {
 		}
 		
 		frmCadastroDeClientes = new JFrame();
+		frmCadastroDeClientes.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				frmCadastroDeClientes.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmCadastroDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastroDeClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroDeClientes.setTitle("SIG - Cadastro de Clientes");
 		frmCadastroDeClientes.setBounds(100, 100, 548, 464);
-		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmCadastroDeClientes.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastroDeClientes.getContentPane().setLayout(null);
-		frmCadastroDeClientes.addWindowFocusListener(new WindowFocusListener() {
-			public void windowGainedFocus(WindowEvent arg0) {
-			}
-			public void windowLostFocus(WindowEvent arg0) {
-				
-			}
-		});
 		
 		JLabel lblCadastrosDeClientes = new JLabel("Cadastros de Clientes");
 		lblCadastrosDeClientes.setFont(new Font("Tahoma", Font.BOLD, 14));

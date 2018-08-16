@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Administrador.CadastrarUsuario;
 import CRUD.CRUDClientes;
+import Telas.Login;
+import Telas.TelaPrincipal;
 
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
@@ -35,6 +37,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ConsultarClientes {
 
@@ -75,10 +79,17 @@ public class ConsultarClientes {
 	 */
 	private void initialize() {
 		frmConsultaDeClientes = new JFrame();
+		frmConsultaDeClientes.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmConsultaDeClientes.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmConsultaDeClientes.setIconImage(Toolkit.getDefaultToolkit().getImage(ConsultarClientes.class.getResource("/Img/SIG 16x16.png")));
 		frmConsultaDeClientes.setTitle("SIG - Consulta de Clientes");
 		frmConsultaDeClientes.setBounds(100, 100, 626, 463);
-		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmConsultaDeClientes.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmConsultaDeClientes.setResizable(false);
 		frmConsultaDeClientes.setLocationRelativeTo(null);
 		frmConsultaDeClientes.getContentPane().setLayout(null);

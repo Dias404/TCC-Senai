@@ -18,6 +18,7 @@ import CRUD.CRUDLojas;
 import CRUD.CRUDProdutos;
 import Clientes.ConsultarClientes;
 import DAO.Produtos;
+import Telas.TelaPrincipal;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -42,6 +43,8 @@ import java.beans.PropertyChangeEvent;
 import javax.swing.JSpinner;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AtualizarProdutos {
 
@@ -189,10 +192,17 @@ public class AtualizarProdutos {
 		}
 		
 		frmAtualizarProdutos = new JFrame();
+		frmAtualizarProdutos.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmAtualizarProdutos.dispose();
+				TelaPrincipal.frmPrincipal.setVisible(true);
+			}
+		});
 		frmAtualizarProdutos.setIconImage(Toolkit.getDefaultToolkit().getImage(AtualizarProdutos.class.getResource("/Img/SIG 16x16.png")));
 		frmAtualizarProdutos.setTitle("SIG - Atualizar Produtos");
 		frmAtualizarProdutos.setBounds(100, 100, 538, 311);
-		frmAtualizarProdutos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmAtualizarProdutos.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmAtualizarProdutos.getContentPane().setLayout(null);
 		frmAtualizarProdutos.setResizable(false);
 		frmAtualizarProdutos.setLocationRelativeTo(null);
