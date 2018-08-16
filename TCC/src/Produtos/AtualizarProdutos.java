@@ -208,10 +208,10 @@ public class AtualizarProdutos {
 		frmAtualizarProdutos.setResizable(false);
 		frmAtualizarProdutos.setLocationRelativeTo(null);
 		
-		JLabel label = new JLabel("Cadastro de Produtos");
-		label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label.setBounds(10, 11, 157, 17);
-		frmAtualizarProdutos.getContentPane().add(label);
+		JLabel lblAtualizarProdutos = new JLabel("Atualizar Produtos");
+		lblAtualizarProdutos.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAtualizarProdutos.setBounds(10, 11, 157, 17);
+		frmAtualizarProdutos.getContentPane().add(lblAtualizarProdutos);
 		
 		pnColorPicker = new JPanel();
 		pnColorPicker.setVisible(false);
