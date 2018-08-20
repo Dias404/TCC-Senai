@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.JTextField;
 
@@ -136,7 +137,6 @@ public class Login {
 		
 		tfUsuario.setBounds(142, 245, 260, 30);
 		frmLogin.getContentPane().add(tfUsuario);
-		tfUsuario.setColumns(10);
 		
 		pfSenha = new JPasswordField();
 		pfSenha.setBorder(new LineBorder(new Color(0, 73, 170)));

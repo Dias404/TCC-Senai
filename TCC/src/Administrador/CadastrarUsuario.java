@@ -82,7 +82,7 @@ public class CadastrarUsuario {
 		frmCadastroUsu.setIconImage(Toolkit.getDefaultToolkit().getImage(CadastrarUsuario.class.getResource("/Img/SIG 16x16.png")));
 		frmCadastroUsu.setTitle("SIG - Cadastro de Usuários");
 		frmCadastroUsu.setResizable(false);
-		frmCadastroUsu.setBounds(100, 100, 374, 329);
+		frmCadastroUsu.setBounds(100, 100, 593, 245);
 		frmCadastroUsu.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCadastroUsu.setLocationRelativeTo(TelaPrincipal.frmPrincipal);
 		frmCadastroUsu.getContentPane().setLayout(null);
@@ -97,7 +97,7 @@ public class CadastrarUsuario {
 		JPanel pnlInfo = new JPanel();
 		pnlInfo.setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		pnlInfo.setOpaque(false);
-		pnlInfo.setBounds(10, 39, 348, 221);
+		pnlInfo.setBounds(10, 39, 567, 133);
 		frmCadastroUsu.getContentPane().add(pnlInfo);
 		pnlInfo.setLayout(null);
 		
@@ -107,7 +107,7 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblUsuario);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(84, 9, 254, 20);
+		tfUsuario.setBounds(84, 9, 195, 20);
 		pnlInfo.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
@@ -117,54 +117,55 @@ public class CadastrarUsuario {
 		pnlInfo.add(lblSenha);
 		
 		pfSenha = new JPasswordField();
-		pfSenha.setBounds(84, 40, 254, 20);
+		pfSenha.setBounds(84, 40, 195, 20);
 		pnlInfo.add(pfSenha);
 		
 		JLabel lblConfirmar = new JLabel("Confirmar:");
+		lblConfirmar.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblConfirmar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblConfirmar.setBounds(10, 73, 64, 14);
+		lblConfirmar.setBounds(278, 42, 74, 14);
 		pnlInfo.add(lblConfirmar);
 		
 		pfConfirmar = new JPasswordField();
-		pfConfirmar.setBounds(84, 71, 254, 20);
+		pfConfirmar.setBounds(362, 40, 195, 20);
 		pnlInfo.add(pfConfirmar);
 		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEmail.setBounds(39, 104, 35, 14);
+		lblEmail.setBounds(39, 73, 35, 14);
 		pnlInfo.add(lblEmail);
 		
 		tfEmail = new JTextField();
-		tfEmail.setBounds(84, 102, 254, 20);
+		tfEmail.setBounds(84, 71, 195, 20);
 		pnlInfo.add(tfEmail);
 		tfEmail.setColumns(10);
 		
 		JLabel lblFone = new JLabel("Telefone:");
 		lblFone.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFone.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFone.setBounds(10, 135, 64, 14);
+		lblFone.setBounds(10, 104, 64, 14);
 		pnlInfo.add(lblFone);
 		
 		tfFone = new JTextField();
-		tfFone.setBounds(84, 133, 254, 20);
+		tfFone.setBounds(84, 102, 195, 20);
 		pnlInfo.add(tfFone);
 		tfFone.setColumns(10);
 		
 		JLabel lblCel = new JLabel("Celular:");
 		lblCel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblCel.setBounds(23, 166, 51, 14);
+		lblCel.setBounds(301, 104, 51, 14);
 		pnlInfo.add(lblCel);
 		
 		tfCel = new JTextField();
 		tfCel.setColumns(10);
-		tfCel.setBounds(84, 164, 254, 20);
+		tfCel.setBounds(362, 102, 195, 20);
 		pnlInfo.add(tfCel);
 		
 		JLabel lblNivel = new JLabel("Nível:");
 		lblNivel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNivel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNivel.setBounds(23, 197, 51, 14);
+		lblNivel.setBounds(301, 11, 51, 14);
 		pnlInfo.add(lblNivel);
 		
 		rbAutorizado = new JRadioButton("Autorizado");
@@ -172,7 +173,7 @@ public class CadastrarUsuario {
 		rbAutorizado.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbAutorizado.setFocusable(false);
 		rbAutorizado.setBackground(new Color(119, 136, 153));
-		rbAutorizado.setBounds(150, 197, 83, 14);
+		rbAutorizado.setBounds(419, 11, 83, 14);
 		pnlInfo.add(rbAutorizado);
 		
 		rbBasico = new JRadioButton("Básico");
@@ -181,7 +182,7 @@ public class CadastrarUsuario {
 		rbBasico.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbBasico.setFocusable(false);
 		rbBasico.setBackground(new Color(119, 136, 153));
-		rbBasico.setBounds(84, 197, 64, 14);
+		rbBasico.setBounds(358, 11, 59, 14);
 		pnlInfo.add(rbBasico);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -195,7 +196,7 @@ public class CadastrarUsuario {
 		btnVoltar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnVoltar.setFocusable(false);
 		btnVoltar.setBackground(new Color(0, 73, 170));
-		btnVoltar.setBounds(10, 271, 89, 23);
+		btnVoltar.setBounds(10, 183, 89, 23);
 		frmCadastroUsu.getContentPane().add(btnVoltar);
 		
 		JButton btnLimpar = new JButton("Limpar");
@@ -214,7 +215,7 @@ public class CadastrarUsuario {
 		btnLimpar.setFont(new Font("Impact", Font.PLAIN, 13));
 		btnLimpar.setFocusable(false);
 		btnLimpar.setBackground(new Color(0, 73, 170));
-		btnLimpar.setBounds(170, 271, 89, 23);
+		btnLimpar.setBounds(389, 183, 89, 23);
 		frmCadastroUsu.getContentPane().add(btnLimpar);
 		
 		ImageIcon BG = new ImageIcon(CadastrarUsuario.class.getResource("/backgroundSecundario.jpg"));
@@ -273,13 +274,13 @@ public class CadastrarUsuario {
 		btnSalvar.setFocusable(false);
 		btnSalvar.setForeground(Color.WHITE);
 		btnSalvar.setFont(new Font("Impact", Font.PLAIN, 13));
-		btnSalvar.setBounds(269, 271, 89, 23);
+		btnSalvar.setBounds(488, 183, 89, 23);
 		btnSalvar.setBackground(new Color(0,73,170));
 		frmCadastroUsu.getContentPane().add(btnSalvar);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setIcon(BG);
-		lblBG.setBounds(0, 0, 368, 301);
+		lblBG.setBounds(0, 0, 587, 217);
 		frmCadastroUsu.getContentPane().add(lblBG);
 		
 		rbAdmin = new JRadioButton("Admin");
@@ -287,7 +288,7 @@ public class CadastrarUsuario {
 		rbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		rbAdmin.setFocusable(false);
 		rbAdmin.setBackground(new Color(119, 136, 153));
-		rbAdmin.setBounds(235, 197, 103, 14);
+		rbAdmin.setBounds(502, 11, 59, 14);
 		pnlInfo.add(rbAdmin);
 		
 		ButtonGroup grupo = new ButtonGroup();
