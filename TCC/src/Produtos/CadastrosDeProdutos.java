@@ -1011,7 +1011,7 @@ public class CadastrosDeProdutos {
 				String dataDeEmissao = ftfDataDeEmissao.getText().toString();
 				String codigo = ftfCodigo.getText().toString();
 				String descricao = tfDescricao.getText().toString();
-				String preco = tfDescricao.getText().toString();
+				String preco = tfPreco.getText().toString();
 				int quantidade = Integer.parseInt(spinnerQuantidade.getValue().toString());
 				
 				if (fornecedor.isEmpty() || codigo.trim().isEmpty() || descricao.isEmpty()  || preco.isEmpty() || comboLojaEmitente.getItemCount() == 0) {

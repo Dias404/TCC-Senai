@@ -358,7 +358,6 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(btnVoltar);
 		
 		comboLojas = new JComboBox();
-		comboLojas.setModel(new DefaultComboBoxModel(new String[] {"teste"}));
 		comboLojas.setBounds(90, 39, 390, 20);
 		frmLancamentoDeGastos.getContentPane().add(comboLojas);
 		
@@ -545,7 +544,7 @@ public class LancamentoDeGastos {
 		frmLancamentoDeGastos.getContentPane().add(lblBG);
 		
 		preencherTabela();
-		//preencherComboLojas();
+		preencherComboLojas();
 	}
 	
 	public boolean preencherComboLojas() {

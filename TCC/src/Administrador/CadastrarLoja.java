@@ -303,10 +303,23 @@ public class CadastrarLoja {
 				String numero = tfNumero.getText().trim().toString();
 				String cnpj = ftfCNPJ.getText().toString();
 				String ie = ftfIE.getText().toString();
-				String tel1 = tfTel1.getText().toString();
-				String tel2 = tfTel2.getText().toString();
-				String cel1 = tfCel1.getText().toString();
-				String cel2 = tfCel2.getText().toString();
+
+				String tel1 = tfTel1.getText().trim().toString();
+				if (tel1.isEmpty()) {
+					tel1 = "-";
+				}
+				String tel2 = tfTel2.getText().trim().toString();
+				if (tel2.isEmpty()) {
+					tel2 = "-";
+				}
+				String cel1 = tfCel1.getText().trim().toString();
+				if (cel1.isEmpty()) {
+					cel1 = "-";
+				}
+				String cel2 = tfCel2.getText().trim().toString();
+				if (cel2.isEmpty()) {
+					cel2 = "-";
+				}
 				
 				if(razaoSocial.trim().isEmpty() || cidade.trim().isEmpty() || bairro.trim().isEmpty() || rua.trim().isEmpty() || numero.trim().isEmpty() || cnpj.trim().isEmpty() || ie.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(frmCadastrarLoja, "Existe um campo vazio!");
